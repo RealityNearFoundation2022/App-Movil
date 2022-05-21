@@ -62,8 +62,20 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "csslib",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/csslib-0.17.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "cupertino_icons",
       "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "diffutil_dart",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/diffutil_dart-3.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -104,8 +116,32 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_chat_types",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_chat_types-3.3.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "flutter_chat_ui",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_chat_ui-1.5.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "flutter_launcher_icons",
       "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_launcher_icons-0.9.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_link_previewer",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_link_previewer-2.6.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "flutter_linkify",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_linkify-5.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -122,6 +158,12 @@
       "languageVersion": "2.15"
     },
     {
+      "name": "flutter_parsed_text",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_parsed_text-2.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///C:/tools/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -136,6 +178,12 @@
     {
       "name": "google_fonts",
       "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/google_fonts-2.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "html",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/html-0.15.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -158,8 +206,26 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "json_annotation",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "linkify",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/linkify-4.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -252,6 +318,12 @@
       "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-4.4.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
+    },
+    {
+      "name": "photo_view",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/photo_view-0.13.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "platform",
@@ -440,6 +512,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "visibility_detector",
+      "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/visibility_detector-0.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "win32",
       "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/win32-2.5.2",
       "packageUri": "lib/",
@@ -470,7 +548,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-05-14T19:15:58.526247Z",
+  "generated": "2022-05-19T21:26:00.074562Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }

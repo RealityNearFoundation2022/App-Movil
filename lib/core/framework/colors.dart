@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 const backgroundSoftBlue = Color.fromRGBO(239, 244, 250, 1);
 const txtPrimary = Colors.black;
 const greenPrimary = Color.fromRGBO(61, 232, 160, 1);
+const greenPrimary2 = Color.fromRGBO(70, 183, 142, 1);
+const greenPrimary3 = Color.fromRGBO(51, 204, 153, 1);
 const greySoft = Color.fromRGBO(223, 222, 211, 1);
+const backgroundWhite = Colors.white;
 
 class Palette {
   static const MaterialColor kgreenNR = MaterialColor(

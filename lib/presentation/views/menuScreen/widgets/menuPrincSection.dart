@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/presentation/views/configurationScreen/configurationScreen.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../bloc/menu/menu_bloc.dart';
@@ -19,16 +21,16 @@ class MenuPrincSection extends StatelessWidget {
 
   Widget topSection() {
     return Column(children: [
-      const Align(
+      Align(
           alignment: Alignment.centerRight,
-          child: Icon(Icons.person, color: Colors.white, size: 80)),
+          child: personCircle('https://picsum.photos/700/400?random')),
       Align(
         alignment: Alignment.centerRight,
         child: Text(
           'Usuario',
           style: GoogleFonts.sourceSansPro(
               fontSize: 35.sp,
-              color: Colors.white,
+              color: greenPrimary3,
               fontWeight: FontWeight.bold),
         ),
       ),
@@ -38,7 +40,7 @@ class MenuPrincSection extends StatelessWidget {
           'ID: Usuario',
           style: GoogleFonts.sourceSansPro(
               fontSize: 30.sp,
-              color: Colors.white,
+              color: Colors.black38,
               fontWeight: FontWeight.w500),
         ),
       ),
@@ -48,11 +50,31 @@ class MenuPrincSection extends StatelessWidget {
           '1548 Realities',
           style: GoogleFonts.sourceSansPro(
               fontSize: 30.sp,
-              color: Colors.white,
+              color: Colors.black38,
+              fontWeight: FontWeight.w500),
+        ),
+      ),
+      Align(
+        alignment: Alignment.centerRight,
+        child: Text(
+          'Amigos',
+          style: GoogleFonts.sourceSansPro(
+              fontSize: 30.sp,
+              color: Colors.black38,
               fontWeight: FontWeight.w500),
         ),
       ),
     ]);
+  }
+
+  Widget personCircle(String photo) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CircleAvatar(
+        radius: 22.w,
+        backgroundImage: NetworkImage(photo),
+      ),
+    );
   }
 
   Widget bottomSection(BuildContext context) {
@@ -62,10 +84,9 @@ class MenuPrincSection extends StatelessWidget {
       children: [
         GestureDetector(
             onTap: () {
-              BlocProvider.of<MenuBloc>(context, listen: false)
-                  .add(MenuOpenCongifEvent());
+              Navigator.pushNamed(context, ConfigurationScreen.routeName);
             },
-            child: const Icon(Icons.settings, color: Colors.white, size: 35)),
+            child: const Icon(Icons.settings, color: greenPrimary3, size: 35)),
         Align(
           alignment: Alignment.centerRight,
           child: Column(
@@ -74,18 +95,11 @@ class MenuPrincSection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 3.0),
                 child: Text(
                   'Logout',
-                  style: GoogleFonts.sourceCodePro(
-                      color: Colors.white,
+                  style: GoogleFonts.sourceSansPro(
+                      color: greenPrimary3,
                       fontWeight: FontWeight.w500,
                       fontSize: 30.sp),
                 ),
-              ),
-              Text(
-                'v. 1.0.0',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 25.sp),
               )
             ],
           ),

@@ -17,21 +17,6 @@ class MenuCloseEvent extends MenuEvent {
   List<Object> get props => [];
 }
 
-class MenuOpenCongifEvent extends MenuEvent {
-  @override
-  List<Object> get props => [];
-}
-
-class MenuOpenInfoEvent extends MenuEvent {
-  @override
-  List<Object> get props => [];
-}
-
-class MenuOpenBugEvent extends MenuEvent {
-  @override
-  List<Object> get props => [];
-}
-
 class MenuOpenMapEvent extends MenuEvent {
   @override
   List<Object> get props => [];

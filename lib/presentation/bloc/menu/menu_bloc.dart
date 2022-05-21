@@ -12,17 +12,8 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     on<MenuCloseEvent>((event, emit) {
       emit(MenuInitialState());
     });
-    on<MenuOpenCongifEvent>((event, emit) {
-      emit(MenuConfiguracionState());
-    });
     on<MenuOpenMapEvent>((event, emit) {
       emit(MenuMapaState());
-    });
-    on<MenuOpenInfoEvent>((event, emit) {
-      emit(MenuInformacionState());
-    });
-    on<MenuOpenBugEvent>((event, emit) {
-      emit(MenuBugState());
     });
   }
 }

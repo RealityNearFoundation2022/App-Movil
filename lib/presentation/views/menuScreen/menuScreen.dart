@@ -6,7 +6,6 @@ import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/bugScreen/bugScreen.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
-import 'package:reality_near/presentation/views/menuScreen/widgets/optionsSection.dart';
 import 'package:reality_near/presentation/views/menuScreen/widgets/menuPrincSection.dart';
 
 class MenuContainer extends StatefulWidget {
@@ -36,45 +35,8 @@ class _MenuContainerState extends State<MenuContainer>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MenuBloc, MenuState>(builder: ((context, state) {
-      double openWidth = 0;
-      double openHeight = 0;
-
-      //Definimos ancho y alto del menu depende del estado donde se encuentre
-      switch (state.runtimeType) {
-        case MenuPrincipalState:
-          openWidth = ScreenWH(context).width * 0.5;
-          openHeight = ScreenWH(context).height * 0.42;
-          break;
-        case MenuConfiguracionState:
-          openWidth = ScreenWH(context).width * 0.99;
-          openHeight = ScreenWH(context).height * 0.95;
-          wait(600);
-          titleScreen = 'Configuración';
-          toBack = MenuOpenInitEvent();
-          break;
-        case MenuInformacionState:
-          openWidth = ScreenWH(context).width * 0.99;
-          openHeight = ScreenWH(context).height * 0.95;
-          wait(600);
-          titleScreen = 'Información';
-          toBack = MenuOpenCongifEvent();
-          break;
-        case MenuBugState:
-          openWidth = ScreenWH(context).width * 0.99;
-          openHeight = ScreenWH(context).height * 0.95;
-          wait(600);
-          titleScreen = 'Reporte un Bug';
-          toBack = MenuOpenInfoEvent();
-          break;
-        default:
-          openWidth = ScreenWH(context).width * 0.2;
-          openHeight = ScreenWH(context).height * 0.11;
-          break;
-      }
-      ;
-
       return state is MenuMapaState
-          ? SizedBox()
+          ? const SizedBox()
           : AnimatedContainer(
               duration: Duration(milliseconds: animatedDuration),
               onEnd: () {
@@ -82,10 +44,10 @@ class _MenuContainerState extends State<MenuContainer>
                   seeContent = isOpen;
                 });
               },
-              width: openWidth,
-              height: openHeight,
+              width: ScreenWH(context).width * (isOpen ? 0.5 : 0.2),
+              height: ScreenWH(context).height * (isOpen ? 0.45 : 0.11),
               decoration: BoxDecoration(
-                  color: isOpen ? greenPrimary : Colors.transparent,
+                  color: isOpen ? backgroundWhite : Colors.transparent,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(30),
                   )),
@@ -97,77 +59,26 @@ class _MenuContainerState extends State<MenuContainer>
                     Align(
                       alignment: Alignment.centerLeft,
                       child: GestureDetector(
-                        child: topTitle(state),
+                        child: AnimatedIcon(
+                          icon: AnimatedIcons.menu_close,
+                          progress: _animationController,
+                          size: 40,
+                          color: isOpen ? greenPrimary3 : greenPrimary,
+                        ),
                         onTap: () {
                           _handleOnPressed(state);
                         },
                       ),
                     ),
-//Contenido dentro del container desplegable
-                    contenido(state)
+                    Expanded(
+                        child: seeContent
+                            ? const MenuPrincSection()
+                            : const SizedBox())
                   ],
                 ),
               ),
             );
     }));
-  }
-
-  Widget topTitle(MenuState state) {
-    return (state is MenuInitialState || state is MenuPrincipalState)
-        ? AnimatedIcon(
-            icon: AnimatedIcons.menu_close,
-            progress: _animationController,
-            size: 40,
-            color: isOpen ? Colors.white : greenPrimary,
-          )
-        : Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
-                  size: 35,
-                ),
-                seeConfig
-                    ? Text(
-                        titleScreen,
-                        style: GoogleFonts.sourceCodePro(
-                            color: Colors.white,
-                            fontSize: 27,
-                            fontWeight: FontWeight.bold),
-                      )
-                    : Container(),
-              ],
-            ),
-          );
-  }
-
-  Widget contenido(MenuState state) {
-    if (seeContent || seeConfig) {
-      switch (state.runtimeType) {
-        case MenuConfiguracionState:
-          return const Expanded(
-            child: OptionSection(),
-          );
-        case MenuInformacionState:
-          return const Expanded(
-            child: InfoScreen(),
-          );
-        case MenuBugState:
-          return const Expanded(
-            child: BugScreen(),
-          );
-
-        default:
-          return const Expanded(
-            child: MenuPrincSection(),
-          );
-      }
-    } else {
-      return Container();
-    }
   }
 
 //Funcion al momento de presionar el boton para hacer efectos y cambio de pantalla
@@ -177,27 +88,17 @@ class _MenuContainerState extends State<MenuContainer>
       seeConfig = false;
     });
     setState(() {
-      if (state is MenuInitialState || state is MenuPrincipalState) {
-        isOpen = !isOpen;
-      }
+      isOpen = !isOpen;
       isOpen ? _animationController.forward() : _animationController.reverse();
     });
 
     if (isOpen) {
       //creamos un evento en el bloc
-      BlocProvider.of<MenuBloc>(context, listen: false).add(toBack);
+      BlocProvider.of<MenuBloc>(context, listen: false)
+          .add(MenuOpenInitEvent());
     } else {
       //creamos un evento en el bloc
       BlocProvider.of<MenuBloc>(context, listen: false).add(MenuCloseEvent());
     }
-  }
-
-  //Funcion espera cambio de menu config
-  void wait(double mlseconds) {
-    Future.delayed(Duration(milliseconds: (mlseconds).toInt()), () {
-      setState(() {
-        seeConfig = true;
-      });
-    });
   }
 }

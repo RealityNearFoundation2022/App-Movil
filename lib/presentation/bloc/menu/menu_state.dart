@@ -18,24 +18,6 @@ class MenuPrincipalState extends MenuState {
   List<Object> get props => [];
 }
 
-//Menu Configuracion
-class MenuConfiguracionState extends MenuState {
-  @override
-  List<Object> get props => [];
-}
-
-//Menu Informacion
-class MenuInformacionState extends MenuState {
-  @override
-  List<Object> get props => [];
-}
-
-//Menu Bug
-class MenuBugState extends MenuState {
-  @override
-  List<Object> get props => [];
-}
-
 //Menu Mapa
 class MenuMapaState extends MenuState {
   @override
