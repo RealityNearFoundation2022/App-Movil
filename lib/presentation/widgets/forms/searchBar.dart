@@ -6,8 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 class Searchbar extends StatefulWidget {
   final String placeholder;
   final TextEditingController controller;
-  const Searchbar(
-      {Key? key, required this.placeholder, required this.controller})
+  const Searchbar({Key key, this.placeholder, this.controller})
       : super(key: key);
 
   @override

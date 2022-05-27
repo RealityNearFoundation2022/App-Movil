@@ -7,7 +7,7 @@ import 'package:sizer/sizer.dart';
 class InfoScreen extends StatelessWidget {
   //Variables
   static String routeName = "/infoScreen";
-  const InfoScreen({Key? key}) : super(key: key);
+  const InfoScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

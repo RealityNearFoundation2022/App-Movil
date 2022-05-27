@@ -9,7 +9,7 @@ import 'package:sizer/sizer.dart';
 class BugScreen extends StatefulWidget {
   //Variables
   static String routeName = "/bugScreen";
-  const BugScreen({Key? key}) : super(key: key);
+  const BugScreen({Key key}) : super(key: key);
 
   @override
   State<BugScreen> createState() => _BugScreenState();

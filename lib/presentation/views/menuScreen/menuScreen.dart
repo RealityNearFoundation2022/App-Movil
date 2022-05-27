@@ -9,7 +9,7 @@ import 'package:reality_near/presentation/views/informationScreen/infoScreen.dar
 import 'package:reality_near/presentation/views/menuScreen/widgets/menuPrincSection.dart';
 
 class MenuContainer extends StatefulWidget {
-  const MenuContainer({Key? key}) : super(key: key);
+  const MenuContainer({Key key}) : super(key: key);
 
   @override
   State<MenuContainer> createState() => _MenuContainerState();
@@ -17,7 +17,7 @@ class MenuContainer extends StatefulWidget {
 
 class _MenuContainerState extends State<MenuContainer>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
+  AnimationController _animationController;
   bool isOpen = false;
   bool seeContent = false;
   bool seeConfig = false;

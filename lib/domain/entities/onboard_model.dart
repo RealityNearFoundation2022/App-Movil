@@ -8,10 +8,10 @@ class OnboardModel {
   Color button;
 
   OnboardModel({
-    required this.img,
-    required this.text,
-    required this.desc,
-    required this.bg,
-    required this.button,
+    this.img,
+    this.text,
+    this.desc,
+    this.bg,
+    this.button,
   });
 }

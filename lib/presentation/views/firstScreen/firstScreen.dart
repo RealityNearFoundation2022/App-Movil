@@ -9,7 +9,7 @@ import '../../../core/helper/url_constants.dart';
 import '../login/login.dart';
 
 class FirstScreen extends StatelessWidget {
-  const FirstScreen({Key? key}) : super(key: key);
+  const FirstScreen({Key key}) : super(key: key);
 
 //Variables
   static String routeName = "/firstScreen";

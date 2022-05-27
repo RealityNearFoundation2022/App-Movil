@@ -3,20 +3,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 
 class TxtForm extends StatefulWidget {
-  final String? title;
+  final String title;
   final String placeholder;
   final InputType inputType;
   final TextEditingController controller;
-  final String? errorMessage;
-  final int? maxLength;
-  final Icon? prefixIcon;
-  final Icon? sufixIcon;
-  final Color? txtColor;
+  final String errorMessage;
+  final int maxLength;
+  final Icon prefixIcon;
+  final Icon sufixIcon;
+  final Color txtColor;
   const TxtForm(
-      {Key? key,
+      {Key key,
       this.title,
-      required this.controller,
-      required this.inputType,
+      this.controller,
+      this.inputType,
       this.placeholder = '',
       this.errorMessage,
       this.maxLength,
@@ -37,7 +37,7 @@ class _txtFormState extends State<TxtForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        widget.title != null
+        this.widget.title != null
             ? Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -104,7 +104,7 @@ class _txtFormState extends State<TxtForm> {
     if (widget.inputType == InputType.Email) {
       //email validation
       _isValidate = RegExp(
-              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
           .hasMatch(textFieldValue);
       validationMessage = widget.errorMessage ?? 'Email no es valido';
     } else if (widget.inputType == InputType.Number) {
@@ -113,9 +113,9 @@ class _txtFormState extends State<TxtForm> {
       validationMessage = widget.errorMessage ?? 'Numero no es valido';
     } else if (widget.inputType == InputType.Password) {
       //password validation
-      _isValidate = RegExp(
-              r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-          .hasMatch(textFieldValue);
+      _isValidate =
+          RegExp(r'^(=.*[A-Z])(=.*[a-z])(=.*[0-9])(=.*[!@#\$&*~]).{8,}$')
+              .hasMatch(textFieldValue);
       validationMessage = widget.errorMessage ?? 'Contraseña no es valido';
     }
     _isValidate = textFieldValue.isNotEmpty;

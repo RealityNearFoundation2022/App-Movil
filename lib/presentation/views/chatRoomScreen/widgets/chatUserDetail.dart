@@ -6,13 +6,13 @@ import 'package:reality_near/core/framework/globals.dart';
 class chatUserDetail extends StatelessWidget {
   //Variables
   static String routeName = "/chatUserDetailScreen";
-  const chatUserDetail({Key? key}) : super(key: key);
+  const chatUserDetail({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     //variables como argumentos
     final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+        ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
 
     return Scaffold(
       backgroundColor: greenPrimary,

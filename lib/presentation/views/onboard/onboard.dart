@@ -11,7 +11,7 @@ class OnBoard extends StatefulWidget {
 
 class _OnBoardState extends State<OnBoard> {
   int currentIndex = 0;
-  late PageController _pageController;
+  PageController _pageController;
   List<OnboardModel> screens = <OnboardModel>[
     OnboardModel(
       img: 'assets/imgs/img-1.png',

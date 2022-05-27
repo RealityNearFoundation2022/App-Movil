@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configurationScreen.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../bloc/menu/menu_bloc.dart';
 
 class MenuPrincSection extends StatelessWidget {
-  const MenuPrincSection({Key? key}) : super(key: key);
+  const MenuPrincSection({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class MenuPrincSection extends StatelessWidget {
       Align(
         alignment: Alignment.centerRight,
         child: Text(
-          'Usuario',
+          getRandomName(),
           style: GoogleFonts.sourceSansPro(
               fontSize: 35.sp,
               color: greenPrimary3,

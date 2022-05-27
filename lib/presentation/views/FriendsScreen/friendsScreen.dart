@@ -8,7 +8,7 @@ import 'package:reality_near/presentation/views/chatRoomScreen/chatRoomScreen.da
 import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
 
 class FriendScreen extends StatefulWidget {
-  const FriendScreen({Key? key}) : super(key: key);
+  const FriendScreen({Key key}) : super(key: key);
   //Variables
   static String routeName = "/friendsScreen";
 
@@ -95,12 +95,13 @@ class _FriendScreenState extends State<FriendScreen> {
 
   Widget chatList() {
     return ListView.builder(
-      itemCount: 15,
+      itemCount: 1,
       itemBuilder: (context, index) {
-        return const ChatCard(
-          photo: "https://picsum.photos/700/400?random",
+        return ChatCard(
+          photo: "https://source.unsplash.com/random/200x200?sig=${index}",
           name: "Juan Perez",
-          message: "Hola, como estas?",
+          message:
+              "Habla Juan, estaba jugando un rato por larcomar y no creeras lo que hay por aquí",
           time: "13:21 P.M.",
         );
       },
@@ -116,13 +117,15 @@ class _FriendScreenState extends State<FriendScreen> {
             onTap: () {
               Navigator.pushNamed(context, ChatRoomScreen.routeName,
                   arguments: {
-                    'name': "Juan Perez Alcazar",
-                    'photo': "https://picsum.photos/700/400?random",
+                    'name': getRandomName(),
+                    'photo':
+                        "https://source.unsplash.com/random/200x200?sig=${index}",
                     'empty': true
                   });
             },
             child: personCircle(
-                "https://picsum.photos/700/400?random", "Juan Perez Alcazar"),
+                "https://source.unsplash.com/random/200x200?sig=${index}",
+                getRandomName()),
           );
         });
   }
@@ -156,7 +159,7 @@ class _FriendScreenState extends State<FriendScreen> {
     );
   }
 
-  Widget circularbtn(Function? onPress, IconData icon) {
+  Widget circularbtn(Function onPress, IconData icon) {
     return CircleAvatar(
       backgroundColor: greenPrimary,
       radius: 20,

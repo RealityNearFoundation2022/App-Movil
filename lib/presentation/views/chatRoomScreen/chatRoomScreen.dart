@@ -12,7 +12,7 @@ class ChatRoomScreen extends StatefulWidget {
 //Variable
   static String routeName = "/chatRoomScreen";
 
-  const ChatRoomScreen({Key? key}) : super(key: key);
+  const ChatRoomScreen({Key key}) : super(key: key);
 
   @override
   State<ChatRoomScreen> createState() => _ChatRoomScreenState();
@@ -75,7 +75,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
   Widget build(BuildContext context) {
     //variables como argumentos
     final args =
-        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+        ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
 
     if (args['empty']) {
       _messages.clear();

@@ -5,13 +5,15 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
+import 'package:reality_near/presentation/views/configurationScreen/widgets/permisosDialog.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
+import 'package:reality_near/presentation/views/walletScreen/walletScreen.dart';
 import 'package:sizer/sizer.dart';
 
 class ConfigurationScreen extends StatefulWidget {
   //Variables
   static String routeName = "/configScreen";
-  const ConfigurationScreen({Key? key}) : super(key: key);
+  const ConfigurationScreen({Key key}) : super(key: key);
 
   @override
   State<ConfigurationScreen> createState() => _ConfigurationScreenState();
@@ -48,7 +50,16 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ExpansionMenu(context),
-          textAndIcon('Permisos', Icons.keyboard_arrow_right_rounded),
+          GestureDetector(
+              onTap: (() {
+                showDialog(
+                    context: context,
+                    builder: (dialogContext) {
+                      return PermisosDialog();
+                    });
+              }),
+              child:
+                  textAndIcon('Permisos', Icons.keyboard_arrow_right_rounded)),
           GestureDetector(
             onTap: () {
               Navigator.of(context).pushNamed(InfoScreen.routeName);
@@ -111,7 +122,10 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
               ),
               children: <Widget>[
                 txtSubMenu('Usuario'),
-                txtSubMenu('Wallet'),
+                GestureDetector(
+                    onTap: () =>
+                        Navigator.pushNamed(context, WalletScreen.routeName),
+                    child: txtSubMenu('Wallet')),
                 GestureDetector(
                     onTap: () =>
                         Navigator.pushNamed(context, FriendScreen.routeName),

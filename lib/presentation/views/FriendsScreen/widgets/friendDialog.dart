@@ -5,7 +5,7 @@ import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
 
 class FriendsSolicitudesDialog extends StatelessWidget {
-  FriendsSolicitudesDialog({Key? key}) : super(key: key);
+  FriendsSolicitudesDialog({Key key}) : super(key: key);
 
   TextEditingController searchUserController = TextEditingController();
 
@@ -74,13 +74,13 @@ class FriendsSolicitudesDialog extends StatelessWidget {
   }
 
   Widget pendientesCard() {
-    return const ListTile(
-      leading: CircleAvatar(
+    return ListTile(
+      leading: const CircleAvatar(
         backgroundImage: NetworkImage(
           "https://picsum.photos/700/400?random",
         ),
       ),
-      title: Text("Amigo"),
+      title: Text(getRandomName()),
       subtitle:
           Text("Cancelar Solicitud", style: TextStyle(color: greenPrimary)),
     );
@@ -93,7 +93,7 @@ class FriendsSolicitudesDialog extends StatelessWidget {
           "https://picsum.photos/700/400?random",
         ),
       ),
-      title: const Text("Amigo"),
+      title: Text(getRandomName()),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -117,7 +117,7 @@ class FriendsSolicitudesDialog extends StatelessWidget {
   }
 
   Widget btnsolicitud(
-      String title, Function? onPerss, BuildContext context, Color? color) {
+      String title, Function onPerss, BuildContext context, Color color) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7),

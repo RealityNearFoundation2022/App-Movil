@@ -5,15 +5,13 @@ import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 
 class ErrorAlertDialog extends StatelessWidget {
   final String errorMessage;
-  const ErrorAlertDialog({Key? key, required this.errorMessage})
-      : super(key: key);
+  const ErrorAlertDialog({Key key, this.errorMessage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
         child: Stack(
-          overflow: Overflow.visible,
           alignment: Alignment.topCenter,
           children: [
             SizedBox(

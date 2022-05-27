@@ -9,8 +9,7 @@ import 'package:reality_near/presentation/widgets/dialogs/errorAlertDialog.dart'
 class ButtonWithStates extends StatefulWidget {
   final String text;
   final Function press;
-  const ButtonWithStates({Key? key, required this.text, required this.press})
-      : super(key: key);
+  const ButtonWithStates({Key key, this.text, this.press}) : super(key: key);
 
   @override
   State<ButtonWithStates> createState() => _ButtonWithStatesState();

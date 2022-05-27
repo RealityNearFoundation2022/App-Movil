@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
-import 'package:reality_near/presentation/views/menuScreen/widgets/menuPrincSection.dart';
+import 'package:reality_near/presentation/views/mapScreen/widgets/map.dart';
 
 class MapContainer extends StatefulWidget {
-  const MapContainer({Key? key}) : super(key: key);
+  const MapContainer({Key key}) : super(key: key);
 
   @override
   State<MapContainer> createState() => _MapContainerState();
@@ -14,7 +14,7 @@ class MapContainer extends StatefulWidget {
 
 class _MapContainerState extends State<MapContainer>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
+  AnimationController _animationController;
   bool isOpen = false;
   bool seeContent = false;
   int animatedDuration = 500;
@@ -33,7 +33,7 @@ class _MapContainerState extends State<MapContainer>
           ? AnimatedContainer(
               duration: Duration(milliseconds: animatedDuration),
               width: ScreenWH(context).width * (isOpen ? 0.8 : 0.2),
-              height: ScreenWH(context).height * (isOpen ? 0.45 : 0.11),
+              height: ScreenWH(context).height * (isOpen ? 0.5 : 0.11),
               decoration: BoxDecoration(
                   color: isOpen ? greenPrimary : Colors.transparent,
                   borderRadius: const BorderRadius.only(
@@ -41,25 +41,25 @@ class _MapContainerState extends State<MapContainer>
                   )),
               child: Container(
                 alignment: isOpen ? Alignment.topLeft : null,
-                padding: const EdgeInsets.all(10),
-                child: Column(
+                child: Stack(
                   children: [
-                    Align(
-                        alignment: Alignment.centerRight,
+                    Expanded(
+                        child: seeContent ? MapSection() : const SizedBox()),
+                    Container(
+                        alignment: Alignment.topRight,
+                        padding: const EdgeInsets.all(10),
                         child: GestureDetector(
                           child: Icon(
                             isOpen
                                 ? Icons.arrow_back_ios_new
                                 : Icons.map_rounded,
                             size: 40,
-                            color: isOpen ? Colors.white : greenPrimary,
+                            color: greenPrimary,
                           ),
                           onTap: () {
                             _handleOnPressed();
                           },
-                        )),
-                    Expanded(
-                        child: seeContent ? MapSection() : const SizedBox())
+                        ))
                   ],
                 ),
               ),
@@ -85,11 +85,5 @@ class _MapContainerState extends State<MapContainer>
       BlocProvider.of<MenuBloc>(context, listen: false).add(MenuCloseEvent());
       seeContent = isOpen;
     }
-  }
-
-  Widget MapSection() {
-    return Container(
-      child: const Text('Mapa'),
-    );
   }
 }

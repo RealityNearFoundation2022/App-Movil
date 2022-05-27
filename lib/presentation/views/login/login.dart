@@ -10,7 +10,7 @@ import 'package:reality_near/presentation/widgets/dialogs/errorAlertDialog.dart'
 import 'package:reality_near/presentation/widgets/forms/textForm.dart';
 
 class Login extends StatelessWidget {
-  Login({Key? key}) : super(key: key);
+  Login({Key key}) : super(key: key);
 //Variables
   static String routeName = "/login";
   final TextEditingController _walletController = TextEditingController();

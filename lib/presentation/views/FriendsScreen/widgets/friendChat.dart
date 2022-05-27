@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/views/chatRoomScreen/chatRoomScreen.dart';
 
 class ChatCard extends StatelessWidget {
@@ -7,12 +8,7 @@ class ChatCard extends StatelessWidget {
   final String name;
   final String message;
   final String time;
-  const ChatCard(
-      {Key? key,
-      required this.photo,
-      required this.name,
-      required this.message,
-      required this.time})
+  const ChatCard({Key key, this.photo, this.name, this.message, this.time})
       : super(key: key);
 
   @override
@@ -48,12 +44,16 @@ class ChatCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        message,
-                        style: GoogleFonts.sourceSansPro(
-                          color: Colors.grey,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
+                      SizedBox(
+                        width: ScreenWH(context).width * 0.45,
+                        child: Text(
+                          message,
+                          style: GoogleFonts.sourceSansPro(
+                            color: Colors.grey,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Text(
