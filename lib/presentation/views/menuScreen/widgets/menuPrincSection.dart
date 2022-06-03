@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
-import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
+import 'package:reality_near/presentation/views/FriendsScreen/widgets/friendDialog.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configurationScreen.dart';
+import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
 import 'package:sizer/sizer.dart';
-
-import '../../../bloc/menu/menu_bloc.dart';
 
 class MenuPrincSection extends StatelessWidget {
   const MenuPrincSection({Key key}) : super(key: key);
@@ -16,11 +15,11 @@ class MenuPrincSection extends StatelessWidget {
     return Sizer(builder: (context, orientation, deviceType) {
       return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [topSection(), bottomSection(context)]);
+          children: [topSection(context), bottomSection(context)]);
     });
   }
 
-  Widget topSection() {
+  Widget topSection(BuildContext context) {
     return Column(children: [
       Align(
           alignment: Alignment.centerRight,
@@ -28,7 +27,7 @@ class MenuPrincSection extends StatelessWidget {
       Align(
         alignment: Alignment.centerRight,
         child: Text(
-          getRandomName(),
+          'Juan Alvarez',
           style: GoogleFonts.sourceSansPro(
               fontSize: 35.sp,
               color: greenPrimary3,
@@ -38,7 +37,7 @@ class MenuPrincSection extends StatelessWidget {
       Align(
         alignment: Alignment.centerRight,
         child: Text(
-          'ID: Usuario',
+          'ID: jAlvRz921',
           style: GoogleFonts.sourceSansPro(
               fontSize: 30.sp,
               color: Colors.black38,
@@ -48,7 +47,7 @@ class MenuPrincSection extends StatelessWidget {
       Align(
         alignment: Alignment.centerRight,
         child: Text(
-          '1548 Realities',
+          '1554 Realities',
           style: GoogleFonts.sourceSansPro(
               fontSize: 30.sp,
               color: Colors.black38,
@@ -57,12 +56,17 @@ class MenuPrincSection extends StatelessWidget {
       ),
       Align(
         alignment: Alignment.centerRight,
-        child: Text(
-          'Amigos',
-          style: GoogleFonts.sourceSansPro(
-              fontSize: 30.sp,
-              color: Colors.black38,
-              fontWeight: FontWeight.w500),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, FriendScreen.routeName);
+          },
+          child: Text(
+            'Amigos',
+            style: GoogleFonts.sourceSansPro(
+                fontSize: 30.sp,
+                color: Colors.black38,
+                fontWeight: FontWeight.w500),
+          ),
         ),
       ),
     ]);
@@ -94,12 +98,18 @@ class MenuPrincSection extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 3.0),
-                child: Text(
-                  'Logout',
-                  style: GoogleFonts.sourceSansPro(
-                      color: greenPrimary3,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 30.sp),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/firstScreen', ModalRoute.withName('/'));
+                  },
+                  child: Text(
+                    'Logout',
+                    style: GoogleFonts.sourceSansPro(
+                        color: greenPrimary3,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 30.sp),
+                  ),
                 ),
               )
             ],

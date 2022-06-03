@@ -11,11 +11,13 @@ class PermisosDialog extends StatefulWidget {
 }
 
 class _PermisosDialogState extends State<PermisosDialog> {
-  bool statusAvatar = true;
-  bool statusCamara = true;
-  bool statusMicrofono = false;
-  bool statusUbicacion = true;
-  bool statusNotificaciones = false;
+  List<bool> statusPermisos = [
+    true,
+    true,
+    false,
+    true,
+    false,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +38,11 @@ class _PermisosDialogState extends State<PermisosDialog> {
                     fontSize: 35,
                     color: Colors.black54),
               ),
-              permision('Mostrar avatar en mapa', statusAvatar),
-              permision('Cámara', statusCamara),
-              permision('Microfono', statusMicrofono),
-              permision('Ubicación', statusUbicacion),
-              permision('Notificaciones', statusNotificaciones)
+              permision('Mostrar avatar en mapa', 0),
+              permision('Cámara', 1),
+              permision('Microfono', 2),
+              permision('Ubicación', 3),
+              permision('Notificaciones', 4)
             ],
           ),
         ),
@@ -48,7 +50,7 @@ class _PermisosDialogState extends State<PermisosDialog> {
     );
   }
 
-  Widget permision(String text, bool controller) {
+  Widget permision(String text, int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
@@ -70,12 +72,12 @@ class _PermisosDialogState extends State<PermisosDialog> {
             height: 25.0,
             valueFontSize: 16.0,
             toggleSize: 20.0,
-            value: controller,
+            value: statusPermisos[index],
             borderRadius: 30.0,
             activeColor: Palette.kgreenNR,
             onToggle: (val) {
               setState(() {
-                controller = val;
+                statusPermisos[index] = val;
               });
             },
           ),

@@ -6,16 +6,21 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/providers/location_provider.dart';
-import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
 import 'package:reality_near/core/routes.dart';
+import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
 import 'package:reality_near/presentation/views/homeScreen/homeScreen.dart';
 import 'package:reality_near/presentation/views/mapScreen/widgets/map.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+bool guideIsviewed;
 void main() {
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    guideIsviewed = prefs.getBool('Guide');
+    runApp(new MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -42,7 +47,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Palette.kgreenNR,
           ),
-          initialRoute: HomeScreen.routeName,
+          initialRoute:
+              guideIsviewed ? FirstScreen.routeName : HomeScreen.routeName,
           routes: routes,
         ),
       ),

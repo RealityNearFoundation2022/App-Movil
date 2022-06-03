@@ -7,6 +7,7 @@ import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/widgets/permisosDialog.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
+import 'package:reality_near/presentation/views/userScreen/userScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/walletScreen.dart';
 import 'package:sizer/sizer.dart';
 
@@ -121,7 +122,11 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                 ),
               ),
               children: <Widget>[
-                txtSubMenu('Usuario'),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(userScreen.routeName);
+                    },
+                    child: txtSubMenu('Usuario')),
                 GestureDetector(
                     onTap: () =>
                         Navigator.pushNamed(context, WalletScreen.routeName),

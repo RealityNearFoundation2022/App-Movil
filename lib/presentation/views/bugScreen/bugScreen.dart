@@ -16,7 +16,7 @@ class BugScreen extends StatefulWidget {
 }
 
 class _BugScreenState extends State<BugScreen> {
-  bool isExpanded = false;
+  List<bool> isExpanded = [false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _BugScreenState extends State<BugScreen> {
           margin: const EdgeInsets.only(right: 10),
           alignment: Alignment.centerRight,
           child: Text(
-            "Reporte de Bug",
+            "Reporte de Fallos",
             style: GoogleFonts.sourceSansPro(
               fontSize: 30,
               fontWeight: FontWeight.bold,
@@ -51,10 +51,11 @@ class _BugScreenState extends State<BugScreen> {
               const SizedBox(
                 height: 30,
               ),
-              bugContainer(context, 'Bug 1', 'Pequeña desprición de la falla'),
-              bugContainer(context, 'Bug 2', 'Pequeña desprición de la falla'),
-              bugContainer(context, 'Bug 3', 'Pequeña desprición de la falla'),
-              otroBug(context)
+              otroBug(context, 'Fallo de Censura',
+                  'Filtración de contenido sensible', 0),
+              otroBug(context, 'Cámara A/R',
+                  'Fallo relacionado con la funcion de realidad aumentada', 1),
+              otroBug(context, 'Otro', 'Describe el fallo', 2),
             ],
           ),
         );
@@ -62,47 +63,8 @@ class _BugScreenState extends State<BugScreen> {
     );
   }
 
-//Bugs preestablecidos
-  Widget bugContainer(BuildContext context, String Title, String Description) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: ScreenWH(context).width * 0.55,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  Title,
-                  style: GoogleFonts.sourceSansPro(
-                      color: Colors.white,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  Description,
-                  style: GoogleFonts.sourceSansPro(
-                      color: Colors.white,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500),
-                ),
-              ],
-            ),
-          ),
-          const Icon(
-            Icons.keyboard_arrow_right_rounded,
-            color: Colors.white,
-            size: 35,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget otroBug(BuildContext context) {
+  Widget otroBug(
+      BuildContext context, String title, String description, int index) {
     return Sizer(builder: (context, orientation, deviceType) {
       return Theme(
         data: ThemeData().copyWith(dividerColor: Colors.transparent),
@@ -113,12 +75,12 @@ class _BugScreenState extends State<BugScreen> {
             textColor: Colors.white,
             onExpansionChanged: (bool value) {
               setState(() {
-                isExpanded = value;
+                isExpanded[index] = value;
               });
             },
             childrenPadding: const EdgeInsets.only(right: 15),
             trailing: Icon(
-              isExpanded
+              isExpanded[index]
                   ? Icons.keyboard_arrow_up_rounded
                   : Icons.keyboard_arrow_right_rounded,
               color: Colors.white,
@@ -128,14 +90,14 @@ class _BugScreenState extends State<BugScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Otro',
+                  title,
                   style: GoogleFonts.sourceSansPro(
                       color: Colors.white,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'Describe el bug',
+                  description,
                   style: GoogleFonts.sourceSansPro(
                       color: Colors.white,
                       fontSize: 12.sp,
@@ -180,7 +142,7 @@ class _BugScreenState extends State<BugScreen> {
                     fontWeight: FontWeight.w500),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: const BorderSide(color: Colors.white),
                 ),
                 hintText: '¿Qué deseas que mejoremos?'),
           ),
@@ -197,12 +159,22 @@ class _BugScreenState extends State<BugScreen> {
             ),
           ),
           Align(
-            alignment: Alignment.centerRight,
+            alignment: Alignment.center,
             child: ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(
-                    Color.fromRGBO(61, 232, 160, 0.5)),
+                backgroundColor: MaterialStateProperty.all(Colors.grey[600]),
                 elevation: MaterialStateProperty.all(1),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+                padding: MaterialStateProperty.all(
+                  const EdgeInsets.symmetric(
+                    horizontal: 35,
+                    // vertical: 10,
+                  ),
+                ),
               ),
               onPressed: () {},
               child: Text(

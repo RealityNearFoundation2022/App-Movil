@@ -31,6 +31,10 @@ class _ARSectionState extends State<ARSection> {
   ARNode webObjectNode;
   ARNode fileSystemNode;
   HttpClient httpClient;
+  // String UrlAr =
+  //     "https://github.com/eduperaltas/3dGLBRepository/raw/main/Bienvenido2.glb";
+  String UrlAr =
+      "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb";
 
   @override
   void dispose() {
@@ -72,14 +76,14 @@ class _ARSectionState extends State<ARSection> {
     var newNode = ARNode(
         type: NodeType.webGLB,
         uri:
-            "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/ToyCar/glTF-Binary/ToyCar.glb",
+            "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
         scale: Vector3(0.2, 0.2, 0.2));
     bool didAddWebNode = await this.arObjectManager.addNode(newNode);
 
     //Download model to file system
     httpClient = new HttpClient();
     _downloadFile(
-        "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/ToyCar/glTF-Binary/ToyCar.glb",
+        "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
         "LocalDuck.glb");
     // Alternative to use type fileSystemAppFolderGLTF2:
     //_downloadAndUnpack(
@@ -125,7 +129,7 @@ class _ARSectionState extends State<ARSection> {
       var newNode = ARNode(
           type: NodeType.webGLB,
           uri:
-              "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/ToyCar/glTF-Binary/ToyCar.glb",
+              "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
           scale: Vector3(0.2, 0.2, 0.2));
       bool didAddWebNode = await this.arObjectManager.addNode(newNode);
       this.webObjectNode = (didAddWebNode) ? newNode : null;

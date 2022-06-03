@@ -46,7 +46,7 @@ class InfoScreen extends StatelessWidget {
                 Navigator.of(context).pushNamed(BugScreen.routeName);
               }),
               child: textAndIcon(
-                  'Reporte de Bug', Icons.keyboard_arrow_right_rounded)),
+                  'Reporte de Fallos', Icons.keyboard_arrow_right_rounded)),
           textAndIcon(
               'Política de privacidad', Icons.keyboard_arrow_right_rounded),
           textAndIcon(

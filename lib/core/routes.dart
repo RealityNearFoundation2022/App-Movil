@@ -9,6 +9,7 @@ import 'package:reality_near/presentation/views/homeScreen/homeScreen.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
 import 'package:reality_near/presentation/views/login/login.dart';
 import 'package:reality_near/presentation/views/onboard/onboard.dart';
+import 'package:reality_near/presentation/views/userScreen/userScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/walletScreen.dart';
 
 final Map<String, WidgetBuilder> routes = {
@@ -23,4 +24,5 @@ final Map<String, WidgetBuilder> routes = {
   ChatRoomScreen.routeName: (context) => const ChatRoomScreen(),
   chatUserDetail.routeName: (context) => const chatUserDetail(),
   WalletScreen.routeName: (context) => const WalletScreen(),
+  userScreen.routeName: (context) => const userScreen(),
 };

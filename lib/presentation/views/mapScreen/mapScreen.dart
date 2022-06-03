@@ -43,8 +43,7 @@ class _MapContainerState extends State<MapContainer>
                 alignment: isOpen ? Alignment.topLeft : null,
                 child: Stack(
                   children: [
-                    Expanded(
-                        child: seeContent ? MapSection() : const SizedBox()),
+                    seeContent ? MapSection() : const SizedBox(),
                     Container(
                         alignment: Alignment.topRight,
                         padding: const EdgeInsets.all(10),

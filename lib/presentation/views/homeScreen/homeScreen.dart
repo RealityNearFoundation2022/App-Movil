@@ -4,8 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/views/AR/arview.dart';
+import 'package:reality_near/presentation/views/homeScreen/widgets/initialGuide.dart';
+import 'package:reality_near/presentation/views/homeScreen/widgets/noARSection.dart';
 import 'package:reality_near/presentation/views/mapScreen/mapScreen.dart';
 import 'package:reality_near/presentation/views/menuScreen/menuScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home";
@@ -17,6 +20,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool status = false;
+  bool viewGuide = true;
+  _storeGuidedInfo() async {
+    print("Shared pref called");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      viewGuide = prefs.getBool('Guide') ?? true;
+    });
+    print(prefs.getBool('Guide'));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _storeGuidedInfo();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -29,22 +48,19 @@ class _HomeScreenState extends State<HomeScreen> {
           height: double.infinity,
           child: Stack(
             children: [
-              status ? const ARSection() : const SizedBox(),
+              status
+                  ? const ARSection()
+                  : SizedBox(
+                      height: ScreenWH(context).height * 0.9,
+                      child: const NoArSection()),
               Container(
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).viewPadding.top),
-                alignment: Alignment.topLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Center(
-                      child: Image.asset(
-                        "assets/imgs/Logo_sin_fondo.png",
-                        width: 80,
-                        height: 80,
-                      ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
@@ -56,8 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 100,
+                    FittedBox(
                       child: FlutterSwitch(
                         width: 60.0,
                         height: 25.0,
@@ -75,6 +90,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     ),
+                    Container(
+                      padding: const EdgeInsets.only(left: 20),
+                      child: Image.asset(
+                        "assets/imgs/Logo_sin_fondo.png",
+                        width: 100,
+                        height: 100,
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -86,6 +109,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       alignment: Alignment.bottomRight, child: MenuContainer())
                 ],
               ),
+              viewGuide
+                  ? initialGuide(
+                      index: 1,
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),

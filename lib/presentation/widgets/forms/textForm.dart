@@ -30,6 +30,22 @@ class TxtForm extends StatefulWidget {
 }
 
 class _txtFormState extends State<TxtForm> {
+  FocusNode _focus = FocusNode();
+  bool focused = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _focus.addListener(_onFocusChange);
+  }
+
+  void _onFocusChange() {
+    setState(() {
+      focused = _focus.hasFocus;
+    });
+    debugPrint("Focus: ${_focus.hasFocus.toString()}");
+  }
+
   bool _isValidate = true;
   String validationMessage = '';
   bool visibility = false;
@@ -37,12 +53,12 @@ class _txtFormState extends State<TxtForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        this.widget.title != null
+        widget.title != null
             ? Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   widget.title ?? '',
-                  style: GoogleFonts.notoSansJavanese(
+                  style: GoogleFonts.sourceCodePro(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                       color: widget.txtColor,
@@ -52,6 +68,7 @@ class _txtFormState extends State<TxtForm> {
         Material(
           color: Colors.transparent,
           child: TextField(
+            focusNode: _focus,
             cursorColor: greenPrimary,
             controller: widget.controller,
             decoration: InputDecoration(
@@ -60,10 +77,15 @@ class _txtFormState extends State<TxtForm> {
               enabledBorder: getBorder(false),
               focusedBorder: getBorder(true),
               filled: true,
-              hintText: widget.placeholder,
               fillColor: Colors.white,
               prefixIcon: widget.prefixIcon,
               suffixIcon: widget.sufixIcon ?? getSuffixIcon(),
+              labelText: widget.placeholder,
+              labelStyle: GoogleFonts.sourceCodePro(
+                color: focused ? greenPrimary : greySoft,
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
             ),
             onSubmitted: checkValidation,
             keyboardType: getInputType(),
@@ -83,7 +105,7 @@ class _txtFormState extends State<TxtForm> {
         },
         icon: Icon(
           visibility ? Icons.visibility : Icons.visibility_off,
-          color: greenPrimary.withOpacity(0.5),
+          color: focused ? greenPrimary.withOpacity(0.5) : greySoft,
         ),
       );
     }

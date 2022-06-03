@@ -102,7 +102,7 @@ class _FriendScreenState extends State<FriendScreen> {
           name: "Juan Perez",
           message:
               "Habla Juan, estaba jugando un rato por larcomar y no creeras lo que hay por aquí",
-          time: "13:21 P.M.",
+          time: "17:46 P.M.",
         );
       },
     );

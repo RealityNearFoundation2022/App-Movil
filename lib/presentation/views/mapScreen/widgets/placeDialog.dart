@@ -25,27 +25,27 @@ class _PermisosDialogState extends State<PlaceDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Título de evento',
+                'Casco Andrómeda de grafeno (1/5)',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.sourceSansPro(
                     fontWeight: FontWeight.bold,
-                    fontSize: 35,
+                    fontSize: 25,
                     color: greenPrimary),
               ),
               Container(
-                height: ScreenWH(context).height * 0.3,
+                height: ScreenWH(context).height * 0.28,
                 width: ScreenWH(context).width * 0.6,
                 margin:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/imgs/Logo_sin_fondo.png'),
+                    image: AssetImage('assets/imgs/cascoAR.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               Text(
-                'Pequeño texto que explica de que trata el evento. Texto escrito por el creador del evento.',
+                'Casco de grafeno más resistente que el diamante, flexible y adaptable.',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.sourceSansPro(
                     fontWeight: FontWeight.w500,
