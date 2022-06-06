@@ -19,7 +19,7 @@ With this app our users will be able to interact using augmented reality with ob
 
 ## Screenshoots
 
-
+<img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/homeScreen.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/Map.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/walltet%20NFT.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/FriendsChat.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/Chat.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/AR.jpeg" alt="drawing" width="200"/> 
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
