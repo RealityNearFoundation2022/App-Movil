@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home";
-  HomeScreen({Key key}) : super(key: key);
+  const HomeScreen({Key key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -43,72 +43,77 @@ class _HomeScreenState extends State<HomeScreen> {
         return false;
       },
       child: Scaffold(
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
+        body: SizedBox(
+          // width: double.infinity,
+          // height: double.infinity,
           child: Stack(
             children: [
-              status
-                  ? const ARSection()
-                  : SizedBox(
-                      height: ScreenWH(context).height * 0.9,
-                      child: const NoArSection()),
               Container(
+                height: ScreenWH(context).height * 0.87,
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).viewPadding.top),
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "AR:",
-                        style: GoogleFonts.sourceSansPro(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: greenPrimary2,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "AR:",
+                            style: GoogleFonts.sourceSansPro(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: greenPrimary2,
+                            ),
+                          ),
                         ),
-                      ),
+                        FittedBox(
+                          child: FlutterSwitch(
+                            width: 60.0,
+                            height: 25.0,
+                            valueFontSize: 16.0,
+                            toggleSize: 20.0,
+                            value: status,
+                            borderRadius: 30.0,
+                            activeColor: Palette.kgreenNR,
+                            inactiveColor: Colors.red,
+                            showOnOff: true,
+                            onToggle: (val) {
+                              setState(() {
+                                status = val;
+                              });
+                            },
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(left: 35),
+                          child: Image.asset(
+                            "assets/imgs/Logo_sin_fondo.png",
+                            width: 80,
+                            height: 80,
+                          ),
+                        )
+                      ],
                     ),
-                    FittedBox(
-                      child: FlutterSwitch(
-                        width: 60.0,
-                        height: 25.0,
-                        valueFontSize: 16.0,
-                        toggleSize: 20.0,
-                        value: status,
-                        borderRadius: 30.0,
-                        activeColor: Palette.kgreenNR,
-                        inactiveColor: Colors.red,
-                        showOnOff: true,
-                        onToggle: (val) {
-                          setState(() {
-                            status = val;
-                          });
-                        },
-                      ),
+                    Expanded(
+                      child: status ? const ARSection() : const NoArSection(),
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Image.asset(
-                        "assets/imgs/Logo_sin_fondo.png",
-                        width: 100,
-                        height: 100,
-                      ),
-                    )
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Align(alignment: Alignment.bottomLeft, child: MapContainer()),
-                  Align(
-                      alignment: Alignment.bottomRight, child: MenuContainer())
-                ],
-              ),
+              Align(alignment: Alignment.bottomLeft, child: MapContainer()),
+              Align(alignment: Alignment.bottomRight, child: MenuContainer()),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: const [
+              //     Align(alignment: Alignment.bottomLeft, child: MapContainer()),
+              //     Align(
+              //         alignment: Alignment.bottomRight, child: MenuContainer())
+              //   ],
+              // ),
               viewGuide
                   ? initialGuide(
                       index: 1,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Searchbar extends StatefulWidget {
@@ -39,6 +38,5 @@ class _SearchbarState extends State<Searchbar> {
         ),
       ),
     );
-    ;
   }
 }

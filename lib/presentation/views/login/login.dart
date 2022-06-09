@@ -71,7 +71,7 @@ class Login extends StatelessWidget {
         }
       },
       child: Scaffold(
-        backgroundColor: backgroundSoftBlue,
+        backgroundColor: backgroundWhite,
         //Top bar with back button
         appBar: AppBar(
           leading: IconButton(
@@ -147,7 +147,7 @@ class Login extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 40.0),
           child: email,
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40.0),
           child: password,

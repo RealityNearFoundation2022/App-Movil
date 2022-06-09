@@ -1,8 +1,6 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/presentation/providers/location_provider.dart';

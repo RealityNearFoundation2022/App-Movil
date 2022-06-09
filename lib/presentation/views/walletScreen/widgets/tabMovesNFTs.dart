@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
-import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
 
 class TabMovesNFTs extends StatelessWidget {
@@ -66,7 +65,7 @@ class TabMovesNFTs extends StatelessWidget {
                                     'Movimiento 1',
                                     '10/10/2022',
                                     '+1.000',
-                                    "https://source.unsplash.com/random/200x200?sig=${index}");
+                                    "https://source.unsplash.com/random/200x200?sig=$index");
                               },
                             ),
                           ),
@@ -95,7 +94,7 @@ class TabMovesNFTs extends StatelessWidget {
                                     (Random().nextDouble() * 270)
                                         .roundToDouble()
                                         .toString(),
-                                    "https://source.unsplash.com/random/200x200?sig=${index}");
+                                    "https://source.unsplash.com/random/200x200?sig=$index");
                               },
                             ),
                           ),

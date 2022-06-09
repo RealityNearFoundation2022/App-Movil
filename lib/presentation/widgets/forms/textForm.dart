@@ -30,7 +30,7 @@ class TxtForm extends StatefulWidget {
 }
 
 class _txtFormState extends State<TxtForm> {
-  FocusNode _focus = FocusNode();
+  final FocusNode _focus = FocusNode();
   bool focused = false;
 
   @override

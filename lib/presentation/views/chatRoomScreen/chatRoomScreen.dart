@@ -5,7 +5,6 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
-import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/views/chatRoomScreen/widgets/chatUserDetail.dart';
 
 class ChatRoomScreen extends StatefulWidget {

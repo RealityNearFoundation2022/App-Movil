@@ -32,8 +32,8 @@ class _MapContainerState extends State<MapContainer>
       return (state is MenuMapaState || state is MenuInitialState)
           ? AnimatedContainer(
               duration: Duration(milliseconds: animatedDuration),
-              width: ScreenWH(context).width * (isOpen ? 0.8 : 0.2),
-              height: ScreenWH(context).height * (isOpen ? 0.5 : 0.11),
+              width: ScreenWH(context).width * (isOpen ? 0.8 : 0.1),
+              height: ScreenWH(context).height * (isOpen ? 0.5 : 0.09),
               decoration: BoxDecoration(
                   color: isOpen ? greenPrimary : Colors.transparent,
                   borderRadius: const BorderRadius.only(
@@ -43,7 +43,7 @@ class _MapContainerState extends State<MapContainer>
                 alignment: isOpen ? Alignment.topLeft : null,
                 child: Stack(
                   children: [
-                    seeContent ? MapSection() : const SizedBox(),
+                    seeContent ? const MapSection() : const SizedBox(),
                     Container(
                         alignment: Alignment.topRight,
                         padding: const EdgeInsets.all(10),
@@ -63,7 +63,7 @@ class _MapContainerState extends State<MapContainer>
                 ),
               ),
             )
-          : SizedBox();
+          : const SizedBox();
     }));
   }
 

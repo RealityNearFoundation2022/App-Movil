@@ -10,9 +10,7 @@ import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:ar_flutter_plugin/datatypes/config_planedetection.dart';
 import 'package:ar_flutter_plugin/datatypes/node_types.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
-import 'package:flutter/services.dart';
 import 'package:vector_math/vector_math_64.dart';
-import 'dart:math';
 import 'package:path_provider/path_provider.dart';
 
 class ARSection extends StatefulWidget {
@@ -81,7 +79,7 @@ class _ARSectionState extends State<ARSection> {
     bool didAddWebNode = await this.arObjectManager.addNode(newNode);
 
     //Download model to file system
-    httpClient = new HttpClient();
+    httpClient = HttpClient();
     _downloadFile(
         "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
         "LocalDuck.glb");
@@ -96,9 +94,9 @@ class _ARSectionState extends State<ARSection> {
     var response = await request.close();
     var bytes = await consolidateHttpClientResponseBytes(response);
     String dir = (await getApplicationDocumentsDirectory()).path;
-    File file = new File('$dir/$filename');
+    File file = File('$dir/$filename');
     await file.writeAsBytes(bytes);
-    print("Downloading finished, path: " + '$dir/$filename');
+    print("Downloading finished, path: " '$dir/$filename');
     return file;
   }
 
@@ -122,17 +120,17 @@ class _ARSectionState extends State<ARSection> {
   // }
 
   Future<void> onWebObjectAtOriginButtonPressed() async {
-    if (this.webObjectNode != null) {
-      this.arObjectManager.removeNode(this.webObjectNode);
-      this.webObjectNode = null;
+    if (webObjectNode != null) {
+      arObjectManager.removeNode(webObjectNode);
+      webObjectNode = null;
     } else {
       var newNode = ARNode(
           type: NodeType.webGLB,
           uri:
               "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
           scale: Vector3(0.2, 0.2, 0.2));
-      bool didAddWebNode = await this.arObjectManager.addNode(newNode);
-      this.webObjectNode = (didAddWebNode) ? newNode : null;
+      bool didAddWebNode = await arObjectManager.addNode(newNode);
+      webObjectNode = (didAddWebNode) ? newNode : null;
     }
   }
 }

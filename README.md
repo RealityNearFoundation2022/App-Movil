@@ -1,30 +1,16 @@
-# Reality Near
+# reality_near
 
-This project is a application for IOS and Android, that is part of the Reality Near project, made up of the metaverse NURUK and the web app realitynear.com.
-With this app our users will be able to interact using augmented reality with objects from the Nuruk world and special events of the organization. In addition, they will be able to have a chat with friends, check their near walet or make transfers from it, among other things.
+A new Flutter project.
 
+## Getting Started
 
-## Features
-- CleanArchitecture
-- Bloc 8
-- View near wallet status
-- Token transactions on near blockchain
-- View NFTs in wallet
-- Chat with friends
-- Different languages
-- Dark mode
-- Implementation of maps
-- Use of localization
-- AR implementation
+This project is a starting point for a Flutter application.
 
-## Screenshoots
+A few resources to get you started if this is your first Flutter project:
 
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
-import 'package:reality_near/presentation/views/FriendsScreen/widgets/friendDialog.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configurationScreen.dart';
-import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
 import 'package:sizer/sizer.dart';
 
 class MenuPrincSection extends StatelessWidget {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
-import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/views/walletScreen/widgets/tabMovesNFTs.dart';
 
 class WalletScreen extends StatefulWidget {

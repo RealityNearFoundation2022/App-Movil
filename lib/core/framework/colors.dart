@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 //User Interface and Theming
-const backgroundSoftBlue = Colors.white;
 const txtPrimary = Colors.black;
 const greenPrimary = Color.fromRGBO(51, 204, 153, 1);
 const greenPrimary2 = Color.fromRGBO(70, 183, 142, 1);

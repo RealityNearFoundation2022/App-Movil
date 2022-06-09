@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 
 class PermisosDialog extends StatefulWidget {
-  PermisosDialog({Key key}) : super(key: key);
+  const PermisosDialog({Key key}) : super(key: key);
 
   @override
   State<PermisosDialog> createState() => _PermisosDialogState();

@@ -13,8 +13,8 @@ class LocationProvider with ChangeNotifier {
   BitmapDescriptor _pinPlaceIcon;
   Map<MarkerId, Marker> _markers;
   Map<MarkerId, Marker> get markers => _markers;
-  final MarkerId markerLocationId = MarkerId("location");
-  final MarkerId markerPlaceId = MarkerId("place");
+  final MarkerId markerLocationId = const MarkerId("location");
+  final MarkerId markerPlaceId = const MarkerId("place");
 
   GoogleMapController _mapController;
   GoogleMapController get mapController => _mapController;
@@ -33,7 +33,7 @@ class LocationProvider with ChangeNotifier {
   bool locationServiceActive = true;
 
   LocationProvider() {
-    _location = new Location();
+    _location = Location();
     _markers = <MarkerId, Marker>{};
   }
 
@@ -82,13 +82,13 @@ class LocationProvider with ChangeNotifier {
             icon: pinLocationIcon);
         Marker marker2 = Marker(
             markerId: markerPlaceId,
-            position: LatLng(-12.13188463912557, -77.03051894903845),
+            position: const LatLng(-12.13188463912557, -77.03051894903845),
             icon: pinPlaceIcon,
             onTap: () {
               showDialog(
                 context: context,
                 builder: (dialogContext) {
-                  return PlaceDialog();
+                  return const PlaceDialog();
                 },
               );
             });
@@ -118,9 +118,9 @@ class LocationProvider with ChangeNotifier {
   }
 
   setCustomMapPin() async {
-    _pinLocationIcon = await BitmapDescriptor.fromBytes(
+    _pinLocationIcon = BitmapDescriptor.fromBytes(
         await getBytesFromAsset('assets/imgs/person_map.png', 120));
-    _pinPlaceIcon = await BitmapDescriptor.fromBytes(
+    _pinPlaceIcon = BitmapDescriptor.fromBytes(
         await getBytesFromAsset('assets/imgs/place_map.png', 140));
   }
 

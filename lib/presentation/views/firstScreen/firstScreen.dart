@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
-import 'package:reality_near/core/framework/globals.dart';
 import 'package:flutter/gestures.dart';
+import 'package:reality_near/presentation/views/register/registerScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../core/helper/url_constants.dart';
 import '../login/login.dart';
@@ -148,28 +147,32 @@ class _FirstScreenState extends State<FirstScreen> {
             ),
 
             //Register Text
-            Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: RichText(
-                  text: TextSpan(
-                      text: '¿No tienes una cuenta? ',
-                      style: GoogleFonts.sourceSansPro(
-                        fontSize: 16,
-                        color: Colors.grey[400],
-                      ),
-                      children: [
-                    TextSpan(
-                      text: 'Registrate',
-                      style: GoogleFonts.sourceSansPro(
+            GestureDetector(
+              onTap: (() =>
+                  Navigator.pushNamed(context, RegisterScreen.routeName)),
+              child: Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                child: RichText(
+                    text: TextSpan(
+                        text: '¿No tienes una cuenta? ',
+                        style: GoogleFonts.sourceSansPro(
                           fontSize: 16,
                           color: Colors.grey[400],
-                          fontWeight: FontWeight.w600),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => launchUrlString(REGISTER_NEAR_WALLET,
-                            mode: LaunchMode.externalApplication),
-                    ),
-                  ])),
+                        ),
+                        children: [
+                      TextSpan(
+                        text: 'Registrate',
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: 16,
+                            color: Colors.grey[400],
+                            fontWeight: FontWeight.w600),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => launchUrlString(REGISTER_NEAR_WALLET,
+                              mode: LaunchMode.externalApplication),
+                      ),
+                    ])),
+              ),
             ),
           ]),
     );

@@ -98,7 +98,7 @@ class _FriendScreenState extends State<FriendScreen> {
       itemCount: 1,
       itemBuilder: (context, index) {
         return ChatCard(
-          photo: "https://source.unsplash.com/random/200x200?sig=${index}",
+          photo: "https://source.unsplash.com/random/200x200?sig=$index",
           name: "Juan Perez",
           message:
               "Habla Juan, estaba jugando un rato por larcomar y no creeras lo que hay por aquí",
@@ -119,12 +119,12 @@ class _FriendScreenState extends State<FriendScreen> {
                   arguments: {
                     'name': getRandomName(),
                     'photo':
-                        "https://source.unsplash.com/random/200x200?sig=${index}",
+                        "https://source.unsplash.com/random/200x200?sig=$index",
                     'empty': true
                   });
             },
             child: personCircle(
-                "https://source.unsplash.com/random/200x200?sig=${index}",
+                "https://source.unsplash.com/random/200x200?sig=$index",
                 getRandomName()),
           );
         });

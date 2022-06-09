@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/widgets/permisosDialog.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
@@ -56,7 +54,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                 showDialog(
                     context: context,
                     builder: (dialogContext) {
-                      return PermisosDialog();
+                      return const PermisosDialog();
                     });
               }),
               child:
@@ -93,7 +91,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
     return Sizer(builder: (context, orientation, deviceType) {
       return Align(
         alignment: Alignment.centerRight,
-        child: Container(
+        child: SizedBox(
           width: ScreenWH(context).width * 0.4,
           child: Theme(
             data: ThemeData().copyWith(dividerColor: Colors.transparent),

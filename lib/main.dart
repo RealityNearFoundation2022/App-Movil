@@ -19,7 +19,7 @@ void main() {
       .then((_) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     guideIsviewed = prefs.getBool('Guide');
-    runApp(new MyApp());
+    runApp(const MyApp());
   });
 }
 
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (context) => LocationProvider(),
-            child: MapSection(),
+            child: const MapSection(),
           ),
         ],
         child: MaterialApp(
@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
           ),
           initialRoute:
               guideIsviewed ? FirstScreen.routeName : HomeScreen.routeName,
+          // FirstScreen.routeName,
           routes: routes,
         ),
       ),

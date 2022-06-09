@@ -82,7 +82,7 @@ class FriendsSolicitudesDialog extends StatelessWidget {
       ),
       title: Text(getRandomName()),
       subtitle:
-          Text("Cancelar Solicitud", style: TextStyle(color: greenPrimary)),
+          const Text("Cancelar Solicitud", style: TextStyle(color: greenPrimary)),
     );
   }
 

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
-import 'package:reality_near/presentation/views/bugScreen/bugScreen.dart';
-import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
 import 'package:reality_near/presentation/views/menuScreen/widgets/menuPrincSection.dart';
 
 class MenuContainer extends StatefulWidget {
@@ -44,8 +41,8 @@ class _MenuContainerState extends State<MenuContainer>
                   seeContent = isOpen;
                 });
               },
-              width: ScreenWH(context).width * (isOpen ? 0.5 : 0.2),
-              height: ScreenWH(context).height * (isOpen ? 0.45 : 0.11),
+              width: ScreenWH(context).width * (isOpen ? 0.5 : 0.15),
+              height: ScreenWH(context).height * (isOpen ? 0.45 : 0.09),
               decoration: BoxDecoration(
                   color: isOpen ? backgroundWhite : Colors.transparent,
                   borderRadius: const BorderRadius.only(

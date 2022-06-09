@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 
 class PlaceDialog extends StatefulWidget {
-  PlaceDialog({Key key}) : super(key: key);
+  const PlaceDialog({Key key}) : super(key: key);
 
   @override
   State<PlaceDialog> createState() => _PermisosDialogState();

@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
-import 'package:reality_near/presentation/widgets/dialogs/errorAlertDialog.dart';
 
 class ButtonWithStates extends StatefulWidget {
   final String text;
