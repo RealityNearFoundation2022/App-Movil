@@ -1,16 +1,30 @@
-# reality_near
+# Reality Near
 
-A new Flutter project.
+This project is a application for IOS and Android, that is part of the Reality Near project, made up of the metaverse NURUK and the web app realitynear.com.
+With this app our users will be able to interact using augmented reality with objects from the Nuruk world and special events of the organization. In addition, they will be able to have a chat with friends, check their near walet or make transfers from it, among other things.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Features
+- CleanArchitecture
+- Bloc 8
+- View near wallet status
+- Token transactions on near blockchain
+- View NFTs in wallet
+- Chat with friends
+- Different languages
+- Dark mode
+- Implementation of maps
+- Use of localization
+- AR implementation
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshoots
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+<img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/homeScreen.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/Map.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/walltet%20NFT.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/FriendsChat.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/Chat.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/AR.jpeg" alt="drawing" width="200"/> 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
