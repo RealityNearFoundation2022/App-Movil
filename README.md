@@ -16,6 +16,7 @@ With this app our users will be able to interact using augmented reality with ob
 - Implementation of maps
 - Use of localization
 - AR implementation
+- internationalization
 
 ## Screenshoots
 
