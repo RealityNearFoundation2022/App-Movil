@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/widgets/friendChat.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/widgets/friendDialog.dart';
 import 'package:reality_near/presentation/views/chatRoomScreen/chatRoomScreen.dart';
@@ -29,7 +30,7 @@ class _FriendScreenState extends State<FriendScreen> {
             margin: const EdgeInsets.only(right: 10),
             alignment: Alignment.centerRight,
             child: Text(
-              "Amigos",
+              S.current.Amigos,
               style: GoogleFonts.sourceSansPro(
                 fontSize: 35,
                 fontWeight: FontWeight.bold,
@@ -80,7 +81,8 @@ class _FriendScreenState extends State<FriendScreen> {
         children: [
           Expanded(
             child: Searchbar(
-                placeholder: 'Buscar chat ...', controller: _searchController),
+                placeholder: S.current.BuscarChat,
+                controller: _searchController),
           ),
           const SizedBox(width: 20),
           circularbtn(() {

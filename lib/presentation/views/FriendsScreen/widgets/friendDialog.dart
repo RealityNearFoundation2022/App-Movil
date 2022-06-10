@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
 
 class FriendsSolicitudesDialog extends StatelessWidget {
@@ -21,12 +24,12 @@ class FriendsSolicitudesDialog extends StatelessWidget {
           length: 2,
           child: Column(
             children: [
-              const TabBar(tabs: [
+              TabBar(tabs: [
                 Tab(
-                  text: "Pendientes",
+                  text: S.current.Pendientes,
                 ),
                 Tab(
-                  text: "Solicitudes",
+                  text: S.current.Solicitudes,
                 ),
               ]),
               Expanded(
@@ -35,7 +38,7 @@ class FriendsSolicitudesDialog extends StatelessWidget {
                     children: [
                       const SizedBox(height: 10),
                       Searchbar(
-                          placeholder: 'Buscar usuario ...',
+                          placeholder: S.current.BuscarUsuario,
                           controller: searchUserController),
                       Expanded(
                         child: ListView.builder(
@@ -51,7 +54,7 @@ class FriendsSolicitudesDialog extends StatelessWidget {
                     children: [
                       const SizedBox(height: 10),
                       Searchbar(
-                          placeholder: 'Buscar usuario ...',
+                          placeholder: S.current.BuscarUsuario,
                           controller: searchUserController),
                       const SizedBox(height: 10),
                       Expanded(
@@ -81,8 +84,8 @@ class FriendsSolicitudesDialog extends StatelessWidget {
         ),
       ),
       title: Text(getRandomName()),
-      subtitle:
-          const Text("Cancelar Solicitud", style: TextStyle(color: greenPrimary)),
+      subtitle: Text(S.current.CancelarSolicitud,
+          style: const TextStyle(color: greenPrimary)),
     );
   }
 
@@ -97,17 +100,20 @@ class FriendsSolicitudesDialog extends StatelessWidget {
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text("07 amigos en común",
-              style: TextStyle(color: Colors.black26)),
+          Text(
+            S.current.amigosEnComun(Random().nextInt(50)),
+          ),
           Row(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(3.0),
-                child: btnsolicitud('Aceptar', () {}, context, greenPrimary2),
+                child: btnsolicitud(
+                    S.current.Aceptar, () {}, context, greenPrimary2),
               ),
               Padding(
                 padding: const EdgeInsets.all(3.0),
-                child: btnsolicitud('Rechazar', () {}, context, Colors.black26),
+                child: btnsolicitud(
+                    S.current.Rechazar, () {}, context, Colors.black26),
               ),
             ],
           )

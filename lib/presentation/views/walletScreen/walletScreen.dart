@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/walletScreen/widgets/tabMovesNFTs.dart';
 
 class WalletScreen extends StatefulWidget {
@@ -23,7 +25,7 @@ class _WalletScreenState extends State<WalletScreen> {
           margin: const EdgeInsets.only(right: 10),
           alignment: Alignment.centerRight,
           child: Text(
-            "Wallet",
+            S.current.Wallet,
             style: GoogleFonts.sourceSansPro(
               fontSize: 30,
               fontWeight: FontWeight.bold,
@@ -44,29 +46,57 @@ class _WalletScreenState extends State<WalletScreen> {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                "0.00",
-                style: GoogleFonts.sourceSansPro(
-                  fontSize: 70,
-                  fontWeight: FontWeight.bold,
-                  color: greenPrimary2,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const CircleAvatar(
+                  backgroundImage: AssetImage("assets/iconLogo.png"),
+                  radius: 20,
                 ),
-              ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  alignment: Alignment.center,
+                  child: Text(
+                    "1452.64451",
+                    style: GoogleFonts.sourceSansPro(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: greenPrimary2,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              "Realities",
-              style: GoogleFonts.sourceSansPro(
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-                color: greenPrimary2,
-              ),
+            const SizedBox(height: 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Buttons(S.current.Transferir, greenPrimary, context),
+                Buttons(S.current.Recibir, Colors.black45, context),
+              ],
             ),
             TabMovesNFTs()
           ],
         ),
       ),
+    );
+  }
+
+  Widget Buttons(String text, Color color, BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 7),
+      width: ScreenWH(context).width * 0.4,
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(30), color: color),
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Center(
+          child: Text(text,
+              style: GoogleFonts.sourceSansPro(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600))),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
 
 class TabMovesNFTs extends StatelessWidget {
@@ -29,7 +30,7 @@ class TabMovesNFTs extends StatelessWidget {
                   tabs: [
                     Tab(
                       child: Text(
-                        "Movimientos",
+                        S.current.Movimientos,
                         style: GoogleFonts.sourceSansPro(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -55,7 +56,7 @@ class TabMovesNFTs extends StatelessWidget {
                         children: [
                           const SizedBox(height: 10),
                           Searchbar(
-                              placeholder: 'Buscar movimientos ...',
+                              placeholder: S.current.BuscarMovimientos,
                               controller: searchMovesController),
                           Expanded(
                             child: ListView.builder(
@@ -78,7 +79,7 @@ class TabMovesNFTs extends StatelessWidget {
                         children: [
                           const SizedBox(height: 10),
                           Searchbar(
-                              placeholder: 'Buscar NFTs ...',
+                              placeholder: S.current.BuscarNFTs,
                               controller: searchNFTController),
                           const SizedBox(height: 10),
                           Expanded(

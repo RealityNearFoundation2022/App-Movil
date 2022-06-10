@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/login/widgets/button_with_states.dart';
 import 'package:reality_near/presentation/widgets/dialogs/errorAlertDialog.dart';
@@ -29,25 +30,25 @@ class Login extends StatelessWidget {
       inputType: InputType.Default,
       txtColor: txtPrimary,
       prefixIcon: const Icon(Icons.account_balance_wallet),
-      errorMessage: 'Wallet obligatoria',
+      errorMessage: S.current.WalletOblig,
     );
 //text-Form-EMAIL
     TxtForm _txtFormEmail = TxtForm(
-      placeholder: "Email",
+      placeholder: S.current.Email,
       controller: _emailController,
       inputType: InputType.Email,
       txtColor: txtPrimary,
       prefixIcon: const Icon(Icons.mail),
-      errorMessage: 'Email obligatorio',
+      errorMessage: S.current.EmailOblig,
     );
 //text-Form-Password
     TxtForm _txtFormPassword = TxtForm(
-      placeholder: "Password",
+      placeholder: S.current.Password,
       controller: _passwordController,
       inputType: InputType.Password,
       txtColor: txtPrimary,
       prefixIcon: const Icon(Icons.lock),
-      errorMessage: 'Password obligatorio',
+      errorMessage: S.current.PasswordOblig,
     );
 
     return BlocListener<UserBloc, UserState>(
@@ -58,9 +59,8 @@ class Login extends StatelessWidget {
                 // barrierDismissible: false,
                 context: context,
                 builder: (dialogContext) {
-                  return const ErrorAlertDialog(
-                    errorMessage:
-                        'No se pudo Iniciar sesión con esta wallet, prueba de nuevo',
+                  return ErrorAlertDialog(
+                    errorMessage: S.current.failLogin,
                   );
                 });
           } else {
@@ -101,7 +101,7 @@ class Login extends StatelessWidget {
                   child: BlocBuilder<UserBloc, UserState>(
                     builder: ((context, state) {
                       return ButtonWithStates(
-                          text: 'Ingresar',
+                          text: S.current.Ingresar,
                           press: () {
                             //creamos un evento en el bloc
                             BlocProvider.of<UserBloc>(context, listen: false)
@@ -123,7 +123,7 @@ class Login extends StatelessWidget {
         Container(
             alignment: Alignment.center,
             margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text('Ingresa tu Near Wallet',
+            child: Text(S.current.enterWallet,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.sourceSansPro(
                     fontSize: 26,

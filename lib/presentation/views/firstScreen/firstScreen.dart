@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:flutter/gestures.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/register/registerScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -55,7 +56,7 @@ class _FirstScreenState extends State<FirstScreen> {
                     decoration: BoxDecoration(
                         color: greenPrimary2,
                         borderRadius: BorderRadius.circular(30)),
-                    child: Text('Ingresa con tu Wallet',
+                    child: Text(S.current.btnLogWallet,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.sourceSansPro(
                             fontSize: 20,
@@ -70,14 +71,14 @@ class _FirstScreenState extends State<FirstScreen> {
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: RichText(
                   text: TextSpan(
-                      text: '¿No tienes una? ',
+                      text: S.current.noTienesUna,
                       style: GoogleFonts.sourceSansPro(
                         fontSize: 16,
                         color: Colors.grey[400],
                       ),
                       children: [
                     TextSpan(
-                      text: 'Crea una',
+                      text: S.current.CreaUna,
                       style: GoogleFonts.sourceSansPro(
                           fontSize: 16,
                           color: Colors.grey[400],
@@ -105,7 +106,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
-                      'O',
+                      S.current.O,
                       style: GoogleFonts.sourceSansPro(
                           fontSize: 16,
                           color: Colors.grey[400],
@@ -136,7 +137,7 @@ class _FirstScreenState extends State<FirstScreen> {
                     decoration: BoxDecoration(
                         color: Colors.grey[700],
                         borderRadius: BorderRadius.circular(30)),
-                    child: Text('Ingresa con tu Correo',
+                    child: Text(S.current.btnLogEmail,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.sourceSansPro(
                             fontSize: 20,
@@ -151,28 +152,15 @@ class _FirstScreenState extends State<FirstScreen> {
               onTap: (() =>
                   Navigator.pushNamed(context, RegisterScreen.routeName)),
               child: Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: RichText(
-                    text: TextSpan(
-                        text: '¿No tienes una cuenta? ',
-                        style: GoogleFonts.sourceSansPro(
-                          fontSize: 16,
-                          color: Colors.grey[400],
-                        ),
-                        children: [
-                      TextSpan(
-                        text: 'Registrate',
-                        style: GoogleFonts.sourceSansPro(
-                            fontSize: 16,
-                            color: Colors.grey[400],
-                            fontWeight: FontWeight.w600),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () => launchUrlString(REGISTER_NEAR_WALLET,
-                              mode: LaunchMode.externalApplication),
-                      ),
-                    ])),
-              ),
+                  alignment: Alignment.center,
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    S.current.Registrate,
+                    style: GoogleFonts.sourceSansPro(
+                      fontSize: 16,
+                      color: Colors.grey[400],
+                    ),
+                  )),
             ),
           ]),
     );

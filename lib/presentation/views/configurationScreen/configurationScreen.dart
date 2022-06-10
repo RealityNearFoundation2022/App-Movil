@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/widgets/permisosDialog.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
@@ -30,7 +31,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
           margin: const EdgeInsets.only(right: 10),
           alignment: Alignment.centerRight,
           child: Text(
-            "Configuración",
+            S.current.Configuracion,
             style: GoogleFonts.sourceSansPro(
               fontSize: 30,
               fontWeight: FontWeight.bold,
@@ -57,14 +58,14 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                       return const PermisosDialog();
                     });
               }),
-              child:
-                  textAndIcon('Permisos', Icons.keyboard_arrow_right_rounded)),
+              child: textAndIcon(
+                  S.current.Permisos, Icons.keyboard_arrow_right_rounded)),
           GestureDetector(
             onTap: () {
               Navigator.of(context).pushNamed(InfoScreen.routeName);
             },
-            child:
-                textAndIcon('Información', Icons.keyboard_arrow_right_rounded),
+            child: textAndIcon(
+                S.current.Informacion, Icons.keyboard_arrow_right_rounded),
           ),
           Expanded(
             child: Container(
@@ -74,7 +75,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                 right: 25,
               ),
               child: const Text(
-                'Cerrar Sesión',
+                'Logout',
                 style: TextStyle(
                     color: greenPrimary2,
                     fontWeight: FontWeight.w400,
@@ -112,7 +113,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
               ),
               childrenPadding: const EdgeInsets.only(right: 15),
               title: Text(
-                "Cuenta",
+                S.current.Cuenta,
                 style: GoogleFonts.sourceSansPro(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
@@ -124,15 +125,15 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                     onTap: () {
                       Navigator.of(context).pushNamed(userScreen.routeName);
                     },
-                    child: txtSubMenu('Usuario')),
+                    child: txtSubMenu(S.current.Usuario)),
                 GestureDetector(
                     onTap: () =>
                         Navigator.pushNamed(context, WalletScreen.routeName),
-                    child: txtSubMenu('Wallet')),
+                    child: txtSubMenu(S.current.Wallet)),
                 GestureDetector(
                     onTap: () =>
                         Navigator.pushNamed(context, FriendScreen.routeName),
-                    child: txtSubMenu('Amigos'))
+                    child: txtSubMenu(S.current.Amigos))
               ],
             ),
           ),

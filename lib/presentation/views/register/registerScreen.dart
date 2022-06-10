@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/login/widgets/button_with_states.dart';
 import 'package:reality_near/presentation/widgets/forms/textForm.dart';
 
@@ -16,30 +17,30 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 //text-Form-EMAIL
     TxtForm _txtFormEmail = TxtForm(
-      placeholder: "Email",
+      placeholder: S.current.Email,
       controller: _emailController,
       inputType: InputType.Email,
       txtColor: txtPrimary,
       prefixIcon: const Icon(Icons.mail),
-      errorMessage: 'Email obligatorio',
+      errorMessage: S.current.EmailOblig,
     );
 //text-Form-Password
     TxtForm _txtFormPassword = TxtForm(
-      placeholder: "Password",
+      placeholder: S.current.Password,
       controller: _passwordController,
       inputType: InputType.Password,
       txtColor: txtPrimary,
       prefixIcon: const Icon(Icons.lock),
-      errorMessage: 'Password obligatorio',
+      errorMessage: S.current.PasswordOblig,
     );
 //text-Form-Password-Confirm
     TxtForm _txtFormPasswordConf = TxtForm(
-      placeholder: "Password Confirm",
+      placeholder: S.current.PasswordConf,
       controller: _passwordConfController,
       inputType: InputType.Password,
       txtColor: txtPrimary,
       prefixIcon: const Icon(Icons.lock),
-      errorMessage: 'Password obligatorio',
+      errorMessage: S.current.PasswordOblig,
     );
 
     return Scaffold(
@@ -82,7 +83,7 @@ class RegisterScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: ButtonWithStates(
-                    text: 'Registrate',
+                    text: S.current.Registrate,
                     press: () {
                       //creamos un evento en el bloc
                     }),

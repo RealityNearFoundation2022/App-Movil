@@ -127,10 +127,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
         ),
       ),
       body: Chat(
-        theme: const DefaultChatTheme(
+        theme: DefaultChatTheme(
           inputBackgroundColor: greenPrimary,
           primaryColor: greenPrimary3,
           inputTextCursorColor: Colors.white,
+          backgroundColor: Theme.of(context).backgroundColor,
         ),
         messages: _messages,
         onPreviewDataFetched: _handlePreviewDataFetched,
@@ -149,7 +150,6 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               style: GoogleFonts.sourceSansPro(
                 fontSize: 25,
                 fontWeight: FontWeight.w600,
-                color: Colors.black,
               ),
             ),
             Text(
@@ -157,7 +157,6 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               style: GoogleFonts.sourceSansPro(
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
-                color: Colors.black,
               ),
             ),
           ],

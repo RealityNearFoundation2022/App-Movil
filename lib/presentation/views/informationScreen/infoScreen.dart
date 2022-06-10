@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/bugScreen/bugScreen.dart';
 import 'package:sizer/sizer.dart';
 
@@ -19,7 +20,7 @@ class InfoScreen extends StatelessWidget {
           margin: const EdgeInsets.only(right: 10),
           alignment: Alignment.centerRight,
           child: Text(
-            "Información",
+            S.current.Informacion,
             style: GoogleFonts.sourceSansPro(
               fontSize: 30,
               fontWeight: FontWeight.bold,
@@ -46,11 +47,11 @@ class InfoScreen extends StatelessWidget {
                 Navigator.of(context).pushNamed(BugScreen.routeName);
               }),
               child: textAndIcon(
-                  'Reporte de Fallos', Icons.keyboard_arrow_right_rounded)),
-          textAndIcon(
-              'Política de privacidad', Icons.keyboard_arrow_right_rounded),
-          textAndIcon(
-              'Términos y condiciones', Icons.keyboard_arrow_right_rounded),
+                  S.current.ReporteFallos, Icons.keyboard_arrow_right_rounded)),
+          textAndIcon(S.current.PoliticaDePrivacidad,
+              Icons.keyboard_arrow_right_rounded),
+          textAndIcon(S.current.TerminosyCondiciones,
+              Icons.keyboard_arrow_right_rounded),
         ],
       ),
     );

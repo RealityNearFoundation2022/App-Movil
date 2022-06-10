@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configurationScreen.dart';
 import 'package:sizer/sizer.dart';
@@ -59,7 +60,7 @@ class MenuPrincSection extends StatelessWidget {
             Navigator.pushNamed(context, FriendScreen.routeName);
           },
           child: Text(
-            'Amigos',
+            S.current.Amigos,
             style: GoogleFonts.sourceSansPro(
                 fontSize: 30.sp,
                 color: Colors.black38,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/generated/l10n.dart';
 
 class chatUserDetail extends StatelessWidget {
   //Variables
@@ -23,7 +24,7 @@ class chatUserDetail extends StatelessWidget {
           margin: const EdgeInsets.only(right: 10),
           alignment: Alignment.centerRight,
           child: Text(
-            "Info. del contacto",
+            S.current.InfoDelContacto,
             style: GoogleFonts.sourceSansPro(
               fontSize: 35,
               fontWeight: FontWeight.bold,
@@ -77,7 +78,7 @@ class chatUserDetail extends StatelessWidget {
       ),
       alignment: Alignment.centerLeft,
       child: Text(
-        state ? "Disponible" : "Desconectado",
+        state ? S.current.Disponible : S.current.Desconectado,
         textAlign: TextAlign.center,
         style: GoogleFonts.sourceSansPro(
           fontSize: 20,
@@ -103,7 +104,7 @@ class chatUserDetail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Vaciar Chat",
+            S.current.VaciarChat,
             style: GoogleFonts.sourceSansPro(
               fontSize: 20,
               fontWeight: FontWeight.w600,
@@ -111,7 +112,7 @@ class chatUserDetail extends StatelessWidget {
             ),
           ),
           Text(
-            "Bloquear",
+            S.current.Bloquear,
             style: GoogleFonts.sourceSansPro(
               fontSize: 20,
               fontWeight: FontWeight.w600,
@@ -119,7 +120,7 @@ class chatUserDetail extends StatelessWidget {
             ),
           ),
           Text(
-            "Reportar",
+            S.current.Reportar,
             style: GoogleFonts.sourceSansPro(
               fontSize: 20,
               fontWeight: FontWeight.w600,

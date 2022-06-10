@@ -21,7 +21,6 @@ class _SearchbarState extends State<Searchbar> {
         controller: widget.controller,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
-          fillColor: Colors.black12,
           filled: true,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
@@ -32,7 +31,6 @@ class _SearchbarState extends State<Searchbar> {
           hintStyle: GoogleFonts.sourceSansPro(
             fontSize: 15,
             fontWeight: FontWeight.bold,
-            color: Colors.black38,
           ),
           prefixIcon: const Icon(Icons.search),
         ),

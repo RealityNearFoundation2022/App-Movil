@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/providers/location_provider.dart';
@@ -44,12 +46,29 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Reality Near',
+          //Tema Principal, se usa cuando no está activo el modo oscuro
           theme: ThemeData(
+            //Se indica que el tema tiene un brillo luminoso/claro
+            brightness: Brightness.light,
             primarySwatch: Palette.kgreenNR,
           ),
+          //Tema Oscuro, se usa cuando se activa el modo oscuro
+          darkTheme: ThemeData(
+            //Se indica que el tema tiene un brillo oscuro
+            brightness: Brightness.dark,
+            scaffoldBackgroundColor: Colors.black,
+            backgroundColor: Colors.black,
+            primarySwatch: Palette.kgreenNR,
+          ),
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
           initialRoute:
               guideIsviewed ? FirstScreen.routeName : HomeScreen.routeName,
-          // FirstScreen.routeName,
           routes: routes,
         ),
       ),

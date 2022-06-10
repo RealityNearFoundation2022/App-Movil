@@ -470,6 +470,10 @@ flutter
 2.12
 file:///C:/tools/flutter/packages/flutter/
 file:///C:/tools/flutter/packages/flutter/lib/
+flutter_localizations
+2.12
+file:///C:/tools/flutter/packages/flutter_localizations/
+file:///C:/tools/flutter/packages/flutter_localizations/lib/
 flutter_test
 2.12
 file:///C:/tools/flutter/packages/flutter_test/

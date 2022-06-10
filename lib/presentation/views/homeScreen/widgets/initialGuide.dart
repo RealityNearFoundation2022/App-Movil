@@ -3,6 +3,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/homeScreen/homeScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -97,7 +98,11 @@ class _initialGuideState extends State<initialGuide> {
                       ]),
                 )
               : const SizedBox(),
-          centerContainer('Camara', loremIpsum)
+          widget.index == 1
+              ? centerContainer(S.current.Map, loremIpsum)
+              : widget.index == 2
+                  ? centerContainer(S.current.Menu, loremIpsum)
+                  : centerContainer(S.current.Camara, loremIpsum),
         ],
       ),
     );
@@ -161,7 +166,7 @@ class _initialGuideState extends State<initialGuide> {
                             _storeOnboardInfo();
                           },
                           child: Text(
-                            "OMITIR",
+                            S.current.Omitir,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.sourceSansPro(
                                 fontSize: 16,
@@ -194,7 +199,7 @@ class _initialGuideState extends State<initialGuide> {
                                   };
                           },
                           child: Text(
-                            "SIGUIENTE",
+                            S.current.Siguiente,
                             textAlign: TextAlign.center,
                             style: GoogleFonts.sourceSansPro(
                                 fontSize: 16,

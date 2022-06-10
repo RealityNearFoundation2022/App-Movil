@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:sizer/sizer.dart';
 
 class BugScreen extends StatefulWidget {
@@ -28,7 +29,7 @@ class _BugScreenState extends State<BugScreen> {
           margin: const EdgeInsets.only(right: 10),
           alignment: Alignment.centerRight,
           child: Text(
-            "Reporte de Fallos",
+            S.current.ReporteFallos,
             style: GoogleFonts.sourceSansPro(
               fontSize: 30,
               fontWeight: FontWeight.bold,
@@ -51,11 +52,10 @@ class _BugScreenState extends State<BugScreen> {
               const SizedBox(
                 height: 30,
               ),
-              otroBug(context, 'Fallo de Censura',
-                  'Filtración de contenido sensible', 0),
-              otroBug(context, 'Cámara A/R',
-                  'Fallo relacionado con la funcion de realidad aumentada', 1),
-              otroBug(context, 'Otro', 'Describe el fallo', 2),
+              otroBug(context, S.current.FalloCensura,
+                  S.current.FiltracionContenidoSensible, 0),
+              otroBug(context, S.current.CamaraAR, S.current.FalloAR, 1),
+              otroBug(context, S.current.Otro, S.current.DescribeFallo, 2),
             ],
           ),
         );
@@ -144,13 +144,13 @@ class _BugScreenState extends State<BugScreen> {
                   borderRadius: BorderRadius.circular(30),
                   borderSide: const BorderSide(color: Colors.white),
                 ),
-                hintText: '¿Qué deseas que mejoremos?'),
+                hintText: S.current.QueDeseasQueMejoremos),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: Text(
-                'Adjuntar foto',
+                S.current.AdjuntarFoto,
                 style: GoogleFonts.sourceSansPro(
                     color: Colors.white,
                     fontSize: 13.sp,
@@ -178,7 +178,7 @@ class _BugScreenState extends State<BugScreen> {
               ),
               onPressed: () {},
               child: Text(
-                'Enviar',
+                S.current.Enviar,
                 style: GoogleFonts.sourceSansPro(
                     color: Colors.white,
                     fontSize: 13.sp,

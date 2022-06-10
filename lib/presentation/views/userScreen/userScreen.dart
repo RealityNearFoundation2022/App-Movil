@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/bugScreen/bugScreen.dart';
 import 'package:sizer/sizer.dart';
 
@@ -19,7 +20,7 @@ class userScreen extends StatelessWidget {
           margin: const EdgeInsets.only(right: 10),
           alignment: Alignment.centerRight,
           child: Text(
-            "Usuario",
+            S.current.Usuario,
             style: GoogleFonts.sourceSansPro(
               fontSize: 30,
               fontWeight: FontWeight.bold,
@@ -55,13 +56,13 @@ class userScreen extends StatelessWidget {
               }),
               child: textAndIcon('Nickname')),
           textAndIcon('Avatar'),
-          textAndIcon('Vincular e-mail'),
+          textAndIcon(S.current.VincularEmail),
           Expanded(
               child: Container(
             alignment: Alignment.bottomRight,
             margin: const EdgeInsets.only(bottom: 30, right: 20),
             child: Text(
-              "Cerrar sesión",
+              'Logout',
               style: GoogleFonts.sourceCodePro(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,

@@ -5,7 +5,7 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/views/AR/arview.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/initialGuide.dart';
-import 'package:reality_near/presentation/views/homeScreen/widgets/noARSection.dart';
+import 'package:reality_near/presentation/views/noAR/noARSection.dart';
 import 'package:reality_near/presentation/views/mapScreen/mapScreen.dart';
 import 'package:reality_near/presentation/views/menuScreen/menuScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';

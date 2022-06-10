@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/generated/l10n.dart';
 
 class PermisosDialog extends StatefulWidget {
   const PermisosDialog({Key key}) : super(key: key);
@@ -23,26 +24,26 @@ class _PermisosDialogState extends State<PermisosDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      child: SizedBox(
-        height: 300,
+      child: FittedBox(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Permisos',
+                S.current.Permisos,
                 style: GoogleFonts.sourceSansPro(
                     fontWeight: FontWeight.bold,
                     fontSize: 35,
                     color: Colors.black54),
               ),
-              permision('Mostrar avatar en mapa', 0),
-              permision('Cámara', 1),
-              permision('Microfono', 2),
-              permision('Ubicación', 3),
-              permision('Notificaciones', 4)
+              const SizedBox(height: 15),
+              permision(S.current.MostrarAvatarMapa, 0),
+              permision(S.current.Camara, 1),
+              permision(S.current.Microfono, 2),
+              permision(S.current.Ubicacion, 3),
+              permision(S.current.Notificaciones, 4)
             ],
           ),
         ),
@@ -63,7 +64,7 @@ class _PermisosDialogState extends State<PermisosDialog> {
               text,
               style: GoogleFonts.sourceSansPro(
                   fontWeight: FontWeight.w500,
-                  fontSize: 24,
+                  fontSize: 20,
                   color: Colors.black38),
             ),
           ),

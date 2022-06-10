@@ -188,6 +188,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_localizations",
+      "rootUri": "file:///C:/tools/flutter/packages/flutter_localizations",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_native_splash",
       "rootUri": "file:///C:/tools/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_native_splash-2.1.6",
       "packageUri": "lib/",
@@ -722,7 +728,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2022-06-09T16:15:26.685838Z",
+  "generated": "2022-06-09T23:29:58.992554Z",
   "generator": "pub",
   "generatorVersion": "2.16.2"
 }
