@@ -1,6 +1,6 @@
 # Reality Near
 
-This project is a application for IOS and Android, that is part of the Reality Near project, made up of the metaverse NURUK and the web app realitynear.com.
+This project is a application for IOS and Android, that is part of the Reality Near project, made up of the metaverse NURUK and the web app realitynear.
 With this app our users will be able to interact using augmented reality with objects from the Nuruk world and special events of the organization. In addition, they will be able to have a chat with friends, check their near walet or make transfers from it, among other things.
 
 
