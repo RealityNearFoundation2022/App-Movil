@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/details_page.dart';
 
 class EventWidget extends StatelessWidget {
@@ -118,24 +117,24 @@ class EventWidget extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: height * 0.01,
-              ),
-              child: SizedBox(
-                width: width,
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.poppins(
-                    color: greenPrimary2,
-                    fontSize: width * 0.075,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.only(
+            //     top: height * 0.01,
+            //   ),
+            //   child: SizedBox(
+            //     width: width,
+            //     child: Text(
+            //       title,
+            //       textAlign: TextAlign.center,
+            //       overflow: TextOverflow.ellipsis,
+            //       style: GoogleFonts.poppins(
+            //         color: greenPrimary2,
+            //         fontSize: width * 0.075,
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

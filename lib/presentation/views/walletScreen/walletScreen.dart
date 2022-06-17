@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:near_flutter/near_flutter.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
@@ -15,6 +16,64 @@ class WalletScreen extends StatefulWidget {
 }
 
 class _WalletScreenState extends State<WalletScreen> {
+  final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _accountController = TextEditingController();
+  showAlertDialog(BuildContext context, List data) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () async {
+        var endUrl = await RestApiProvider().transferRestApiProvider(
+            'eduperaltas98.testnet',
+            _accountController.text,
+            _amountController.text);
+        String urlToLaunch = endUrl.toString();
+        if (urlToLaunch.contains('https')) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => NearUrlLauncher(initialUrl: urlToLaunch)));
+        }
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text('${data[0]} ${data[1]}'),
+      content: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            TextField(
+              controller: _amountController,
+              decoration: const InputDecoration(
+                labelText: 'Amount',
+                hintText: 'Enter Amount',
+              ),
+            ),
+            TextField(
+              controller: _accountController,
+              decoration: const InputDecoration(
+                labelText: 'To',
+                hintText: 'Enter Receiver',
+              ),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +132,10 @@ class _WalletScreenState extends State<WalletScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Buttons(S.current.Transferir, greenPrimary, context),
-                Buttons(S.current.Recibir, Colors.black45, context),
+                Buttons(S.current.Transferir, greenPrimary, context, () {
+                  showAlertDialog(context, ["Hello", "World"]);
+                }),
+                Buttons(S.current.Recibir, Colors.black45, context, null),
               ],
             ),
             TabMovesNFTs()
@@ -84,19 +145,25 @@ class _WalletScreenState extends State<WalletScreen> {
     );
   }
 
-  Widget Buttons(String text, Color color, BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 7),
-      width: ScreenWH(context).width * 0.4,
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(30), color: color),
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Center(
-          child: Text(text,
-              style: GoogleFonts.sourceSansPro(
-                  fontSize: 18,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600))),
+  Widget Buttons(
+      String text, Color color, BuildContext context, Function funcOnPress) {
+    return GestureDetector(
+      onTap: () {
+        funcOnPress();
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 7),
+        width: ScreenWH(context).width * 0.4,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30), color: color),
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Center(
+            child: Text(text,
+                style: GoogleFonts.sourceSansPro(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600))),
+      ),
     );
   }
 }

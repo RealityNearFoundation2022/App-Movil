@@ -4,6 +4,7 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configurationScreen.dart';
+import 'package:reality_near/presentation/views/walletScreen/walletScreen.dart';
 import 'package:sizer/sizer.dart';
 
 class MenuPrincSection extends StatelessWidget {
@@ -28,30 +29,33 @@ class MenuPrincSection extends StatelessWidget {
         child: Text(
           'Juan Alvarez',
           style: GoogleFonts.sourceSansPro(
-              fontSize: 35.sp,
-              color: greenPrimary3,
-              fontWeight: FontWeight.bold),
+              fontSize: 33.sp, color: txtPrimary, fontWeight: FontWeight.w800),
         ),
       ),
       Align(
         alignment: Alignment.centerRight,
         child: Text(
-          'ID: jAlvRz921',
+          'jAlvRz921',
           style: GoogleFonts.sourceSansPro(
-              fontSize: 30.sp,
-              color: Colors.black38,
-              fontWeight: FontWeight.w500),
+              fontSize: 26.sp, color: txtPrimary, fontWeight: FontWeight.w500),
         ),
       ),
-      Align(
-        alignment: Alignment.centerRight,
-        child: Text(
-          '1554 Realities',
-          style: GoogleFonts.sourceSansPro(
-              fontSize: 30.sp,
-              color: Colors.black38,
-              fontWeight: FontWeight.w500),
-        ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          const CircleAvatar(
+            radius: 13.0,
+            backgroundImage: AssetImage("assets/imgs/RealityIconCircle.png"),
+          ),
+          const SizedBox(width: 5),
+          Text(
+            '1554.64005',
+            style: GoogleFonts.sourceSansPro(
+                fontSize: 33.sp,
+                color: txtPrimary,
+                fontWeight: FontWeight.w500),
+          ),
+        ],
       ),
       Align(
         alignment: Alignment.centerRight,
@@ -62,8 +66,23 @@ class MenuPrincSection extends StatelessWidget {
           child: Text(
             S.current.Amigos,
             style: GoogleFonts.sourceSansPro(
-                fontSize: 30.sp,
-                color: Colors.black38,
+                fontSize: 33.sp,
+                color: txtPrimary,
+                fontWeight: FontWeight.w500),
+          ),
+        ),
+      ),
+      Align(
+        alignment: Alignment.centerRight,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, WalletScreen.routeName);
+          },
+          child: Text(
+            S.current.Wallet,
+            style: GoogleFonts.sourceSansPro(
+                fontSize: 33.sp,
+                color: txtPrimary,
                 fontWeight: FontWeight.w500),
           ),
         ),
@@ -75,7 +94,7 @@ class MenuPrincSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CircleAvatar(
-        radius: 22.w,
+        radius: 27.w,
         backgroundImage: NetworkImage(photo),
       ),
     );
@@ -106,8 +125,8 @@ class MenuPrincSection extends StatelessWidget {
                     'Logout',
                     style: GoogleFonts.sourceSansPro(
                         color: greenPrimary3,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 30.sp),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 33.sp),
                   ),
                 ),
               )

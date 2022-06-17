@@ -52,10 +52,10 @@ class _BugScreenState extends State<BugScreen> {
               const SizedBox(
                 height: 30,
               ),
-              otroBug(context, S.current.FalloCensura,
+              BugSection(context, S.current.FalloCensura,
                   S.current.FiltracionContenidoSensible, 0),
-              otroBug(context, S.current.CamaraAR, S.current.FalloAR, 1),
-              otroBug(context, S.current.Otro, S.current.DescribeFallo, 2),
+              BugSection(context, S.current.CamaraAR, S.current.FalloAR, 1),
+              BugSection(context, S.current.Otro, S.current.DescribeFallo, 2),
             ],
           ),
         );
@@ -63,7 +63,7 @@ class _BugScreenState extends State<BugScreen> {
     );
   }
 
-  Widget otroBug(
+  Widget BugSection(
       BuildContext context, String title, String description, int index) {
     return Sizer(builder: (context, orientation, deviceType) {
       return Theme(

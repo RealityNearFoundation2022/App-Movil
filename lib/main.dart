@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => UserBloc()),
+        BlocProvider(create: (_) => UserBloc()),
         BlocProvider(create: (context) => MenuBloc()),
       ],
       child: MultiProvider(
@@ -67,8 +67,9 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: S.delegate.supportedLocales,
-          initialRoute:
-              guideIsviewed ? FirstScreen.routeName : HomeScreen.routeName,
+          initialRoute: guideIsviewed ?? true
+              ? FirstScreen.routeName
+              : HomeScreen.routeName,
           routes: routes,
         ),
       ),

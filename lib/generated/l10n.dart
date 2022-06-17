@@ -275,6 +275,16 @@ class S {
     );
   }
 
+  /// `News`
+  String get Novedades {
+    return Intl.message(
+      'News',
+      name: 'Novedades',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `New Nft's`
   String get NuevosNFts {
     return Intl.message(

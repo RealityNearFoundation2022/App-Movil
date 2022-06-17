@@ -44,76 +44,53 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: Scaffold(
         body: SizedBox(
-          // width: double.infinity,
-          // height: double.infinity,
           child: Stack(
             children: [
               Container(
-                height: ScreenWH(context).height * 0.87,
+                height: ScreenWH(context).height * 0.89,
                 margin: EdgeInsets.only(
                     top: MediaQuery.of(context).viewPadding.top),
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "AR:",
-                            style: GoogleFonts.sourceSansPro(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: greenPrimary2,
-                            ),
-                          ),
-                        ),
-                        FittedBox(
-                          child: FlutterSwitch(
-                            width: 60.0,
-                            height: 25.0,
-                            valueFontSize: 16.0,
-                            toggleSize: 20.0,
-                            value: status,
-                            borderRadius: 30.0,
-                            activeColor: Palette.kgreenNR,
-                            inactiveColor: Colors.red,
-                            showOnOff: true,
-                            onToggle: (val) {
-                              setState(() {
-                                status = val;
-                              });
-                            },
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 35),
-                          child: Image.asset(
-                            "assets/imgs/Logo_sin_fondo.png",
-                            width: 80,
-                            height: 80,
-                          ),
-                        )
-                      ],
-                    ),
-                    Expanded(
-                      child: status ? const ARSection() : const NoArSection(),
-                    ),
-                  ],
-                ),
+                child: status ? const ARSection() : const NoArSection(),
+                // child: Column(
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Image.asset(
+                //       "assets/imgs/Logo_sin_fondo.png",
+                //       width: ScreenWH(context).width * 0.5,
+                //       height: ScreenWH(context).height * 0.15,
+                //     ),
+                //     Container(
+                //       width: ScreenWH(context).width * 0.8,
+                //       alignment: Alignment.centerRight,
+                //       child: FittedBox(
+                //         child: FlutterSwitch(
+                //           width: 45.0,
+                //           height: 22.0,
+                //           valueFontSize: 16.0,
+                //           toggleSize: 15.0,
+                //           value: status,
+                //           borderRadius: 30.0,
+                //           activeColor: greenPrimary2,
+                //           inactiveColor: offSwitch,
+                //           onToggle: (val) {
+                //             setState(() {
+                //               status = val;
+                //             });
+                //           },
+                //         ),
+                //       ),
+                //     ),
+                //     Expanded(
+                //       child: status ? const ARSection() : const NoArSection(),
+                //     ),
+                //   ],
+                // ),
               ),
-              Align(alignment: Alignment.bottomLeft, child: MapContainer()),
-              Align(alignment: Alignment.bottomRight, child: MenuContainer()),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: const [
-              //     Align(alignment: Alignment.bottomLeft, child: MapContainer()),
-              //     Align(
-              //         alignment: Alignment.bottomRight, child: MenuContainer())
-              //   ],
-              // ),
+              const Align(
+                  alignment: Alignment.bottomLeft, child: MapContainer()),
+              const Align(
+                  alignment: Alignment.bottomRight, child: MenuContainer()),
               viewGuide
                   ? initialGuide(
                       index: 1,

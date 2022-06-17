@@ -14,62 +14,59 @@ class ErrorAlertDialog extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 60, 10, 0),
-                child: Column(
-                  children: [
-                    Text(
-                      'Error',
-                      style: GoogleFonts.sourceSansPro(
-                          fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      errorMessage,
-                      style: GoogleFonts.sourceSansPro(
-                          fontSize: 15, fontWeight: FontWeight.w500),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                        onPressed: () {
-                          //creamos un evento en el bloc
-                          BlocProvider.of<UserBloc>(context, listen: false)
-                              .add(UserLoginAgainEvent());
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(
-                          'Intentarlo de nuevo',
-                          style: GoogleFonts.sourceSansPro(
-                              color: Colors.red,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700),
-                        ),
+            FittedBox(
+              // padding: const EdgeInsets.fromLTRB(10, 60, 10, 0),
+              child: Column(
+                children: [
+                  Text(
+                    'Error',
+                    style: GoogleFonts.sourceSansPro(
+                        fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    errorMessage,
+                    style: GoogleFonts.sourceSansPro(
+                        fontSize: 15, fontWeight: FontWeight.w500),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(
+                      onPressed: () {
+                        //creamos un evento en el bloc
+                        BlocProvider.of<UserBloc>(context, listen: false)
+                            .add(UserLoginAgainEvent());
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'Intentarlo de nuevo',
+                        style: GoogleFonts.sourceSansPro(
+                            color: Colors.red,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
-            const Positioned(
-                top: -50,
-                child: CircleAvatar(
-                  backgroundColor: Colors.redAccent,
-                  radius: 50,
-                  child: Icon(
-                    Icons.close,
-                    color: Colors.white,
-                    size: 70,
-                  ),
-                )),
+            // const Positioned(
+            //     top: 50,
+            //     child: CircleAvatar(
+            //       backgroundColor: Colors.redAccent,
+            //       radius: 50,
+            //       child: Icon(
+            //         Icons.close,
+            //         color: Colors.white,
+            //         size: 70,
+            //       ),
+            //     )),
           ],
         ));
   }

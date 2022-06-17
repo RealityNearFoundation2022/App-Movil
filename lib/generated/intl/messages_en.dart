@@ -57,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "MostrarAvatarMapa" : MessageLookupByLibrary.simpleMessage("Show Avatar on Map"),
     "Movimientos" : MessageLookupByLibrary.simpleMessage("Movements"),
     "Notificaciones" : MessageLookupByLibrary.simpleMessage("Notifications"),
+    "Novedades" : MessageLookupByLibrary.simpleMessage("News"),
     "NuevosNFts" : MessageLookupByLibrary.simpleMessage("New Nft\'s"),
     "O" : MessageLookupByLibrary.simpleMessage("Or"),
     "Omitir" : MessageLookupByLibrary.simpleMessage("Skip"),

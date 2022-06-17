@@ -1,17 +1,24 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/bid_widget.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/category.dart';
-import 'package:reality_near/presentation/views/noAR/widgets/trending_nft.dart';
 import 'package:sizer/sizer.dart';
 
-class NoArSection extends StatelessWidget {
+class NoArSection extends StatefulWidget {
   const NoArSection({Key key}) : super(key: key);
+
+  @override
+  State<NoArSection> createState() => _NoArSectionState();
+}
+
+class _NoArSectionState extends State<NoArSection> {
+  bool status = false;
 
   @override
   Widget build(BuildContext context) {
@@ -19,43 +26,40 @@ class NoArSection extends StatelessWidget {
       return SingleChildScrollView(
         child: Column(
           children: [
-            // const SizedBox(height: 130),
-
-            // Container(
-            //   alignment: Alignment.center,
-            //   margin: const EdgeInsets.symmetric(vertical: 10),
-            //   child: Text(
-            //     'Juan Alvarez',
-            //     style: GoogleFonts.sourceSansPro(
-            //         fontSize: 20.sp,
-            //         color: greenPrimary3,
-            //         fontWeight: FontWeight.bold),
-            //   ),
-            // ),
-            // const SizedBox(height: 10),
-            // Text(
-            //   '1554 Realities',
-            //   style: GoogleFonts.sourceSansPro(
-            //       fontSize: 15.sp,
-            //       color: greenPrimary3,
-            //       fontWeight: FontWeight.w600),
-            // ),
-            // const SizedBox(height: 10),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   crossAxisAlignment: CrossAxisAlignment.center,
-            //   children: [
-            //     Buttons('Transferir', greenPrimary),
-            //     Buttons('Recibir', Colors.black45),
-            //   ],
-            // ),
-            SizedBox(height: 20),
-            userSection(context,
-                "https://source.unsplash.com/random/200x200?sig=${Random().nextInt(100)}"),
-            SizedBox(height: 25),
-            eventsCarrousel(context),
-            SizedBox(height: 15),
-            NFTArrivals(context)
+            Image.asset(
+              "assets/imgs/Logo_sin_fondo.png",
+              width: ScreenWH(context).width * 0.5,
+              height: ScreenWH(context).height * 0.15,
+            ),
+            Container(
+              width: ScreenWH(context).width * 0.8,
+              alignment: Alignment.centerRight,
+              child: FittedBox(
+                child: FlutterSwitch(
+                  width: 45.0,
+                  height: 22.0,
+                  valueFontSize: 16.0,
+                  toggleSize: 15.0,
+                  value: status,
+                  borderRadius: 30.0,
+                  activeColor: greenPrimary2,
+                  inactiveColor: offSwitch,
+                  onToggle: (val) {
+                    setState(() {
+                      status = val;
+                    });
+                  },
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: userSection(context,
+                  "https://source.unsplash.com/random/200x200?sig=${Random().nextInt(100)}"),
+            ),
+            const SizedBox(height: 25),
+            newsCarrousel(context),
+            eventsSection(context)
           ],
         ),
       );
@@ -63,38 +67,40 @@ class NoArSection extends StatelessWidget {
   }
 
   Widget userSection(BuildContext context, String photo) {
-    Size size = MediaQuery.of(context).size;
     return Row(
       children: [
         CircleAvatar(
-          radius: 50.0,
+          radius: (ScreenWH(context).width * 0.25) / 2,
           backgroundImage: NetworkImage(photo),
         ),
-        const SizedBox(width: 10),
+        const SizedBox(width: 15),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              S.current.Bienvenido,
-              style: GoogleFonts.sourceSansPro(
-                  fontSize: 15.sp,
-                  // color: txtPrimary,
-                  fontWeight: FontWeight.w600),
-            ),
-            Text(
               'Juan Alvarez',
               style: GoogleFonts.sourceSansPro(
                   fontSize: 20.sp,
-                  color: greenPrimary3,
-                  fontWeight: FontWeight.bold),
+                  color: txtPrimary,
+                  fontWeight: FontWeight.w800),
             ),
-            Text(
-              '1554 Realities',
-              style: GoogleFonts.sourceSansPro(
-                  fontSize: 12.sp,
-                  color: greenPrimary3,
-                  fontWeight: FontWeight.w600),
+            Row(
+              children: [
+                const CircleAvatar(
+                  radius: 13.0,
+                  backgroundImage:
+                      AssetImage("assets/imgs/RealityIconCircle.png"),
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  'Realities: 1554.64005',
+                  style: GoogleFonts.sourceSansPro(
+                      fontSize: 16.sp,
+                      color: txtPrimary,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
             ),
             const SizedBox(height: 5),
             Row(
@@ -115,54 +121,30 @@ class NoArSection extends StatelessWidget {
   Widget Buttons(String text, Color color) {
     return Container(
       // margin: const EdgeInsets.symmetric(horizontal: 10),
-      width: 100,
+      width: 103,
       decoration:
           BoxDecoration(borderRadius: BorderRadius.circular(30), color: color),
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Center(
           child: Text(text,
               style: GoogleFonts.sourceSansPro(
-                  fontSize: 12.sp,
+                  fontSize: 13.sp,
                   color: Colors.white,
-                  fontWeight: FontWeight.w600))),
+                  fontWeight: FontWeight.w800))),
     );
   }
 
-  // Widget listConectedFriends() {
-  //   return ListView.builder(
-  //     itemCount: 10,
-  //     padding: const EdgeInsets.symmetric(vertical: 5),
-  //     itemBuilder: (context, index) {
-  //       return pendientesCard();
-  //     },
-  //   );
-  // }
-
-  // Widget pendientesCard() {
-  //   return ListTile(
-  //     leading: CircleAvatar(
-  //       backgroundImage: NetworkImage(
-  //         "https://source.unsplash.com/random/200x200?sig=${Random().nextInt(100)}",
-  //       ),
-  //     ),
-  //     title: Text(
-  //       getRandomName(),
-  //       style: GoogleFonts.sourceSansPro(),
-  //     ),
-  //     subtitle: Text("Conectado",
-  //         style: GoogleFonts.sourceSansPro(color: greenPrimary)),
-  //   );
-  // }
-
-  Widget eventsCarrousel(BuildContext context) {
+  Widget newsCarrousel(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Column(
       children: [
-        buildCategory(S.current.Eventos, greenPrimary2, size),
-        SizedBox(height: 10),
+        Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: buildCategory(S.current.Novedades, greenPrimary2, size)),
+        const SizedBox(height: 10),
         SizedBox(
           width: size.width,
-          height: size.height * 0.25,
+          height: size.height * 0.23,
           child: ListView.builder(
             primary: false,
             shrinkWrap: true,
@@ -196,13 +178,43 @@ class NoArSection extends StatelessWidget {
     );
   }
 
-  Widget NFTArrivals(BuildContext context) {
-    return Column(
-      children: [
-        buildCategory(
-            S.current.NuevosNFts, greenPrimary2, MediaQuery.of(context).size),
-        const TrendingNft(),
-      ],
+  Widget eventsSection(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        children: [
+          buildCategory(
+              S.current.Eventos, greenPrimary2, MediaQuery.of(context).size),
+          ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 3,
+              itemBuilder: (context, i) {
+                return eventContainer(
+                    'Nueva Temporada $i',
+                    "https://source.unsplash.com/random/200x200?sig=${Random().nextInt(100)}",
+                    context);
+              }),
+        ],
+      ),
+    );
+  }
+
+  Widget eventContainer(String title, String imgURL, BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      height: 120,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          image:
+              DecorationImage(image: NetworkImage(imgURL), fit: BoxFit.cover)),
+      child: Center(
+        child: Text(title,
+            style: GoogleFonts.sourceSansPro(
+                fontSize: 16.sp,
+                color: Colors.white,
+                fontWeight: FontWeight.w800)),
+      ),
     );
   }
 }
