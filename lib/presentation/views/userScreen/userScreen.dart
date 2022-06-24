@@ -24,13 +24,12 @@ class userScreen extends StatelessWidget {
             style: GoogleFonts.sourceSansPro(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: greenPrimary2,
+              color: greenPrimary,
             ),
           ),
         ),
-        iconTheme: const IconThemeData(color: greenPrimary2, size: 35),
+        iconTheme: const IconThemeData(color: greenPrimary, size: 35),
         leading: IconButton(
-          padding: const EdgeInsets.only(left: 35),
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -66,7 +65,7 @@ class userScreen extends StatelessWidget {
               style: GoogleFonts.sourceCodePro(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
-                color: greenPrimary2,
+                color: greenPrimary,
               ),
             ),
           )),
@@ -88,7 +87,7 @@ class userScreen extends StatelessWidget {
               style: GoogleFonts.sourceSansPro(
                 fontSize: 15.sp,
                 fontWeight: FontWeight.bold,
-                color: greenPrimary2,
+                color: greenPrimary,
               ),
             ),
             Padding(
@@ -96,7 +95,7 @@ class userScreen extends StatelessWidget {
               child: Icon(
                 Icons.mode_edit_outline_outlined,
                 size: 20.sp,
-                color: greenPrimary2,
+                color: greenPrimary,
               ),
             ),
           ],

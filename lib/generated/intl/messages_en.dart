@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "CamaraAR" : MessageLookupByLibrary.simpleMessage("Camera A/R"),
     "CancelarSolicitud" : MessageLookupByLibrary.simpleMessage("Cancel request"),
     "Configuracion" : MessageLookupByLibrary.simpleMessage("Configuration"),
+    "Copiar" : MessageLookupByLibrary.simpleMessage("Copy"),
     "CreaUna" : MessageLookupByLibrary.simpleMessage("Create one"),
     "Cuenta" : MessageLookupByLibrary.simpleMessage("Account"),
     "Desconectado" : MessageLookupByLibrary.simpleMessage("disconnected"),
@@ -88,8 +89,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "amigosEnComun" : m0,
     "btnLogEmail" : MessageLookupByLibrary.simpleMessage("Login with email"),
     "btnLogWallet" : MessageLookupByLibrary.simpleMessage("Login with wallet"),
+    "copyClip" : MessageLookupByLibrary.simpleMessage("Copied to clipboard"),
     "enterWallet" : MessageLookupByLibrary.simpleMessage("Enter your Near Wallet"),
     "failLogin" : MessageLookupByLibrary.simpleMessage("Login failed, please try again"),
-    "noTienesUna" : MessageLookupByLibrary.simpleMessage("You don\'t have a wallet yet? ")
+    "noTienesUna" : MessageLookupByLibrary.simpleMessage("You don\'t have a wallet yet? "),
+    "recientes" : MessageLookupByLibrary.simpleMessage("Recents"),
+    "reciveDescrip" : MessageLookupByLibrary.simpleMessage("Send this address to the person who will send your Realities")
   };
 }

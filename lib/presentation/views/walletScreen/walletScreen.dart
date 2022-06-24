@@ -4,7 +4,10 @@ import 'package:near_flutter/near_flutter.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
+import 'package:reality_near/presentation/views/walletScreen/receiveScreen.dart';
+import 'package:reality_near/presentation/views/walletScreen/transferScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/widgets/tabMovesNFTs.dart';
+import 'package:sizer/sizer.dart';
 
 class WalletScreen extends StatefulWidget {
   static String routeName = "/wallet";
@@ -16,64 +19,6 @@ class WalletScreen extends StatefulWidget {
 }
 
 class _WalletScreenState extends State<WalletScreen> {
-  final TextEditingController _amountController = TextEditingController();
-  final TextEditingController _accountController = TextEditingController();
-  showAlertDialog(BuildContext context, List data) {
-    // set up the button
-    Widget okButton = TextButton(
-      child: Text("OK"),
-      onPressed: () async {
-        var endUrl = await RestApiProvider().transferRestApiProvider(
-            'eduperaltas98.testnet',
-            _accountController.text,
-            _amountController.text);
-        String urlToLaunch = endUrl.toString();
-        if (urlToLaunch.contains('https')) {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => NearUrlLauncher(initialUrl: urlToLaunch)));
-        }
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text('${data[0]} ${data[1]}'),
-      content: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.8,
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            TextField(
-              controller: _amountController,
-              decoration: const InputDecoration(
-                labelText: 'Amount',
-                hintText: 'Enter Amount',
-              ),
-            ),
-            TextField(
-              controller: _accountController,
-              decoration: const InputDecoration(
-                labelText: 'To',
-                hintText: 'Enter Receiver',
-              ),
-            ),
-          ],
-        ),
-      ),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,13 +33,12 @@ class _WalletScreenState extends State<WalletScreen> {
             style: GoogleFonts.sourceSansPro(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: greenPrimary2,
+              color: greenPrimary,
             ),
           ),
         ),
-        iconTheme: const IconThemeData(color: greenPrimary2, size: 35),
+        iconTheme: const IconThemeData(color: greenPrimary, size: 35),
         leading: IconButton(
-          padding: const EdgeInsets.only(left: 35),
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -119,13 +63,23 @@ class _WalletScreenState extends State<WalletScreen> {
                   child: Text(
                     "1452.64451",
                     style: GoogleFonts.sourceSansPro(
-                      fontSize: 40,
+                      fontSize: 36,
                       fontWeight: FontWeight.bold,
-                      color: greenPrimary2,
+                      color: txtPrimary,
                     ),
                   ),
                 ),
               ],
+            ),
+            Center(
+              child: Text(
+                "\$ 140",
+                style: GoogleFonts.sourceSansPro(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  color: txtPrimary,
+                ),
+              ),
             ),
             const SizedBox(height: 5),
             Row(
@@ -133,9 +87,14 @@ class _WalletScreenState extends State<WalletScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Buttons(S.current.Transferir, greenPrimary, context, () {
-                  showAlertDialog(context, ["Hello", "World"]);
+                  Navigator.of(context).pushNamed(TransferScreen.routeName);
                 }),
-                Buttons(S.current.Recibir, Colors.black45, context, null),
+                Buttons(S.current.Recibir, Colors.black45, context, () {
+                  Navigator.of(context)
+                      .pushNamed(ReceiveScreen.routeName, arguments: {
+                    "walletId": "walletUsuario.near",
+                  });
+                }),
               ],
             ),
             TabMovesNFTs()

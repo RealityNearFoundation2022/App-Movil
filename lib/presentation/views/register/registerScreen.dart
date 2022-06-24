@@ -48,7 +48,7 @@ class RegisterScreen extends StatelessWidget {
       //Top bar with back button
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: greenPrimary2),
+          icon: const Icon(Icons.arrow_back_ios, color: greenPrimary),
           onPressed: () => Navigator.of(context).pop(),
         ),
         backgroundColor: Colors.transparent,

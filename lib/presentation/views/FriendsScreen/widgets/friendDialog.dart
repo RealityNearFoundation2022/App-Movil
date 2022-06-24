@@ -108,7 +108,7 @@ class FriendsSolicitudesDialog extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(3.0),
                 child: btnsolicitud(
-                    S.current.Aceptar, () {}, context, greenPrimary2),
+                    S.current.Aceptar, () {}, context, greenPrimary),
               ),
               Padding(
                 padding: const EdgeInsets.all(3.0),

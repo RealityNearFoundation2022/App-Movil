@@ -115,7 +115,7 @@ class CardScrollWidget extends StatelessWidget {
                             image: NetworkImage(images[i]), fit: BoxFit.cover),
                         shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                            side: BorderSide(color: greenPrimary2, width: 2)),
+                            side: BorderSide(color: greenPrimary, width: 2)),
                       ),
                     ),
                     // Align(

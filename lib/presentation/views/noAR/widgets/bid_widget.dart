@@ -61,58 +61,58 @@ class EventWidget extends StatelessWidget {
                         },
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: height * 0.14,
-                          width: width * 0.26,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.5),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                          ),
-                          child: Align(
-                            child: Text(
-                              "02:30:02",
-                              style: GoogleFonts.inconsolata(
-                                color: Colors.white,
-                                fontSize: width * 0.055,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: height * 0.14,
-                          width: width * 0.26,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.5),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(5),
-                            ),
-                          ),
-                          child: Align(
-                            child: Text(
-                              "Surco",
-                              style: GoogleFonts.inconsolata(
-                                color: Colors.white,
-                                fontSize: width * 0.055,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Align(
+                    //   alignment: Alignment.bottomRight,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Container(
+                    //       height: height * 0.14,
+                    //       width: width * 0.26,
+                    //       decoration: BoxDecoration(
+                    //         color: Colors.grey.withOpacity(0.5),
+                    //         borderRadius: const BorderRadius.all(
+                    //           Radius.circular(5),
+                    //         ),
+                    //       ),
+                    //       child: Align(
+                    //         child: Text(
+                    //           "02:30:02",
+                    //           style: GoogleFonts.inconsolata(
+                    //             color: Colors.white,
+                    //             fontSize: width * 0.055,
+                    //             fontWeight: FontWeight.bold,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Align(
+                    //   alignment: Alignment.topLeft,
+                    //   child: Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: Container(
+                    //       height: height * 0.14,
+                    //       width: width * 0.26,
+                    //       decoration: BoxDecoration(
+                    //         color: Colors.grey.withOpacity(0.5),
+                    //         borderRadius: const BorderRadius.all(
+                    //           Radius.circular(5),
+                    //         ),
+                    //       ),
+                    //       child: Align(
+                    //         child: Text(
+                    //           "Surco",
+                    //           style: GoogleFonts.inconsolata(
+                    //             color: Colors.white,
+                    //             fontSize: width * 0.055,
+                    //             fontWeight: FontWeight.bold,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -128,7 +128,7 @@ class EventWidget extends StatelessWidget {
             //       textAlign: TextAlign.center,
             //       overflow: TextOverflow.ellipsis,
             //       style: GoogleFonts.poppins(
-            //         color: greenPrimary2,
+            //         color: greenPrimary,
             //         fontSize: width * 0.075,
             //         fontWeight: FontWeight.bold,
             //       ),

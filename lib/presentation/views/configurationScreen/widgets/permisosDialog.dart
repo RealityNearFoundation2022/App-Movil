@@ -35,10 +35,10 @@ class _PermisosDialogState extends State<PermisosDialog> {
                 S.current.Permisos,
                 style: GoogleFonts.sourceSansPro(
                     fontWeight: FontWeight.bold,
-                    fontSize: 35,
+                    fontSize: 24,
                     color: Colors.black54),
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 5),
               permision(S.current.MostrarAvatarMapa, 0),
               permision(S.current.Camara, 1),
               permision(S.current.Microfono, 2),
@@ -69,13 +69,14 @@ class _PermisosDialogState extends State<PermisosDialog> {
             ),
           ),
           FlutterSwitch(
-            width: 45.0,
-            height: 25.0,
+            width: 43.0,
+            height: 22.0,
             valueFontSize: 16.0,
-            toggleSize: 20.0,
+            toggleSize: 15.0,
             value: statusPermisos[index],
-            borderRadius: 30.0,
+            borderRadius: 35.0,
             activeColor: Palette.kgreenNR,
+            inactiveColor: const Color.fromRGBO(102, 102, 102, 1),
             onToggle: (val) {
               setState(() {
                 statusPermisos[index] = val;

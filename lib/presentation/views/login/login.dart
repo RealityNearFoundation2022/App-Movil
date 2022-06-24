@@ -7,6 +7,7 @@ import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/login/widgets/button_with_states.dart';
 import 'package:reality_near/presentation/widgets/dialogs/errorAlertDialog.dart';
+import 'package:reality_near/presentation/widgets/dialogs/infoDialog.dart';
 import 'package:reality_near/presentation/widgets/forms/textForm.dart';
 
 class Login extends StatelessWidget {
@@ -54,16 +55,24 @@ class Login extends StatelessWidget {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) async {
         if (state is UserLoggedInState) {
+          //Show dialog when Login failed or login without wallet
           if (!state.isLoggedIn) {
             showDialog(
-                // barrierDismissible: false,
+                barrierDismissible: false,
                 context: context,
                 builder: (dialogContext) {
-                  return ErrorAlertDialog(
-                    errorMessage: S.current.failLogin,
-                  );
+                  return args["type"] == "wallet"
+                      ? ErrorAlertDialog(
+                          errorMessage: S.current.failLogin,
+                        )
+                      : const InfoDialog(
+                          title: "No estas registrando una wallet",
+                          message:
+                              "Al no registrarte con una Near Wallet, no podrás almacenar ni transaccionar dentro de Reality Near. Cuando quieras, podrás vincular tu Near Wallet, desde la sección de “Cuenta”.",
+                        );
                 });
           } else {
+            //Go to Home
             await Future.delayed(const Duration(microseconds: 500));
             Navigator.pushNamedAndRemoveUntil(
                 context, '/onBoard', ModalRoute.withName('/'));
@@ -75,7 +84,7 @@ class Login extends StatelessWidget {
         //Top bar with back button
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: greenPrimary2),
+            icon: const Icon(Icons.arrow_back_ios, color: greenPrimary),
             onPressed: () => Navigator.of(context).pop(),
           ),
           backgroundColor: Colors.transparent,

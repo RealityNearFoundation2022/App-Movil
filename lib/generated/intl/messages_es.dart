@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "CamaraAR" : MessageLookupByLibrary.simpleMessage("Cámara A/R"),
     "CancelarSolicitud" : MessageLookupByLibrary.simpleMessage("Cancelar Solicitud"),
     "Configuracion" : MessageLookupByLibrary.simpleMessage("Configuración"),
+    "Copiar" : MessageLookupByLibrary.simpleMessage("Copiar"),
     "CreaUna" : MessageLookupByLibrary.simpleMessage("Crea una"),
     "Cuenta" : MessageLookupByLibrary.simpleMessage("Cuenta"),
     "Desconectado" : MessageLookupByLibrary.simpleMessage("Desconectado"),
@@ -88,8 +89,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "amigosEnComun" : m0,
     "btnLogEmail" : MessageLookupByLibrary.simpleMessage("Ingresa con tu correo"),
     "btnLogWallet" : MessageLookupByLibrary.simpleMessage("Ingresa con tu wallet"),
+    "copyClip" : MessageLookupByLibrary.simpleMessage("Copiado al portapapeles"),
     "enterWallet" : MessageLookupByLibrary.simpleMessage("Ingresa tu Near Wallet"),
     "failLogin" : MessageLookupByLibrary.simpleMessage("No se pudo Iniciar sesión con esta wallet, prueba de nuevo"),
-    "noTienesUna" : MessageLookupByLibrary.simpleMessage("¿No tienes una? ")
+    "noTienesUna" : MessageLookupByLibrary.simpleMessage("¿No tienes una? "),
+    "recientes" : MessageLookupByLibrary.simpleMessage("Recientes"),
+    "reciveDescrip" : MessageLookupByLibrary.simpleMessage("Send this address to the person who will send your Realities")
   };
 }

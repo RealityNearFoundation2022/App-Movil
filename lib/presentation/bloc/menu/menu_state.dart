@@ -23,3 +23,9 @@ class MenuMapaState extends MenuState {
   @override
   List<Object> get props => [];
 }
+
+//Menu AR
+class MenuArState extends MenuState {
+  @override
+  List<Object> get props => [];
+}

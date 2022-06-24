@@ -29,7 +29,7 @@ class _MapContainerState extends State<MapContainer>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MenuBloc, MenuState>(builder: ((context, state) {
-      return (state is MenuMapaState || state is MenuInitialState)
+      return state is! MenuPrincipalState
           ? AnimatedContainer(
               duration: Duration(milliseconds: animatedDuration),
               width: ScreenWH(context).width * (isOpen ? 0.8 : 0.1),

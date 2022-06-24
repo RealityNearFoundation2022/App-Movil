@@ -714,6 +714,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Copy`
+  String get Copiar {
+    return Intl.message(
+      'Copy',
+      name: 'Copiar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send this address to the person who will send your Realities`
+  String get reciveDescrip {
+    return Intl.message(
+      'Send this address to the person who will send your Realities',
+      name: 'reciveDescrip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Copied to clipboard`
+  String get copyClip {
+    return Intl.message(
+      'Copied to clipboard',
+      name: 'copyClip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Recents`
+  String get recientes {
+    return Intl.message(
+      'Recents',
+      name: 'recientes',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

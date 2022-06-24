@@ -66,6 +66,10 @@
     "DescribeFallo": "describe the problem",
     "QueDeseasQueMejoremos": "what do you want to improve?",
     "AdjuntarFoto": "attach a photo",
-    "Enviar": "Send"
+    "Enviar": "Send",
+    "Copiar": "Copy",
+    "reciveDescrip":"Send this address to the person who will send your Realities",
+    "copyClip": "Copied to clipboard",
+    "recientes": "Recents"
 
 }

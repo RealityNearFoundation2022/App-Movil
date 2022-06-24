@@ -78,7 +78,7 @@ class _initialGuideState extends State<initialGuide> {
                             style: GoogleFonts.sourceSansPro(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
-                              color: greenPrimary2,
+                              color: greenPrimary,
                             ),
                           ),
                         ),
@@ -125,7 +125,7 @@ class _initialGuideState extends State<initialGuide> {
                       style: GoogleFonts.sourceSansPro(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
-                        color: greenPrimary2,
+                        color: greenPrimary,
                       )),
                 ),
                 Center(
@@ -182,7 +182,7 @@ class _initialGuideState extends State<initialGuide> {
                         child: ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all<Color>(greenPrimary2),
+                                MaterialStateProperty.all<Color>(greenPrimary),
                             shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30.0))),

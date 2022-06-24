@@ -66,6 +66,9 @@
     "DescribeFallo": "Describe el fallo",
     "QueDeseasQueMejoremos": "¿Qué deseas que mejoremos?",
     "AdjuntarFoto": "Adjuntar foto",
-    "Enviar": "Enviar"
-
+    "Enviar": "Enviar",
+    "Copiar": "Copiar",
+    "reciveDescrip":"Send this address to the person who will send your Realities",
+    "copyClip": "Copiado al portapapeles",
+    "recientes": "Recientes"
 }

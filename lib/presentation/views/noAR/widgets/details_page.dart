@@ -21,7 +21,7 @@ class EventDetailsPage extends StatelessWidget {
       // appBar: AppBar(
       //   leading: IconButton(
       //     icon:
-      //         const Icon(Icons.arrow_back_ios, color: greenPrimary2, size: 30),
+      //         const Icon(Icons.arrow_back_ios, color: greenPrimary, size: 30),
       //     onPressed: () => Navigator.of(context).pop(),
       //   ),
       //   backgroundColor: Colors.transparent,
@@ -58,7 +58,7 @@ class EventDetailsPage extends StatelessWidget {
                       textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.sourceSansPro(
-                        color: greenPrimary2,
+                        color: greenPrimary,
                         fontSize: size.width * 0.065,
                         fontWeight: FontWeight.bold,
                       ),
@@ -84,7 +84,7 @@ class EventDetailsPage extends StatelessWidget {
                   loremIpsum,
                   textAlign: TextAlign.left,
                   style: GoogleFonts.sourceSansPro(
-                      fontSize: 12.sp,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w400,
                       color: txtPrimary),
                 ),
@@ -99,7 +99,7 @@ class EventDetailsPage extends StatelessWidget {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back_ios,
-                          color: greenPrimary2, size: 35),
+                          color: greenPrimary, size: 35),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     ElevatedButton(
@@ -108,7 +108,7 @@ class EventDetailsPage extends StatelessWidget {
                       },
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(greenPrimary2),
+                            MaterialStateProperty.all<Color>(greenPrimary),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0))),
                         padding: MaterialStateProperty.all<EdgeInsets>(

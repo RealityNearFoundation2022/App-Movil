@@ -29,10 +29,10 @@ class _ARSectionState extends State<ARSection> {
   ARNode webObjectNode;
   ARNode fileSystemNode;
   HttpClient httpClient;
-  // String UrlAr =
-  //     "https://github.com/eduperaltas/3dGLBRepository/raw/main/Bienvenido2.glb";
   String UrlAr =
-      "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb";
+      "https://github.com/eduperaltas/3dGLBRepository/raw/main/Luta_livre_gbl/gLTF_Binary/Luta_livre_final.glb";
+  // String UrlAr =
+  //     "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/Avocado/glTF-Binary/Avocado.glb";
 
   @override
   void dispose() {
@@ -72,17 +72,14 @@ class _ARSectionState extends State<ARSection> {
     this.arObjectManager.onInitialize();
 
     var newNode = ARNode(
-        type: NodeType.webGLB,
-        uri:
-            "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
-        scale: Vector3(0.2, 0.2, 0.2));
+        type: NodeType.webGLB, uri: UrlAr, scale: Vector3(0.2, 0.2, 0.2));
     bool didAddWebNode = await this.arObjectManager.addNode(newNode);
 
     //Download model to file system
     httpClient = HttpClient();
-    _downloadFile(
-        "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
-        "LocalDuck.glb");
+    // _downloadFile(
+    //     "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
+    //     "LocalDuck.glb");
     // Alternative to use type fileSystemAppFolderGLTF2:
     //_downloadAndUnpack(
     //    "https://drive.google.com/uc?export=download&id=1fng7yiK0DIR0uem7XkV2nlPSGH9PysUs",
@@ -125,10 +122,7 @@ class _ARSectionState extends State<ARSection> {
       webObjectNode = null;
     } else {
       var newNode = ARNode(
-          type: NodeType.webGLB,
-          uri:
-              "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
-          scale: Vector3(0.2, 0.2, 0.2));
+          type: NodeType.webGLB, uri: UrlAr, scale: Vector3(0.2, 0.2, 0.2));
       bool didAddWebNode = await arObjectManager.addNode(newNode);
       webObjectNode = (didAddWebNode) ? newNode : null;
     }

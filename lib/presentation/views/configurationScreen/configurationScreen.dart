@@ -35,13 +35,12 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
             style: GoogleFonts.sourceSansPro(
               fontSize: 30,
               fontWeight: FontWeight.bold,
-              color: greenPrimary2,
+              color: greenPrimary,
             ),
           ),
         ),
-        iconTheme: const IconThemeData(color: greenPrimary2, size: 35),
+        iconTheme: const IconThemeData(color: greenPrimary, size: 35),
         leading: IconButton(
-          padding: const EdgeInsets.only(left: 35),
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -58,14 +57,12 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                       return const PermisosDialog();
                     });
               }),
-              child: textAndIcon(
-                  S.current.Permisos, Icons.keyboard_arrow_right_rounded)),
+              child: textAndIcon(S.current.Permisos, null)),
           GestureDetector(
             onTap: () {
               Navigator.of(context).pushNamed(InfoScreen.routeName);
             },
-            child: textAndIcon(
-                S.current.Informacion, Icons.keyboard_arrow_right_rounded),
+            child: textAndIcon(S.current.Informacion, null),
           ),
           Expanded(
             child: Container(
@@ -77,7 +74,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
               child: const Text(
                 'Logout',
                 style: TextStyle(
-                    color: greenPrimary2,
+                    color: greenPrimary,
                     fontWeight: FontWeight.w400,
                     fontSize: 18),
               ),
@@ -97,8 +94,8 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
           child: Theme(
             data: ThemeData().copyWith(dividerColor: Colors.transparent),
             child: ExpansionTile(
-              collapsedTextColor: greenPrimary2,
-              textColor: greenPrimary2,
+              collapsedTextColor: greenPrimary,
+              textColor: greenPrimary,
               onExpansionChanged: (bool value) {
                 setState(() {
                   isExpanded = value;
@@ -108,7 +105,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                 isExpanded
                     ? Icons.keyboard_arrow_up_rounded
                     : Icons.keyboard_arrow_right_rounded,
-                color: greenPrimary2,
+                color: greenPrimary,
                 size: 35,
               ),
               childrenPadding: const EdgeInsets.only(right: 15),
@@ -117,7 +114,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                 style: GoogleFonts.sourceSansPro(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
-                  color: greenPrimary2,
+                  color: greenPrimary,
                 ),
               ),
               children: <Widget>[
@@ -169,17 +166,18 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
               style: GoogleFonts.sourceSansPro(
                 fontSize: 15.sp,
                 fontWeight: FontWeight.bold,
-                color: greenPrimary2,
+                color: greenPrimary,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0),
-              child: Icon(
-                icon,
-                size: 20.sp,
-                color: greenPrimary2,
-              ),
-            ),
+            icon != null
+                ? Icon(
+                    icon,
+                    size: 20.sp,
+                    color: greenPrimary,
+                  )
+                : const SizedBox(
+                    width: 15,
+                  ),
           ],
         ),
       );

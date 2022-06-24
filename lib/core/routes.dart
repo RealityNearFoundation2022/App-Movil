@@ -11,7 +11,10 @@ import 'package:reality_near/presentation/views/login/login.dart';
 import 'package:reality_near/presentation/views/onboard/onboard.dart';
 import 'package:reality_near/presentation/views/register/registerScreen.dart';
 import 'package:reality_near/presentation/views/userScreen/userScreen.dart';
+import 'package:reality_near/presentation/views/walletScreen/receiveScreen.dart';
+import 'package:reality_near/presentation/views/walletScreen/transferScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/walletScreen.dart';
+import 'package:reality_near/presentation/views/walletScreen/widgets/transactionDetail.dart';
 
 final Map<String, WidgetBuilder> routes = {
   FirstScreen.routeName: (context) => const FirstScreen(),
@@ -27,4 +30,7 @@ final Map<String, WidgetBuilder> routes = {
   WalletScreen.routeName: (context) => const WalletScreen(),
   userScreen.routeName: (context) => const userScreen(),
   RegisterScreen.routeName: (context) => RegisterScreen(),
+  ReceiveScreen.routeName: (context) => const ReceiveScreen(),
+  TransferScreen.routeName: (context) => TransferScreen(),
+  TransferDetail.routeName: (context) => TransferDetail(),
 };

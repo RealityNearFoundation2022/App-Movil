@@ -1,13 +1,18 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
+import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/bid_widget.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/category.dart';
+import 'package:reality_near/presentation/views/noAR/widgets/details_page.dart';
+import 'package:reality_near/presentation/views/walletScreen/receiveScreen.dart';
+import 'package:reality_near/presentation/views/walletScreen/transferScreen.dart';
 import 'package:sizer/sizer.dart';
 
 class NoArSection extends StatefulWidget {
@@ -23,45 +28,52 @@ class _NoArSectionState extends State<NoArSection> {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return SingleChildScrollView(
-        child: Column(
-          children: [
-            Image.asset(
-              "assets/imgs/Logo_sin_fondo.png",
-              width: ScreenWH(context).width * 0.5,
-              height: ScreenWH(context).height * 0.15,
-            ),
-            Container(
-              width: ScreenWH(context).width * 0.8,
-              alignment: Alignment.centerRight,
-              child: FittedBox(
-                child: FlutterSwitch(
-                  width: 45.0,
-                  height: 22.0,
-                  valueFontSize: 16.0,
-                  toggleSize: 15.0,
-                  value: status,
-                  borderRadius: 30.0,
-                  activeColor: greenPrimary2,
-                  inactiveColor: offSwitch,
-                  onToggle: (val) {
-                    setState(() {
-                      status = val;
-                    });
-                  },
+      return ListView(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/imgs/Logo_sin_fondo.png",
+                  width: ScreenWH(context).width * 0.5,
+                  height: ScreenWH(context).height * 0.15,
                 ),
-              ),
+                Container(
+                  width: ScreenWH(context).width * 0.8,
+                  alignment: Alignment.centerRight,
+                  child: FittedBox(
+                    child: FlutterSwitch(
+                      width: 45.0,
+                      height: 22.0,
+                      valueFontSize: 16.0,
+                      toggleSize: 15.0,
+                      value: status,
+                      borderRadius: 30.0,
+                      activeColor: greenPrimary,
+                      inactiveColor: offSwitch,
+                      onToggle: (val) {
+                        setState(() {
+                          status = val;
+                        });
+                        BlocProvider.of<MenuBloc>(context, listen: false)
+                            .add(MenuOpenArViewEvent());
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: userSection(context,
-                  "https://source.unsplash.com/random/200x200?sig=${Random().nextInt(100)}"),
-            ),
-            const SizedBox(height: 25),
-            newsCarrousel(context),
-            eventsSection(context)
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: userSection(context,
+                "https://source.unsplash.com/random/200x200?sig=${Random().nextInt(100)}"),
+          ),
+          const SizedBox(height: 25),
+          newsCarrousel(context),
+          eventsSection(context)
+        ],
       );
     });
   }
@@ -107,9 +119,16 @@ class _NoArSectionState extends State<NoArSection> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Buttons(S.current.Transferir, greenPrimary),
+                Buttons(S.current.Transferir, greenPrimary, () {
+                  Navigator.of(context).pushNamed(TransferScreen.routeName);
+                }),
                 const SizedBox(width: 10),
-                Buttons(S.current.Recibir, Colors.black45),
+                Buttons(S.current.Recibir, Colors.black45, () {
+                  Navigator.of(context)
+                      .pushNamed(ReceiveScreen.routeName, arguments: {
+                    "walletId": "walletUsuario.near",
+                  });
+                }),
               ],
             )
           ],
@@ -118,19 +137,22 @@ class _NoArSectionState extends State<NoArSection> {
     );
   }
 
-  Widget Buttons(String text, Color color) {
-    return Container(
-      // margin: const EdgeInsets.symmetric(horizontal: 10),
-      width: 103,
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(30), color: color),
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Center(
-          child: Text(text,
-              style: GoogleFonts.sourceSansPro(
-                  fontSize: 13.sp,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800))),
+  Widget Buttons(String text, Color color, Function funcOnPress) {
+    return GestureDetector(
+      onTap: funcOnPress,
+      child: Container(
+        // margin: const EdgeInsets.symmetric(horizontal: 10),
+        width: 103,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30), color: color),
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Center(
+            child: Text(text,
+                style: GoogleFonts.sourceSansPro(
+                    fontSize: 13.sp,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800))),
+      ),
     );
   }
 
@@ -140,7 +162,7 @@ class _NoArSectionState extends State<NoArSection> {
       children: [
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: buildCategory(S.current.Novedades, greenPrimary2, size)),
+            child: buildCategory(S.current.Novedades, greenPrimary, size)),
         const SizedBox(height: 10),
         SizedBox(
           width: size.width,
@@ -184,7 +206,7 @@ class _NoArSectionState extends State<NoArSection> {
       child: Column(
         children: [
           buildCategory(
-              S.current.Eventos, greenPrimary2, MediaQuery.of(context).size),
+              S.current.Eventos, greenPrimary, MediaQuery.of(context).size),
           ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -201,19 +223,29 @@ class _NoArSectionState extends State<NoArSection> {
   }
 
   Widget eventContainer(String title, String imgURL, BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      height: 120,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          image:
-              DecorationImage(image: NetworkImage(imgURL), fit: BoxFit.cover)),
-      child: Center(
-        child: Text(title,
-            style: GoogleFonts.sourceSansPro(
-                fontSize: 16.sp,
-                color: Colors.white,
-                fontWeight: FontWeight.w800)),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) =>
+                EventDetailsPage(title: title, eventImg: imgURL),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 10),
+        height: 120,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+                image: NetworkImage(imgURL), fit: BoxFit.cover)),
+        child: Center(
+          child: Text(title,
+              style: GoogleFonts.sourceSansPro(
+                  fontSize: 16.sp,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800)),
+        ),
       ),
     );
   }

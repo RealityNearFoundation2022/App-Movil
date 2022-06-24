@@ -31,6 +31,7 @@ dependencies:
   ar_flutter_plugin: ^0.6.4
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
+  dotted_border: ^2.0.0+2
   equatable: ^2.0.3
   flutter:
     sdk: flutter

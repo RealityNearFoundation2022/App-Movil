@@ -15,5 +15,8 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     on<MenuOpenMapEvent>((event, emit) {
       emit(MenuMapaState());
     });
+    on<MenuOpenArViewEvent>((event, emit) {
+      emit(MenuArState());
+    });
   }
 }

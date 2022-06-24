@@ -21,3 +21,8 @@ class MenuOpenMapEvent extends MenuEvent {
   @override
   List<Object> get props => [];
 }
+
+class MenuOpenArViewEvent extends MenuEvent {
+  @override
+  List<Object> get props => [];
+}

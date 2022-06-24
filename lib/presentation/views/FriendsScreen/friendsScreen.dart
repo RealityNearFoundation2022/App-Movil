@@ -40,7 +40,6 @@ class _FriendScreenState extends State<FriendScreen> {
           ),
           iconTheme: const IconThemeData(color: greenPrimary, size: 35),
           leading: IconButton(
-            padding: const EdgeInsets.only(left: 35),
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () => Navigator.of(context).pop(),
           ),
