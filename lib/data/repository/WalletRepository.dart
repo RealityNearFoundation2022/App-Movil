@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:near_flutter/near_flutter.dart';
 import 'package:reality_near/core/errors/failure.dart';
 import 'package:dartz/dartz.dart';
@@ -6,13 +7,18 @@ class WalletRepository {
   Near near;
   WalletAccount walletAccount;
 
-  Future<Either<Failure, dynamic>> login(String accountId) async {
+  Future<Either<Failure, dynamic>> loginNearWallet(
+      BuildContext context, String accountId) async {
     try {
       print('en funcion login');
       walletAccount = setupWallet(accountId);
-      Account jst = await near.account(accountId);
-      var accessKeys = await jst.getAccessKeys();
-      print('ACCESS KEYS: ${accessKeys[0]}');
+      var response = await walletAccount.requestSignIn(
+          context,
+          'token.guxal.testnet',
+          'Reality Near App',
+          'https://www.google.com',
+          'eduperaltas.testnet');
+      print('response login with NEAR: $response');
       return const Right('usuario Logeado');
     } catch (e) {
       return const Left(ServerFailure(message: 'Error al logearse'));

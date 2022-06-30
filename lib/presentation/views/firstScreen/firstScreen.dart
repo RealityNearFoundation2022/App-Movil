@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:flutter/gestures.dart';
 import 'package:reality_near/generated/l10n.dart';
+import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/AR/localandwebobjectsexample.dart';
 import 'package:reality_near/presentation/views/register/registerScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,33 +36,45 @@ class _FirstScreenState extends State<FirstScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          Container(
-            color: Colors.grey,
-          ),
-          //Logo image
-          Container(
-            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            alignment: Alignment.topCenter,
-            child: Image.asset('assets/imgs/Logo_sin_fondo.png',
-                height: 120, width: 120),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              color: Colors.white,
-              height: MediaQuery.of(context).size.height * 0.25,
+    return BlocListener<UserBloc, UserState>(
+      listener: (context, state) async {
+        if (state is UserLoggedInState) {
+          //Show dialog when Login failed or login without wallet
+          if (state.isLoggedIn) {
+            await Future.delayed(const Duration(microseconds: 500));
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/onBoard', ModalRoute.withName('/'));
+          }
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Stack(
+          children: [
+            Container(
+              color: Colors.grey,
             ),
-          ),
-          Positioned(
-              bottom: 10,
-              child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: LoginBtns(context))),
-        ],
+            //Logo image
+            Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              alignment: Alignment.topCenter,
+              child: Image.asset('assets/imgs/Logo_sin_fondo.png',
+                  height: 120, width: 120),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                color: Colors.white,
+                height: MediaQuery.of(context).size.height * 0.25,
+              ),
+            ),
+            Positioned(
+                bottom: 10,
+                child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: LoginBtns(context))),
+          ],
+        ),
       ),
     );
   }
@@ -71,8 +85,9 @@ class _FirstScreenState extends State<FirstScreen> {
         //Login Text
         FittedBox(
           child: GestureDetector(
-            onTap: (() => Navigator.pushNamed(context, Login.routeName,
-                arguments: {'type': 'wallet'})),
+            onTap: (() => //creamos un evento en el bloc
+                BlocProvider.of<UserBloc>(context, listen: false)
+                    .add(UserLoginEvent(context, ''))),
             child: Container(
                 alignment: Alignment.center,
                 margin:
@@ -176,10 +191,9 @@ class _FirstScreenState extends State<FirstScreen> {
         //Register Text
         GestureDetector(
           onTap: (() => Navigator.pushNamed(context, RegisterScreen.routeName)),
-          // onTap: (() => Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (context) => LocalAndWebObjectsWidget()))),
+          // onTap: (() => BlocProvider.of<UserBloc>(context).add(
+          //     const UserRegisterEvent(
+          //         'eduperaltas@gmail.com', 'nueva', 'eduperaltas'))),
           child: Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 20),

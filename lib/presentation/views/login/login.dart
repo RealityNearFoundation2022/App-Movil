@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/repository/WalletRepository.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/login/widgets/button_with_states.dart';
@@ -25,14 +26,6 @@ class Login extends StatelessWidget {
     final args =
         ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
 
-//text-Form-WALLET
-    TxtForm _txtFormWallet = TxtForm(
-      controller: _walletController,
-      inputType: InputType.Default,
-      txtColor: txtPrimary,
-      prefixIcon: const Icon(Icons.account_balance_wallet),
-      errorMessage: S.current.WalletOblig,
-    );
 //text-Form-EMAIL
     TxtForm _txtFormEmail = TxtForm(
       placeholder: S.current.Email,
@@ -92,59 +85,33 @@ class Login extends StatelessWidget {
         ),
         //Body
         body: SingleChildScrollView(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                //Top spacer
-                SizedBox(height: ScreenWH(context).height * 0.1),
-                //Logo image
-                Image.asset('assets/imgs/Logo_sin_fondo.png',
-                    height: 200, width: 200),
-                //Login form
-                args["type"] == "wallet"
-                    ? logInWallet(_txtFormWallet)
-                    : logInEmail(_txtFormEmail, _txtFormPassword),
-                //Button
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: BlocBuilder<UserBloc, UserState>(
-                    builder: ((context, state) {
-                      return ButtonWithStates(
-                          text: S.current.Ingresar,
-                          press: () {
-                            //creamos un evento en el bloc
-                            BlocProvider.of<UserBloc>(context, listen: false)
-                                .add(UserLoginEvent(_walletController.text));
-                          });
-                    }),
-                  ),
-                ),
-              ]),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
+              Widget>[
+            //Top spacer
+            SizedBox(height: ScreenWH(context).height * 0.1),
+            //Logo image
+            Image.asset('assets/imgs/Logo_sin_fondo.png',
+                height: 200, width: 200),
+            //Login form
+            logInEmail(_txtFormEmail, _txtFormPassword),
+            //Button
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: BlocBuilder<UserBloc, UserState>(
+                builder: ((context, state) {
+                  return ButtonWithStates(
+                      text: S.current.Ingresar,
+                      press: () {
+                        //creamos un evento en el bloc
+                        BlocProvider.of<UserBloc>(context, listen: false).add(
+                            UserLoginEvent(context, _walletController.text));
+                      });
+                }),
+              ),
+            ),
+          ]),
         ),
       ),
-    );
-  }
-
-  Widget logInWallet(TxtForm form) {
-    return Column(
-      children: [
-        //Title
-        Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text(S.current.enterWallet,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.sourceSansPro(
-                    fontSize: 26,
-                    fontWeight: FontWeight.w600,
-                    color: txtPrimary,
-                    decoration: TextDecoration.none))),
-        //Form
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0),
-          child: form,
-        ),
-      ],
     );
   }
 

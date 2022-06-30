@@ -9,8 +9,9 @@ abstract class UserEvent extends Equatable {
 
 class UserLoginEvent extends UserEvent {
   final String walletId;
+  final BuildContext context;
 
-  const UserLoginEvent(this.walletId);
+  const UserLoginEvent(this.context, this.walletId);
 
   @override
   List<Object> get props => [walletId];
@@ -19,4 +20,14 @@ class UserLoginEvent extends UserEvent {
 class UserLoginAgainEvent extends UserEvent {
   @override
   List<Object> get props => [];
+}
+
+class UserRegisterEvent extends UserEvent {
+  final String email;
+  final String password;
+  final String username;
+
+  const UserRegisterEvent(this.email, this.password, this.username);
+
+  List<Object> get props => [email, password, username];
 }

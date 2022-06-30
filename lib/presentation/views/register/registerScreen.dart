@@ -3,6 +3,7 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/login/widgets/button_with_states.dart';
+import 'package:reality_near/presentation/views/register/createUser.dart';
 import 'package:reality_near/presentation/widgets/forms/textForm.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -26,7 +27,7 @@ class RegisterScreen extends StatelessWidget {
     );
 //text-Form-Password
     TxtForm _txtFormPassword = TxtForm(
-      placeholder: S.current.Password,
+      placeholder: S.current.UserName,
       controller: _passwordController,
       inputType: InputType.Password,
       txtColor: txtPrimary,
@@ -85,6 +86,8 @@ class RegisterScreen extends StatelessWidget {
                 child: ButtonWithStates(
                     text: S.current.Registrate,
                     press: () {
+                      Navigator.of(context)
+                          .pushNamed(CreateUserScreen.routeName);
                       //creamos un evento en el bloc
                     }),
               ),

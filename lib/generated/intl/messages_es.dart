@@ -80,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "TerminosyCondiciones" : MessageLookupByLibrary.simpleMessage("Términos y condiciones"),
     "Transferir" : MessageLookupByLibrary.simpleMessage("Transferir"),
     "Ubicacion" : MessageLookupByLibrary.simpleMessage("Ubicación"),
+    "UserName" : MessageLookupByLibrary.simpleMessage("Nombre de usuario"),
     "Usuario" : MessageLookupByLibrary.simpleMessage("Usuario"),
     "VaciarChat" : MessageLookupByLibrary.simpleMessage("Vaciar Chat"),
     "Vertodos" : MessageLookupByLibrary.simpleMessage("Ver todos"),
