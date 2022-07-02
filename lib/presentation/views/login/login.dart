@@ -58,15 +58,20 @@ class Login extends StatelessWidget {
                       ? ErrorAlertDialog(
                           errorMessage: S.current.failLogin,
                         )
-                      : const InfoDialog(
+                      : InfoDialog(
                           title: "No estas registrando una wallet",
                           message:
                               "Al no registrarte con una Near Wallet, no podrás almacenar ni transaccionar dentro de Reality Near. Cuando quieras, podrás vincular tu Near Wallet, desde la sección de “Cuenta”.",
+                          onPressed: () {
+                            //creamos un evento en el bloc
+                            BlocProvider.of<UserBloc>(context, listen: false)
+                                .add(UserLoginAgainEvent());
+                            Navigator.of(context).pop();
+                          },
                         );
                 });
           } else {
             //Go to Home
-            await Future.delayed(const Duration(microseconds: 500));
             Navigator.pushNamedAndRemoveUntil(
                 context, '/onBoard', ModalRoute.withName('/'));
           }
@@ -85,31 +90,33 @@ class Login extends StatelessWidget {
         ),
         //Body
         body: SingleChildScrollView(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
-              Widget>[
-            //Top spacer
-            SizedBox(height: ScreenWH(context).height * 0.1),
-            //Logo image
-            Image.asset('assets/imgs/Logo_sin_fondo.png',
-                height: 200, width: 200),
-            //Login form
-            logInEmail(_txtFormEmail, _txtFormPassword),
-            //Button
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: BlocBuilder<UserBloc, UserState>(
-                builder: ((context, state) {
-                  return ButtonWithStates(
-                      text: S.current.Ingresar,
-                      press: () {
-                        //creamos un evento en el bloc
-                        BlocProvider.of<UserBloc>(context, listen: false).add(
-                            UserLoginEvent(context, _walletController.text));
-                      });
-                }),
-              ),
-            ),
-          ]),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                //Top spacer
+                SizedBox(height: ScreenWH(context).height * 0.1),
+                //Logo image
+                Image.asset('assets/imgs/Logo_sin_fondo.png',
+                    height: 200, width: 200),
+                //Login form
+                logInEmail(_txtFormEmail, _txtFormPassword),
+                //Button
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: BlocBuilder<UserBloc, UserState>(
+                    builder: ((context, state) {
+                      return ButtonWithStates(
+                          text: S.current.Ingresar,
+                          press: () {
+                            //creamos un evento en el bloc
+                            BlocProvider.of<UserBloc>(context, listen: false)
+                                .add(UserLoginEmailEvent(_emailController.text,
+                                    _passwordController.text));
+                          });
+                    }),
+                  ),
+                ),
+              ]),
         ),
       ),
     );

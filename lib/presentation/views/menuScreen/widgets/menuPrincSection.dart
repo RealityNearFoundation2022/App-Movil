@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/generated/l10n.dart';
+import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configurationScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/walletScreen.dart';
@@ -118,6 +120,8 @@ class MenuPrincSection extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 3.0),
                 child: GestureDetector(
                   onTap: () {
+                    BlocProvider.of<UserBloc>(context, listen: false)
+                        .add(UserLogOutEvent());
                     Navigator.pushNamedAndRemoveUntil(
                         context, '/firstScreen', ModalRoute.withName('/'));
                   },

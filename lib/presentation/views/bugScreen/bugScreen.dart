@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/models/reportModel.dart';
+import 'package:reality_near/domain/usecases/report/createReport.dart';
 import 'package:reality_near/generated/l10n.dart';
+import 'package:reality_near/presentation/widgets/dialogs/infoDialog.dart';
 import 'package:sizer/sizer.dart';
 
 class BugScreen extends StatefulWidget {
@@ -18,6 +21,43 @@ class BugScreen extends StatefulWidget {
 
 class _BugScreenState extends State<BugScreen> {
   List<bool> isExpanded = [false, false, false];
+
+  final TextEditingController _censuraReportController =
+      TextEditingController();
+  final TextEditingController _arCamReportController = TextEditingController();
+  final TextEditingController _OtherReportController = TextEditingController();
+
+  _createReport(ReportModel report) {
+    CreateReport createReport = CreateReport(report);
+    createReport.call().then((value) {
+      if (value.isRight()) {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (dialogContext) {
+              return InfoDialog(
+                title: "Reporte Creado",
+                message:
+                    "Nuestro equipo sera notificado del error y trabajaremos para solucionarlo",
+                icon: const CircleAvatar(
+                  backgroundColor: Colors.green,
+                  radius: 30,
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: 50,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/home");
+                },
+              );
+            });
+      } else {
+        print("Error al crear reporte");
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +91,16 @@ class _BugScreenState extends State<BugScreen> {
               const SizedBox(
                 height: 30,
               ),
-              BugSection(context, S.current.FalloCensura,
-                  S.current.FiltracionContenidoSensible, 0),
-              BugSection(context, S.current.CamaraAR, S.current.FalloAR, 1),
-              BugSection(context, S.current.Otro, S.current.DescribeFallo, 2),
+              BugSection(
+                  context,
+                  S.current.FalloCensura,
+                  S.current.FiltracionContenidoSensible,
+                  0,
+                  _censuraReportController),
+              BugSection(context, S.current.CamaraAR, S.current.FalloAR, 1,
+                  _arCamReportController),
+              BugSection(context, S.current.Otro, S.current.DescribeFallo, 2,
+                  _OtherReportController),
             ],
           ),
         );
@@ -62,8 +108,8 @@ class _BugScreenState extends State<BugScreen> {
     );
   }
 
-  Widget BugSection(
-      BuildContext context, String title, String description, int index) {
+  Widget BugSection(BuildContext context, String title, String description,
+      int index, TextEditingController _controller) {
     return Sizer(builder: (context, orientation, deviceType) {
       return Theme(
         data: ThemeData().copyWith(dividerColor: Colors.transparent),
@@ -105,7 +151,7 @@ class _BugScreenState extends State<BugScreen> {
               ],
             ),
             children: <Widget>[
-              bugForm(),
+              bugForm(_controller, title),
             ],
           ),
         ),
@@ -113,7 +159,7 @@ class _BugScreenState extends State<BugScreen> {
     });
   }
 
-  Widget bugForm() {
+  Widget bugForm(TextEditingController _controller, String catergory) {
     return Container(
       width: ScreenWH(context).width * 0.7,
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -122,6 +168,7 @@ class _BugScreenState extends State<BugScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextField(
+            controller: _controller,
             cursorColor: Colors.black12,
             style: GoogleFonts.sourceSansPro(
                 color: Colors.black54,
@@ -175,7 +222,16 @@ class _BugScreenState extends State<BugScreen> {
                   ),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                ReportModel report = ReportModel(
+                  title: "",
+                  category: catergory,
+                  description: _controller.text,
+                  image: "",
+                  status: 0,
+                );
+                _createReport(report);
+              },
               child: Text(
                 S.current.Enviar,
                 style: GoogleFonts.sourceSansPro(

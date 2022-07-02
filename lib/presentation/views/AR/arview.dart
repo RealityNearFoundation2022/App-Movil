@@ -30,7 +30,7 @@ class _ARSectionState extends State<ARSection> {
   ARNode fileSystemNode;
   HttpClient httpClient;
   String UrlAr =
-      "https://github.com/eduperaltas/3dGLBRepository/raw/main/Luta_livre_final.glb";
+      "https://github.com/eduperaltas/3dGLBRepository/raw/main/Luta_livre_final2.glb";
   // String UrlAr =
   //     "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/Avocado/glTF-Binary/Avocado.glb";
 

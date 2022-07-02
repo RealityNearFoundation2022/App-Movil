@@ -46,6 +46,7 @@ dependencies:
   google_maps_flutter: ^2.1.5
   http: ^0.13.4
   location: ^4.4.0
+  logger: ^1.1.0
   near_flutter: ^0.0.1
   provider: ^6.0.3
   shared_preferences: ^2.0.15
@@ -79,6 +80,7 @@ flutter:
   assets:
     - assets/imgs/
     - assets/
+    - assets/gift/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

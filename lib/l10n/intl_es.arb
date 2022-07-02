@@ -71,5 +71,7 @@
     "reciveDescrip":"Send this address to the person who will send your Realities",
     "copyClip": "Copiado al portapapeles",
     "recientes": "Recientes",
-    "UserName": "Nombre de usuario"
+    "UserName": "Nombre de usuario",
+    "Obligatorio":"Obligatorio",
+    "Guardar":"Guardar"
 }

@@ -19,7 +19,7 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
 //Variables
   final TextEditingController _userNameController = TextEditingController();
 
-  List<bool> avatarSelect = [false, false];
+  List<bool> avatarSelect = [false, false, false];
   @override
   Widget build(BuildContext context) {
 //text-Form-UserName
@@ -32,11 +32,14 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
       errorMessage: S.current.EmailOblig,
     );
 
-    Widget avatar(String path, String name, int index) {
+    Widget avatar(
+        String pathSelected, String pathNoSelected, String name, int index) {
       return GestureDetector(
         onTap: () {
           setState(() {
-            avatarSelect[index] = !avatarSelect[index];
+            for (int i = 0; i < avatarSelect.length; i++) {
+              avatarSelect[i] = index == i ? !avatarSelect[i] : false;
+            }
           });
         },
         child: Column(
@@ -49,11 +52,9 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                     width: avatarSelect[index] ? 3 : 2),
               ),
               child: Image.asset(
-                  avatarSelect[index]
-                      ? "assets/imgs/man_selected.gif"
-                      : "assets/imgs/man_waiting.gif",
-                  height: ScreenWH(context).height * 0.3,
-                  width: 100),
+                  avatarSelect[index] ? pathSelected : pathNoSelected,
+                  height: ScreenWH(context).height * 0.23,
+                  width: ScreenWH(context).width * 0.24),
             ),
             Text(name,
                 textAlign: TextAlign.center,
@@ -72,9 +73,12 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          avatar("assets/imgs/gifRN.gif", "Male", 0),
-          avatar("assets/imgs/gifRN.gif", "Female", 1),
-          avatar("assets/imgs/gifRN.gif", "Monster", 1),
+          avatar("assets/gift/MEN_SELECTED.gif", "assets/gift/MEN_WAITING.gif",
+              "Male", 0),
+          avatar("assets/gift/WOMEN_SELECT.gif",
+              "assets/gift/WOMEN_WAITING.gif", "Female", 1),
+          avatar("assets/gift/MEN_SELECTED.gif", "assets/gift/MEN_WAITING.gif",
+              "Monster", 2),
         ],
       );
     }
@@ -124,16 +128,30 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
                 child: _txtFormUserName,
               ),
               //Button
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: ButtonWithStates(
-                    text: S.current.Registrate,
-                    press: () {
-                      if (_userNameController.text.isNotEmpty) {
-                        Navigator.of(context).pushNamed(HomeScreen.routeName);
-                      }
-                      //creamos un evento en el bloc
-                    }),
+              FittedBox(
+                child: GestureDetector(
+                  onTap: () {
+                    if (_userNameController.text.isNotEmpty) {
+                      Navigator.of(context).pushNamed(HomeScreen.routeName);
+                    }
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 30),
+                      decoration: BoxDecoration(
+                          color: greenPrimary,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Text(S.current.Guardar,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.sourceSansPro(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                              decoration: TextDecoration.none))),
+                ),
               ),
             ]),
       ),

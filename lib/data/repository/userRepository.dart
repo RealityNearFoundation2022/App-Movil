@@ -8,14 +8,25 @@ class UserRepository {
   final AuthsRemoteDataSourceImpl authsRemoteDataSourceImpl =
       AuthsRemoteDataSourceImpl();
 
-  // UserRepository(this.authsRemoteDataSourceImpl);
-
   Future<Either<Failure, User>> registerNewUser(
       String email, String password, String username) async {
     try {
       final user = await authsRemoteDataSourceImpl.registerNewUserWithEmail(
           email, password, username);
       return Right(user);
+    } on ServerException {
+      return const Left(ServerFailure(
+        message: "Server Failure",
+      ));
+    }
+  }
+
+  Future<Either<Failure, bool>> loginwithEmail(
+      String email, String password) async {
+    try {
+      final isLoggedIn =
+          await authsRemoteDataSourceImpl.loginWithEmail(email, password);
+      return Right(isLoggedIn);
     } on ServerException {
       return const Left(ServerFailure(
         message: "Server Failure",

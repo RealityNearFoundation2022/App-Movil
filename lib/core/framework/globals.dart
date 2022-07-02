@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ScreenWH {
   BuildContext context;
@@ -45,4 +46,17 @@ String getRandomName() {
   return names[Random().nextInt(names.length)] +
       " " +
       apellidos[Random().nextInt(apellidos.length)];
+}
+
+persistData(String key, String value) async {
+  print("Shared pref called");
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setString(key, value);
+  String token = await prefs.getString(key);
+  print('$key: $token');
+}
+
+getPersistData(String key) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString(key);
 }

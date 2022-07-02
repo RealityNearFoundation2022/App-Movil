@@ -755,11 +755,31 @@ class S {
     );
   }
 
-  /// `User name`
+  /// `Username`
   String get UserName {
     return Intl.message(
-      'User name',
+      'Username',
       name: 'UserName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Required`
+  String get Obligatorio {
+    return Intl.message(
+      'Required',
+      name: 'Obligatorio',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get Guardar {
+    return Intl.message(
+      'Save',
+      name: 'Guardar',
       desc: '',
       args: [],
     );

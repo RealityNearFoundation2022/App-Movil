@@ -71,6 +71,8 @@
     "reciveDescrip":"Send this address to the person who will send your Realities",
     "copyClip": "Copied to clipboard",
     "recientes": "Recents",
-    "UserName": "User name"
+    "UserName": "Username",
+    "Obligatorio":"Required",
+    "Guardar":"Save"
 
 }

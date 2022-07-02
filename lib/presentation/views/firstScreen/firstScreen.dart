@@ -41,9 +41,8 @@ class _FirstScreenState extends State<FirstScreen> {
         if (state is UserLoggedInState) {
           //Show dialog when Login failed or login without wallet
           if (state.isLoggedIn) {
-            await Future.delayed(const Duration(microseconds: 500));
             Navigator.pushNamedAndRemoveUntil(
-                context, '/onBoard', ModalRoute.withName('/'));
+                context, '/createUser', ModalRoute.withName('/'));
           }
         }
       },
@@ -87,7 +86,7 @@ class _FirstScreenState extends State<FirstScreen> {
           child: GestureDetector(
             onTap: (() => //creamos un evento en el bloc
                 BlocProvider.of<UserBloc>(context, listen: false)
-                    .add(UserLoginEvent(context, ''))),
+                    .add(UserLoginWalletEvent(context, ''))),
             child: Container(
                 alignment: Alignment.center,
                 margin:
@@ -191,9 +190,6 @@ class _FirstScreenState extends State<FirstScreen> {
         //Register Text
         GestureDetector(
           onTap: (() => Navigator.pushNamed(context, RegisterScreen.routeName)),
-          // onTap: (() => BlocProvider.of<UserBloc>(context).add(
-          //     const UserRegisterEvent(
-          //         'eduperaltas@gmail.com', 'nueva', 'eduperaltas'))),
           child: Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 20),

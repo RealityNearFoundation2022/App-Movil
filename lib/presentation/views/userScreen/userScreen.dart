@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/generated/l10n.dart';
+import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/bugScreen/bugScreen.dart';
 import 'package:sizer/sizer.dart';
 
@@ -60,12 +62,20 @@ class userScreen extends StatelessWidget {
               child: Container(
             alignment: Alignment.bottomRight,
             margin: const EdgeInsets.only(bottom: 30, right: 20),
-            child: Text(
-              'Logout',
-              style: GoogleFonts.sourceCodePro(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: greenPrimary,
+            child: GestureDetector(
+              onTap: () {
+                BlocProvider.of<UserBloc>(context, listen: false)
+                    .add(UserLogOutEvent());
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/firstScreen', ModalRoute.withName('/'));
+              },
+              child: Text(
+                'Logout',
+                style: GoogleFonts.sourceCodePro(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: greenPrimary,
+                ),
               ),
             ),
           )),

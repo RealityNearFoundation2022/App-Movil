@@ -36,3 +36,12 @@ class UserFailState extends UserState {
   @override
   List<Object> get props => [message];
 }
+
+//User se registro correctamente
+class UserRegisterSuccessState extends UserState {
+  final bool isRegisterIn;
+
+  const UserRegisterSuccessState(this.isRegisterIn);
+  @override
+  List<Object> get props => [isRegisterIn];
+}
