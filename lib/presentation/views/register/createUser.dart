@@ -73,12 +73,12 @@ class _CreateUserScreenState extends State<CreateUserScreen> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          avatar("assets/gift/MEN_SELECTED.gif", "assets/gift/MEN_WAITING.gif",
+          avatar("assets/gift/MEN_SELECT.gif", "assets/gift/MEN_WAITING.gif",
               "Male", 0),
           avatar("assets/gift/WOMEN_SELECT.gif",
               "assets/gift/WOMEN_WAITING.gif", "Female", 1),
-          avatar("assets/gift/MEN_SELECTED.gif", "assets/gift/MEN_WAITING.gif",
-              "Monster", 2),
+          avatar("assets/gift/MONSTER_SELECT.gif",
+              "assets/gift/MONSTER_WAITING.gif", "Monster", 2),
         ],
       );
     }

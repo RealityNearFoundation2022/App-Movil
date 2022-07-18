@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:near_flutter/near_flutter.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/datasource/nearRPC/contracts.dart';
+import 'package:reality_near/data/models/nftModel.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/walletScreen/receiveScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/transferScreen.dart';
@@ -19,6 +20,17 @@ class WalletScreen extends StatefulWidget {
 }
 
 class _WalletScreenState extends State<WalletScreen> {
+  double walletBalance = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //obtener balance de wallet
+    ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
+          walletBalance = value;
+        }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +73,7 @@ class _WalletScreenState extends State<WalletScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   alignment: Alignment.center,
                   child: Text(
-                    "1452.64451",
+                    "$walletBalance",
                     style: GoogleFonts.sourceSansPro(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,

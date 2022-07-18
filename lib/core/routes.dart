@@ -11,6 +11,7 @@ import 'package:reality_near/presentation/views/login/login.dart';
 import 'package:reality_near/presentation/views/onboard/onboard.dart';
 import 'package:reality_near/presentation/views/register/createUser.dart';
 import 'package:reality_near/presentation/views/register/registerScreen.dart';
+import 'package:reality_near/presentation/views/userProfile/userProfile.dart';
 import 'package:reality_near/presentation/views/userScreen/userScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/receiveScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/transferScreen.dart';
@@ -35,4 +36,5 @@ final Map<String, WidgetBuilder> routes = {
   ReceiveScreen.routeName: (context) => const ReceiveScreen(),
   TransferScreen.routeName: (context) => TransferScreen(),
   TransferDetail.routeName: (context) => TransferDetail(),
+  UserProfile.routeName: (context) => UserProfile(),
 };

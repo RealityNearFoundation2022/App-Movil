@@ -120,6 +120,7 @@ class _ARSectionState extends State<ARSection> {
     if (webObjectNode != null) {
       arObjectManager.removeNode(webObjectNode);
       webObjectNode = null;
+      // arObjectManager.onNodeTap(['webObject']);
     } else {
       var newNode = ARNode(
           type: NodeType.webGLB, uri: UrlAr, scale: Vector3(0.2, 0.2, 0.2));

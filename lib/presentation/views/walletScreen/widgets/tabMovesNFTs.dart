@@ -3,15 +3,35 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/data/datasource/nearRPC/contracts.dart';
+import 'package:reality_near/data/models/nftModel.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
-import 'package:sizer/sizer.dart';
 
-class TabMovesNFTs extends StatelessWidget {
-  TabMovesNFTs({Key key}) : super(key: key);
+class TabMovesNFTs extends StatefulWidget {
+  const TabMovesNFTs({Key key}) : super(key: key);
 
+  @override
+  State<TabMovesNFTs> createState() => _TabMovesNFTsState();
+}
+
+class _TabMovesNFTsState extends State<TabMovesNFTs> {
   TextEditingController searchMovesController = TextEditingController();
+
   TextEditingController searchNFTController = TextEditingController();
+
+  List<NftModel> lstNFTs = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    //obtener NFTs de wallet
+    ContractRemoteDataSourceImpl().getMyNFTs().then((value) => setState(() {
+          lstNFTs = value;
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +108,7 @@ class TabMovesNFTs extends StatelessWidget {
                           Expanded(
                             child: GridView.builder(
                               shrinkWrap: true,
-                              itemCount: 10,
+                              itemCount: lstNFTs.length,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2,
@@ -97,13 +117,7 @@ class TabMovesNFTs extends StatelessWidget {
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 8.0),
-                                  child: nftCard(
-                                      'NFT 1',
-                                      '13/10/2022',
-                                      (Random().nextDouble() * 270)
-                                          .roundToDouble()
-                                          .toString(),
-                                      "https://source.unsplash.com/random/200x200?sig=$index"),
+                                  child: nftCard(lstNFTs[index]),
                                 );
                               },
                             ),
@@ -146,7 +160,7 @@ class TabMovesNFTs extends StatelessWidget {
     );
   }
 
-  Widget nftCard(String nombre, String fecha, String monto, String photo) {
+  Widget nftCard(NftModel nft) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -156,7 +170,7 @@ class TabMovesNFTs extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
-                photo,
+                nft.metadata.media,
               ),
               fit: BoxFit.cover,
             ),
@@ -164,33 +178,14 @@ class TabMovesNFTs extends StatelessWidget {
         ),
         const SizedBox(height: 5),
         Text(
-          nombre,
+          nft.metadata.title,
           style: GoogleFonts.sourceSansPro(
               fontSize: 16, fontWeight: FontWeight.w600, color: txtPrimary),
         ),
         Text(
-          'Reality Foundation',
+          nft.tokenId,
           style: GoogleFonts.sourceSansPro(
               fontSize: 16, fontWeight: FontWeight.w400, color: txtPrimary),
-        ),
-        Row(
-          children: [
-            const CircleAvatar(
-              radius: 12.0,
-              backgroundImage: AssetImage("assets/imgs/RealityIconCircle.png"),
-            ),
-            const SizedBox(width: 5),
-            Text(
-              monto,
-              style: GoogleFonts.sourceSansPro(
-                  fontSize: 16, color: txtPrimary, fontWeight: FontWeight.w700),
-            ),
-          ],
-        ),
-        Text(
-          "\$ 140",
-          style: GoogleFonts.sourceSansPro(
-              fontSize: 16, color: txtPrimary, fontWeight: FontWeight.w400),
         ),
       ],
     );

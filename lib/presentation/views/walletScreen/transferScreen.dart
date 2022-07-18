@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
+import 'package:reality_near/presentation/views/userProfile/userProfile.dart';
 import 'package:reality_near/presentation/views/walletScreen/widgets/transactionDetail.dart';
 import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
 
@@ -127,18 +128,34 @@ class TransferScreen extends StatelessWidget {
                 ],
               ),
             ),
-            options()
+            options(context, photo, name, walletId),
           ],
         ),
       ),
     );
   }
 
-  Widget options() {
+  Widget options(
+    BuildContext context,
+    String photo,
+    String name,
+    String walletId,
+  ) {
     return PopupMenuButton(
         icon: const Icon(Icons.more_horiz),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        onSelected: (val) => {print(val)},
+        onSelected: (val) => {
+              print('value $val'),
+              if (val == 1)
+                {
+                  Navigator.of(context)
+                      .pushNamed(UserProfile.routeName, arguments: {
+                    'photo': photo,
+                    'name': name,
+                    'walletId': walletId,
+                  })
+                }
+            },
         itemBuilder: (context) => const [
               PopupMenuItem(
                 child: Text('Ver Perfil'),

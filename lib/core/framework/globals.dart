@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -52,11 +53,33 @@ persistData(String key, String value) async {
   print("Shared pref called");
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setString(key, value);
-  String token = await prefs.getString(key);
-  print('$key: $token');
+  dynamic token = prefs.getString(key);
+  print('SET -> $key: $token');
 }
 
 getPersistData(String key) async {
+  print("Shared pref called");
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getString(key);
+  dynamic token = prefs.getString(key);
+  print('GET -> $key: $token');
+  return token;
+}
+
+deletePersistData(String key) async {
+  print("Shared pref called");
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.remove(key);
+  print('DELETE -> $key');
+}
+
+deleteAllPersistData() async {
+  print("Shared pref called");
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.clear();
+  print('DELETE ALL');
+}
+
+//Convert a string to base64
+String convertToBase64(String val) {
+  return base64.encode(utf8.encode(val));
 }

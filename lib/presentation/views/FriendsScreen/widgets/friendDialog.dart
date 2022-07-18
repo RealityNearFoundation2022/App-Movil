@@ -4,13 +4,39 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/repository/userRepository.dart';
+import 'package:reality_near/domain/entities/user.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
 
-class FriendsSolicitudesDialog extends StatelessWidget {
+class FriendsSolicitudesDialog extends StatefulWidget {
   FriendsSolicitudesDialog({Key key}) : super(key: key);
 
-  TextEditingController searchUserController = TextEditingController();
+  @override
+  State<FriendsSolicitudesDialog> createState() =>
+      _FriendsSolicitudesDialogState();
+}
+
+class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
+  final TextEditingController searchUserController = TextEditingController();
+
+  List<User> lstUsers = [];
+
+  List<User> lstUsersFiltered = [];
+
+  @override
+  void initState() {
+    super.initState();
+    //obtenemos lista de usuarios
+    UserRepository().getUsers().then((value) => value.fold(
+          (failure) => print(failure),
+          (success) => {
+            setState(() {
+              lstUsers = success;
+            })
+          },
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +63,18 @@ class FriendsSolicitudesDialog extends StatelessWidget {
                   Column(
                     children: [
                       const SizedBox(height: 10),
-                      Searchbar(
-                          placeholder: S.current.BuscarUsuario,
-                          controller: searchUserController),
+                      buildSearch(),
                       Expanded(
                         child: ListView.builder(
-                          itemCount: 10,
+                          itemCount: searchUserController.text.isEmpty
+                              ? 10
+                              : lstUsersFiltered.length,
                           itemBuilder: (context, index) {
-                            return pendientesCard();
+                            final username = searchUserController.text.isEmpty
+                                ? getRandomName()
+                                : lstUsersFiltered[index].fullName ??
+                                    'username';
+                            return pendientesCard(username);
                           },
                         ),
                       ),
@@ -52,10 +82,6 @@ class FriendsSolicitudesDialog extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      const SizedBox(height: 10),
-                      Searchbar(
-                          placeholder: S.current.BuscarUsuario,
-                          controller: searchUserController),
                       const SizedBox(height: 10),
                       Expanded(
                         child: ListView.builder(
@@ -76,19 +102,41 @@ class FriendsSolicitudesDialog extends StatelessWidget {
     );
   }
 
-  Widget pendientesCard() {
+  //crea widget de barra de busqueda
+  Widget buildSearch() => Searchbar(
+      placeholder: S.current.BuscarUsuario,
+      controller: searchUserController,
+      onChanged: searchUser);
+
+  //funcion que filtra la lista segun lo que se escribe en la barra de busqueda
+  void searchUser(String query) {
+    final users = lstUsers.where((user) {
+      final username = (user.fullName ?? '').toLowerCase();
+      final searchLower = searchUserController.text.toLowerCase();
+
+      return username.contains(searchLower);
+    }).toList();
+
+    setState(() {
+      lstUsersFiltered = users;
+    });
+  }
+
+//Widget de card de solicitud de amistad enviadas
+  Widget pendientesCard(String username) {
     return ListTile(
       leading: const CircleAvatar(
         backgroundImage: NetworkImage(
           "https://picsum.photos/700/400?random",
         ),
       ),
-      title: Text(getRandomName()),
+      title: Text(username),
       subtitle: Text(S.current.CancelarSolicitud,
           style: const TextStyle(color: greenPrimary)),
     );
   }
 
+//Widget de card de solicitud de amistad pendientes
   Widget solicitudesCard(BuildContext context) {
     return ListTile(
       leading: const CircleAvatar(

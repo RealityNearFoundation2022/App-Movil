@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/datasource/nearRPC/contracts.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
@@ -9,8 +11,29 @@ import 'package:reality_near/presentation/views/configurationScreen/configuratio
 import 'package:reality_near/presentation/views/walletScreen/walletScreen.dart';
 import 'package:sizer/sizer.dart';
 
-class MenuPrincSection extends StatelessWidget {
+class MenuPrincSection extends StatefulWidget {
   const MenuPrincSection({Key key}) : super(key: key);
+
+  @override
+  State<MenuPrincSection> createState() => _MenuPrincSectionState();
+}
+
+class _MenuPrincSectionState extends State<MenuPrincSection> {
+  String username = '';
+  double walletBalance = 0;
+  @override
+  void initState() {
+    super.initState();
+    getPersistData('username').then((value) => {
+          setState(() {
+            username = value;
+          })
+        });
+    //obtener balance de wallet
+    ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
+          walletBalance = value;
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +52,19 @@ class MenuPrincSection extends StatelessWidget {
       Align(
         alignment: Alignment.centerRight,
         child: Text(
-          'Juan Alvarez',
+          username ?? 'noUser',
           style: GoogleFonts.sourceSansPro(
               fontSize: 33.sp, color: txtPrimary, fontWeight: FontWeight.w800),
         ),
       ),
-      Align(
-        alignment: Alignment.centerRight,
-        child: Text(
-          'jAlvRz921',
-          style: GoogleFonts.sourceSansPro(
-              fontSize: 26.sp, color: txtPrimary, fontWeight: FontWeight.w500),
-        ),
-      ),
+      // Align(
+      //   alignment: Alignment.centerRight,
+      //   child: Text(
+      //     'jAlvRz921',
+      //     style: GoogleFonts.sourceSansPro(
+      //         fontSize: 26.sp, color: txtPrimary, fontWeight: FontWeight.w500),
+      //   ),
+      // ),
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -51,7 +74,7 @@ class MenuPrincSection extends StatelessWidget {
           ),
           const SizedBox(width: 5),
           Text(
-            '1554.64005',
+            '$walletBalance',
             style: GoogleFonts.sourceSansPro(
                 fontSize: 33.sp,
                 color: txtPrimary,

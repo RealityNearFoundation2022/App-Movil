@@ -5,7 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 class Searchbar extends StatefulWidget {
   final String placeholder;
   final TextEditingController controller;
-  const Searchbar({Key key, this.placeholder, this.controller})
+  final ValueChanged<String> onChanged;
+
+  const Searchbar({Key key, this.placeholder, this.controller, this.onChanged})
       : super(key: key);
 
   @override
@@ -33,7 +35,18 @@ class _SearchbarState extends State<Searchbar> {
             fontWeight: FontWeight.bold,
           ),
           prefixIcon: const Icon(Icons.search),
+          suffixIcon: widget.controller.text.isNotEmpty
+              ? GestureDetector(
+                  child: Icon(Icons.close),
+                  onTap: () {
+                    widget.controller.clear();
+                    widget.onChanged('');
+                    FocusScope.of(context).requestFocus(FocusNode());
+                  },
+                )
+              : null,
         ),
+        onChanged: widget.onChanged,
       ),
     );
   }

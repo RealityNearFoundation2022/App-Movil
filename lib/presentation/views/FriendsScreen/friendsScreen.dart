@@ -55,19 +55,9 @@ class _FriendScreenState extends State<FriendScreen> {
                 child: FriendsConect()),
             //Lista de Chats
             Expanded(
-              child: Container(
-                child: Stack(
-                  children: [
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        child: chatList()),
-                    Container(
-                        padding: const EdgeInsets.only(right: 30, bottom: 20),
-                        alignment: Alignment.bottomRight,
-                        child: circularbtn(null, Icons.add))
-                  ],
-                ),
-              ),
+              child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: chatList()),
             )
           ],
         ));

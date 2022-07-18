@@ -6,6 +6,9 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/datasource/nearRPC/contracts.dart';
+import 'package:reality_near/data/repository/userRepository.dart';
+import 'package:reality_near/domain/entities/user.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/bid_widget.dart';
@@ -24,6 +27,29 @@ class NoArSection extends StatefulWidget {
 
 class _NoArSectionState extends State<NoArSection> {
   bool status = false;
+  User user = User();
+  double walletBalance = 0;
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    //obtenemos datos del usuario
+    UserRepository().getMyData().then((value) => value.fold(
+          (failure) => print(failure),
+          (success) => {
+            persistData('username', success.fullName),
+            persistData('userId', success.id.toString()),
+            setState(() {
+              user = success;
+            })
+          },
+        ));
+    //obtener balance de wallet
+    ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
+          walletBalance = value;
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +117,7 @@ class _NoArSectionState extends State<NoArSection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Juan Alvarez',
+              user.fullName ?? 'notUsername',
               style: GoogleFonts.sourceSansPro(
                   fontSize: 20.sp,
                   color: txtPrimary,
@@ -106,7 +132,7 @@ class _NoArSectionState extends State<NoArSection> {
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  'Realities: 1554.64005',
+                  'Realities: ${walletBalance.toStringAsFixed(4) ?? '0.0000'}',
                   style: GoogleFonts.sourceSansPro(
                       fontSize: 16.sp,
                       color: txtPrimary,

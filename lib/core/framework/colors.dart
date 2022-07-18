@@ -8,6 +8,7 @@ const greenPrimary = Color.fromRGBO(51, 204, 153, 1);
 const greenPrimary2 = Color.fromRGBO(70, 183, 142, 1);
 const greenPrimary3 = Color.fromRGBO(51, 204, 153, 1);
 const greySoft = Color.fromRGBO(223, 222, 211, 1);
+
 const backgroundWhite = Colors.white;
 
 class Palette {

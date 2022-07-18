@@ -46,6 +46,7 @@
     "Solicitudes":"Solicitudes",
     "BuscarUsuario" : "Buscar usuario ...",
     "CancelarSolicitud": "Cancelar Solicitud",
+    "EnviarSolicitud": "Enviar request",
     "amigosEnComun":"{amigos} amigos en común",
     "Aceptar":"Aceptar",
     "Rechazar":"Rechazar",
