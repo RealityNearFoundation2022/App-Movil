@@ -7,11 +7,11 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
-import 'package:reality_near/presentation/providers/location_provider.dart';
 import 'package:reality_near/core/routes.dart';
 import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
 import 'package:reality_near/presentation/views/homeScreen/homeScreen.dart';
 import 'package:reality_near/presentation/views/mapScreen/widgets/map.dart';
+import 'package:reality_near/providers/location_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 bool guideIsviewed;

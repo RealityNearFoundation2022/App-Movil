@@ -1,3 +1,5 @@
+import 'package:reality_near/data/models/contactModel.dart';
+
 class User {
   User({
     this.email,
@@ -5,6 +7,7 @@ class User {
     this.isSuperuser,
     this.fullName,
     this.id,
+    this.infContact,
   });
 
   final String email;
@@ -12,4 +15,5 @@ class User {
   final bool isSuperuser;
   final String fullName;
   final int id;
+  ContactModel infContact;
 }

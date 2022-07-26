@@ -505,6 +505,16 @@ class S {
     );
   }
 
+  /// `Send request`
+  String get EnviarSolicitud {
+    return Intl.message(
+      'Send request',
+      name: 'EnviarSolicitud',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `{amigos} friends in common`
   String amigosEnComun(Object amigos) {
     return Intl.message(
@@ -780,6 +790,16 @@ class S {
     return Intl.message(
       'Save',
       name: 'Guardar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `no pending requests`
+  String get NoSolicitudes {
+    return Intl.message(
+      'no pending requests',
+      name: 'NoSolicitudes',
       desc: '',
       args: [],
     );

@@ -74,6 +74,7 @@
     "recientes": "Recents",
     "UserName": "Username",
     "Obligatorio":"Required",
-    "Guardar":"Save"
+    "Guardar":"Save",
+    "NoSolicitudes":"no pending requests"
 
 }

@@ -28,7 +28,6 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
         "Authorization": "Bearer $token",
       },
     );
-    String body = utf8.decode(response.bodyBytes);
     //PARA VERIFICAR
     log.i(response.body);
     log.i(response.statusCode);
@@ -63,4 +62,27 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
       throw ServerException();
     }
   }
+
+  @override
+  Future<User> getUserById(String userId) async {
+    String url = API_REALITY_NEAR + "users/${userId}";
+    String token = await getPersistData("userToken");
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+    );
+    //PARA VERIFICAR
+    log.i(response.body);
+    log.i(response.statusCode);
+    //si es cod200 devolvemos obj si no lanzamos excepcion
+    if (response.statusCode == 200) {
+      return UserModel.fromJson(json.decode(response.body));
+    } else {
+      throw ServerException();
+    }
+  }
+
 }

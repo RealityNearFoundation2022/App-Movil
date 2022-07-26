@@ -74,5 +74,6 @@
     "recientes": "Recientes",
     "UserName": "Nombre de usuario",
     "Obligatorio":"Obligatorio",
-    "Guardar":"Guardar"
+    "Guardar":"Guardar",
+    "NoSolicitudes":"No tienes solicitudes pendientes"
 }

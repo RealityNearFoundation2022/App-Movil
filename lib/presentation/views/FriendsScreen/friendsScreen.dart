@@ -76,6 +76,7 @@ class _FriendScreenState extends State<FriendScreen> {
           const SizedBox(width: 20),
           circularbtn(() {
             showDialog(
+              barrierDismissible: true,
                 context: context,
                 builder: (context) => FriendsSolicitudesDialog());
           }, Icons.person_add)

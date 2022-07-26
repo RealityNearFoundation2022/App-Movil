@@ -59,4 +59,15 @@ class UserRepository {
       ));
     }
   }
+  Future<Either<Failure, User>> getUserById(String userId) async {
+    try {
+      final user = await userRemoteDataSource.getUserById(userId);
+      return Right(user);
+    } on ServerException {
+      return const Left(ServerFailure(
+        message: "Server Failure",
+      ));
+    }
+  }
+
 }
