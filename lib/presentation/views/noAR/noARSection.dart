@@ -16,6 +16,7 @@ import 'package:reality_near/presentation/views/noAR/widgets/category.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/details_page.dart';
 import 'package:reality_near/presentation/views/walletScreen/receiveScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/transferScreen.dart';
+import 'package:reality_near/presentation/widgets/dialogs/syncWalletDialog.dart';
 import 'package:sizer/sizer.dart';
 
 class NoArSection extends StatefulWidget {
@@ -29,26 +30,33 @@ class _NoArSectionState extends State<NoArSection> {
   bool status = false;
   User user = User();
   double walletBalance = 0;
+  String walletId = "";
 
   @override
   initState() {
     // TODO: implement initState
     super.initState();
-    //obtenemos datos del usuario
+    getPersistData('walletId').then((value) => {
+      //obtener balance de wallet
+      ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
+        walletBalance = value;
+      })),
+      setState(() {
+        walletId = value;
+      })
+    });
+
     UserRepository().getMyData().then((value) => value.fold(
           (failure) => print(failure),
           (success) => {
-            persistData('username', success.fullName),
-            persistData('userId', success.id.toString()),
-            setState(() {
-              user = success;
-            })
-          },
-        ));
-    //obtener balance de wallet
-    ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
-          walletBalance = value;
-        }));
+        persistData('username', success.fullName),
+        persistData('userId', success.id.toString()),
+        setState(() {
+          user = success;
+        })
+      },
+    ));
+
   }
 
   @override
@@ -123,40 +131,64 @@ class _NoArSectionState extends State<NoArSection> {
                   color: txtPrimary,
                   fontWeight: FontWeight.w800),
             ),
-            Row(
-              children: [
-                const CircleAvatar(
-                  radius: 13.0,
-                  backgroundImage:
-                      AssetImage("assets/imgs/RealityIconCircle.png"),
-                ),
-                const SizedBox(width: 5),
-                Text(
-                  'Realities: ${walletBalance.toStringAsFixed(4) ?? '0.0000'}',
-                  style: GoogleFonts.sourceSansPro(
-                      fontSize: 16.sp,
-                      color: txtPrimary,
-                      fontWeight: FontWeight.w500),
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Buttons(S.current.Transferir, greenPrimary, () {
-                  Navigator.of(context).pushNamed(TransferScreen.routeName);
-                }),
-                const SizedBox(width: 10),
-                Buttons(S.current.Recibir, Colors.black45, () {
-                  Navigator.of(context)
-                      .pushNamed(ReceiveScreen.routeName, arguments: {
-                    "walletId": "walletUsuario.near",
-                  });
-                }),
-              ],
+            walletId.isNotEmpty ?? false ? userWalletOpt()
+            : GestureDetector(
+              onTap: () =>  showDialog(context: context, builder: (context) => const SyncWalletDialog()),
+              child: Container(
+                // margin: const EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30), color: Colors.black45),
+                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 15),
+                child: Center(
+                    child: Text(S.current.SyncWallet,
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: 13.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800))),
+              ),
             )
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget userWalletOpt(){
+    return Column(
+      children: [
+        const SizedBox(height: 5),
+        Row(
+          children: [
+            const CircleAvatar(
+              radius: 13.0,
+              backgroundImage:
+              AssetImage("assets/imgs/RealityIconCircle.png"),
+            ),
+            const SizedBox(width: 5),
+            Text(
+              'Realities: ${walletBalance.toStringAsFixed(4) ?? '0.0000'}',
+              style: GoogleFonts.sourceSansPro(
+                  fontSize: 16.sp,
+                  color: txtPrimary,
+                  fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Buttons(S.current.Transferir, greenPrimary, () {
+              Navigator.of(context).pushNamed(TransferScreen.routeName);
+            }),
+            const SizedBox(width: 10),
+            Buttons(S.current.Recibir, Colors.black45, () {
+              Navigator.of(context)
+                  .pushNamed(ReceiveScreen.routeName, arguments: {
+                "walletId": "walletUsuario.near",
+              });
+            }),
           ],
         )
       ],

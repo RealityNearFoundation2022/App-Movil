@@ -10,7 +10,7 @@
     "PasswordOblig":"Password obligatorio",
     "failLogin":"No se pudo Iniciar sesión con esta wallet, prueba de nuevo",
     "Ingresar":"Ingresar",
-    "enterWallet": "Ingresa tu Near Wallet",
+    "SyncWallet": "Vincula tu Near Wallet",
     "Email": "Correo",
     "Password": "Contraseña",
     "PasswordConf": "Confirmar contraseña",
@@ -75,5 +75,12 @@
     "UserName": "Nombre de usuario",
     "Obligatorio":"Obligatorio",
     "Guardar":"Guardar",
-    "NoSolicitudes":"No tienes solicitudes pendientes"
+    "NoSolicitudes":"No tienes solicitudes pendientes",
+    "Si":"Si",
+    "No":"No",
+    "PvinecularNearWallet": "¿Deseas vincular tu near wallet?",
+    "EsteSeraTuAvatar": "Este será tu avatar",
+    "Confirmar": "Confirmar",
+    "Volver": "Volver",
+    "DatosIncompletos": "Datos incompletos"
 }

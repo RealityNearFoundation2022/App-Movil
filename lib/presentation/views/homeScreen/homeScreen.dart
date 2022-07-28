@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/AR/arview.dart';
-import 'package:reality_near/presentation/views/homeScreen/widgets/initialGuide.dart';
 import 'package:reality_near/presentation/views/noAR/noARSection.dart';
 import 'package:reality_near/presentation/views/mapScreen/mapScreen.dart';
 import 'package:reality_near/presentation/views/menuScreen/menuScreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home";
@@ -23,19 +20,21 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool status = true;
   bool viewGuide = true;
-  _storeGuidedInfo() async {
-    print("Shared pref called");
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      viewGuide = prefs.getBool('Guide') ?? true;
-    });
-    print(prefs.getBool('Guide'));
-  }
+
+
+  // _storeGuidedInfo() async {
+  //   print("Shared pref called");
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() async {
+  //     viewGuide = prefs.getBool('Guide') ?? true;
+  //   });
+  //   print(prefs.getBool('Guide'));
+  // }
 
   @override
   void initState() {
     super.initState();
-    _storeGuidedInfo();
+    // _storeGuidedInfo();
   }
 
   @override
@@ -65,11 +64,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 //MenuBTN
                 const Align(
                     alignment: Alignment.bottomRight, child: MenuContainer()),
-                viewGuide
-                    ? initialGuide(
-                        index: 1,
-                      )
-                    : const SizedBox(),
+                // viewGuide
+                //     ? initialGuide(
+                //         index: 1,
+                //       )
+                //     : const SizedBox(),
               ],
             ),
           ),

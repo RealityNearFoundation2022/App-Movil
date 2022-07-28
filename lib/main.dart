@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
@@ -12,15 +13,13 @@ import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
 import 'package:reality_near/presentation/views/homeScreen/homeScreen.dart';
 import 'package:reality_near/presentation/views/mapScreen/widgets/map.dart';
 import 'package:reality_near/providers/location_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-bool guideIsviewed;
+bool IsLoggedIn;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    guideIsviewed = prefs.getBool('Guide');
+    IsLoggedIn = getPersistData('userToken') != null;
     runApp(const MyApp());
   });
 }
@@ -67,9 +66,9 @@ class MyApp extends StatelessWidget {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: S.delegate.supportedLocales,
-          initialRoute: guideIsviewed ?? true
-              ? FirstScreen.routeName
-              : HomeScreen.routeName,
+          initialRoute: IsLoggedIn ?? false
+              ? HomeScreen.routeName
+              : FirstScreen.routeName ,
           routes: routes,
         ),
       ),

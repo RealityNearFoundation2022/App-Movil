@@ -145,11 +145,11 @@ class S {
     );
   }
 
-  /// `Enter your Near Wallet`
-  String get enterWallet {
+  /// `Sync your Near Wallet`
+  String get SyncWallet {
     return Intl.message(
-      'Enter your Near Wallet',
-      name: 'enterWallet',
+      'Sync your Near Wallet',
+      name: 'SyncWallet',
       desc: '',
       args: [],
     );
@@ -800,6 +800,76 @@ class S {
     return Intl.message(
       'no pending requests',
       name: 'NoSolicitudes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get Si {
+    return Intl.message(
+      'Yes',
+      name: 'Si',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get No {
+    return Intl.message(
+      'No',
+      name: 'No',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want sync your near wallet?`
+  String get PvinecularNearWallet {
+    return Intl.message(
+      'Do you want sync your near wallet?',
+      name: 'PvinecularNearWallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This will be your avatar`
+  String get EsteSeraTuAvatar {
+    return Intl.message(
+      'This will be your avatar',
+      name: 'EsteSeraTuAvatar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get Confirmar {
+    return Intl.message(
+      'Confirm',
+      name: 'Confirmar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get Volver {
+    return Intl.message(
+      'Back',
+      name: 'Volver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incomplete data`
+  String get DatosIncompletos {
+    return Intl.message(
+      'Incomplete data',
+      name: 'DatosIncompletos',
       desc: '',
       args: [],
     );

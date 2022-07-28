@@ -9,6 +9,7 @@ import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configurationScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/walletScreen.dart';
+import 'package:reality_near/presentation/widgets/dialogs/syncWalletDialog.dart';
 import 'package:sizer/sizer.dart';
 
 class MenuPrincSection extends StatefulWidget {
@@ -21,6 +22,8 @@ class MenuPrincSection extends StatefulWidget {
 class _MenuPrincSectionState extends State<MenuPrincSection> {
   String username = '';
   double walletBalance = 0;
+  String walletId = "";
+
   @override
   void initState() {
     super.initState();
@@ -29,10 +32,17 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
             username = value;
           })
         });
-    //obtener balance de wallet
-    ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
-          walletBalance = value;
-        }));
+
+    getPersistData('walletId').then((value) => {
+      //obtener balance de wallet
+      ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
+        walletBalance = value;
+      })),
+      setState(() {
+        walletId = value;
+      })
+    });
+
   }
 
   @override
@@ -57,15 +67,7 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
               fontSize: 33.sp, color: txtPrimary, fontWeight: FontWeight.w800),
         ),
       ),
-      // Align(
-      //   alignment: Alignment.centerRight,
-      //   child: Text(
-      //     'jAlvRz921',
-      //     style: GoogleFonts.sourceSansPro(
-      //         fontSize: 26.sp, color: txtPrimary, fontWeight: FontWeight.w500),
-      //   ),
-      // ),
-      Row(
+      walletId.isNotEmpty ? Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const CircleAvatar(
@@ -81,7 +83,7 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
                 fontWeight: FontWeight.w500),
           ),
         ],
-      ),
+      ) : const SizedBox(),
       Align(
         alignment: Alignment.centerRight,
         child: GestureDetector(
@@ -97,7 +99,7 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
           ),
         ),
       ),
-      Align(
+      walletId.isNotEmpty ?Align(
         alignment: Alignment.centerRight,
         child: GestureDetector(
           onTap: () {
@@ -111,7 +113,8 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
                 fontWeight: FontWeight.w500),
           ),
         ),
-      ),
+      ):const SizedBox(),
+
     ]);
   }
 
@@ -126,40 +129,60 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
   }
 
   Widget bottomSection(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
-        GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, ConfigurationScreen.routeName);
-            },
-            child: const Icon(Icons.settings, color: greenPrimary3, size: 35)),
         Align(
           alignment: Alignment.centerRight,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 3.0),
-                child: GestureDetector(
-                  onTap: () {
-                    BlocProvider.of<UserBloc>(context, listen: false)
-                        .add(UserLogOutEvent());
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, '/firstScreen', ModalRoute.withName('/'));
-                  },
-                  child: Text(
-                    'Logout',
-                    style: GoogleFonts.sourceSansPro(
-                        color: greenPrimary3,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 33.sp),
-                  ),
-                ),
-              )
-            ],
+          child: GestureDetector(
+            onTap: () {
+              showDialog(context: context, builder: (context) => const SyncWalletDialog());
+            },
+            child: Text(
+              S.current.SyncWallet,
+              textAlign: TextAlign.right,
+              style: GoogleFonts.sourceSansPro(
+                  fontSize: 33.sp,
+                  color: txtPrimary,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
-        )
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, ConfigurationScreen.routeName);
+                },
+                child: const Icon(Icons.settings, color: greenPrimary3, size: 35)),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        BlocProvider.of<UserBloc>(context, listen: false)
+                            .add(UserLogOutEvent());
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/firstScreen', ModalRoute.withName('/'));
+                      },
+                      child: Text(
+                        'Logout',
+                        style: GoogleFonts.sourceSansPro(
+                            color: greenPrimary3,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 33.sp),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ],
     );
   }

@@ -702,6 +702,13 @@
             </list>
           </value>
         </entry>
+        <entry key="showcaseview">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../../tools/flutter/.pub-cache/hosted/pub.dartlang.org/showcaseview-1.1.7/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="sizer">
           <value>
             <list>
@@ -1025,6 +1032,7 @@
       <root url="file://$PROJECT_DIR$/../../../../../tools/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_platform_interface-2.0.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../tools/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_web-2.0.4/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../tools/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-2.1.1/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../../tools/flutter/.pub-cache/hosted/pub.dartlang.org/showcaseview-1.1.7/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../tools/flutter/.pub-cache/hosted/pub.dartlang.org/sizer-2.0.15/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../tools/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.8.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../../tools/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.10.0/lib" />
