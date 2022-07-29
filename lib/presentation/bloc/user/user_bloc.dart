@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/domain/usecases/login/emailLoginUser.dart';
 import 'package:reality_near/domain/usecases/register/registerUser.dart';
 import 'package:reality_near/domain/usecases/wallet/walletLogin.dart';
@@ -39,6 +40,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserLogOutEvent>(
       (event, emit) {
         emit(UserInitialState());
+        deleteAllPersistData();
       },
     );
 

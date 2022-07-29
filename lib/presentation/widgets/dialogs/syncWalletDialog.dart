@@ -9,10 +9,16 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../core/helper/url_constants.dart';
 
-class SyncWalletDialog extends StatelessWidget {
+class SyncWalletDialog extends StatefulWidget {
   const SyncWalletDialog({Key key})
       : super(key: key);
 
+  @override
+  State<SyncWalletDialog> createState() => _SyncWalletDialogState();
+}
+
+class _SyncWalletDialogState extends State<SyncWalletDialog> {
+  bool pressNo=false;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -21,7 +27,7 @@ class SyncWalletDialog extends StatelessWidget {
         child: FittedBox(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Column(
+            child: pressNo ? _noSync(context) : Column(
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.5,
@@ -44,7 +50,9 @@ class SyncWalletDialog extends StatelessWidget {
                       BlocProvider.of<UserBloc>(context, listen: false)
                           .add(UserLoginWalletEvent(context, '')),greenPrimary),
                       button(S.current.No, (){
-                        Navigator.of(context).pop();
+                        setState(() {
+                          pressNo=true;
+                        });
                       },Colors.grey),
                     ],
                   ),
@@ -66,7 +74,6 @@ class SyncWalletDialog extends StatelessWidget {
                               style: GoogleFonts.sourceSansPro(
                                   fontSize: 16,
                                   color: Colors.grey[400],
-
                                   fontWeight: FontWeight.w600),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () => launchUrlString(REGISTER_NEAR_WALLET,
@@ -79,18 +86,67 @@ class SyncWalletDialog extends StatelessWidget {
           ),
         ));
   }
+
+  Widget _noSync(BuildContext context){
+    return Column(
+      children: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.5,
+          child: Text(
+            S.current.NoRegistraWalletTitle,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.sourceSansPro(
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+                color: txtPrimary),
+          ),
+        ),
+        const SizedBox(height: 5),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.5,
+          height: MediaQuery.of(context).size.height * 0.1,
+          child: Text(
+            S.current.NoRegistraWalletDesc1,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.sourceSansPro(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+                color: txtPrimary),
+          ),
+        ),
+        const SizedBox(height: 10),
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.5,
+          height: MediaQuery.of(context).size.height * 0.1,
+          child: Text(
+            S.current.NoRegistraWalletDesc1,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.sourceSansPro(
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+                color: txtPrimary),
+          ),
+        ),
+        const SizedBox(height: 10),
+        button(S.current.Confirmar, (){
+          Navigator.pop(context);
+        },Colors.grey),
+      ],
+    );
+  }
+
   Widget button(String text, Function press, Color color) {
     return TextButton(
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         primary: Colors.white,
         backgroundColor: color,
-        padding: EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 30),
       ),
       child: Text(
         text,
         style: GoogleFonts.notoSansJavanese(
-          fontSize: 22,
+          fontSize: 16,
           color: Colors.white,
           fontWeight: FontWeight.w700,
         ),

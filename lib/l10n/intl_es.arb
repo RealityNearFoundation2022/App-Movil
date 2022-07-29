@@ -82,5 +82,8 @@
     "EsteSeraTuAvatar": "Este será tu avatar",
     "Confirmar": "Confirmar",
     "Volver": "Volver",
-    "DatosIncompletos": "Datos incompletos"
+    "DatosIncompletos": "Datos incompletos",
+    "NoRegistraWalletTitle": "No estas registrando una wallet",
+    "NoRegistraWalletDesc1": "Al no registrarte con una wallet no podrás almacenar o transaccionar dentro de Reality Near",
+    "NoRegistraWalletDesc2": "Cuando quieras, podrás  vincular tu Near Wallet desde el home o menu principal"
 }

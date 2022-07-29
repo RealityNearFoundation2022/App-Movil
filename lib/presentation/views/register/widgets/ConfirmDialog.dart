@@ -49,13 +49,15 @@ class ConfirmUserDialog extends StatelessWidget {
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 10),
-                  width: MediaQuery.of(context).size.width * 0.5,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       button(S.current.Confirmar, () {
                         pressFunc();
                       },greenPrimary),
+                      const SizedBox(
+                        width: 10,
+                      ),
                       button(S.current.Volver, (){
                         Navigator.of(context).pop();
                       },Colors.grey),

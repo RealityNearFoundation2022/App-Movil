@@ -1,8 +1,7 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
@@ -10,7 +9,6 @@ import 'package:reality_near/data/datasource/nearRPC/contracts.dart';
 import 'package:reality_near/data/repository/userRepository.dart';
 import 'package:reality_near/domain/entities/user.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/bid_widget.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/category.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/details_page.dart';
@@ -21,7 +19,6 @@ import 'package:sizer/sizer.dart';
 
 class NoArSection extends StatefulWidget {
   const NoArSection({Key key}) : super(key: key);
-
   @override
   State<NoArSection> createState() => _NoArSectionState();
 }
@@ -63,42 +60,8 @@ class _NoArSectionState extends State<NoArSection> {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return ListView(
+        physics: const  NeverScrollableScrollPhysics(),
         children: [
-          SizedBox(
-            width: double.infinity,
-            child: Column(
-              children: [
-                Image.asset(
-                  "assets/imgs/Logo_sin_fondo.png",
-                  width: ScreenWH(context).width * 0.5,
-                  height: ScreenWH(context).height * 0.15,
-                ),
-                Container(
-                  width: ScreenWH(context).width * 0.8,
-                  alignment: Alignment.centerRight,
-                  child: FittedBox(
-                    child: FlutterSwitch(
-                      width: 45.0,
-                      height: 22.0,
-                      valueFontSize: 16.0,
-                      toggleSize: 15.0,
-                      value: status,
-                      borderRadius: 30.0,
-                      activeColor: greenPrimary,
-                      inactiveColor: offSwitch,
-                      onToggle: (val) {
-                        setState(() {
-                          status = val;
-                        });
-                        BlocProvider.of<MenuBloc>(context, listen: false)
-                            .add(MenuOpenArViewEvent());
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: userSection(context,

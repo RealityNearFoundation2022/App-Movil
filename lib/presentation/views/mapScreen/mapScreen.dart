@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/mapScreen/widgets/map.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 class MapContainer extends StatefulWidget {
-  const MapContainer({Key key}) : super(key: key);
+  const MapContainer({Key key,
+    this.showCaseKey,}) : super(key: key);
 
+  final GlobalKey<State<StatefulWidget>> showCaseKey;
   @override
   State<MapContainer> createState() => _MapContainerState();
 }
@@ -18,6 +22,7 @@ class _MapContainerState extends State<MapContainer>
   bool isOpen = false;
   bool seeContent = false;
   int animatedDuration = 500;
+  BuildContext myContext;
 
   @override
   void initState() {
@@ -29,41 +34,63 @@ class _MapContainerState extends State<MapContainer>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MenuBloc, MenuState>(builder: ((context, state) {
-      return state is! MenuPrincipalState
-          ? AnimatedContainer(
-              duration: Duration(milliseconds: animatedDuration),
-              width: ScreenWH(context).width * (isOpen ? 0.8 : 0.1),
-              height: ScreenWH(context).height * (isOpen ? 0.5 : 0.09),
-              decoration: BoxDecoration(
-                  color: isOpen ? greenPrimary : Colors.transparent,
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(30),
-                  )),
-              child: Container(
-                alignment: isOpen ? Alignment.topLeft : null,
-                child: Stack(
-                  children: [
-                    seeContent ? const MapSection() : const SizedBox(),
-                    Container(
-                        alignment: Alignment.topRight,
-                        padding: const EdgeInsets.all(10),
-                        child: GestureDetector(
-                          child: Icon(
-                            isOpen
-                                ? Icons.arrow_back_ios_new
-                                : Icons.map_rounded,
-                            size: 40,
-                            color: greenPrimary,
-                          ),
-                          onTap: () {
-                            _handleOnPressed();
-                          },
-                        ))
-                  ],
+      return state is MenuPrincipalState
+          ? const SizedBox()
+          : Showcase(
+          key: widget.showCaseKey,
+          overlayPadding: const EdgeInsets.all(12),
+          radius: BorderRadius.circular(40),
+          contentPadding: const EdgeInsets.all(15),
+          title: 'Map',
+          description:
+          "Tap to see profile which contains user's name, profile picture, mobile number and country",
+          showcaseBackgroundColor: Theme.of(context).primaryColor,
+          textColor: Colors.white,
+          titleTextStyle: GoogleFonts.sourceSansPro(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          descTextStyle: GoogleFonts.sourceSansPro(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
+        shapeBorder: const CircleBorder(),
+            child: AnimatedContainer(
+                duration: Duration(milliseconds: animatedDuration),
+                width: ScreenWH(context).width * (isOpen ? 0.8 : 0.1),
+                height: ScreenWH(context).height * (isOpen ? 0.5 : 0.09),
+                decoration: BoxDecoration(
+                    color: isOpen ? greenPrimary : Colors.transparent,
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(30),
+                    )),
+                child: Container(
+                  alignment: isOpen ? Alignment.topLeft : null,
+                  child: Stack(
+                    children: [
+                      seeContent ? const MapSection() : const SizedBox(),
+                      Container(
+                          alignment: Alignment.topRight,
+                          padding: const EdgeInsets.all(10),
+                          child: GestureDetector(
+                            child: Icon(
+                              isOpen
+                                  ? Icons.arrow_back_ios_new
+                                  : Icons.map_rounded,
+                              size: 40,
+                              color: greenPrimary,
+                            ),
+                            onTap: () {
+                              _handleOnPressed();
+                            },
+                          ))
+                    ],
+                  ),
                 ),
               ),
-            )
-          : const SizedBox();
+          );
     }));
   }
 

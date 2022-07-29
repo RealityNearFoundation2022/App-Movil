@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:near_flutter/near_flutter.dart';
 import 'package:reality_near/core/errors/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:reality_near/core/framework/globals.dart';
 
 class WalletRepository {
   Near near;
@@ -19,6 +20,7 @@ class WalletRepository {
           'https://www.google.com',
           'eduperaltas.testnet');
       print('response login with NEAR: $response');
+      // persistData("walletId", accountId);
       return const Right('usuario Logeado');
     } catch (e) {
       return const Left(ServerFailure(message: 'Error al logearse'));

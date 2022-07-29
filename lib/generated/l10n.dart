@@ -874,6 +874,36 @@ class S {
       args: [],
     );
   }
+
+  /// `You are not sync a wallet`
+  String get NoRegistraWalletTitle {
+    return Intl.message(
+      'You are not sync a wallet',
+      name: 'NoRegistraWalletTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `you will not be able to store or transact within Reality Near`
+  String get NoRegistraWalletDesc1 {
+    return Intl.message(
+      'you will not be able to store or transact within Reality Near',
+      name: 'NoRegistraWalletDesc1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Whenever you want, you can link your Near Wallet from the home or main menu`
+  String get NoRegistraWalletDesc2 {
+    return Intl.message(
+      'Whenever you want, you can link your Near Wallet from the home or main menu',
+      name: 'NoRegistraWalletDesc2',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

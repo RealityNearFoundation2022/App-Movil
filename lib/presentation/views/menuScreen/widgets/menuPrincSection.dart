@@ -131,7 +131,7 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
   Widget bottomSection(BuildContext context) {
     return Column(
       children: [
-        Align(
+        walletId.isEmpty ?Align(
           alignment: Alignment.centerRight,
           child: GestureDetector(
             onTap: () {
@@ -146,7 +146,7 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
                   fontWeight: FontWeight.w600),
             ),
           ),
-        ),
+        ) : const SizedBox(),
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
