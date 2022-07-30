@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
@@ -28,18 +27,19 @@ class _HomeScreenState extends State<HomeScreen> {
   bool passInitGuide;
 
   _viewGuide() async {
-     (await getPersistData('passInitGuide') == null && await getPersistData('userToken') != null) ?
-    WidgetsBinding.instance.addPostFrameCallback(
-          (_) => ShowCaseWidget.of(context)
-          .startShowCase([_one, _two,_three]),
-    ) : null;
+    (await getPersistData('passInitGuide') == null &&
+            await getPersistData('userToken') != null)
+        ? WidgetsBinding.instance.addPostFrameCallback(
+            (_) =>
+                ShowCaseWidget.of(context).startShowCase([_one, _two, _three]),
+          )
+        : null;
   }
 
   @override
   void initState() {
     super.initState();
     _viewGuide();
-
   }
 
   @override
@@ -52,14 +52,15 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           body: Stack(
             children: [
-
               state is MenuArState
                   ? const ARSection()
                   : Container(
-                margin: EdgeInsets.only(bottom: 20,top:  ScreenWH(context).height * 0.17),
-                height: ScreenWH(context).height * 0.95,
-                width: ScreenWH(context).width,
-                child:  const NoArSection(),),
+                      margin: EdgeInsets.only(
+                          bottom: 20, top: ScreenWH(context).height * 0.17),
+                      height: ScreenWH(context).height * 0.95,
+                      width: ScreenWH(context).width,
+                      child: const NoArSection(),
+                    ),
               // ListView(
               //   children: [
               //     //Header
@@ -80,19 +81,22 @@ class _HomeScreenState extends State<HomeScreen> {
               header(),
 
               Align(
-                  alignment: Alignment.bottomLeft, child: MapContainer(showCaseKey: _two,)),
+                  alignment: Alignment.bottomLeft,
+                  child: MapContainer(
+                    showCaseKey: _two,
+                  )),
               //MenuBTN
               Align(
-                  alignment: Alignment.bottomRight, child: MenuContainer(showCaseKey: _one,)),
-
-
+                  alignment: Alignment.bottomRight,
+                  child: MenuContainer(
+                    showCaseKey: _one,
+                  )),
             ],
           ),
         ),
       );
     }));
   }
-
 
   Widget header() {
     return Container(
@@ -115,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
               contentPadding: const EdgeInsets.all(15),
               title: 'AR Switch',
               description:
-              "Tap to see profile which contains user's name, profile picture, mobile number and country",
+                  "Tap to see profile which contains user's name, profile picture, mobile number and country",
               showcaseBackgroundColor: Theme.of(context).primaryColor,
               textColor: Colors.white,
               titleTextStyle: GoogleFonts.sourceSansPro(

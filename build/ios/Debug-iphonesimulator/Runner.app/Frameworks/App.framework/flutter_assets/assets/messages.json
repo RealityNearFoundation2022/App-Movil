@@ -1,0 +1,26 @@
+[
+  {
+    "author": {
+      "firstName": "John",
+      "id": "b4878b96-efbc-479a-8291-474ef323dec7",
+      "imageUrl": "https://avatars.githubusercontent.com/u/14123304?v=4"
+    },
+    "createdAt": 1653680090000,
+    "id": "83093c75-2efb-47bc-84d6-37dbc53bb5de",
+    "status": "seen",
+    "text": "hay una misión de Reality, cae al toque!",
+    "type": "text"
+  },
+  {
+    "author": {
+      "firstName": "John",
+      "id": "b4878b96-efbc-479a-8291-474ef323dec7",
+      "imageUrl": "https://avatars.githubusercontent.com/u/14123304?v=4"
+    },
+    "createdAt": 1653680060000,
+    "id": "8fa70836-3309-4d09-a777-4d9603e1f123",
+    "status": "seen",
+    "text": "Habla Juan, estoy por larcomar",
+    "type": "text"
+  }
+]
