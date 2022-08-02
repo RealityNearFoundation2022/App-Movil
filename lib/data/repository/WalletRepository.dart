@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:near_flutter/near_flutter.dart';
 import 'package:reality_near/core/errors/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:reality_near/core/framework/globals.dart';
 
 class WalletRepository {
   Near near;

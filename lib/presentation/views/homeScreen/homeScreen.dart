@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/domain/usecases/notifications/getNotifications.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/AR/arview.dart';
 import 'package:reality_near/presentation/views/noAR/noARSection.dart';
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey _two = GlobalKey();
   final GlobalKey _three = GlobalKey();
   bool passInitGuide;
-
+  int notifications = 0;
   _viewGuide() async {
     (await getPersistData('passInitGuide') == null &&
             await getPersistData('userToken') != null)
@@ -36,10 +37,17 @@ class _HomeScreenState extends State<HomeScreen> {
         : null;
   }
 
+  _getNewNotifications() async {
+    await GetNotifications().call().then((value) => value.fold(
+        (l) => print('Error: ${l.toString()}'),
+        (r) => setState(() => notifications = r)));
+  }
+
   @override
   void initState() {
     super.initState();
     _viewGuide();
+    _getNewNotifications();
   }
 
   @override
@@ -52,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           body: Stack(
             children: [
+              //Body
               state is MenuArState
                   ? const ARSection()
                   : Container(
@@ -61,41 +70,64 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: ScreenWH(context).width,
                       child: const NoArSection(),
                     ),
-              // ListView(
-              //   children: [
-              //     //Header
-              //     header(),
-              //     state is MenuArState
-              //         ? const ARSection()
-              //         : Container(
-              //       margin: const EdgeInsets.only(bottom: 20),
-              //       height: ScreenWH(context).height * 0.95,
-              //       width: ScreenWH(context).width,
-              //       child:  const NoArSection(),
-              //     ),
-              //   ],
-              // ),
-              //Footer
-              //MapBTN
-
+              //Header
               header(),
-
+              //Map-Button
               Align(
                   alignment: Alignment.bottomLeft,
                   child: MapContainer(
                     showCaseKey: _two,
                   )),
-              //MenuBTN
+              //Menu-Button
               Align(
                   alignment: Alignment.bottomRight,
                   child: MenuContainer(
                     showCaseKey: _one,
                   )),
+              //Notifications
+              Positioned(
+                  top: MediaQuery.of(context).viewPadding.top,
+                  right: MediaQuery.of(context).size.height * 0.03,
+                  child: _notificatios(notifications)),
             ],
           ),
         ),
       );
     }));
+  }
+
+  _notificatios(int numNotifications) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, "/notifications");
+      },
+      child: Stack(
+        children: [
+          Icon(
+            Icons.notifications,
+            color: greenPrimary,
+            size: ScreenWH(context).height * 0.05,
+          ),
+          numNotifications > 0
+              ? Positioned(
+                  top: 0,
+                  right: 0,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.red,
+                    radius: 10,
+                    child: Text(
+                      numNotifications.toString(),
+                      style: GoogleFonts.sourceSansPro(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                )
+              : const SizedBox(),
+        ],
+      ),
+    );
   }
 
   Widget header() {
@@ -106,8 +138,8 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Image.asset(
             "assets/imgs/Logo_sin_fondo.png",
-            width: ScreenWH(context).width * 0.5,
-            height: ScreenWH(context).height * 0.15,
+            width: ScreenWH(context).width * 0.45,
+            height: ScreenWH(context).height * 0.12,
           ),
           Container(
             width: ScreenWH(context).width * 0.8,
@@ -140,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   setState(() {
                     status = value;
                     BlocProvider.of<MenuBloc>(context, listen: false)
-                        .add(MenuOpenArViewEvent());
+                        .add(value ? MenuOpenArViewEvent() : MenuCloseEvent());
                   });
                 },
               ),

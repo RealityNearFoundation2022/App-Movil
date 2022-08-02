@@ -8,8 +8,10 @@ import 'package:reality_near/presentation/views/mapScreen/widgets/map.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class MapContainer extends StatefulWidget {
-  const MapContainer({Key key,
-    this.showCaseKey,}) : super(key: key);
+  const MapContainer({
+    Key key,
+    this.showCaseKey,
+  }) : super(key: key);
 
   final GlobalKey<State<StatefulWidget>> showCaseKey;
   @override
@@ -37,32 +39,32 @@ class _MapContainerState extends State<MapContainer>
       return state is MenuPrincipalState
           ? const SizedBox()
           : Showcase(
-          key: widget.showCaseKey,
-          overlayPadding: const EdgeInsets.all(12),
-          radius: BorderRadius.circular(40),
-          contentPadding: const EdgeInsets.all(15),
-          title: 'Map',
-          description:
-          "Tap to see profile which contains user's name, profile picture, mobile number and country",
-          showcaseBackgroundColor: Theme.of(context).primaryColor,
-          textColor: Colors.white,
-          titleTextStyle: GoogleFonts.sourceSansPro(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          descTextStyle: GoogleFonts.sourceSansPro(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
-        shapeBorder: const CircleBorder(),
-            child: AnimatedContainer(
+              key: widget.showCaseKey,
+              overlayPadding: const EdgeInsets.all(12),
+              radius: BorderRadius.circular(40),
+              contentPadding: const EdgeInsets.all(15),
+              title: 'Map',
+              description:
+                  "Tap to see profile which contains user's name, profile picture, mobile number and country",
+              showcaseBackgroundColor: Theme.of(context).primaryColor,
+              textColor: Colors.white,
+              titleTextStyle: GoogleFonts.sourceSansPro(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              descTextStyle: GoogleFonts.sourceSansPro(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+              shapeBorder: const CircleBorder(),
+              child: AnimatedContainer(
                 duration: Duration(milliseconds: animatedDuration),
                 width: ScreenWH(context).width * (isOpen ? 0.8 : 0.1),
                 height: ScreenWH(context).height * (isOpen ? 0.5 : 0.09),
                 decoration: BoxDecoration(
-                    color: isOpen ? greenPrimary : Colors.transparent,
+                    color: isOpen ? Colors.white : Colors.transparent,
                     borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(30),
                     )),
@@ -90,7 +92,7 @@ class _MapContainerState extends State<MapContainer>
                   ),
                 ),
               ),
-          );
+            );
     }));
   }
 

@@ -34,33 +34,37 @@ class _NoArSectionState extends State<NoArSection> {
     // TODO: implement initState
     super.initState();
     getPersistData('walletId').then((value) => {
-      //obtener balance de wallet
-      ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
-        walletBalance = value;
-      })),
-      setState(() {
-        walletId = value;
-      })
-    });
+          if (value != null)
+            {
+              //obtener balance de wallet
+              ContractRemoteDataSourceImpl()
+                  .getMyBalance()
+                  .then((value) => setState(() {
+                        walletBalance = value;
+                      })),
+              setState(() {
+                walletId = value;
+              })
+            }
+        });
 
     UserRepository().getMyData().then((value) => value.fold(
           (failure) => print(failure),
           (success) => {
-        persistData('username', success.fullName),
-        persistData('userId', success.id.toString()),
-        setState(() {
-          user = success;
-        })
-      },
-    ));
-
+            persistData('username', success.fullName),
+            persistData('userId', success.id.toString()),
+            setState(() {
+              user = success;
+            })
+          },
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return ListView(
-        physics: const  NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -94,29 +98,34 @@ class _NoArSectionState extends State<NoArSection> {
                   color: txtPrimary,
                   fontWeight: FontWeight.w800),
             ),
-            walletId.isNotEmpty ?? false ? userWalletOpt()
-            : GestureDetector(
-              onTap: () =>  showDialog(context: context, builder: (context) => const SyncWalletDialog()),
-              child: Container(
-                // margin: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30), color: Colors.black45),
-                padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 15),
-                child: Center(
-                    child: Text(S.current.SyncWallet,
-                        style: GoogleFonts.sourceSansPro(
-                            fontSize: 13.sp,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800))),
-              ),
-            )
+            walletId.isNotEmpty ?? false
+                ? userWalletOpt()
+                : GestureDetector(
+                    onTap: () => showDialog(
+                        context: context,
+                        builder: (context) => const SyncWalletDialog()),
+                    child: Container(
+                      // margin: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.black45),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 15),
+                      child: Center(
+                          child: Text(S.current.SyncWallet,
+                              style: GoogleFonts.sourceSansPro(
+                                  fontSize: 13.sp,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800))),
+                    ),
+                  )
           ],
         )
       ],
     );
   }
 
-  Widget userWalletOpt(){
+  Widget userWalletOpt() {
     return Column(
       children: [
         const SizedBox(height: 5),
@@ -124,8 +133,7 @@ class _NoArSectionState extends State<NoArSection> {
           children: [
             const CircleAvatar(
               radius: 13.0,
-              backgroundImage:
-              AssetImage("assets/imgs/RealityIconCircle.png"),
+              backgroundImage: AssetImage("assets/imgs/RealityIconCircle.png"),
             ),
             const SizedBox(width: 5),
             Text(
@@ -228,6 +236,7 @@ class _NoArSectionState extends State<NoArSection> {
         children: [
           buildCategory(
               S.current.Eventos, greenPrimary, MediaQuery.of(context).size),
+          const SizedBox(height: 10),
           ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

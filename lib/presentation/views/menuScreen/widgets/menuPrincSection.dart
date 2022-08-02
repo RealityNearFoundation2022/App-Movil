@@ -34,15 +34,19 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
         });
 
     getPersistData('walletId').then((value) => {
-      //obtener balance de wallet
-      ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
-        walletBalance = value;
-      })),
-      setState(() {
-        walletId = value;
-      })
-    });
-
+          if (value != null)
+            {
+              //obtener balance de wallet
+              ContractRemoteDataSourceImpl()
+                  .getMyBalance()
+                  .then((value) => setState(() {
+                        walletBalance = value;
+                      })),
+              setState(() {
+                walletId = value;
+              })
+            }
+        });
   }
 
   @override
@@ -67,23 +71,26 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
               fontSize: 33.sp, color: txtPrimary, fontWeight: FontWeight.w800),
         ),
       ),
-      walletId.isNotEmpty ? Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          const CircleAvatar(
-            radius: 13.0,
-            backgroundImage: AssetImage("assets/imgs/RealityIconCircle.png"),
-          ),
-          const SizedBox(width: 5),
-          Text(
-            '$walletBalance',
-            style: GoogleFonts.sourceSansPro(
-                fontSize: 33.sp,
-                color: txtPrimary,
-                fontWeight: FontWeight.w500),
-          ),
-        ],
-      ) : const SizedBox(),
+      walletId.isNotEmpty
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const CircleAvatar(
+                  radius: 13.0,
+                  backgroundImage:
+                      AssetImage("assets/imgs/RealityIconCircle.png"),
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  '$walletBalance',
+                  style: GoogleFonts.sourceSansPro(
+                      fontSize: 33.sp,
+                      color: txtPrimary,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            )
+          : const SizedBox(),
       Align(
         alignment: Alignment.centerRight,
         child: GestureDetector(
@@ -99,22 +106,23 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
           ),
         ),
       ),
-      walletId.isNotEmpty ?Align(
-        alignment: Alignment.centerRight,
-        child: GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, WalletScreen.routeName);
-          },
-          child: Text(
-            S.current.Wallet,
-            style: GoogleFonts.sourceSansPro(
-                fontSize: 33.sp,
-                color: txtPrimary,
-                fontWeight: FontWeight.w500),
-          ),
-        ),
-      ):const SizedBox(),
-
+      walletId.isNotEmpty
+          ? Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, WalletScreen.routeName);
+                },
+                child: Text(
+                  S.current.Wallet,
+                  style: GoogleFonts.sourceSansPro(
+                      fontSize: 33.sp,
+                      color: txtPrimary,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+            )
+          : const SizedBox(),
     ]);
   }
 
@@ -131,22 +139,26 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
   Widget bottomSection(BuildContext context) {
     return Column(
       children: [
-        walletId.isEmpty ?Align(
-          alignment: Alignment.centerRight,
-          child: GestureDetector(
-            onTap: () {
-              showDialog(context: context, builder: (context) => const SyncWalletDialog());
-            },
-            child: Text(
-              S.current.SyncWallet,
-              textAlign: TextAlign.right,
-              style: GoogleFonts.sourceSansPro(
-                  fontSize: 33.sp,
-                  color: txtPrimary,
-                  fontWeight: FontWeight.w600),
-            ),
-          ),
-        ) : const SizedBox(),
+        walletId.isEmpty
+            ? Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => const SyncWalletDialog());
+                  },
+                  child: Text(
+                    S.current.SyncWallet,
+                    textAlign: TextAlign.right,
+                    style: GoogleFonts.sourceSansPro(
+                        fontSize: 33.sp,
+                        color: txtPrimary,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+              )
+            : const SizedBox(),
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -155,7 +167,8 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
                 onTap: () {
                   Navigator.pushNamed(context, ConfigurationScreen.routeName);
                 },
-                child: const Icon(Icons.settings, color: greenPrimary3, size: 35)),
+                child:
+                    const Icon(Icons.settings, color: greenPrimary3, size: 35)),
             Align(
               alignment: Alignment.centerRight,
               child: Column(
