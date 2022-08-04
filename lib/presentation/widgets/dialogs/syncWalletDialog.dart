@@ -109,7 +109,6 @@ class _SyncWalletDialogState extends State<SyncWalletDialog> {
         const SizedBox(height: 5),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.5,
-          height: MediaQuery.of(context).size.height * 0.1,
           child: Text(
             S.current.NoRegistraWalletDesc1,
             textAlign: TextAlign.center,
@@ -120,7 +119,6 @@ class _SyncWalletDialogState extends State<SyncWalletDialog> {
         const SizedBox(height: 10),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.5,
-          height: MediaQuery.of(context).size.height * 0.1,
           child: Text(
             S.current.NoRegistraWalletDesc2,
             textAlign: TextAlign.center,

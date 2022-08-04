@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
               //Notifications
               Positioned(
-                  top: MediaQuery.of(context).viewPadding.top,
+                  top: MediaQuery.of(context).viewPadding.top + 10,
                   right: MediaQuery.of(context).size.height * 0.03,
                   child: _notificatios(notifications)),
               //Scanner QR

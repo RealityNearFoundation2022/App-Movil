@@ -23,6 +23,22 @@ class ConfigurationScreen extends StatefulWidget {
 
 class _ConfigurationScreenState extends State<ConfigurationScreen> {
   bool isExpanded = false;
+  String walletId = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getPersistData('walletId').then((value) => {
+          if (value != null)
+            {
+              setState(() {
+                walletId = value;
+              })
+            }
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,10 +149,12 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                       Navigator.of(context).pushNamed(userScreen.routeName);
                     },
                     child: txtSubMenu(S.current.Usuario)),
-                GestureDetector(
-                    onTap: () =>
-                        Navigator.pushNamed(context, WalletScreen.routeName),
-                    child: txtSubMenu(S.current.Wallet)),
+                walletId.isEmpty
+                    ? const SizedBox()
+                    : GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                            context, WalletScreen.routeName),
+                        child: txtSubMenu(S.current.Wallet)),
                 GestureDetector(
                     onTap: () =>
                         Navigator.pushNamed(context, FriendScreen.routeName),
