@@ -67,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "NoRegistraWalletDesc2" : MessageLookupByLibrary.simpleMessage("Cuando quieras, podrás  vincular tu Near Wallet desde el home o menu principal"),
     "NoRegistraWalletTitle" : MessageLookupByLibrary.simpleMessage("No estas registrando una wallet"),
     "NoSolicitudes" : MessageLookupByLibrary.simpleMessage("No tienes solicitudes pendientes"),
+    "NoTinesNotificaciones" : MessageLookupByLibrary.simpleMessage("No tienes notificaciones"),
     "Notificaciones" : MessageLookupByLibrary.simpleMessage("Notificaciones"),
     "Novedades" : MessageLookupByLibrary.simpleMessage("Novedades"),
     "NuevosNFts" : MessageLookupByLibrary.simpleMessage("nuevosNFts"),

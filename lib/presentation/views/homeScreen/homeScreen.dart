@@ -28,6 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
   bool passInitGuide;
   int notifications = 0;
   _viewGuide() async {
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //   (_) => ShowCaseWidget.of(context).startShowCase([_one, _two, _three]),
+    // );
     (await getPersistData('passInitGuide') == null &&
             await getPersistData('userToken') != null)
         ? WidgetsBinding.instance.addPostFrameCallback(
@@ -89,6 +92,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   top: MediaQuery.of(context).viewPadding.top,
                   right: MediaQuery.of(context).size.height * 0.03,
                   child: _notificatios(notifications)),
+              //Scanner QR
+              Positioned(
+                  top: MediaQuery.of(context).viewPadding.top,
+                  left: MediaQuery.of(context).size.height * 0.03,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/qrScannScreen');
+                    },
+                    icon: Icon(
+                      Icons.qr_code_scanner_outlined,
+                      color: greenPrimary,
+                      size: ScreenWH(context).height * 0.04,
+                    ),
+                  )),
             ],
           ),
         ),

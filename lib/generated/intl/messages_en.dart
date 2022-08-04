@@ -67,6 +67,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "NoRegistraWalletDesc2" : MessageLookupByLibrary.simpleMessage("Whenever you want, you can link your Near Wallet from the home or main menu"),
     "NoRegistraWalletTitle" : MessageLookupByLibrary.simpleMessage("You are not sync a wallet"),
     "NoSolicitudes" : MessageLookupByLibrary.simpleMessage("no pending requests"),
+    "NoTinesNotificaciones" : MessageLookupByLibrary.simpleMessage("you don\'t have notifications"),
     "Notificaciones" : MessageLookupByLibrary.simpleMessage("Notifications"),
     "Novedades" : MessageLookupByLibrary.simpleMessage("News"),
     "NuevosNFts" : MessageLookupByLibrary.simpleMessage("New Nft\'s"),

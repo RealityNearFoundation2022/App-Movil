@@ -71,20 +71,101 @@ class _NotificationScreenState extends State<NotificationScreen> {
           onPressed: () => Navigator.pushNamed(context, "/home"),
         ),
       ),
-      body: Container(
-          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          width: ScreenWH(context).width,
-          height: ScreenWH(context).height,
-          child: _notifications.isNotEmpty
-              ? ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: _notifications.length,
-                  itemBuilder: (context, index) {
-                    return _notificationWidget(_notifications[index]);
-                  },
-                  separatorBuilder: (context, index) => const Divider(),
-                )
-              : const Center(child: CircularProgressIndicator())),
+      body: SingleChildScrollView(
+        child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            width: ScreenWH(context).width,
+            height: ScreenWH(context).height,
+            child: Column(
+              children: [
+                _notificationQRWidget(),
+                const Divider(),
+                _loadingNotifications
+                    ? const Center(child: CircularProgressIndicator())
+                    : _notifications.isEmpty
+                        ? _sinNotificaciones()
+                        : ListView.separated(
+                            shrinkWrap: true,
+                            itemCount: _notifications.length,
+                            itemBuilder: (context, index) {
+                              return _notificationWidget(_notifications[index]);
+                            },
+                            separatorBuilder: (context, index) =>
+                                const Divider(),
+                          ),
+              ],
+            )),
+      ),
+    );
+  }
+
+  _sinNotificaciones() {
+    return Center(
+        child: Text(
+      S.current.NoTinesNotificaciones,
+      style: GoogleFonts.sourceSansPro(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        color: txtPrimary,
+      ),
+    ));
+  }
+
+  _notificationQRWidget() {
+    return ListTile(
+      onTap: () {
+        Navigator.pushNamed(context, "/qrViewScreen");
+      },
+      leading: CircleAvatar(
+        backgroundColor: greenPrimary,
+        radius: ScreenWH(context).width * 0.08,
+        child: Icon(
+          Icons.qr_code,
+          color: Colors.white,
+          size: ScreenWH(context).width * 0.08,
+        ),
+      ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Cupón Luta Livre QR',
+                  style: GoogleFonts.sourceSansPro(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: greenPrimary,
+                  )),
+              Text(
+                'Reality Near Org.',
+                style: GoogleFonts.sourceSansPro(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: greenPrimary2,
+                ),
+              ),
+            ],
+          ),
+          const CircleAvatar(
+            backgroundColor: greenPrimary,
+            radius: 5,
+          )
+        ],
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '31/05/2022 09:52',
+            style: GoogleFonts.sourceSansPro(
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              color: Colors.grey,
+            ),
+          ),
+        ],
+      ),
     );
   }
 

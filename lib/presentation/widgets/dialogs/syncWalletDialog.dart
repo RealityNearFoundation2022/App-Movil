@@ -10,15 +10,14 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../core/helper/url_constants.dart';
 
 class SyncWalletDialog extends StatefulWidget {
-  const SyncWalletDialog({Key key})
-      : super(key: key);
+  const SyncWalletDialog({Key key}) : super(key: key);
 
   @override
   State<SyncWalletDialog> createState() => _SyncWalletDialogState();
 }
 
 class _SyncWalletDialogState extends State<SyncWalletDialog> {
-  bool pressNo=false;
+  bool pressNo = false;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -27,67 +26,75 @@ class _SyncWalletDialogState extends State<SyncWalletDialog> {
         child: FittedBox(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: pressNo ? _noSync(context) : Column(
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: Text(
-                    S.current.PvinecularNearWallet,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.sourceSansPro(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20,
-                        color: txtPrimary),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: pressNo
+                ? _noSync(context)
+                : Column(
                     children: [
-                      button(S.current.Si, () => //creamos un evento en el bloc
-                      BlocProvider.of<UserBloc>(context, listen: false)
-                          .add(UserLoginWalletEvent(context, '')),greenPrimary),
-                      button(S.current.No, (){
-                        setState(() {
-                          pressNo=true;
-                        });
-                      },Colors.grey),
-                    ],
-                  ),
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: RichText(textAlign: TextAlign.center,
-                      text: TextSpan(
-                          text: S.current.noTienesUna,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Text(
+                          S.current.PvinecularNearWallet,
+                          textAlign: TextAlign.center,
                           style: GoogleFonts.sourceSansPro(
-                            fontSize: 16,
-                            color: Colors.grey[400],
-                          ),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20,
+                              color: txtPrimary),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            TextSpan(
-                              text: S.current.CreaUna,
-                              style: GoogleFonts.sourceSansPro(
+                            button(
+                                S.current.Si,
+                                () => //creamos un evento en el bloc
+                                    BlocProvider.of<UserBloc>(context,
+                                            listen: false)
+                                        .add(UserLoginWalletEvent(context, '')),
+                                greenPrimary),
+                            button(S.current.No, () {
+                              setState(() {
+                                pressNo = true;
+                              });
+                            }, Colors.grey),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                                text: S.current.noTienesUna,
+                                style: GoogleFonts.sourceSansPro(
                                   fontSize: 16,
                                   color: Colors.grey[400],
-                                  fontWeight: FontWeight.w600),
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () => launchUrlString(REGISTER_NEAR_WALLET,
-                                    mode: LaunchMode.externalApplication),
-                            ),
-                          ])),
-                ),
-              ],
-            ),
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: S.current.CreaUna,
+                                    style: GoogleFonts.sourceSansPro(
+                                        fontSize: 16,
+                                        color: Colors.grey[400],
+                                        fontWeight: FontWeight.w600),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () => launchUrlString(
+                                          REGISTER_NEAR_WALLET,
+                                          mode: LaunchMode.externalApplication),
+                                  ),
+                                ])),
+                      ),
+                    ],
+                  ),
           ),
         ));
   }
 
-  Widget _noSync(BuildContext context){
+  Widget _noSync(BuildContext context) {
     return Column(
       children: [
         SizedBox(
@@ -96,9 +103,7 @@ class _SyncWalletDialogState extends State<SyncWalletDialog> {
             S.current.NoRegistraWalletTitle,
             textAlign: TextAlign.center,
             style: GoogleFonts.sourceSansPro(
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-                color: txtPrimary),
+                fontWeight: FontWeight.w700, fontSize: 18, color: txtPrimary),
           ),
         ),
         const SizedBox(height: 5),
@@ -109,9 +114,7 @@ class _SyncWalletDialogState extends State<SyncWalletDialog> {
             S.current.NoRegistraWalletDesc1,
             textAlign: TextAlign.center,
             style: GoogleFonts.sourceSansPro(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-                color: txtPrimary),
+                fontWeight: FontWeight.w500, fontSize: 14, color: txtPrimary),
           ),
         ),
         const SizedBox(height: 10),
@@ -119,18 +122,16 @@ class _SyncWalletDialogState extends State<SyncWalletDialog> {
           width: MediaQuery.of(context).size.width * 0.5,
           height: MediaQuery.of(context).size.height * 0.1,
           child: Text(
-            S.current.NoRegistraWalletDesc1,
+            S.current.NoRegistraWalletDesc2,
             textAlign: TextAlign.center,
             style: GoogleFonts.sourceSansPro(
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-                color: txtPrimary),
+                fontWeight: FontWeight.w500, fontSize: 14, color: txtPrimary),
           ),
         ),
         const SizedBox(height: 10),
-        button(S.current.Confirmar, (){
+        button(S.current.Confirmar, () {
           Navigator.pop(context);
-        },Colors.grey),
+        }, Colors.grey),
       ],
     );
   }

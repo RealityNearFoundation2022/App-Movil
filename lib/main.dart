@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => UserBloc()),
-        BlocProvider(create: (context) => MenuBloc()),
+        BlocProvider(create: (_) => MenuBloc()),
       ],
       child: MultiProvider(
           providers: [

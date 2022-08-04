@@ -85,5 +85,6 @@
     "DatosIncompletos": "Incomplete data",
     "NoRegistraWalletTitle": "You are not sync a wallet",
     "NoRegistraWalletDesc1": "you will not be able to store or transact within Reality Near",
-    "NoRegistraWalletDesc2": "Whenever you want, you can link your Near Wallet from the home or main menu"
+    "NoRegistraWalletDesc2": "Whenever you want, you can link your Near Wallet from the home or main menu",
+    "NoTinesNotificaciones":"you don't have notifications"
 }

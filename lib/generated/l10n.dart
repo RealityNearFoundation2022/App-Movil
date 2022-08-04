@@ -904,6 +904,16 @@ class S {
       args: [],
     );
   }
+
+  /// `you don't have notifications`
+  String get NoTinesNotificaciones {
+    return Intl.message(
+      'you don\'t have notifications',
+      name: 'NoTinesNotificaciones',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
