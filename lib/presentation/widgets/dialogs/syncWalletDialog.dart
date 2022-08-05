@@ -10,8 +10,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../core/helper/url_constants.dart';
 
 class SyncWalletDialog extends StatefulWidget {
-  const SyncWalletDialog({Key key}) : super(key: key);
-
+  SyncWalletDialog({Key key, this.onLogin}) : super(key: key);
+  Function onLogin;
   @override
   State<SyncWalletDialog> createState() => _SyncWalletDialogState();
 }
@@ -109,7 +109,6 @@ class _SyncWalletDialogState extends State<SyncWalletDialog> {
         const SizedBox(height: 5),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.5,
-          height: MediaQuery.of(context).size.height * 0.1,
           child: Text(
             S.current.NoRegistraWalletDesc1,
             textAlign: TextAlign.center,
@@ -120,7 +119,6 @@ class _SyncWalletDialogState extends State<SyncWalletDialog> {
         const SizedBox(height: 10),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.5,
-          height: MediaQuery.of(context).size.height * 0.1,
           child: Text(
             S.current.NoRegistraWalletDesc2,
             textAlign: TextAlign.center,
@@ -130,7 +128,7 @@ class _SyncWalletDialogState extends State<SyncWalletDialog> {
         ),
         const SizedBox(height: 10),
         button(S.current.Confirmar, () {
-          Navigator.pop(context);
+          widget.onLogin();
         }, Colors.grey),
       ],
     );

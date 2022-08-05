@@ -4,12 +4,19 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
 
-
-class ConfirmUserDialog extends StatelessWidget {
-  const ConfirmUserDialog({Key key,this.username,this.avatar,this.pressFunc})
+class ConfirmUserDialog extends StatefulWidget {
+  const ConfirmUserDialog({Key key, this.username, this.avatar, this.pressFunc})
       : super(key: key);
   final String username, avatar;
   final Function pressFunc;
+
+  @override
+  State<ConfirmUserDialog> createState() => _ConfirmUserDialogState();
+}
+
+class _ConfirmUserDialogState extends State<ConfirmUserDialog> {
+  bool _loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -31,15 +38,13 @@ class ConfirmUserDialog extends StatelessWidget {
                         color: txtPrimary),
                   ),
                 ),
-                Image.asset(
-                      avatar,
-                      height: ScreenWH(context).height * 0.23,
-                      width: ScreenWH(context).width * 0.24),
-
+                Image.asset(widget.avatar,
+                    height: ScreenWH(context).height * 0.23,
+                    width: ScreenWH(context).width * 0.24),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: Text(
-                    username,
+                    widget.username,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.sourceSansPro(
                         fontWeight: FontWeight.w700,
@@ -53,14 +58,14 @@ class ConfirmUserDialog extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       button(S.current.Confirmar, () {
-                        pressFunc();
-                      },greenPrimary),
+                        widget.pressFunc();
+                      }, greenPrimary),
                       const SizedBox(
                         width: 10,
                       ),
-                      button(S.current.Volver, (){
+                      button(S.current.Volver, () {
                         Navigator.of(context).pop();
-                      },Colors.grey),
+                      }, Colors.grey),
                     ],
                   ),
                 ),
@@ -69,6 +74,7 @@ class ConfirmUserDialog extends StatelessWidget {
           ),
         ));
   }
+
   Widget button(String text, Function press, Color color) {
     return TextButton(
       style: TextButton.styleFrom(
@@ -77,15 +83,26 @@ class ConfirmUserDialog extends StatelessWidget {
         backgroundColor: color,
         padding: const EdgeInsets.symmetric(horizontal: 20),
       ),
-      child: Text(
-        text,
-        style: GoogleFonts.notoSansJavanese(
-          fontSize: 16,
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
+      child: (_loading && greenPrimary == color)
+          ? SizedBox(
+              width: ScreenWH(context).width * 0.04,
+              height: ScreenWH(context).width * 0.04,
+              child: const CircularProgressIndicator(
+                color: Colors.white,
+                strokeWidth: 3,
+              ))
+          : Text(
+              text,
+              style: GoogleFonts.notoSansJavanese(
+                fontSize: 16,
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
       onPressed: () async {
+        setState(() {
+          _loading = true;
+        });
         press();
       },
     );

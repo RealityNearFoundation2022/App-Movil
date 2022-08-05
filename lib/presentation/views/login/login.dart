@@ -3,17 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
+import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/login/widgets/button_with_states.dart';
 import 'package:reality_near/presentation/widgets/dialogs/errorAlertDialog.dart';
 import 'package:reality_near/presentation/widgets/dialogs/infoDialog.dart';
+import 'package:reality_near/presentation/widgets/dialogs/syncWalletDialog.dart';
 import 'package:reality_near/presentation/widgets/forms/textForm.dart';
+import 'package:reality_near/presentation/widgets/others/snackBar.dart';
 
 class Login extends StatelessWidget {
   Login({Key key}) : super(key: key);
 //Variables
   static String routeName = "/login";
-  final TextEditingController _walletController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -46,33 +48,24 @@ class Login extends StatelessWidget {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) async {
         if (state is UserLoggedInState) {
-          //Show dialog when Login failed or login without wallet
-          if (!state.isLoggedIn) {
-            showDialog(
-                barrierDismissible: false,
-                context: context,
-                builder: (dialogContext) {
-                  return args["type"] == "wallet"
-                      ? ErrorAlertDialog(
-                          errorMessage: S.current.failLogin,
-                        )
-                      : InfoDialog(
-                          title: "No estas registrando una wallet",
-                          message:
-                              "Al no registrarte con una Near Wallet, no podrás almacenar ni transaccionar dentro de Reality Near. Cuando quieras, podrás vincular tu Near Wallet, desde la sección de “Cuenta”.",
-                          onPressed: () {
-                            //creamos un evento en el bloc
-                            BlocProvider.of<UserBloc>(context, listen: false)
-                                .add(UserLoginAgainEvent());
-                            Navigator.of(context).pop();
-                          },
-                        );
-                });
-          } else {
-            //Go to Home
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/onBoard', ModalRoute.withName('/'));
-          }
+          showDialog(
+              context: context,
+              builder: (context) => SyncWalletDialog(
+                    onLogin: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/home', ModalRoute.withName('/'));
+                    },
+                  ));
+        } else if (state is UserFailState) {
+          //Show dialog when Login failed
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (dialogContext) {
+                return ErrorAlertDialog(
+                  errorMessage: S.current.failLogin,
+                );
+              });
         }
       },
       child: Scaffold(
@@ -107,9 +100,16 @@ class Login extends StatelessWidget {
                           text: S.current.Ingresar,
                           press: () {
                             //creamos un evento en el bloc
-                            BlocProvider.of<UserBloc>(context, listen: false)
-                                .add(UserLoginEmailEvent(_emailController.text,
-                                    _passwordController.text));
+                            if (_emailController.text.isEmpty ||
+                                _passwordController.text.isEmpty) {
+                              showSnackBar(
+                                  context, S.current.DatosIncompletos, true);
+                            } else {
+                              BlocProvider.of<UserBloc>(context, listen: false)
+                                  .add(UserLoginEmailEvent(
+                                      _emailController.text,
+                                      _passwordController.text));
+                            }
                           });
                     }),
                   ),

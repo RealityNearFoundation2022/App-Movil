@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 
 class ErrorAlertDialog extends StatelessWidget {
@@ -10,64 +13,82 @@ class ErrorAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.0)),
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            FittedBox(
-              // padding: const EdgeInsets.fromLTRB(10, 60, 10, 0),
-              child: Column(
-                children: [
-                  Text(
-                    'Error',
-                    style: GoogleFonts.sourceSansPro(
-                        fontWeight: FontWeight.bold, fontSize: 20),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+        child: FittedBox(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                Container(
+                  width: ScreenWH(context).width * 0.15,
+                  height: ScreenWH(context).width * 0.15,
+                  //circle
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.red,
                   ),
-                  const SizedBox(
-                    height: 10,
+                  child: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: ScreenWH(context).width * 0.12,
                   ),
-                  Text(
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: Text(
                     errorMessage,
-                    style: GoogleFonts.sourceSansPro(
-                        fontSize: 15, fontWeight: FontWeight.w500),
                     textAlign: TextAlign.center,
+                    style: GoogleFonts.sourceSansPro(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                        color: txtPrimary),
                   ),
-                  const SizedBox(
-                    height: 20,
+                ),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: Text(
+                    S.current.VerificaLosDatosIngresados,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.sourceSansPro(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        color: txtPrimary),
                   ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: TextButton(
-                      onPressed: () {
-                        //creamos un evento en el bloc
-                        BlocProvider.of<UserBloc>(context, listen: false)
-                            .add(UserLoginAgainEvent());
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        'Intentarlo de nuevo',
-                        style: GoogleFonts.sourceSansPro(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                button(S.current.Intentardenuevo, () {
+                  BlocProvider.of<UserBloc>(context, listen: false)
+                      .add(UserLoginAgainEvent());
+                  Navigator.of(context).pop();
+                }, greenPrimary),
+              ],
             ),
-            // const Positioned(
-            //     top: 50,
-            //     child: CircleAvatar(
-            //       backgroundColor: Colors.redAccent,
-            //       radius: 50,
-            //       child: Icon(
-            //         Icons.close,
-            //         color: Colors.white,
-            //         size: 70,
-            //       ),
-            //     )),
-          ],
+          ),
         ));
+  }
+
+  Widget button(String text, Function press, Color color) {
+    return TextButton(
+      style: TextButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        primary: Colors.white,
+        backgroundColor: color,
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+      ),
+      child: Text(
+        text,
+        style: GoogleFonts.notoSansJavanese(
+          fontSize: 16,
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      onPressed: () async {
+        press();
+      },
+    );
   }
 }

@@ -914,6 +914,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Verify the data you entered and try again`
+  String get VerificaLosDatosIngresados {
+    return Intl.message(
+      'Verify the data you entered and try again',
+      name: 'VerificaLosDatosIngresados',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try again`
+  String get Intentardenuevo {
+    return Intl.message(
+      'Try again',
+      name: 'Intentardenuevo',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

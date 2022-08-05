@@ -146,7 +146,11 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
                   onTap: () {
                     showDialog(
                         context: context,
-                        builder: (context) => const SyncWalletDialog());
+                        builder: (context) => SyncWalletDialog(
+                              onLogin: () {
+                                Navigator.pop(context);
+                              },
+                            ));
                   },
                   child: Text(
                     S.current.SyncWallet,

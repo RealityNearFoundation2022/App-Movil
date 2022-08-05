@@ -86,5 +86,7 @@
     "NoRegistraWalletTitle": "No estas registrando una wallet",
     "NoRegistraWalletDesc1": "Al no registrarte con una wallet no podrás almacenar o transaccionar dentro de Reality Near",
     "NoRegistraWalletDesc2": "Cuando quieras, podrás  vincular tu Near Wallet desde el home o menu principal",
-    "NoTinesNotificaciones": "No tienes notificaciones"
+    "NoTinesNotificaciones": "No tienes notificaciones",
+    "VerificaLosDatosIngresados": "Verifica los datos ingresados en el formulario, intenta de nuevo",
+    "Intentardenuevo": "Intentalo de nuevo"
     }
