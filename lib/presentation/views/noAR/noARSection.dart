@@ -103,7 +103,11 @@ class _NoArSectionState extends State<NoArSection> {
                 : GestureDetector(
                     onTap: () => showDialog(
                         context: context,
-                        builder: (context) => const SyncWalletDialog()),
+                        builder: (context) => SyncWalletDialog(
+                              onLogin: () {
+                                Navigator.pop(context);
+                              },
+                            )),
                     child: Container(
                       // margin: const EdgeInsets.symmetric(horizontal: 10),
                       decoration: BoxDecoration(

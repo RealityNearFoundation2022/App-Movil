@@ -59,13 +59,13 @@ class MyApp extends StatelessWidget {
                     primarySwatch: Palette.kgreenNR,
                   ),
                   //Tema Oscuro, se usa cuando se activa el modo oscuro
-                  darkTheme: ThemeData(
-                    //Se indica que el tema tiene un brillo oscuro
-                    brightness: Brightness.dark,
-                    scaffoldBackgroundColor: Colors.black,
-                    backgroundColor: Colors.black,
-                    primarySwatch: Palette.kgreenNR,
-                  ),
+                  // darkTheme: ThemeData(
+                  //   //Se indica que el tema tiene un brillo oscuro
+                  //   brightness: Brightness.dark,
+                  //   scaffoldBackgroundColor: Colors.black,
+                  //   backgroundColor: Colors.black,
+                  //   primarySwatch: Palette.kgreenNR,
+                  // ),
                   localizationsDelegates: const [
                     S.delegate,
                     GlobalMaterialLocalizations.delegate,

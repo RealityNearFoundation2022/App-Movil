@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
-import 'package:flutter/gestures.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
-import 'package:reality_near/presentation/views/AR/localandwebobjectsexample.dart';
 import 'package:reality_near/presentation/views/register/registerScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import '../../../core/helper/url_constants.dart';
 import '../login/login.dart';
 
 class FirstScreen extends StatefulWidget {
@@ -36,44 +30,33 @@ class _FirstScreenState extends State<FirstScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserBloc, UserState>(
-      listener: (context, state) async {
-        if (state is UserLoggedInState) {
-          //Show dialog when Login failed or login without wallet
-          if (state.isLoggedIn) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/createUser', ModalRoute.withName('/'));
-          }
-        }
-      },
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Stack(
-          children: [
-            Container(
-              color: Colors.grey,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Stack(
+        children: [
+          Container(
+            color: Colors.grey,
+          ),
+          //Logo image
+          Container(
+            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            alignment: Alignment.topCenter,
+            child: Image.asset('assets/imgs/Logo_sin_fondo.png',
+                height: 120, width: 120),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              color: Colors.white,
+              height: MediaQuery.of(context).size.height * 0.08,
             ),
-            //Logo image
-            Container(
-              margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-              alignment: Alignment.topCenter,
-              child: Image.asset('assets/imgs/Logo_sin_fondo.png',
-                  height: 120, width: 120),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                color: Colors.white,
-                height: MediaQuery.of(context).size.height * 0.08,
-              ),
-            ),
-            Positioned(
-                bottom: MediaQuery.of(context).size.height * 0.015,
-                child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: LoginBtns(context))),
-          ],
-        ),
+          ),
+          Positioned(
+              bottom: MediaQuery.of(context).size.height * 0.015,
+              child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: LoginBtns(context))),
+        ],
       ),
     );
   }
@@ -83,8 +66,7 @@ class _FirstScreenState extends State<FirstScreen> {
       children: [
         FittedBox(
           child: GestureDetector(
-            onTap: (() => Navigator.pushNamed(context, Login.routeName,
-                arguments: {'type': 'email'})),
+            onTap: (() => Navigator.pushNamed(context, Login.routeName)),
             child: Container(
                 alignment: Alignment.center,
                 margin:

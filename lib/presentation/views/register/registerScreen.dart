@@ -27,8 +27,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _userNameController = TextEditingController();
 
   List<bool> avatarSelect = [false, false, false];
-  List<String> pathAvatarSelected = ["assets/gift/MEN_SELECTED.gif", "assets/gift/WOMEN_SELECT.gif", "assets/gift/MONSTER_SELECT.gif"];
-  List<String> pathAvatarNoSelect = ["assets/gift/MEN_WAITING.gif", "assets/gift/WOMEN_WAITING.gif", "assets/gift/MONSTER_WAITING.gif"];
+  List<String> pathAvatarSelected = [
+    "assets/gift/MEN_SELECTED.gif",
+    "assets/gift/WOMEN_SELECT.gif",
+    "assets/gift/MONSTER_SELECT.gif"
+  ];
+  List<String> pathAvatarNoSelect = [
+    "assets/gift/MEN_WAITING.gif",
+    "assets/gift/WOMEN_WAITING.gif",
+    "assets/gift/MONSTER_WAITING.gif"
+  ];
   String pathSelectedAvatar = "";
   @override
   Widget build(BuildContext context) {
@@ -67,7 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           if (state.isLoggedIn) {
             //Go to Home
             Navigator.pushNamedAndRemoveUntil(
-               context, '/onBoard', ModalRoute.withName('/'));
+                context, '/home', (Route<dynamic> route) => false);
           }
         }
       },
@@ -118,25 +126,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: ButtonWithStates(
                   text: S.current.Registrate,
                   press: () {
-                      if(_emailController.text.isEmpty || _passwordController.text.isEmpty || _userNameController.text.isEmpty){
-                        showSnackBar(context, S.current.DatosIncompletos, true);
+                    if (_emailController.text.isEmpty ||
+                        _passwordController.text.isEmpty ||
+                        _userNameController.text.isEmpty) {
+                      showSnackBar(context, S.current.DatosIncompletos, true);
                     } else {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return ConfirmUserDialog(
-                                username: _userNameController.text,
-                                avatar: pathSelectedAvatar,
-                                pressFunc: (){
-                                  //creamos un evento en el bloc
-                                  BlocProvider.of<UserBloc>(context).add(UserRegisterEvent(
-                                      _emailController.text,
-                                      _passwordController.text,
-                                      _userNameController.text));
-                                },
-                              );
-                            });
-                    }}),
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return ConfirmUserDialog(
+                              username: _userNameController.text,
+                              avatar: pathSelectedAvatar,
+                              pressFunc: () {
+                                //creamos un evento en el bloc
+                                BlocProvider.of<UserBloc>(context).add(
+                                    UserRegisterEvent(
+                                        _emailController.text,
+                                        _passwordController.text,
+                                        _userNameController.text));
+                              },
+                            );
+                          });
+                    }
+                  }),
             ),
           ]),
         ),
@@ -144,15 +156,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget avatar( String name, int index) {
+  Widget avatar(String name, int index) {
     return GestureDetector(
       onTap: () {
         setState(() {
           for (int i = 0; i < avatarSelect.length; i++) {
             avatarSelect[i] = index == i ? !avatarSelect[i] : false;
           }
-          if(avatarSelect.contains(true)){
-          pathSelectedAvatar = pathAvatarSelected[index];}
+          if (avatarSelect.contains(true)) {
+            pathSelectedAvatar = pathAvatarSelected[index];
+          }
         });
       },
       child: Column(
@@ -165,7 +178,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   width: avatarSelect[index] ? 3 : 2),
             ),
             child: Image.asset(
-                avatarSelect[index] ? pathAvatarSelected[index] : pathAvatarNoSelect[index],
+                avatarSelect[index]
+                    ? pathAvatarSelected[index]
+                    : pathAvatarNoSelect[index],
                 height: ScreenWH(context).height * 0.23,
                 width: ScreenWH(context).width * 0.24),
           ),
@@ -181,7 +196,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-
 
   Widget selectAvatar() {
     return Row(

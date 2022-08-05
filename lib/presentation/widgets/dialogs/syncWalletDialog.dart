@@ -10,8 +10,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../core/helper/url_constants.dart';
 
 class SyncWalletDialog extends StatefulWidget {
-  const SyncWalletDialog({Key key}) : super(key: key);
-
+  SyncWalletDialog({Key key, this.onLogin}) : super(key: key);
+  Function onLogin;
   @override
   State<SyncWalletDialog> createState() => _SyncWalletDialogState();
 }
@@ -128,7 +128,7 @@ class _SyncWalletDialogState extends State<SyncWalletDialog> {
         ),
         const SizedBox(height: 10),
         button(S.current.Confirmar, () {
-          Navigator.pop(context);
+          widget.onLogin();
         }, Colors.grey),
       ],
     );

@@ -27,7 +27,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           EmailLoginUser(event.username, event.password);
       emit(UserLoadingState());
       final result = await login();
-      emit(UserLoggedInState(result.isRight()));
+      result.fold(
+        (failure) => emit(UserFailState(failure.message)),
+        (success) => emit(UserLoggedInState(success)),
+      );
+      // emit(UserLoggedInState(result.isRight()));
     });
 
 //Evento para intentar Login de nuevo

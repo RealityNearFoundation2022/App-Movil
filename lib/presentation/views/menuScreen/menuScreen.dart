@@ -38,64 +38,64 @@ class _MenuContainerState extends State<MenuContainer>
       return state is MenuMapaState
           ? const SizedBox()
           : Showcase(
-          key: widget.showCaseKey,
-          overlayPadding: const EdgeInsets.all(12),
-          radius: BorderRadius.circular(100),
-          contentPadding: const EdgeInsets.all(15),
-          title: 'Menu',
-          description:
-          "Tap to see profile which contains user's name, profile picture, mobile number and country",
-          showcaseBackgroundColor: Theme.of(context).primaryColor,
-          textColor: Colors.white,
-          titleTextStyle: GoogleFonts.sourceSansPro(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          descTextStyle: GoogleFonts.sourceSansPro(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-          ),
-          shapeBorder: const CircleBorder(),
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: animatedDuration),
-            onEnd: () {
-              setState(() {
-                seeContent = isOpen;
-              });
-            },
-            width: ScreenWH(context).width * (isOpen ? 0.5 : 0.15),
-            height: ScreenWH(context).height * (isOpen ? 0.45 : 0.09),
-            decoration: BoxDecoration(
-                color: isOpen ? backgroundWhite : Colors.transparent,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                )),
-            child: Container(
-              alignment: isOpen ? Alignment.topLeft : null,
-              padding: const EdgeInsets.all(10),
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: GestureDetector(
-                      child: AnimatedIcon(
-                        icon: AnimatedIcons.menu_close,
-                        progress: _animationController,
-                        size: 40,
-                        color: greenPrimary,
-                      ),
-                      onTap: () {
-                        _handleOnPressed(state);
-                      },
-                    ),
-                  ),
-                  seeContent ? const MenuPrincSection() : const SizedBox()
-                ],
+              key: widget.showCaseKey,
+              overlayPadding: const EdgeInsets.all(12),
+              radius: BorderRadius.circular(100),
+              contentPadding: const EdgeInsets.all(15),
+              title: 'Menu',
+              description:
+                  "En esta sección ingresar al chat, a tu lista de contactos, configurar tus preferencias y administrar tu NEAR wallet",
+              showcaseBackgroundColor: Theme.of(context).primaryColor,
+              textColor: Colors.white,
+              titleTextStyle: GoogleFonts.sourceSansPro(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-            ),
-          ));
+              descTextStyle: GoogleFonts.sourceSansPro(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+              shapeBorder: const CircleBorder(),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: animatedDuration),
+                onEnd: () {
+                  setState(() {
+                    seeContent = isOpen;
+                  });
+                },
+                width: ScreenWH(context).width * (isOpen ? 0.5 : 0.15),
+                height: ScreenWH(context).height * (isOpen ? 0.45 : 0.09),
+                decoration: BoxDecoration(
+                    color: isOpen ? backgroundWhite : Colors.transparent,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                    )),
+                child: Container(
+                  alignment: isOpen ? Alignment.topLeft : null,
+                  padding: const EdgeInsets.all(10),
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: GestureDetector(
+                          child: AnimatedIcon(
+                            icon: AnimatedIcons.menu_close,
+                            progress: _animationController,
+                            size: 40,
+                            color: greenPrimary,
+                          ),
+                          onTap: () {
+                            _handleOnPressed(state);
+                          },
+                        ),
+                      ),
+                      seeContent ? const MenuPrincSection() : const SizedBox()
+                    ],
+                  ),
+                ),
+              ));
     }));
   }
 

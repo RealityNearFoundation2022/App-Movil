@@ -41,11 +41,11 @@ class _MapContainerState extends State<MapContainer>
           : Showcase(
               key: widget.showCaseKey,
               overlayPadding: const EdgeInsets.all(12),
-              radius: BorderRadius.circular(40),
+              radius: BorderRadius.circular(30),
               contentPadding: const EdgeInsets.all(15),
               title: 'Map',
               description:
-                  "Tap to see profile which contains user's name, profile picture, mobile number and country",
+                  "Podras ver la localización de tus contactos en el mapa, asi como los eventos y actividades que estan a tu alrededor",
               showcaseBackgroundColor: Theme.of(context).primaryColor,
               textColor: Colors.white,
               titleTextStyle: GoogleFonts.sourceSansPro(

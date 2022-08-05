@@ -28,9 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
   bool passInitGuide;
   int notifications = 0;
   _viewGuide() async {
-    // WidgetsBinding.instance.addPostFrameCallback(
-    //   (_) => ShowCaseWidget.of(context).startShowCase([_one, _two, _three]),
-    // );
     (await getPersistData('passInitGuide') == null &&
             await getPersistData('userToken') != null)
         ? WidgetsBinding.instance.addPostFrameCallback(
@@ -49,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    BlocProvider.of<MenuBloc>(context, listen: false).add(MenuCloseEvent());
     _viewGuide();
     _getNewNotifications();
   }
@@ -168,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
               contentPadding: const EdgeInsets.all(15),
               title: 'AR Switch',
               description:
-                  "Tap to see profile which contains user's name, profile picture, mobile number and country",
+                  "Al seleccionar esta opcion, podras entrar en contacto con los objetos de realidad aumentada que forman parte de los eventos y actividades",
               showcaseBackgroundColor: Theme.of(context).primaryColor,
               textColor: Colors.white,
               titleTextStyle: GoogleFonts.sourceSansPro(
