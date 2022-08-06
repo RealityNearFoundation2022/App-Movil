@@ -48,7 +48,7 @@ class _FirstScreenState extends State<FirstScreen> {
             alignment: Alignment.bottomCenter,
             child: Container(
               color: Colors.white,
-              height: MediaQuery.of(context).size.height * 0.08,
+              height: MediaQuery.of(context).size.height * 0.09,
             ),
           ),
           Positioned(
@@ -100,6 +100,7 @@ class _FirstScreenState extends State<FirstScreen> {
                 ),
               )),
         ),
+        const SizedBox(height: 15),
       ],
     );
   }

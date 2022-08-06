@@ -47,10 +47,10 @@ class InfoScreen extends StatelessWidget {
               }),
               child: textAndIcon(
                   S.current.ReporteFallos, Icons.keyboard_arrow_right_rounded)),
-          textAndIcon(S.current.PoliticaDePrivacidad,
-              Icons.keyboard_arrow_right_rounded),
-          textAndIcon(S.current.TerminosyCondiciones,
-              Icons.keyboard_arrow_right_rounded),
+          // textAndIcon(S.current.PoliticaDePrivacidad,
+          //     Icons.keyboard_arrow_right_rounded),
+          // textAndIcon(S.current.TerminosyCondiciones,
+          //     Icons.keyboard_arrow_right_rounded),
         ],
       ),
     );

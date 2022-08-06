@@ -84,7 +84,12 @@ class _NoArSectionState extends State<NoArSection> {
       children: [
         CircleAvatar(
           radius: (ScreenWH(context).width * 0.25) / 2,
-          backgroundImage: NetworkImage(photo),
+          // backgroundColor: Colors.trasnparent,
+          // backgroundImage: NetworkImage(photo),
+          child: Image.asset(
+            "assets/gift/MONSTER_SELECT.gif",
+            fit: BoxFit.cover,
+          ),
         ),
         const SizedBox(width: 15),
         Column(

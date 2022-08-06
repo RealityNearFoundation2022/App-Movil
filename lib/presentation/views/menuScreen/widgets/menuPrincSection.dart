@@ -131,7 +131,12 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
       padding: const EdgeInsets.all(8.0),
       child: CircleAvatar(
         radius: 27.w,
-        backgroundImage: NetworkImage(photo),
+        // backgroundColor: Colors.transparent,
+        // backgroundImage: NetworkImage(photo),
+        child: Image.asset(
+          "assets/gift/MONSTER_SELECT.gif",
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

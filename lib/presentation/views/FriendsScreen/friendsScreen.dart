@@ -76,7 +76,7 @@ class _FriendScreenState extends State<FriendScreen> {
           const SizedBox(width: 20),
           circularbtn(() {
             showDialog(
-              barrierDismissible: true,
+                barrierDismissible: true,
                 context: context,
                 builder: (context) => FriendsSolicitudesDialog());
           }, Icons.person_add)
@@ -129,7 +129,11 @@ class _FriendScreenState extends State<FriendScreen> {
         children: [
           CircleAvatar(
             radius: 30,
-            backgroundImage: NetworkImage(photo),
+            // backgroundImage: NetworkImage(photo),
+            child: Image.asset(
+              "assets/gift/MONSTER_SELECT.gif",
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(height: 5),
           SizedBox(
