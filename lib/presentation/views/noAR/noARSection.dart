@@ -1,8 +1,7 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
@@ -10,17 +9,16 @@ import 'package:reality_near/data/datasource/nearRPC/contracts.dart';
 import 'package:reality_near/data/repository/userRepository.dart';
 import 'package:reality_near/domain/entities/user.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/bid_widget.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/category.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/details_page.dart';
 import 'package:reality_near/presentation/views/walletScreen/receiveScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/transferScreen.dart';
+import 'package:reality_near/presentation/widgets/dialogs/syncWalletDialog.dart';
 import 'package:sizer/sizer.dart';
 
 class NoArSection extends StatefulWidget {
   const NoArSection({Key key}) : super(key: key);
-
   @override
   State<NoArSection> createState() => _NoArSectionState();
 }
@@ -29,12 +27,27 @@ class _NoArSectionState extends State<NoArSection> {
   bool status = false;
   User user = User();
   double walletBalance = 0;
+  String walletId = "";
 
   @override
   initState() {
     // TODO: implement initState
     super.initState();
-    //obtenemos datos del usuario
+    getPersistData('walletId').then((value) => {
+          if (value != null)
+            {
+              //obtener balance de wallet
+              ContractRemoteDataSourceImpl()
+                  .getMyBalance()
+                  .then((value) => setState(() {
+                        walletBalance = value;
+                      })),
+              setState(() {
+                walletId = value;
+              })
+            }
+        });
+
     UserRepository().getMyData().then((value) => value.fold(
           (failure) => print(failure),
           (success) => {
@@ -45,52 +58,14 @@ class _NoArSectionState extends State<NoArSection> {
             })
           },
         ));
-    //obtener balance de wallet
-    ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
-          walletBalance = value;
-        }));
   }
 
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return ListView(
+        physics: const NeverScrollableScrollPhysics(),
         children: [
-          SizedBox(
-            width: double.infinity,
-            child: Column(
-              children: [
-                Image.asset(
-                  "assets/imgs/Logo_sin_fondo.png",
-                  width: ScreenWH(context).width * 0.5,
-                  height: ScreenWH(context).height * 0.15,
-                ),
-                Container(
-                  width: ScreenWH(context).width * 0.8,
-                  alignment: Alignment.centerRight,
-                  child: FittedBox(
-                    child: FlutterSwitch(
-                      width: 45.0,
-                      height: 22.0,
-                      valueFontSize: 16.0,
-                      toggleSize: 15.0,
-                      value: status,
-                      borderRadius: 30.0,
-                      activeColor: greenPrimary,
-                      inactiveColor: offSwitch,
-                      onToggle: (val) {
-                        setState(() {
-                          status = val;
-                        });
-                        BlocProvider.of<MenuBloc>(context, listen: false)
-                            .add(MenuOpenArViewEvent());
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: userSection(context,
@@ -109,7 +84,12 @@ class _NoArSectionState extends State<NoArSection> {
       children: [
         CircleAvatar(
           radius: (ScreenWH(context).width * 0.25) / 2,
-          backgroundImage: NetworkImage(photo),
+          // backgroundColor: Colors.trasnparent,
+          // backgroundImage: NetworkImage(photo),
+          child: Image.asset(
+            "assets/gift/MONSTER_SELECT.gif",
+            fit: BoxFit.cover,
+          ),
         ),
         const SizedBox(width: 15),
         Column(
@@ -123,40 +103,72 @@ class _NoArSectionState extends State<NoArSection> {
                   color: txtPrimary,
                   fontWeight: FontWeight.w800),
             ),
-            Row(
-              children: [
-                const CircleAvatar(
-                  radius: 13.0,
-                  backgroundImage:
-                      AssetImage("assets/imgs/RealityIconCircle.png"),
-                ),
-                const SizedBox(width: 5),
-                Text(
-                  'Realities: ${walletBalance.toStringAsFixed(4) ?? '0.0000'}',
-                  style: GoogleFonts.sourceSansPro(
-                      fontSize: 16.sp,
-                      color: txtPrimary,
-                      fontWeight: FontWeight.w500),
-                ),
-              ],
+            walletId.isNotEmpty ?? false
+                ? userWalletOpt()
+                : GestureDetector(
+                    onTap: () => showDialog(
+                        context: context,
+                        builder: (context) => SyncWalletDialog(
+                              onLogin: () {
+                                Navigator.pop(context);
+                              },
+                            )),
+                    child: Container(
+                      // margin: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.black45),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 15),
+                      child: Center(
+                          child: Text(S.current.SyncWallet,
+                              style: GoogleFonts.sourceSansPro(
+                                  fontSize: 13.sp,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800))),
+                    ),
+                  )
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget userWalletOpt() {
+    return Column(
+      children: [
+        const SizedBox(height: 5),
+        Row(
+          children: [
+            const CircleAvatar(
+              radius: 13.0,
+              backgroundImage: AssetImage("assets/imgs/RealityIconCircle.png"),
             ),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Buttons(S.current.Transferir, greenPrimary, () {
-                  Navigator.of(context).pushNamed(TransferScreen.routeName);
-                }),
-                const SizedBox(width: 10),
-                Buttons(S.current.Recibir, Colors.black45, () {
-                  Navigator.of(context)
-                      .pushNamed(ReceiveScreen.routeName, arguments: {
-                    "walletId": "walletUsuario.near",
-                  });
-                }),
-              ],
-            )
+            const SizedBox(width: 5),
+            Text(
+              'Realities: ${walletBalance.toStringAsFixed(4) ?? '0.0000'}',
+              style: GoogleFonts.sourceSansPro(
+                  fontSize: 16.sp,
+                  color: txtPrimary,
+                  fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
+        const SizedBox(height: 5),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Buttons(S.current.Transferir, greenPrimary, () {
+              Navigator.of(context).pushNamed(TransferScreen.routeName);
+            }),
+            const SizedBox(width: 10),
+            Buttons(S.current.Recibir, Colors.black45, () {
+              Navigator.of(context)
+                  .pushNamed(ReceiveScreen.routeName, arguments: {
+                "walletId": "walletUsuario.near",
+              });
+            }),
           ],
         )
       ],
@@ -233,6 +245,7 @@ class _NoArSectionState extends State<NoArSection> {
         children: [
           buildCategory(
               S.current.Eventos, greenPrimary, MediaQuery.of(context).size),
+          const SizedBox(height: 10),
           ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

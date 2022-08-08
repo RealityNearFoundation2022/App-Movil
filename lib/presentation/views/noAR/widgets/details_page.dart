@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:sizer/sizer.dart';
 
 class EventDetailsPage extends StatelessWidget {
   final String title;
@@ -15,31 +14,15 @@ class EventDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size; //check the size of device
     var brightness = MediaQuery.of(context).platformBrightness;
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     icon:
-      //         const Icon(Icons.arrow_back_ios, color: greenPrimary, size: 30),
-      //     onPressed: () => Navigator.of(context).pop(),
-      //   ),
-      //   backgroundColor: Colors.transparent,
-      //   title: Image.asset(
-      //     'assets/imgs/Logo_sin_fondo.png',
-      //     fit: BoxFit.contain,
-      //     height: 70,
-      //   ),
-      //   centerTitle: true,
-      //   elevation: 0,
-      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
-                width: size.width,
-                height: size.height * 0.35,
+                width: ScreenWH(context).width,
+                height: ScreenWH(context).height * 0.35,
                 child: ClipRRect(
                   child: Image.network(
                     eventImg,
@@ -59,7 +42,7 @@ class EventDetailsPage extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.sourceSansPro(
                         color: greenPrimary,
-                        fontSize: size.width * 0.065,
+                        fontSize: ScreenWH(context).width * 0.07,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -69,7 +52,7 @@ class EventDetailsPage extends StatelessWidget {
                         "by Reality Near Foundation",
                         textAlign: TextAlign.start,
                         style: GoogleFonts.sourceSansPro(
-                            fontSize: size.width * 0.04,
+                            fontSize: ScreenWH(context).width * 0.04,
                             fontWeight: FontWeight.bold,
                             color: txtPrimary),
                       ),
@@ -84,7 +67,7 @@ class EventDetailsPage extends StatelessWidget {
                   loremIpsum,
                   textAlign: TextAlign.left,
                   style: GoogleFonts.sourceSansPro(
-                      fontSize: 13.sp,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: txtPrimary),
                 ),
@@ -92,52 +75,58 @@ class EventDetailsPage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back_ios,
-                          color: greenPrimary, size: 35),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Respond to button press
-                      },
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(greenPrimary),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0))),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                            const EdgeInsets.symmetric(horizontal: 30)),
-                      ),
-                      child: Text(
-                        "!Vamos¡",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.sourceSansPro(
-                          color: Colors.white,
-                          fontSize: 14.5.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.share_outlined,
-                          color: icongrey, size: 35),
-                      onPressed: () => Navigator.of(context).pop(),
-                    ),
-                  ],
-                ),
-              ),
+              
               const SizedBox(
                 height: 10,
               ),
             ],
           ),
         ),
+      ),
+      bottomSheet: _footter(context),
+    );
+  }
+  
+  _footter(BuildContext context){
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.arrow_back_ios,
+                color: greenPrimary, size: 35),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              // Respond to button press
+            },
+            style: ButtonStyle(
+              backgroundColor:
+              MaterialStateProperty.all<Color>(greenPrimary),
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0))),
+              padding: MaterialStateProperty.all<EdgeInsets>(
+                  const EdgeInsets.symmetric(horizontal: 30)),
+            ),
+            child: Text(
+              "!Vamos¡",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.sourceSansPro(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.share_outlined,
+                color: icongrey, size: 35),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ],
       ),
     );
   }

@@ -19,6 +19,7 @@ class WalletRepository {
           'https://www.google.com',
           'eduperaltas.testnet');
       print('response login with NEAR: $response');
+      // persistData("walletId", accountId);
       return const Right('usuario Logeado');
     } catch (e) {
       return const Left(ServerFailure(message: 'Error al logearse'));

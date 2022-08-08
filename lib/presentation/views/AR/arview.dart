@@ -11,7 +11,6 @@ import 'package:ar_flutter_plugin/datatypes/config_planedetection.dart';
 import 'package:ar_flutter_plugin/datatypes/node_types.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:vector_math/vector_math_64.dart';
-import 'package:path_provider/path_provider.dart';
 
 class ARSection extends StatefulWidget {
   const ARSection({Key key}) : super(key: key);
@@ -86,16 +85,16 @@ class _ARSectionState extends State<ARSection> {
     //    "Chicken_01.zip");
   }
 
-  Future<File> _downloadFile(String url, String filename) async {
-    var request = await httpClient.getUrl(Uri.parse(url));
-    var response = await request.close();
-    var bytes = await consolidateHttpClientResponseBytes(response);
-    String dir = (await getApplicationDocumentsDirectory()).path;
-    File file = File('$dir/$filename');
-    await file.writeAsBytes(bytes);
-    print("Downloading finished, path: " '$dir/$filename');
-    return file;
-  }
+  // Future<File> _downloadFile(String url, String filename) async {
+  //   var request = await httpClient.getUrl(Uri.parse(url));
+  //   var response = await request.close();
+  //   var bytes = await consolidateHttpClientResponseBytes(response);
+  //   String dir = (await getApplicationDocumentsDirectory()).path;
+  //   File file = File('$dir/$filename');
+  //   await file.writeAsBytes(bytes);
+  //   print("Downloading finished, path: " '$dir/$filename');
+  //   return file;
+  // }
 
   // Future<void> _downloadAndUnpack(String url, String filename) async {
   //   var request = await httpClient.getUrl(Uri.parse(url));
@@ -120,7 +119,6 @@ class _ARSectionState extends State<ARSection> {
     if (webObjectNode != null) {
       arObjectManager.removeNode(webObjectNode);
       webObjectNode = null;
-      // arObjectManager.onNodeTap(['webObject']);
     } else {
       var newNode = ARNode(
           type: NodeType.webGLB, uri: UrlAr, scale: Vector3(0.2, 0.2, 0.2));

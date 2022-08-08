@@ -4,7 +4,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 
 class LocationProvider with ChangeNotifier {
-
   MapController _mapController;
   MapController get mapController => _mapController;
 
@@ -67,8 +66,8 @@ class LocationProvider with ChangeNotifier {
   }
 
   setCameraToCurrentPosition() {
-    _mapController.move(_locationPosition, 17);
+    _mapController.move(
+        LatLng(_locationPosition.latitude, _locationPosition.longitude), 17);
     notifyListeners();
   }
-
 }

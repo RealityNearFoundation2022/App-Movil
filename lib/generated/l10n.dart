@@ -145,11 +145,11 @@ class S {
     );
   }
 
-  /// `Enter your Near Wallet`
-  String get enterWallet {
+  /// `Sync your Near Wallet`
+  String get SyncWallet {
     return Intl.message(
-      'Enter your Near Wallet',
-      name: 'enterWallet',
+      'Sync your Near Wallet',
+      name: 'SyncWallet',
       desc: '',
       args: [],
     );
@@ -800,6 +800,136 @@ class S {
     return Intl.message(
       'no pending requests',
       name: 'NoSolicitudes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get Si {
+    return Intl.message(
+      'Yes',
+      name: 'Si',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get No {
+    return Intl.message(
+      'No',
+      name: 'No',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want sync your near wallet?`
+  String get PvinecularNearWallet {
+    return Intl.message(
+      'Do you want sync your near wallet?',
+      name: 'PvinecularNearWallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This will be your avatar`
+  String get EsteSeraTuAvatar {
+    return Intl.message(
+      'This will be your avatar',
+      name: 'EsteSeraTuAvatar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm`
+  String get Confirmar {
+    return Intl.message(
+      'Confirm',
+      name: 'Confirmar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get Volver {
+    return Intl.message(
+      'Back',
+      name: 'Volver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incomplete data`
+  String get DatosIncompletos {
+    return Intl.message(
+      'Incomplete data',
+      name: 'DatosIncompletos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are not sync a wallet`
+  String get NoRegistraWalletTitle {
+    return Intl.message(
+      'You are not sync a wallet',
+      name: 'NoRegistraWalletTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `you will not be able to store or transact within Reality Near`
+  String get NoRegistraWalletDesc1 {
+    return Intl.message(
+      'you will not be able to store or transact within Reality Near',
+      name: 'NoRegistraWalletDesc1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Whenever you want, you can link your Near Wallet from the home or main menu`
+  String get NoRegistraWalletDesc2 {
+    return Intl.message(
+      'Whenever you want, you can link your Near Wallet from the home or main menu',
+      name: 'NoRegistraWalletDesc2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `you don't have notifications`
+  String get NoTinesNotificaciones {
+    return Intl.message(
+      'you don\'t have notifications',
+      name: 'NoTinesNotificaciones',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify the data you entered and try again`
+  String get VerificaLosDatosIngresados {
+    return Intl.message(
+      'Verify the data you entered and try again',
+      name: 'VerificaLosDatosIngresados',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try again`
+  String get Intentardenuevo {
+    return Intl.message(
+      'Try again',
+      name: 'Intentardenuevo',
       desc: '',
       args: [],
     );

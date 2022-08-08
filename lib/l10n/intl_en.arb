@@ -10,7 +10,7 @@
     "PasswordOblig": "Password required",
     "failLogin":"Login failed, please try again",
     "Ingresar":"Login",
-    "enterWallet": "Enter your Near Wallet",
+    "SyncWallet": "Sync your Near Wallet",
     "Email": "Email",
     "Password": "Password",
     "PasswordConf": "Password Confirmation",
@@ -75,6 +75,18 @@
     "UserName": "Username",
     "Obligatorio":"Required",
     "Guardar":"Save",
-    "NoSolicitudes":"no pending requests"
-
+    "NoSolicitudes":"no pending requests",
+    "Si":"Yes",
+    "No":"No",
+    "PvinecularNearWallet": "Do you want sync your near wallet?",
+    "EsteSeraTuAvatar": "This will be your avatar",
+    "Confirmar": "Confirm",
+    "Volver": "Back",
+    "DatosIncompletos": "Incomplete data",
+    "NoRegistraWalletTitle": "You are not sync a wallet",
+    "NoRegistraWalletDesc1": "you will not be able to store or transact within Reality Near",
+    "NoRegistraWalletDesc2": "Whenever you want, you can link your Near Wallet from the home or main menu",
+    "NoTinesNotificaciones":"you don't have notifications",
+    "VerificaLosDatosIngresados": "Verify the data you entered and try again",
+    "Intentardenuevo": "Try again"
 }

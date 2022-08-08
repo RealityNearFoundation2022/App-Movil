@@ -6,7 +6,6 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/helper/url_constants.dart';
 import 'package:reality_near/providers/location_provider.dart';
 
-
 class MapSection extends StatefulWidget {
   const MapSection({Key key}) : super(key: key);
 
@@ -15,74 +14,78 @@ class MapSection extends StatefulWidget {
 }
 
 class _MapSectionState extends State<MapSection> {
-
   @override
   void initState() {
     super.initState();
     Provider.of<LocationProvider>(context, listen: false).initialization();
   }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LocationProvider>(builder: (consumerContext, model, child) {
       model.ctx = consumerContext;
-      return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topRight: Radius.circular(30),
-      ),
-      child: Stack(
-        children: [
-          FlutterMap(
-            options: MapOptions(
-              center: LatLng(model.locationPosition.latitude, model.locationPosition.longitude),
-              zoom: 18,
-              maxZoom: 18.4,
-              minZoom: 14,
-              controller: model.mapController,
-            ),
-            layers: [
-              TileLayerOptions(
-                urlTemplate: "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
-                subdomains: ['a', 'b', 'c'],
-                additionalOptions: {
-                  'id': 'mapbox/streets-v11',
-                  'accessToken':MAPBOX_ACCESS_TOKEN
-                }
-              ),
-              MarkerLayerOptions(
-                markers: [
-                  Marker(
-                    width: 40.0,
-                    height: 40.0,
-                    point: LatLng(model.locationPosition.latitude, model.locationPosition.longitude),
-                    builder: (context) => const Icon(
-                      Icons.navigation_rounded,
-                      color: greenPrimary,
-                      size: 20,
-                    ),
-                  ),
-                ],
-              ),
-            ],
 
+      return ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(30),
           ),
-          Container(
-            alignment: Alignment.bottomRight,
-            padding: const EdgeInsets.all(10),
-            child: IconButton(
-              onPressed: () {
-                Provider.of<LocationProvider>(context, listen: false)
-                    .setCameraToCurrentPosition();
-              },
-              icon: const Icon(
-                Icons.gps_fixed,
-                color: greenPrimary,
-                size: 40,
-              ),
-            ),
-          )
-        ],
-      )
-    );
+          child: model.locationPosition != null
+              ? Stack(
+                  children: [
+                    FlutterMap(
+                      options: MapOptions(
+                        center: LatLng(model.locationPosition.latitude,
+                            model.locationPosition.longitude),
+                        zoom: 18,
+                        maxZoom: 18.4,
+                        minZoom: 14,
+                        controller: model.mapController,
+                      ),
+                      layers: [
+                        TileLayerOptions(
+                          urlTemplate:
+                              "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+                          subdomains: ['a', 'b', 'c'],
+                          additionalOptions: {
+                            'id': 'mapbox/streets-v11',
+                            'accessToken': MAPBOX_ACCESS_TOKEN
+                          },
+                        ),
+                        MarkerLayerOptions(
+                          markers: [
+                            Marker(
+                              width: 40.0,
+                              height: 40.0,
+                              point: LatLng(model.locationPosition.latitude,
+                                  model.locationPosition.longitude),
+                              builder: (context) => const Icon(
+                                Icons.navigation_rounded,
+                                color: greenPrimary,
+                                size: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      padding: const EdgeInsets.all(10),
+                      child: IconButton(
+                        onPressed: () {
+                          Provider.of<LocationProvider>(context, listen: false)
+                              .setCameraToCurrentPosition();
+                        },
+                        icon: const Icon(
+                          Icons.gps_fixed,
+                          color: greenPrimary,
+                          size: 40,
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              : const Center(child: CircularProgressIndicator()));
     });
   }
 }

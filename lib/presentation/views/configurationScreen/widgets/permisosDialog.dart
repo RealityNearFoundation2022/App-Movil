@@ -1,5 +1,5 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/generated/l10n.dart';
@@ -68,18 +68,12 @@ class _PermisosDialogState extends State<PermisosDialog> {
                   color: Colors.black38),
             ),
           ),
-          FlutterSwitch(
-            width: 43.0,
-            height: 22.0,
-            valueFontSize: 16.0,
-            toggleSize: 15.0,
+          CupertinoSwitch(
+            activeColor: greenPrimary,
             value: statusPermisos[index],
-            borderRadius: 35.0,
-            activeColor: Palette.kgreenNR,
-            inactiveColor: const Color.fromRGBO(102, 102, 102, 1),
-            onToggle: (val) {
+            onChanged: (value) {
               setState(() {
-                statusPermisos[index] = val;
+                statusPermisos[index] = value;
               });
             },
           ),

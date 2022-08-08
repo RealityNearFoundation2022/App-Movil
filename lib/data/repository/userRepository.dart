@@ -30,7 +30,11 @@ class UserRepository {
     try {
       final isLoggedIn =
           await authsRemoteDataSourceImpl.loginWithEmail(email, password);
-      return Right(isLoggedIn);
+      return isLoggedIn
+          ? const Right(true)
+          : const Left(ServerFailure(
+              message: "Server Failure",
+            ));
     } on ServerException {
       return const Left(ServerFailure(
         message: "Server Failure",
@@ -59,6 +63,7 @@ class UserRepository {
       ));
     }
   }
+
   Future<Either<Failure, User>> getUserById(String userId) async {
     try {
       final user = await userRemoteDataSource.getUserById(userId);
@@ -69,5 +74,4 @@ class UserRepository {
       ));
     }
   }
-
 }

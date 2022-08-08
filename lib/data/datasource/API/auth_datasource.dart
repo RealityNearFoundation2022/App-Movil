@@ -65,7 +65,7 @@ class AuthsRemoteDataSourceImpl implements AuthsRemoteDataSource {
     print('token: $token');
     log.i(response.body);
     log.i(response.statusCode);
-    response.statusCode == 200 ? persistData('userToken', token) : null;
+    response.statusCode == 200 ? {persistData('userToken', token)} : null;
     return response.statusCode == 200 ? true : false;
   }
 }

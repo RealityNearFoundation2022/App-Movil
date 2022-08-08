@@ -9,6 +9,7 @@ import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configurationScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/walletScreen.dart';
+import 'package:reality_near/presentation/widgets/dialogs/syncWalletDialog.dart';
 import 'package:sizer/sizer.dart';
 
 class MenuPrincSection extends StatefulWidget {
@@ -21,6 +22,8 @@ class MenuPrincSection extends StatefulWidget {
 class _MenuPrincSectionState extends State<MenuPrincSection> {
   String username = '';
   double walletBalance = 0;
+  String walletId = "";
+
   @override
   void initState() {
     super.initState();
@@ -29,10 +32,21 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
             username = value;
           })
         });
-    //obtener balance de wallet
-    ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
-          walletBalance = value;
-        }));
+
+    getPersistData('walletId').then((value) => {
+          if (value != null)
+            {
+              //obtener balance de wallet
+              ContractRemoteDataSourceImpl()
+                  .getMyBalance()
+                  .then((value) => setState(() {
+                        walletBalance = value;
+                      })),
+              setState(() {
+                walletId = value;
+              })
+            }
+        });
   }
 
   @override
@@ -57,31 +71,26 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
               fontSize: 33.sp, color: txtPrimary, fontWeight: FontWeight.w800),
         ),
       ),
-      // Align(
-      //   alignment: Alignment.centerRight,
-      //   child: Text(
-      //     'jAlvRz921',
-      //     style: GoogleFonts.sourceSansPro(
-      //         fontSize: 26.sp, color: txtPrimary, fontWeight: FontWeight.w500),
-      //   ),
-      // ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          const CircleAvatar(
-            radius: 13.0,
-            backgroundImage: AssetImage("assets/imgs/RealityIconCircle.png"),
-          ),
-          const SizedBox(width: 5),
-          Text(
-            '$walletBalance',
-            style: GoogleFonts.sourceSansPro(
-                fontSize: 33.sp,
-                color: txtPrimary,
-                fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
+      walletId.isNotEmpty
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const CircleAvatar(
+                  radius: 13.0,
+                  backgroundImage:
+                      AssetImage("assets/imgs/RealityIconCircle.png"),
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  '$walletBalance',
+                  style: GoogleFonts.sourceSansPro(
+                      fontSize: 33.sp,
+                      color: txtPrimary,
+                      fontWeight: FontWeight.w500),
+                ),
+              ],
+            )
+          : const SizedBox(),
       Align(
         alignment: Alignment.centerRight,
         child: GestureDetector(
@@ -97,21 +106,23 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
           ),
         ),
       ),
-      Align(
-        alignment: Alignment.centerRight,
-        child: GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, WalletScreen.routeName);
-          },
-          child: Text(
-            S.current.Wallet,
-            style: GoogleFonts.sourceSansPro(
-                fontSize: 33.sp,
-                color: txtPrimary,
-                fontWeight: FontWeight.w500),
-          ),
-        ),
-      ),
+      walletId.isNotEmpty
+          ? Align(
+              alignment: Alignment.centerRight,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, WalletScreen.routeName);
+                },
+                child: Text(
+                  S.current.Wallet,
+                  style: GoogleFonts.sourceSansPro(
+                      fontSize: 33.sp,
+                      color: txtPrimary,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+            )
+          : const SizedBox(),
     ]);
   }
 
@@ -120,46 +131,80 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
       padding: const EdgeInsets.all(8.0),
       child: CircleAvatar(
         radius: 27.w,
-        backgroundImage: NetworkImage(photo),
+        // backgroundColor: Colors.transparent,
+        // backgroundImage: NetworkImage(photo),
+        child: Image.asset(
+          "assets/gift/MONSTER_SELECT.gif",
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
 
   Widget bottomSection(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
-        GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, ConfigurationScreen.routeName);
-            },
-            child: const Icon(Icons.settings, color: greenPrimary3, size: 35)),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 3.0),
+        walletId.isEmpty
+            ? Align(
+                alignment: Alignment.centerRight,
                 child: GestureDetector(
                   onTap: () {
-                    BlocProvider.of<UserBloc>(context, listen: false)
-                        .add(UserLogOutEvent());
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, '/firstScreen', ModalRoute.withName('/'));
+                    showDialog(
+                        context: context,
+                        builder: (context) => SyncWalletDialog(
+                              onLogin: () {
+                                Navigator.pop(context);
+                              },
+                            ));
                   },
                   child: Text(
-                    'Logout',
+                    S.current.SyncWallet,
+                    textAlign: TextAlign.right,
                     style: GoogleFonts.sourceSansPro(
-                        color: greenPrimary3,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 33.sp),
+                        fontSize: 33.sp,
+                        color: txtPrimary,
+                        fontWeight: FontWeight.w600),
                   ),
                 ),
               )
-            ],
-          ),
-        )
+            : const SizedBox(),
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, ConfigurationScreen.routeName);
+                },
+                child:
+                    const Icon(Icons.settings, color: greenPrimary3, size: 35)),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        BlocProvider.of<UserBloc>(context, listen: false)
+                            .add(UserLogOutEvent());
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/firstScreen', ModalRoute.withName('/'));
+                      },
+                      child: Text(
+                        'Logout',
+                        style: GoogleFonts.sourceSansPro(
+                            color: greenPrimary3,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 33.sp),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ],
     );
   }
