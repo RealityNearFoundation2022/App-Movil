@@ -36,7 +36,7 @@ class _WalletScreenState extends State<WalletScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         title: Container(
           margin: const EdgeInsets.only(right: 10),
           alignment: Alignment.centerRight,

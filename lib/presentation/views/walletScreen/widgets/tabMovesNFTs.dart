@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/datasource/nearRPC/contracts.dart';
 import 'package:reality_near/data/models/nftModel.dart';
 import 'package:reality_near/generated/l10n.dart';
@@ -29,8 +30,8 @@ class _TabMovesNFTsState extends State<TabMovesNFTs> {
 
     //obtener NFTs de wallet
     ContractRemoteDataSourceImpl().getMyNFTs().then((value) => setState(() {
-          lstNFTs = value;
-        }));
+      lstNFTs = value;
+    }));
   }
 
   @override
@@ -75,24 +76,36 @@ class _TabMovesNFTsState extends State<TabMovesNFTs> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
-                          const SizedBox(height: 10),
-                          Searchbar(
-                              placeholder: S.current.BuscarMovimientos,
-                              controller: searchMovesController),
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount: 10,
-                              itemBuilder: (context, index) {
-                                return movimientos(
-                                    'Movimiento 1',
-                                    '10/10/2022',
-                                    (Random().nextDouble() * 2123)
-                                        .roundToDouble()
-                                        .toStringAsFixed(4),
-                                    "https://source.unsplash.com/random/200x200?sig=$index");
-                              },
+                          SizedBox(height: ScreenWH(context).height * 0.06),
+                          Image.asset('assets/imgs/transferSoon.png'),
+                          const SizedBox(height: 20),
+                          Text(
+                            'Aquí podras ver todos tus movimientos de Realities',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.sourceSansPro(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: txtPrimary,
                             ),
                           ),
+                          // const SizedBox(height: 10),
+                          // Searchbar(
+                          //     placeholder: S.current.BuscarMovimientos,
+                          //     controller: searchMovesController),
+                          // Expanded(
+                          //   child: ListView.builder(
+                          //     itemCount: 10,
+                          //     itemBuilder: (context, index) {
+                          //       return movimientos(
+                          //           'Movimiento 1',
+                          //           '10/10/2022',
+                          //           (Random().nextDouble() * 2123)
+                          //               .roundToDouble()
+                          //               .toStringAsFixed(4),
+                          //           "https://source.unsplash.com/random/200x200?sig=$index");
+                          //     },
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -100,28 +113,39 @@ class _TabMovesNFTsState extends State<TabMovesNFTs> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         children: [
-                          const SizedBox(height: 10),
-                          Searchbar(
-                              placeholder: S.current.BuscarNFTs,
-                              controller: searchNFTController),
-                          const SizedBox(height: 10),
-                          Expanded(
-                            child: GridView.builder(
-                              shrinkWrap: true,
-                              itemCount: lstNFTs.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      childAspectRatio: 0.56),
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: nftCard(lstNFTs[index]),
-                                );
-                              },
+                          SizedBox(height: ScreenWH(context).height * 0.06),
+                          Image.asset('assets/imgs/nftSoon.png'),
+                          const SizedBox(height: 20),
+                          Text(
+                            'Aquí podras ver todas las NFTs que tengas en tu wallet',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.sourceSansPro(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: txtPrimary,
                             ),
                           ),
+                          // Searchbar(
+                          //     placeholder: S.current.BuscarNFTs,
+                          //     controller: searchNFTController),
+                          // const SizedBox(height: 10),
+                          // Expanded(
+                          //   child: GridView.builder(
+                          //     shrinkWrap: true,
+                          //     itemCount: lstNFTs.length,
+                          //     gridDelegate:
+                          //         const SliverGridDelegateWithFixedCrossAxisCount(
+                          //             crossAxisCount: 2,
+                          //             childAspectRatio: 0.56),
+                          //     itemBuilder: (context, index) {
+                          //       return Padding(
+                          //         padding: const EdgeInsets.symmetric(
+                          //             horizontal: 8.0),
+                          //         child: nftCard(lstNFTs[index]),
+                          //       );
+                          //     },
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

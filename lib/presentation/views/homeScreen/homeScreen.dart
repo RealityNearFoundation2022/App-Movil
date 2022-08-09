@@ -46,6 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      status=false;
+    });
     BlocProvider.of<MenuBloc>(context, listen: false).add(MenuCloseEvent());
     _viewGuide();
     _getNewNotifications();
@@ -61,16 +64,16 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           body: Stack(
             children: [
-              //Body
-              state is MenuArState
+              //Body@
+              status
                   ? const ARSection()
                   : Container(
-                      margin: EdgeInsets.only(
-                          bottom: 20, top: ScreenWH(context).height * 0.17),
-                      height: ScreenWH(context).height * 0.95,
-                      width: ScreenWH(context).width,
-                      child: const NoArSection(),
-                    ),
+                margin: EdgeInsets.only(
+                    bottom: 20, top: ScreenWH(context).height * 0.17),
+                height: ScreenWH(context).height * 0.95,
+                width: ScreenWH(context).width,
+                child: const NoArSection(),
+              ),
               //Header
               header(),
               //Map-Button
@@ -186,8 +189,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 onChanged: (value) {
                   setState(() {
                     status = value;
-                    BlocProvider.of<MenuBloc>(context, listen: false)
-                        .add(value ? MenuOpenArViewEvent() : MenuCloseEvent());
+                    // BlocProvider.of<MenuBloc>(context, listen: false)
+                    //     .add(value ? MenuOpenArViewEvent() : MenuCloseEvent());
                   });
                 },
               ),

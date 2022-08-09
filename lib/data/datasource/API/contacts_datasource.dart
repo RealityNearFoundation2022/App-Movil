@@ -11,6 +11,7 @@ abstract class ContactRemoteDataSource {
   Future<bool> acceptPendigRequest(String contactId);
   Future<bool> removeDeleteContacts(String contactId);
   Future<List<ContactModel>> getPendingContacts();
+  Future<List<ContactModel>> getContacts();
 }
 
 class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
@@ -20,7 +21,6 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
   ContactRemoteDataSourceImpl();
   @override
   addContact(String contactId) async {
-
     final url = baseUrl;
     String token = await getPersistData("userToken");
 
@@ -41,6 +41,30 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
     log.i(response.statusCode);
     if (response.statusCode == 200) {
       return true;
+    } else {
+      throw ServerException();
+    }
+  }
+  @override
+  getContacts() async {
+    final url = baseUrl;
+    String token = await getPersistData("userToken");
+    final response = await http.get(
+      Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+    );
+    String body = utf8.decode(response.bodyBytes);
+    //PARA VERIFICAR
+    log.i(response.body);
+    log.i(response.statusCode);
+    //si es cod200 devolvemos obj si no lanzamos excepcion
+    if (response.statusCode == 200) {
+      return (json.decode(response.body) as List)
+          .map((i) => ContactModel.fromJson(i))
+          .toList();
     } else {
       throw ServerException();
     }

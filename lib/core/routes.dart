@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:reality_near/presentation/views/FriendsScreen/chatSoonScreen.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
 import 'package:reality_near/presentation/views/bugScreen/bugScreen.dart';
 import 'package:reality_near/presentation/views/chatRoomScreen/chatRoomScreen.dart';
@@ -9,7 +10,6 @@ import 'package:reality_near/presentation/views/homeScreen/homeScreen.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
 import 'package:reality_near/presentation/views/login/login.dart';
 import 'package:reality_near/presentation/views/notificationScreen/notificationScreen.dart';
-import 'package:reality_near/presentation/views/onboard/onboard.dart';
 import 'package:reality_near/presentation/views/qrScreen/qrScanScreen.dart';
 import 'package:reality_near/presentation/views/qrScreen/qrViewScreen.dart';
 import 'package:reality_near/presentation/views/register/registerScreen.dart';
@@ -24,7 +24,6 @@ final Map<String, WidgetBuilder> routes = {
   FirstScreen.routeName: (context) => const FirstScreen(),
   Login.routeName: (context) => Login(),
   HomeScreen.routeName: (context) => const HomeScreen(),
-  OnBoard.routeName: (context) => OnBoard(),
   FriendScreen.routeName: (context) => const FriendScreen(),
   ConfigurationScreen.routeName: (context) => const ConfigurationScreen(),
   InfoScreen.routeName: (context) => const InfoScreen(),
@@ -34,11 +33,12 @@ final Map<String, WidgetBuilder> routes = {
   WalletScreen.routeName: (context) => const WalletScreen(),
   userScreen.routeName: (context) => const userScreen(),
   RegisterScreen.routeName: (context) => const RegisterScreen(),
-  ReceiveScreen.routeName: (context) => const ReceiveScreen(),
+  ReceiveScreen.routeName: (context) =>  ReceiveScreen(),
   TransferScreen.routeName: (context) => TransferScreen(),
   TransferDetail.routeName: (context) => TransferDetail(),
   UserProfile.routeName: (context) => UserProfile(),
   NotificationScreen.routeName: (context) => const NotificationScreen(),
   QrViewScreen.routeName: (context) => const QrViewScreen(),
   QrScannScreen.routeName: (context) => const QrScannScreen(),
+  chatSoonScreen.routeName: (context) => const chatSoonScreen(),
 };

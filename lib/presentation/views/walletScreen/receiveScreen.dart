@@ -2,21 +2,42 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:sizer/sizer.dart';
 
-class ReceiveScreen extends StatelessWidget {
-  const ReceiveScreen({Key key}) : super(key: key);
+class ReceiveScreen extends StatefulWidget {
+   ReceiveScreen({Key key}) : super(key: key);
   static String routeName = "/receive";
+
+  @override
+  State<ReceiveScreen> createState() => _ReceiveScreenState();
+}
+
+class _ReceiveScreenState extends State<ReceiveScreen> {
+  String _walletAddress = "";
+
+  bool _loading = true;
+
+  _getWalletAddress() async {
+    getPersistData('walletId').then((value) {
+      setState(() {
+        _walletAddress = value;
+        _loading = false;
+      });
+    });
+  }
+
+  @override
+  initState() {
+    super.initState();
+    _getWalletAddress();
+  }
+
   @override
   Widget build(BuildContext context) {
-    //Variables
-    //Argumentos
-    final args =
-        ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
-
     Widget copyConfirm() {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -61,7 +82,12 @@ class ReceiveScreen extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: SizedBox(
+        child: _loading ?
+        LoadingAnimationWidget.dotsTriangle(
+          color: greenPrimary,
+          size: ScreenWH(context).width * 0.3,
+        )
+        : SizedBox(
           width: ScreenWH(context).width * 0.8,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -76,7 +102,7 @@ class ReceiveScreen extends StatelessWidget {
                     height: 80,
                     child: Center(
                       child: Text(
-                        args["walletId"],
+                        _walletAddress,
                         style: GoogleFonts.sourceSansPro(
                             fontSize: 24,
                             color: txtPrimary,
@@ -100,7 +126,7 @@ class ReceiveScreen extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       //copy to clipboard
-                      Clipboard.setData(ClipboardData(text: args["walletId"]));
+                      Clipboard.setData(ClipboardData(text: _walletAddress));
                       copyConfirm();
                     },
                     style: ButtonStyle(
@@ -122,11 +148,11 @@ class ReceiveScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 20),
-                  IconButton(
-                    icon: const Icon(Icons.share_outlined,
-                        color: icongrey, size: 35),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
+                  // IconButton(
+                  //   icon: const Icon(Icons.share_outlined,
+                  //       color: icongrey, size: 35),
+                  //   onPressed: () => Navigator.of(context).pop(),
+                  // ),
                 ],
               ),
             ],

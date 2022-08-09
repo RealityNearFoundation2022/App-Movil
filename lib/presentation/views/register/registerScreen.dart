@@ -73,6 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (state is UserLoggedInState) {
           //Show dialog when Login failed or login without wallet
           if (state.isLoggedIn) {
+            persistData('usAvatar',pathSelectedAvatar);
             //Go to Home
             Navigator.pushNamedAndRemoveUntil(
                 context, '/home', (Route<dynamic> route) => false);
