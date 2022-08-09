@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/domain/entities/user.dart';
+import 'package:reality_near/domain/usecases/contacts/getContacts.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/widgets/friendChat.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/widgets/friendDialog.dart';
@@ -19,6 +22,22 @@ class FriendScreen extends StatefulWidget {
 
 class _FriendScreenState extends State<FriendScreen> {
   final TextEditingController _searchController = TextEditingController();
+  List<User> lstContacts = [];
+  bool _loading = true;
+
+  Future<void> _getContacts() async {
+    var response = await GetContactsUseCase().call();
+    setState(() {
+      lstContacts = response;
+      _loading = false;
+    });
+  }
+
+  @override
+  initState() {
+    super.initState();
+    _getContacts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,23 +63,72 @@ class _FriendScreenState extends State<FriendScreen> {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body: Column(
+        body: _loading ?
+             loading()
+        : Column(
           children: [
             //Barra de busqueda
             searchSection(),
             //Lista de amigos conectados
-            Container(
+            lstContacts.isNotEmpty ? Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 height: 120,
-                child: FriendsConect()),
+                child: FriendsConect()) : const SizedBox(),
             //Lista de Chats
-            Expanded(
+            lstContacts.isNotEmpty ? Expanded(
               child: SizedBox(
                   height: MediaQuery.of(context).size.height,
                   child: chatList()),
-            )
+            ) : noContact(),
           ],
         ));
+  }
+
+  noContact(){
+    return Container(
+      width: MediaQuery.of(context).size.width*0.9,
+      alignment: Alignment.center,
+      child: Column(
+        children: [
+          //IMAGEN DE NO CONTACTOS
+          const SizedBox(height: 20),
+          Text(
+            S.current.NoHayAmigos,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.sourceSansPro(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: greenPrimary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  loading(){
+    return Align(
+      alignment: Alignment.center,
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            LoadingAnimationWidget.dotsTriangle(
+              color: greenPrimary,
+              size: ScreenWH(context).width * 0.3,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              S.current.Cargando,
+              style: GoogleFonts.sourceSansPro(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
+            )
+          ],
+        ),
+    );
   }
 
   Widget searchSection() {
@@ -87,11 +155,12 @@ class _FriendScreenState extends State<FriendScreen> {
 
   Widget chatList() {
     return ListView.builder(
-      itemCount: 1,
+      itemCount: lstContacts.length,
       itemBuilder: (context, index) {
+        User contact = lstContacts[index];
         return ChatCard(
           photo: "https://source.unsplash.com/random/200x200?sig=$index",
-          name: "Juan Perez",
+          name: contact.fullName,
           message:
               "Habla Juan, estaba jugando un rato por larcomar y no creeras lo que hay por aquí",
           time: "17:46 P.M.",
@@ -103,21 +172,23 @@ class _FriendScreenState extends State<FriendScreen> {
   Widget FriendsConect() {
     return ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 10,
+        itemCount: lstContacts.length,
         itemBuilder: (BuildContext context, int index) {
+          User contact = lstContacts[index];
           return GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, ChatRoomScreen.routeName,
-                  arguments: {
-                    'name': getRandomName(),
-                    'photo':
-                        "https://source.unsplash.com/random/200x200?sig=$index",
-                    'empty': true
-                  });
+              // Navigator.pushNamed(context, ChatRoomScreen.routeName,
+              //     arguments: {
+              //       'name': getRandomName(),
+              //       'photo':
+              //           "https://source.unsplash.com/random/200x200?sig=$index",
+              //       'empty': true
+              //     });
+              Navigator.pushNamed(context, '/ChatSoonScreen');
             },
             child: personCircle(
                 "https://source.unsplash.com/random/200x200?sig=$index",
-                getRandomName()),
+                contact.fullName??'null'),
           );
         });
   }

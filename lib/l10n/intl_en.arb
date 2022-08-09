@@ -21,6 +21,7 @@
     "Siguiente":"Next",
     "Bienvenido":"Welcome",
     "Transferir":"Transfer",
+    "Cargando": "Loading ...",
     "Recibir":"Receive",
     "Eventos":"Events",
     "Novedades":"News",
@@ -88,5 +89,7 @@
     "NoRegistraWalletDesc2": "Whenever you want, you can link your Near Wallet from the home or main menu",
     "NoTinesNotificaciones":"you don't have notifications",
     "VerificaLosDatosIngresados": "Verify the data you entered and try again",
-    "Intentardenuevo": "Try again"
+    "Intentardenuevo": "Try again",
+    "NoHayAmigos": "You don't have friends yet, you can add them with the + button",
+    "Canjear": "exchange"
 }

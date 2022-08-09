@@ -46,6 +46,17 @@ class ContactRepository {
     }
   }
 
+  Future<Either<Failure, List<ContactModel>>> getContacts() async {
+    try {
+      List<ContactModel> contacts = await contactRepo.getContacts();
+      return Right(contacts);
+    } on ServerException {
+      return const Left(ServerFailure(
+        message: "Server Failure",
+      ));
+    }
+  }
+
   Future<Either<Failure, List<ContactModel>>> getPendingContacts() async {
     try {
       List<ContactModel> contacts = await contactRepo.getPendingContacts();

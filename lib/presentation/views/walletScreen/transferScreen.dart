@@ -8,10 +8,17 @@ import 'package:reality_near/presentation/views/userProfile/userProfile.dart';
 import 'package:reality_near/presentation/views/walletScreen/widgets/transactionDetail.dart';
 import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
 
-class TransferScreen extends StatelessWidget {
+class TransferScreen extends StatefulWidget {
   TransferScreen({Key key}) : super(key: key);
   static String routeName = "/transfer";
+
+  @override
+  State<TransferScreen> createState() => _TransferScreenState();
+}
+
+class _TransferScreenState extends State<TransferScreen> {
   final TextEditingController _searchController = TextEditingController();
+
   goToTransferDeatil(
       String img, String name, String walletId, BuildContext context) {
     Navigator.of(context).pushNamed(TransferDetail.routeName, arguments: {
@@ -45,37 +52,80 @@ class TransferScreen extends StatelessWidget {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                S.current.recientes,
-                style: GoogleFonts.sourceSansPro(
-                  color: txtPrimary,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
+        body: SoonScreen(),
+        // body: Column(
+        //   children: [
+        //     Container(
+        //       padding: const EdgeInsets.symmetric(horizontal: 10),
+        //       alignment: Alignment.centerLeft,
+        //       child: Text(
+        //         S.current.recientes,
+        //         style: GoogleFonts.sourceSansPro(
+        //           color: txtPrimary,
+        //           fontSize: 24,
+        //           fontWeight: FontWeight.w700,
+        //         ),
+        //         overflow: TextOverflow.ellipsis,
+        //       ),
+        //     ),
+        //     //Lista de amigos conectados
+        //     SizedBox(height: 125, child: RecentFriends()),
+        //     //Barra de busqueda
+        //     Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 20),
+        //       child: Searchbar(
+        //           placeholder: S.current.BuscarUsuario,
+        //           controller: _searchController),
+        //     ),
+        //     // Lista de Chats
+        //     Expanded(
+        //         child: SizedBox(
+        //             height: MediaQuery.of(context).size.height,
+        //             child: chatList()))
+        //   ],
+        // )
+    );
+  }
+
+  SoonScreen(){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Image.asset('assets/imgs/monstruoEsperando.png'),
+        const SizedBox(height: 20),
+        Text(
+          'Próximamente podrás Transferir Realities a tus contactos',
+          textAlign: TextAlign.center,
+          style: GoogleFonts.sourceSansPro(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: txtPrimary,
+          ),
+        ),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () => Navigator.of(context).pop(),
+          style: ButtonStyle(
+            backgroundColor:
+            MaterialStateProperty.all<Color>(greenPrimary),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0))),
+            padding: MaterialStateProperty.all<EdgeInsets>(
+                const EdgeInsets.symmetric(horizontal: 50)),
+          ),
+          child: Text(
+            S.current.Volver,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.sourceSansPro(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
             ),
-            //Lista de amigos conectados
-            SizedBox(height: 125, child: RecentFriends()),
-            //Barra de busqueda
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Searchbar(
-                  placeholder: S.current.BuscarChat,
-                  controller: _searchController),
-            ),
-            // Lista de Chats
-            Expanded(
-                child: SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    child: chatList()))
-          ],
-        ));
+          ),
+        ),
+      ],
+    );
   }
 
   Widget chatList() {

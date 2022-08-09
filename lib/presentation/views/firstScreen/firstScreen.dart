@@ -34,9 +34,10 @@ class _FirstScreenState extends State<FirstScreen> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          Container(
-            color: Colors.grey,
-          ),
+           Image.asset('assets/gift/IntroAppRN.gif',
+            fit: BoxFit.cover,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width),
           //Logo image
           Container(
             margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
@@ -52,16 +53,16 @@ class _FirstScreenState extends State<FirstScreen> {
             ),
           ),
           Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.015,
+              bottom: MediaQuery.of(context).size.height * 0.01,
               child: SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: LoginBtns(context))),
+                  child: loginBtns(context))),
         ],
       ),
     );
   }
 
-  Widget LoginBtns(BuildContext context) {
+  Widget loginBtns(BuildContext context) {
     return Column(
       children: [
         FittedBox(
@@ -96,6 +97,7 @@ class _FirstScreenState extends State<FirstScreen> {
                 S.current.Registrate,
                 style: GoogleFonts.sourceSansPro(
                   fontSize: 16,
+                  fontWeight: FontWeight.w600,
                   color: Colors.grey[400],
                 ),
               )),

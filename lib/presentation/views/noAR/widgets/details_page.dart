@@ -6,10 +6,12 @@ import 'package:reality_near/core/framework/globals.dart';
 class EventDetailsPage extends StatelessWidget {
   final String title;
   final String eventImg;
+  final String eventContent;
   const EventDetailsPage({
     Key key,
     this.title,
     this.eventImg,
+    this.eventContent
   }) : super(key: key);
 
   @override
@@ -64,7 +66,7 @@ class EventDetailsPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
                 child: Text(
-                  loremIpsum,
+                  eventContent,
                   textAlign: TextAlign.left,
                   style: GoogleFonts.sourceSansPro(
                       fontSize: 14,
@@ -99,33 +101,33 @@ class EventDetailsPage extends StatelessWidget {
                 color: greenPrimary, size: 35),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          ElevatedButton(
-            onPressed: () {
-              // Respond to button press
-            },
-            style: ButtonStyle(
-              backgroundColor:
-              MaterialStateProperty.all<Color>(greenPrimary),
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0))),
-              padding: MaterialStateProperty.all<EdgeInsets>(
-                  const EdgeInsets.symmetric(horizontal: 30)),
-            ),
-            child: Text(
-              "!Vamos¡",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.sourceSansPro(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.share_outlined,
-                color: icongrey, size: 35),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     // Respond to button press
+          //   },
+          //   style: ButtonStyle(
+          //     backgroundColor:
+          //     MaterialStateProperty.all<Color>(greenPrimary),
+          //     shape: MaterialStateProperty.all(RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.circular(20.0))),
+          //     padding: MaterialStateProperty.all<EdgeInsets>(
+          //         const EdgeInsets.symmetric(horizontal: 30)),
+          //   ),
+          //   child: Text(
+          //     "!Vamos¡",
+          //     textAlign: TextAlign.center,
+          //     style: GoogleFonts.sourceSansPro(
+          //       color: Colors.white,
+          //       fontSize: 16,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          // ),
+          // IconButton(
+          //   icon: const Icon(Icons.share_outlined,
+          //       color: icongrey, size: 35),
+          //   onPressed: () => Navigator.of(context).pop(),
+          // ),
         ],
       ),
     );

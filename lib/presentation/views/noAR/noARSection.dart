@@ -28,6 +28,11 @@ class _NoArSectionState extends State<NoArSection> {
   User user = User();
   double walletBalance = 0;
   String walletId = "";
+  String usAvatar = "";
+  List<String> eventTitles = ["Bienvenido a Reality Near", "ALFA TESTING", "Aniversario de Luta Livre"];
+  List<String> eventContent = ["Esta aplicación combina la realidad con el metaverso generando una experiencia completamente inmersiva y valiosa. Desde la cámara de tu teléfono podrás interactuar con contenido en realidad aumentada por distintas partes del mundo. Vive esta experiencia donde podrás realizar misiones, capturar tesoros, ganar recompensas, participar de eventos, hacer amigos, entre muchas otras cosas más! ",
+    "¡Ya salió el Alfa Testing de Reality Near! Anímate a probar esta versión demo donde podrás ser parte de esta primera experiencia entre mundos. Conoce y familiarízate con las utilidades y funciones de nuestra aplicación, coméntanos qué es lo que más te gustó y qué deberías mejorar. Ayúdanos a crecer y crear un mejor experiencia para ti, ¡tu opinión es muy importante!",
+    "El mundo real se fusiona con el virtual en una búsqueda de tesoros que pondrá a prueba todas tus habilidades. La búsqueda y atención serán primordiales para aumentar las posibilidades de ganar diversos premios. En el evento, se encontrarán figuras en realidad aumentada dispersas por todo el lugar. Los usuarios, a través de la cámara de su celular, podrán visualizar, interactuar e incluso capturar las figuras. Con estas podrás canjear premios tales como: descuentos en la academia, entradas para próximos campeonatos, merchandising, entre otros. "];
 
   @override
   initState() {
@@ -48,6 +53,15 @@ class _NoArSectionState extends State<NoArSection> {
             }
         });
 
+    getPersistData('usAvatar').then((value) => {
+          if (value != null)
+            {
+              setState(() {
+                usAvatar = value;
+              })
+            }
+        });
+
     UserRepository().getMyData().then((value) => value.fold(
           (failure) => print(failure),
           (success) => {
@@ -64,7 +78,7 @@ class _NoArSectionState extends State<NoArSection> {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return ListView(
-        physics: const NeverScrollableScrollPhysics(),
+        // physics: const NeverScrollableScrollPhysics(),
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -72,7 +86,7 @@ class _NoArSectionState extends State<NoArSection> {
                 "https://source.unsplash.com/random/200x200?sig=${Random().nextInt(100)}"),
           ),
           const SizedBox(height: 25),
-          newsCarrousel(context),
+          // newsCarrousel(context),
           eventsSection(context)
         ],
       );
@@ -87,7 +101,8 @@ class _NoArSectionState extends State<NoArSection> {
           // backgroundColor: Colors.trasnparent,
           // backgroundImage: NetworkImage(photo),
           child: Image.asset(
-            "assets/gift/MONSTER_SELECT.gif",
+            // usAvatar ?? "assets/gift/MEN_SELECTED.gif",
+            "assets/gift/MEN_SELECTED.gif",
             fit: BoxFit.cover,
           ),
         ),
@@ -252,8 +267,9 @@ class _NoArSectionState extends State<NoArSection> {
               itemCount: 3,
               itemBuilder: (context, i) {
                 return eventContainer(
-                    'Nueva Temporada $i',
+                    eventTitles[i],
                     "https://source.unsplash.com/random/200x200?sig=${Random().nextInt(100)}",
+                    eventContent[i],
                     context);
               }),
         ],
@@ -261,13 +277,13 @@ class _NoArSectionState extends State<NoArSection> {
     );
   }
 
-  Widget eventContainer(String title, String imgURL, BuildContext context) {
+  Widget eventContainer(String title, String imgURL,String content, BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) =>
-                EventDetailsPage(title: title, eventImg: imgURL),
+                EventDetailsPage(title: title, eventImg: imgURL, eventContent: content),
           ),
         );
       },

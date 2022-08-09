@@ -16,14 +16,14 @@ Padding buildCategory(String name, Color defaultFontColor, Size size) {
             fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
-          S.current.Vertodos,
-          style: GoogleFonts.lato(
-            color: defaultFontColor.withOpacity(0.7),
-            fontSize: size.width * 0.045,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        // Text(
+        //   S.current.Vertodos,
+        //   style: GoogleFonts.lato(
+        //     color: defaultFontColor.withOpacity(0.7),
+        //     fontSize: size.width * 0.045,
+        //     fontWeight: FontWeight.bold,
+        //   ),
+        // ),
       ],
     ),
   );

@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,6 +8,9 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/domain/usecases/cuppons/redeemCupon.dart';
+
+import '../../../data/models/cuponAssignModel.dart';
 
 class QrScannScreen extends StatefulWidget {
   static String routeName = "/qrScannScreen";
@@ -16,9 +22,42 @@ class QrScannScreen extends StatefulWidget {
 }
 
 class _QrScannScreenState extends State<QrScannScreen> {
+  AssignCuponModel cupon = AssignCuponModel();
+  bool _loadingValidate = false;
+
+  _redeemCupon() async {
+    setState(() {
+      _loadingValidate = true;
+    });
+    String cuponId = result.code;
+    await RedeemCuponUseCase(cuponId).call().then((value) => value.fold(
+        (l) => print('Error: ${l.toString()}'),
+        (r) => {
+          setState(() {
+                cupon = r;
+                _loadingValidate = false;
+              })
+            }));
+  }
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode result;
   QRViewController controller;
+
+  // In order to get hot reload to work we need to pause the camera if the platform
+  // is android, or resume the camera if the platform is iOS.
+  @override
+  void reassemble() {
+    super.reassemble();
+    if (Platform.isAndroid) {
+      controller.pauseCamera();
+    }
+    controller.resumeCamera();
+  }
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +103,10 @@ class _QrScannScreenState extends State<QrScannScreen> {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: result == null ? _qrScan() : _qrValidateLoading(),
+              child: result == null ? _qrScan()
+                  : _loadingValidate ? _qrValidateLoading()
+              : _validateScreen(cupon.redeemed??false),
+              // child: _qrValidateLoading(),
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.05),
@@ -75,6 +117,7 @@ class _QrScannScreenState extends State<QrScannScreen> {
                 result == null
                     ? 'Enfoca el codigo QR para validar'
                     : 'Validando...',
+                // 'Validando...',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.sourceSansPro(
                   fontSize: 20,
@@ -99,7 +142,7 @@ class _QrScannScreenState extends State<QrScannScreen> {
     );
   }
 
-  _validateScreen(bool isValidate) {
+  _validateScreen(bool isValidate ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -156,15 +199,27 @@ class _QrScannScreenState extends State<QrScannScreen> {
       overlayMargin: const EdgeInsets.all(40),
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
+      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
   }
 
+  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
+    log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
+    if (!p) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('no Permission')),
+      );
+    }
+  }
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
+
       setState(() {
+        print('Scanned data: ${scanData.code}');
         result = scanData;
       });
+      _redeemCupon();
     });
   }
 }

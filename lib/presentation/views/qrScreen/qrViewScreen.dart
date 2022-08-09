@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/models/cuponModel.dart';
+import 'package:reality_near/domain/usecases/cuppons/getCuponsWithId.dart';
+
+import '../../../generated/l10n.dart';
 
 class QrViewScreen extends StatefulWidget {
   static String routeName = "/qrViewScreen";
@@ -13,8 +18,24 @@ class QrViewScreen extends StatefulWidget {
 }
 
 class _QrScreenState extends State<QrViewScreen> {
+
+  bool _loadingInfoCupon = true;
+  CuponModel cupon = CuponModel();
+
+  _getInfoCupon(String cuponId) async {
+    await GetCuponsWithIdUseCase(cuponId).call().then((value) =>
+        setState(() {
+          cupon = value;
+          _loadingInfoCupon = false;
+        }));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
+
+    if(cupon.id ==null) _getInfoCupon(args['cuponId'].toString());
+
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -37,7 +58,32 @@ class _QrScreenState extends State<QrViewScreen> {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body: _body());
+        body: _loadingInfoCupon ? loadScreen() : _body());
+  }
+
+  loadScreen(){
+    return Align(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          LoadingAnimationWidget.dotsTriangle(
+            color: greenPrimary,
+            size: ScreenWH(context).width * 0.3,
+          ),
+          const SizedBox(height: 20),
+          Text(
+            S.current.Cargando,
+            style: GoogleFonts.sourceSansPro(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
+    );
   }
 
   _body() {
@@ -51,7 +97,7 @@ class _QrScreenState extends State<QrViewScreen> {
           SizedBox(
             width: ScreenWH(context).width * 0.9,
             child: Text(
-              '50% de descuento en entrenamientos por 1 mes',
+              cupon.title,
               textAlign: TextAlign.center,
               style: GoogleFonts.sourceSansPro(
                 fontSize: 25,
@@ -73,11 +119,11 @@ class _QrScreenState extends State<QrViewScreen> {
           SizedBox(
             height: ScreenWH(context).height * 0.03,
           ),
-          _infoSection('Descripción', loremIpsum),
+          _infoSection('Descripción', cupon.description),
           SizedBox(
             height: ScreenWH(context).height * 0.02,
           ),
-          _infoSection('Terminos y Condiciónes', loremIpsum),
+          _infoSection('Terminos y Condiciónes', cupon.terms),
           SizedBox(
             height: ScreenWH(context).height * 0.05,
           ),
@@ -148,7 +194,7 @@ class _QrScreenState extends State<QrViewScreen> {
   _qrGenerator() {
     return Center(
       child: QrImage(
-        data: "1234567890",
+        data: cupon.id.toString(),
         foregroundColor: greenPrimary,
         version: QrVersions.auto,
         size: ScreenWH(context).width * 0.5,

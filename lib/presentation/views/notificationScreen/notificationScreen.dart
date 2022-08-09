@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/models/cuponModel.dart';
 import 'package:reality_near/data/models/notificationModel.dart';
+import 'package:reality_near/domain/usecases/cuppons/getCuponsFromUser.dart';
 import 'package:reality_near/domain/usecases/notifications/getNotificationsHistory.dart';
 import 'package:reality_near/domain/usecases/notifications/readNotifications.dart';
 import 'package:reality_near/generated/l10n.dart';
@@ -19,12 +20,14 @@ class NotificationScreen extends StatefulWidget {
 class _NotificationScreenState extends State<NotificationScreen> {
   bool _loadingNotifications = true;
   List<NotificationModel> _notifications = [];
+  List<CuponModel> _cupones = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _getNotificatonHis();
+    _getCupons();
   }
 
   @override
@@ -45,6 +48,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
   _readNotifications() async {
     ReadNotifications(_notifications).call().then((value) =>
         value.fold((l) => print('Error: ${l.toString()}'), (r) => {}));
+  }
+
+  _getCupons() async {
+   await GetCuponsFromUserUseCase().call().then((value) =>
+       setState(() {
+              _cupones = value;
+            }));
   }
 
   @override
@@ -78,7 +88,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             height: ScreenWH(context).height,
             child: Column(
               children: [
-                _notificationQRWidget(),
+                _cuponSection(),
                 const Divider(),
                 _loadingNotifications
                     ? const Center(child: CircularProgressIndicator())
@@ -111,10 +121,21 @@ class _NotificationScreenState extends State<NotificationScreen> {
     ));
   }
 
-  _notificationQRWidget() {
+  _cuponSection(){
+    return _cupones.isNotEmpty ? ListView.builder(
+      shrinkWrap: true,
+      itemCount: _cupones.length,
+        itemBuilder: (context, index) {
+          return _notificationQRWidget(_cupones[index]);
+        }) : Container();
+  }
+
+  _notificationQRWidget(CuponModel cupon) {
     return ListTile(
       onTap: () {
-        Navigator.pushNamed(context, "/qrViewScreen");
+        Navigator.pushNamed(context, "/qrViewScreen", arguments: <String, Object>{
+          "cuponId": cupon.id,
+        } );
       },
       leading: CircleAvatar(
         backgroundColor: greenPrimary,
@@ -131,7 +152,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Cupón Luta Livre QR',
+              Text(cupon.name,
                   style: GoogleFonts.sourceSansPro(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
@@ -157,7 +178,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '31/05/2022 09:52',
+            convertDateTimeToString(cupon.expiration),
             style: GoogleFonts.sourceSansPro(
               fontSize: 12,
               fontWeight: FontWeight.w500,

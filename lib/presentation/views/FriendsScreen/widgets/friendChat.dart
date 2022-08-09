@@ -15,8 +15,9 @@ class ChatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, ChatRoomScreen.routeName,
-            arguments: {'name': name, 'photo': photo, 'empty': false});
+        Navigator.pushNamed(context, '/ChatSoonScreen');
+        // Navigator.pushNamed(context, ChatRoomScreen.routeName,
+        //     arguments: {'name': name, 'photo': photo, 'empty': false});
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),

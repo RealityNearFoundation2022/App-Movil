@@ -23,6 +23,8 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
   String username = '';
   double walletBalance = 0;
   String walletId = "";
+  String usAvatar = "";
+
 
   @override
   void initState() {
@@ -32,6 +34,14 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
             username = value;
           })
         });
+    getPersistData('usAvatar').then((value) => {
+      if (value != null)
+        {
+          setState(() {
+            usAvatar = value;
+          })
+        }
+    });
 
     getPersistData('walletId').then((value) => {
           if (value != null)
@@ -134,7 +144,7 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
         // backgroundColor: Colors.transparent,
         // backgroundImage: NetworkImage(photo),
         child: Image.asset(
-          "assets/gift/MONSTER_SELECT.gif",
+          usAvatar,
           fit: BoxFit.cover,
         ),
       ),

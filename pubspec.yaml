@@ -44,7 +44,7 @@ dependencies:
   flutter_map: ^2.0.0
   latlong2: ^0.8.1
   flutter_native_splash: ^2.1.6
-  google_fonts: ^2.3.2
+  google_fonts: ^2.3.1
   http: ^0.13.4
   location: ^4.4.0
   logger: ^1.1.0
@@ -55,8 +55,8 @@ dependencies:
   provider: ^6.0.3
   showcaseview: ^1.1.7
   qr_flutter: ^4.0.0
-  qr_code_scanner: ^1.0.0
-  loading_animation_widget: ^1.2.0+2
+  qr_code_scanner: ^0.7.0
+  loading_animation_widget: ^1.1.0+5
 
 
 dev_dependencies:

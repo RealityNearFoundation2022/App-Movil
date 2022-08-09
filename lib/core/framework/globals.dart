@@ -83,3 +83,8 @@ deleteAllPersistData() async {
 String convertToBase64(String val) {
   return base64.encode(utf8.encode(val));
 }
+
+//Convert dateTime To String
+String convertDateTimeToString(DateTime dateTime) {
+  return "${dateTime.day}/${dateTime.month}/${dateTime.year}";
+}

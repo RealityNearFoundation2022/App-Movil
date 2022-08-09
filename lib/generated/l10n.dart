@@ -255,6 +255,16 @@ class S {
     );
   }
 
+  /// `Loading ...`
+  String get Cargando {
+    return Intl.message(
+      'Loading ...',
+      name: 'Cargando',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Receive`
   String get Recibir {
     return Intl.message(
@@ -930,6 +940,26 @@ class S {
     return Intl.message(
       'Try again',
       name: 'Intentardenuevo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You don't have friends yet, you can add them with the + button`
+  String get NoHayAmigos {
+    return Intl.message(
+      'You don\'t have friends yet, you can add them with the + button',
+      name: 'NoHayAmigos',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `exchange`
+  String get Canjear {
+    return Intl.message(
+      'exchange',
+      name: 'Canjear',
       desc: '',
       args: [],
     );

@@ -12,6 +12,8 @@ import 'package:ar_flutter_plugin/datatypes/node_types.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:vector_math/vector_math_64.dart';
 
+import '../mapScreen/widgets/placeDialog.dart';
+
 class ARSection extends StatefulWidget {
   const ARSection({Key key}) : super(key: key);
 
@@ -69,51 +71,21 @@ class _ARSectionState extends State<ARSection> {
           handleTaps: false,
         );
     this.arObjectManager.onInitialize();
+    this.arObjectManager.onNodeTap = onNodeTapped;
 
     var newNode = ARNode(
         type: NodeType.webGLB, uri: UrlAr, scale: Vector3(0.2, 0.2, 0.2));
     bool didAddWebNode = await this.arObjectManager.addNode(newNode);
 
-    //Download model to file system
-    httpClient = HttpClient();
-    // _downloadFile(
-    //     "https://github.com/KhronosGroup/glTF-Sample-Models/raw/master/2.0/DamagedHelmet/glTF-Binary/DamagedHelmet.glb",
-    //     "LocalDuck.glb");
-    // Alternative to use type fileSystemAppFolderGLTF2:
-    //_downloadAndUnpack(
-    //    "https://drive.google.com/uc?export=download&id=1fng7yiK0DIR0uem7XkV2nlPSGH9PysUs",
-    //    "Chicken_01.zip");
   }
 
-  // Future<File> _downloadFile(String url, String filename) async {
-  //   var request = await httpClient.getUrl(Uri.parse(url));
-  //   var response = await request.close();
-  //   var bytes = await consolidateHttpClientResponseBytes(response);
-  //   String dir = (await getApplicationDocumentsDirectory()).path;
-  //   File file = File('$dir/$filename');
-  //   await file.writeAsBytes(bytes);
-  //   print("Downloading finished, path: " '$dir/$filename');
-  //   return file;
-  // }
+  Future<void> onNodeTapped(List<String> nodes) async{
+    print("Node tapped: ${nodes.toString()}");
+    showDialog(context: context, builder: (context) => const PlaceDialog());
+    // Navigator.pushNamed(context, '/qrViewScreen');
+  }
 
-  // Future<void> _downloadAndUnpack(String url, String filename) async {
-  //   var request = await httpClient.getUrl(Uri.parse(url));
-  //   var response = await request.close();
-  //   var bytes = await consolidateHttpClientResponseBytes(response);
-  //   String dir = (await getApplicationDocumentsDirectory()).path;
-  //   File file = new File('$dir/$filename');
-  //   await file.writeAsBytes(bytes);
-  //   print("Downloading finished, path: " + '$dir/$filename');
 
-  //   // To print all files in the directory: print(Directory(dir).listSync());
-  //   try {
-  //     await ZipFile.extractToDirectory(
-  //         zipFile: File('$dir/$filename'), destinationDir: Directory(dir));
-  //     print("Unzipping successful");
-  //   } catch (e) {
-  //     print("Unzipping failed: " + e);
-  //   }
-  // }
 
   Future<void> onWebObjectAtOriginButtonPressed() async {
     if (webObjectNode != null) {
