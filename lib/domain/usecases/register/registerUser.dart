@@ -8,9 +8,10 @@ class RegisterUser {
   final String email;
   final String password;
   final String username;
-  RegisterUser(this.email, this.password, this.username);
+  final String path;
+  RegisterUser(this.email, this.password, this.username,this.path);
 
   Future<Either<Failure, User>> call() async {
-    return await userRepository.registerNewUser(email, password, username);
+    return await userRepository.registerNewUser(email, password, username, path);
   }
 }

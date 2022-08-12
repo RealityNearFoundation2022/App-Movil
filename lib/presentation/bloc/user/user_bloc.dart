@@ -7,6 +7,8 @@ import 'package:reality_near/domain/usecases/login/emailLoginUser.dart';
 import 'package:reality_near/domain/usecases/register/registerUser.dart';
 import 'package:reality_near/domain/usecases/wallet/walletLogin.dart';
 
+import '../../../data/repository/userRepository.dart';
+
 part 'user_event.dart';
 part 'user_state.dart';
 
@@ -31,7 +33,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         (failure) => emit(UserFailState(failure.message)),
         (success) => emit(UserLoggedInState(success)),
       );
-      // emit(UserLoggedInState(result.isRight()));
     });
 
 //Evento para intentar Login de nuevo
@@ -51,7 +52,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 //Evento para registrar un nuevo usuario
     on<UserRegisterEvent>((event, emit) async {
       final RegisterUser registerUser =
-          RegisterUser(event.email, event.password, event.username);
+          RegisterUser(event.email, event.password, event.username, event.path);
 
       final result = await registerUser();
 

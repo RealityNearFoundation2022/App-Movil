@@ -85,4 +85,28 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
     }
   }
 
+  // setAvatar(String avatar, String password) async{
+  //   String url = API_REALITY_NEAR + "users/me";
+  //   String token = await getPersistData("userToken");
+  //
+  //   Map data = {
+  //     "password": password,
+  //     "avatar": avatar,
+  //   };
+  //
+  //   var bodyData = json.encode(data);
+  //
+  //   final response = await http.put(
+  //     Uri.parse(url),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Authorization": "Bearer $token",
+  //     },
+  //       body: bodyData);
+  //   //PARA VERIFICAR
+  //   log.i(response.body);
+  //   log.i(response.statusCode);
+  // }
+
+
 }

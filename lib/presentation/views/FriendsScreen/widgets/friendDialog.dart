@@ -204,10 +204,15 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
   Widget pendientesCard(User user) {
     bool sendRequest = user.infContact != null;
     return ListTile(
-      leading: const CircleAvatar(
-        backgroundImage: NetworkImage(
-          "https://picsum.photos/700/400?random",
-        ),
+      leading: CircleAvatar(
+        // backgroundImage: NetworkImage(
+        //   "https://picsum.photos/700/400?random",
+        // ),
+        child: user.avatar!=null  ? Image.asset(
+          // usAvatar ?? "assets/gift/MEN_SELECTED.gif",
+          user.avatar,
+          fit: BoxFit.cover,
+        ) : const Center(child: SizedBox(height: 15,width: 15,child: CircularProgressIndicator(color: Colors.white,)),),
       ),
       title: Text(user.fullName ?? 'NotUsername'),
       subtitle: GestureDetector(
@@ -242,11 +247,16 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
 //Widget de card de solicitud de amistad pendientes
   Widget solicitudesCard(User user,BuildContext context) {
     return ListTile(
-      leading: const CircleAvatar(
-        radius: 40,
-        backgroundImage: NetworkImage(
-          "https://picsum.photos/700/400?random",
-        ),
+      leading: CircleAvatar(
+        // backgroundImage: NetworkImage(
+        //   "https://picsum.photos/700/400?random",
+        // ),
+          radius: 40,
+      child: user.avatar!=null  ? Image.asset(
+          // usAvatar ?? "assets/gift/MEN_SELECTED.gif",
+          user.avatar,
+          fit: BoxFit.cover,
+        ) : const Center(child: SizedBox(height: 15,width: 15,child: CircularProgressIndicator(color: Colors.white,)),),
       ),
       title: Text(user.fullName ?? 'noUsername'),
       subtitle: Column(

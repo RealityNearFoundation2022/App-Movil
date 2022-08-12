@@ -8,12 +8,10 @@ import 'package:reality_near/data/models/cuponModel.dart';
 class CuponRepository {
   final CuponRemoteDataSourceImpl _repo = CuponRemoteDataSourceImpl();
 
-  Future<Either<Failure, bool>> AssignCuponToUser(String cuponId) async {
+  Future<Either<Failure, String>> AssignCuponToUser(String cuponId) async {
     try {
       var response = await _repo.AssignCuponToUser(cuponId);
-      return response ? const Right(true) : const Left(ServerFailure(
-        message: "Server Failure",
-      ));
+      return Right(response);
     } on ServerException {
       return const Left(ServerFailure(
         message: "Server Failure",

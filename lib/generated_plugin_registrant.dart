@@ -8,6 +8,7 @@
 import 'package:flutter_native_splash/flutter_native_splash_web.dart';
 import 'package:geolocator_web/geolocator_web.dart';
 import 'package:location_web/location_web.dart';
+import 'package:share_plus_web/share_plus_web.dart';
 import 'package:shared_preferences_web/shared_preferences_web.dart';
 import 'package:url_launcher_web/url_launcher_web.dart';
 
@@ -18,6 +19,7 @@ void registerPlugins(Registrar registrar) {
   FlutterNativeSplashWeb.registerWith(registrar);
   GeolocatorPlugin.registerWith(registrar);
   LocationWebPlugin.registerWith(registrar);
+  SharePlusPlugin.registerWith(registrar);
   SharedPreferencesPlugin.registerWith(registrar);
   UrlLauncherPlugin.registerWith(registrar);
   registrar.registerMessageHandler();

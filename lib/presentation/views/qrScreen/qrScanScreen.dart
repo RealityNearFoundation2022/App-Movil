@@ -31,7 +31,11 @@ class _QrScannScreenState extends State<QrScannScreen> {
     });
     String cuponId = result.code;
     await RedeemCuponUseCase(cuponId).call().then((value) => value.fold(
-        (l) => print('Error: ${l.toString()}'),
+        (l) => {
+          setState(() {
+            _loadingValidate = false;
+          }),
+          print('Error: ${l.toString()}')},
         (r) => {
           setState(() {
                 cupon = r;
@@ -95,9 +99,9 @@ class _QrScannScreenState extends State<QrScannScreen> {
             height: MediaQuery.of(context).size.height * 0.4,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: greenPrimary,
+              color: (result==null || (cupon.redeemed??false)) ? greenPrimary : Colors.red,
               border: Border.all(
-                color: greenPrimary,
+                color: (result==null || (cupon.redeemed??false)) ? greenPrimary : Colors.red,
                 width: 4,
               ),
             ),
@@ -116,7 +120,8 @@ class _QrScannScreenState extends State<QrScannScreen> {
               child: Text(
                 result == null
                     ? 'Enfoca el codigo QR para validar'
-                    : 'Validando...',
+                    : _loadingValidate? 'Validando...'
+                    :'',
                 // 'Validando...',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.sourceSansPro(
@@ -157,10 +162,6 @@ class _QrScannScreenState extends State<QrScannScreen> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
             color: Colors.white,
-            border: Border.all(
-              color: greenPrimary,
-              width: 4,
-            ),
           ),
           child: Icon(
             isValidate ? Icons.check : Icons.close,
@@ -174,7 +175,7 @@ class _QrScannScreenState extends State<QrScannScreen> {
         SizedBox(
           width: ScreenWH(context).width * 0.8,
           child: Text(
-            isValidate ? 'Validado' : 'No validado',
+            isValidate ? 'Valido' : 'No valido',
             textAlign: TextAlign.center,
             style: GoogleFonts.sourceSansPro(
               fontSize: 20,

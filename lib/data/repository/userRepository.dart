@@ -13,10 +13,10 @@ class UserRepository {
       userRemoteDataSourceImpl();
 
   Future<Either<Failure, User>> registerNewUser(
-      String email, String password, String username) async {
+      String email, String password, String username, String path) async {
     try {
       final user = await authsRemoteDataSourceImpl.registerNewUserWithEmail(
-          email, password, username);
+          email, password, username, path);
       return Right(user);
     } on ServerException {
       return const Left(ServerFailure(
@@ -24,6 +24,10 @@ class UserRepository {
       ));
     }
   }
+
+  // setAvatar(String avatar,String pasword) async {
+  //   await userRemoteDataSource.setAvatar(avatar,pasword);
+  // }
 
   Future<Either<Failure, bool>> loginwithEmail(
       String email, String password) async {

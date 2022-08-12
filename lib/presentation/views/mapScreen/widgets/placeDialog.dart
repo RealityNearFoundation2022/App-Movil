@@ -15,6 +15,7 @@ class PlaceDialog extends StatefulWidget {
 class _PermisosDialogState extends State<PlaceDialog> {
   bool loading = false;
   bool error = false;
+  String errorMessage = "";
   _AssignCupon(String cuponId) async {
     setState(() {
       loading = true;
@@ -26,10 +27,17 @@ class _PermisosDialogState extends State<PlaceDialog> {
           loading = false;
         });
       }, (r) {
+        if(r=="Cupón asignado"){
+          Navigator.of(context).pushNamed('/qrViewScreen');
+        } else {
+          setState(() {
+            errorMessage = r;
+            error = true;
+          });
+        }
         setState(() {
           loading = false;
         });
-        Navigator.of(context).pushNamed('/qrViewScreen');
     });
   });
   }
@@ -38,12 +46,11 @@ class _PermisosDialogState extends State<PlaceDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      child: SizedBox(
+      child: error ?  errorView() : SizedBox(
         height: ScreenWH(context).height * 0.5,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: error ?  errorView()
-              : Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -101,62 +108,65 @@ class _PermisosDialogState extends State<PlaceDialog> {
     );
   }
   errorView(){
-    return Column(
-      children: [
-        const SizedBox(height: 30),
-        //x en circulo rojo
-         CircleAvatar(
-          radius: ScreenWH(context).width * 0.15,
-          backgroundColor: Colors.red,
-          child: Icon(
-            Icons.close,
-            color: Colors.white,
-            size: ScreenWH(context).width * 0.25,
+    return SizedBox(
+      height: ScreenWH(context).height * 0.35,
+      child: Column(
+        children: [
+          const SizedBox(height: 30),
+          //x en circulo rojo
+           CircleAvatar(
+            radius: ScreenWH(context).width * 0.15,
+            backgroundColor: Colors.red,
+            child: Icon(
+              Icons.close,
+              color: Colors.white,
+              size: ScreenWH(context).width * 0.25,
+            ),
           ),
-        ),
-        const SizedBox(height: 30),
+          const SizedBox(height: 30),
 
-        Text(
-          'Error al canjear cupón',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.sourceSansPro(
-              fontWeight: FontWeight.w600,
-              fontSize: 22,
-              color: greenPrimary),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          'Error al canjear cupón',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.sourceSansPro(
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-              color: txtPrimary),
-        ),
-        const SizedBox(height: 20),
-        Center(
-          child: ElevatedButton(
-            onPressed: () => Navigator.of(context).pop,
-            style: ButtonStyle(
-              backgroundColor:
-              MaterialStateProperty.all<Color>(greenPrimary),
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0))),
-              padding: MaterialStateProperty.all<EdgeInsets>(
-                  const EdgeInsets.symmetric(horizontal: 50)),
-            ),
-            child: Text(
-              S.current.Volver,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.sourceSansPro(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
+          Text(
+            'Error al canjear cupón',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.sourceSansPro(
+                fontWeight: FontWeight.w600,
+                fontSize: 22,
+                color: greenPrimary),
           ),
-        ),
-      ],
+          const SizedBox(height: 10),
+          Text(
+            errorMessage.isNotEmpty ? errorMessage : 'Error al canjear cupón',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.sourceSansPro(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: txtPrimary),
+          ),
+          // const SizedBox(height: 20),
+          // Center(
+          //   child: ElevatedButton(
+          //     onPressed: () => Navigator.of(context).pop,
+          //     style: ButtonStyle(
+          //       backgroundColor:
+          //       MaterialStateProperty.all<Color>(greenPrimary),
+          //       shape: MaterialStateProperty.all(RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(20.0))),
+          //       padding: MaterialStateProperty.all<EdgeInsets>(
+          //           const EdgeInsets.symmetric(horizontal: 50)),
+          //     ),
+          //     child: Text(
+          //       S.current.Volver,
+          //       textAlign: TextAlign.center,
+          //       style: GoogleFonts.sourceSansPro(
+          //         color: Colors.white,
+          //         fontSize: 20,
+          //         fontWeight: FontWeight.w800,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        ],
+      ),
     );
   }
 }

@@ -41,8 +41,9 @@ class UserRegisterEvent extends UserEvent {
   final String email;
   final String password;
   final String username;
+  final String path;
 
-  const UserRegisterEvent(this.email, this.password, this.username);
+  const UserRegisterEvent(this.email, this.password, this.username, this.path);
 
   List<Object> get props => [email, password, username];
 }
