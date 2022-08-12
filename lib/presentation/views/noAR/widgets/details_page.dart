@@ -26,7 +26,7 @@ class EventDetailsPage extends StatelessWidget {
                 width: ScreenWH(context).width,
                 height: ScreenWH(context).height * 0.35,
                 child: ClipRRect(
-                  child: Image.network(
+                  child: Image.asset(
                     eventImg,
                     fit: BoxFit.fill,
                   ),

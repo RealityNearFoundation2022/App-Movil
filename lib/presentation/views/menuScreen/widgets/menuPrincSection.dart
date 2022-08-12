@@ -34,6 +34,7 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
             username = value;
           })
         });
+
     getPersistData('usAvatar').then((value) => {
       if (value != null)
         {

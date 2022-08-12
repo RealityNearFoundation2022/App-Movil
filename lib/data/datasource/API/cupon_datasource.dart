@@ -9,7 +9,7 @@ import 'package:reality_near/data/models/cuponAssignModel.dart';
 import 'package:reality_near/data/models/cuponModel.dart';
 
 abstract class CuponRemoteDataSource {
-  Future<bool> AssignCuponToUser(String cuponId);
+  Future<String> AssignCuponToUser(String cuponId);
   Future<List<AssignCuponModel>> ReadCuponFromUser();
   Future<CuponModel> ReadCupon(String cuponId);
   Future<AssignCuponModel> RedeemCupon(String cuponId);
@@ -20,7 +20,7 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource{
   var log = Logger();
 
   @override
-  Future<bool> AssignCuponToUser(String cuponId) async {
+  Future<String> AssignCuponToUser(String cuponId) async {
     final url = baseUrl+"assign/"+cuponId;
     String token = await getPersistData("userToken");
     print('URL: $url');
@@ -36,8 +36,10 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource{
     log.i(response.body);
     if (response.statusCode == 200) {
       bool redeemed = json.decode(response.body)["redeemed"];
-      return redeemed;
-    } else {
+      return "Cupón asignado";
+    } if (response.statusCode == 404) {
+      return json.decode(response.body)["detail"];
+    }else {
       throw ServerException();
     }
   }

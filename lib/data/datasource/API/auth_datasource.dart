@@ -8,7 +8,7 @@ import 'package:logger/logger.dart';
 
 abstract class AuthsRemoteDataSource {
   Future<UserModel> registerNewUserWithEmail(
-      String email, String password, String username);
+      String email, String password, String username, String path);
 
   Future<bool> loginWithEmail(String email, String password);
 }
@@ -21,12 +21,13 @@ class AuthsRemoteDataSourceImpl implements AuthsRemoteDataSource {
 
   @override
   Future<UserModel> registerNewUserWithEmail(
-      String email, String password, String username) async {
+      String email, String password, String username, String path) async {
     final url = baseUrl + "open";
     Map data = {
       "email": email,
       "password": password,
       "full_name": username,
+      "avatar": path,
     };
     var bodyData = json.encode(data);
 

@@ -28,12 +28,11 @@ class _NoArSectionState extends State<NoArSection> {
   User user = User();
   double walletBalance = 0;
   String walletId = "";
-  String usAvatar = "";
-  List<String> eventTitles = ["Bienvenido a Reality Near", "ALFA TESTING", "Aniversario de Luta Livre"];
+  List<String> eventTitles = ["Bienvenido a Reality Near", "ALFA TESTING", "Aniversario de Luta Livre Perú"];
   List<String> eventContent = ["Esta aplicación combina la realidad con el metaverso generando una experiencia completamente inmersiva y valiosa. Desde la cámara de tu teléfono podrás interactuar con contenido en realidad aumentada por distintas partes del mundo. Vive esta experiencia donde podrás realizar misiones, capturar tesoros, ganar recompensas, participar de eventos, hacer amigos, entre muchas otras cosas más! ",
     "¡Ya salió el Alfa Testing de Reality Near! Anímate a probar esta versión demo donde podrás ser parte de esta primera experiencia entre mundos. Conoce y familiarízate con las utilidades y funciones de nuestra aplicación, coméntanos qué es lo que más te gustó y qué deberías mejorar. Ayúdanos a crecer y crear un mejor experiencia para ti, ¡tu opinión es muy importante!",
     "El mundo real se fusiona con el virtual en una búsqueda de tesoros que pondrá a prueba todas tus habilidades. La búsqueda y atención serán primordiales para aumentar las posibilidades de ganar diversos premios. En el evento, se encontrarán figuras en realidad aumentada dispersas por todo el lugar. Los usuarios, a través de la cámara de su celular, podrán visualizar, interactuar e incluso capturar las figuras. Con estas podrás canjear premios tales como: descuentos en la academia, entradas para próximos campeonatos, merchandising, entre otros. "];
-
+  List<String> eventImgs =["assets/imgs/imgAlfaTest.png","assets/imgs/imgBienvenida.png","assets/imgs/imgAniversarioLuta.png"];
   @override
   initState() {
     // TODO: implement initState
@@ -53,14 +52,6 @@ class _NoArSectionState extends State<NoArSection> {
             }
         });
 
-    getPersistData('usAvatar').then((value) => {
-          if (value != null)
-            {
-              setState(() {
-                usAvatar = value;
-              })
-            }
-        });
 
     UserRepository().getMyData().then((value) => value.fold(
           (failure) => print(failure),
@@ -69,7 +60,7 @@ class _NoArSectionState extends State<NoArSection> {
             persistData('userId', success.id.toString()),
             setState(() {
               user = success;
-            })
+            }), persistData('usAvatar', user.avatar)
           },
         ));
   }
@@ -100,11 +91,11 @@ class _NoArSectionState extends State<NoArSection> {
           radius: (ScreenWH(context).width * 0.25) / 2,
           // backgroundColor: Colors.trasnparent,
           // backgroundImage: NetworkImage(photo),
-          child: Image.asset(
+          child: user.avatar!=null ? Image.asset(
             // usAvatar ?? "assets/gift/MEN_SELECTED.gif",
-            "assets/gift/MEN_SELECTED.gif",
+            user.avatar,
             fit: BoxFit.cover,
-          ),
+          ) : const Center(child: CircularProgressIndicator(color: Colors.white,),),
         ),
         const SizedBox(width: 15),
         Column(
@@ -268,7 +259,7 @@ class _NoArSectionState extends State<NoArSection> {
               itemBuilder: (context, i) {
                 return eventContainer(
                     eventTitles[i],
-                    "https://source.unsplash.com/random/200x200?sig=${Random().nextInt(100)}",
+                    eventImgs[i],
                     eventContent[i],
                     context);
               }),
@@ -293,7 +284,7 @@ class _NoArSectionState extends State<NoArSection> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
-                image: NetworkImage(imgURL), fit: BoxFit.cover)),
+                image: AssetImage(imgURL), fit: BoxFit.cover)),
         child: Center(
           child: Text(title,
               style: GoogleFonts.sourceSansPro(

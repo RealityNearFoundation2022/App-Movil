@@ -7,7 +7,7 @@ class AssignCuponUseCase {
   final String cuponId;
   AssignCuponUseCase(this.cuponId);
 
-  Future<Either<Failure, bool>> call() async {
+  Future<Either<Failure, String>> call() async {
     return await _repo.AssignCuponToUser(cuponId);
   }
 }

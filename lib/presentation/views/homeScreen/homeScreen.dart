@@ -10,6 +10,7 @@ import 'package:reality_near/presentation/views/AR/arview.dart';
 import 'package:reality_near/presentation/views/noAR/noARSection.dart';
 import 'package:reality_near/presentation/views/mapScreen/mapScreen.dart';
 import 'package:reality_near/presentation/views/menuScreen/menuScreen.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,6 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey _three = GlobalKey();
   bool passInitGuide;
   int notifications = 0;
+
+
   _viewGuide() async {
     (await getPersistData('passInitGuide') == null &&
             await getPersistData('userToken') != null)
@@ -65,9 +68,16 @@ class _HomeScreenState extends State<HomeScreen> {
           body: Stack(
             children: [
               //Body@
-              status
-                  ? const ARSection()
-                  : Container(
+              // status
+              //     ? ARSection()
+              //     : Container(
+              //   margin: EdgeInsets.only(
+              //       bottom: 20, top: ScreenWH(context).height * 0.17),
+              //   height: ScreenWH(context).height * 0.95,
+              //   width: ScreenWH(context).width,
+              //   child: const NoArSection(),
+              // ),
+              Container(
                 margin: EdgeInsets.only(
                     bottom: 20, top: ScreenWH(context).height * 0.17),
                 height: ScreenWH(context).height * 0.95,
@@ -189,6 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onChanged: (value) {
                   setState(() {
                     status = value;
+                    Navigator.pushNamed(context, "/arView");
                     // BlocProvider.of<MenuBloc>(context, listen: false)
                     //     .add(value ? MenuOpenArViewEvent() : MenuCloseEvent());
                   });

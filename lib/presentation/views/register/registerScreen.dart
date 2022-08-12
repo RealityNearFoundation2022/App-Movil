@@ -144,7 +144,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     UserRegisterEvent(
                                         _emailController.text,
                                         _passwordController.text,
-                                        _userNameController.text));
+                                        _userNameController.text,
+                                        pathSelectedAvatar));
                               },
                             );
                           });
