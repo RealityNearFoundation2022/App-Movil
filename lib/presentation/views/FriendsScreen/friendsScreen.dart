@@ -63,30 +63,34 @@ class _FriendScreenState extends State<FriendScreen> {
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        body: _loading ?
-             loading()
-        : Column(
-          children: [
-            //Barra de busqueda
-            searchSection(),
-            //Lista de amigos conectados
-            lstContacts.isNotEmpty ? Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                height: 120,
-                child: FriendsConect()) : const SizedBox(),
-            //Lista de Chats
-            lstContacts.isNotEmpty ? Expanded(
-              child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  child: chatList()),
-            ) : noContact(),
-          ],
-        ));
+        body: _loading
+            ? loading()
+            : Column(
+                children: [
+                  //Barra de busqueda
+                  searchSection(),
+                  //Lista de amigos conectados
+                  lstContacts.isNotEmpty
+                      ? Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          height: 120,
+                          child: FriendsConect())
+                      : const SizedBox(),
+                  //Lista de Chats
+                  lstContacts.isNotEmpty
+                      ? Expanded(
+                          child: SizedBox(
+                              height: MediaQuery.of(context).size.height,
+                              child: chatList()),
+                        )
+                      : noContact(),
+                ],
+              ));
   }
 
-  noContact(){
+  noContact() {
     return Container(
-      width: MediaQuery.of(context).size.width*0.9,
+      width: MediaQuery.of(context).size.width * 0.9,
       alignment: Alignment.center,
       child: Column(
         children: [
@@ -106,28 +110,28 @@ class _FriendScreenState extends State<FriendScreen> {
     );
   }
 
-  loading(){
+  loading() {
     return Align(
       alignment: Alignment.center,
       child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            LoadingAnimationWidget.dotsTriangle(
-              color: greenPrimary,
-              size: ScreenWH(context).width * 0.3,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          LoadingAnimationWidget.dotsTriangle(
+            color: greenPrimary,
+            size: ScreenWH(context).width * 0.3,
+          ),
+          const SizedBox(height: 20),
+          Text(
+            S.current.Cargando,
+            style: GoogleFonts.sourceSansPro(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
             ),
-            const SizedBox(height: 20),
-            Text(
-              S.current.Cargando,
-              style: GoogleFonts.sourceSansPro(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
-              textAlign: TextAlign.center,
-            )
-          ],
-        ),
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
     );
   }
 
@@ -146,7 +150,7 @@ class _FriendScreenState extends State<FriendScreen> {
             showDialog(
                 barrierDismissible: true,
                 context: context,
-                builder: (context) => FriendsSolicitudesDialog());
+                builder: (context) => const FriendsSolicitudesDialog());
           }, Icons.person_add)
         ],
       ),
@@ -159,7 +163,7 @@ class _FriendScreenState extends State<FriendScreen> {
       itemBuilder: (context, index) {
         User contact = lstContacts[index];
         return ChatCard(
-          photo: "https://source.unsplash.com/random/200x200?sig=$index",
+          photo: contact.avatar,
           name: contact.fullName,
           message:
               "Habla Juan, estaba jugando un rato por larcomar y no creeras lo que hay por aquí",
@@ -186,14 +190,12 @@ class _FriendScreenState extends State<FriendScreen> {
               //     });
               Navigator.pushNamed(context, '/ChatSoonScreen');
             },
-            child: personCircle(
-                "https://source.unsplash.com/random/200x200?sig=$index",
-                contact.fullName??'null'),
+            child: personCircle(contact),
           );
         });
   }
 
-  Widget personCircle(String photo, String name) {
+  Widget personCircle(User contact) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -202,7 +204,7 @@ class _FriendScreenState extends State<FriendScreen> {
             radius: 30,
             // backgroundImage: NetworkImage(photo),
             child: Image.asset(
-              "assets/gift/MONSTER_SELECT.gif",
+              contact.avatar,
               fit: BoxFit.cover,
             ),
           ),
@@ -211,7 +213,7 @@ class _FriendScreenState extends State<FriendScreen> {
             width: 60,
             height: 35,
             child: Text(
-              name,
+              contact.fullName ?? 'null',
               style: GoogleFonts.sourceSansPro(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,

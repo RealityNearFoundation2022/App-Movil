@@ -19,6 +19,7 @@ class _MapSectionState extends State<MapSection> {
     super.initState();
     Provider.of<LocationProvider>(context, listen: false).initialization();
   }
+  LatLng coliseoMelgarBre = LatLng(-12.060201343870178, -77.05406694161285);
 
   @override
   Widget build(BuildContext context) {
@@ -64,25 +65,36 @@ class _MapSectionState extends State<MapSection> {
                                 size: 20,
                               ),
                             ),
+                            Marker(
+                              width: 40.0,
+                              height: 40.0,
+                              point: LatLng(coliseoMelgarBre.latitude,
+                                  coliseoMelgarBre.longitude),
+                              builder: (context) => const Icon(
+                                Icons.pin_drop,
+                                color: greenPrimary,
+                                size: 20,
+                              ),
+                            ),
                           ],
                         ),
                       ],
                     ),
-                    Container(
-                      alignment: Alignment.bottomRight,
-                      padding: const EdgeInsets.all(10),
-                      child: IconButton(
-                        onPressed: () {
-                          Provider.of<LocationProvider>(context, listen: false)
-                              .setCameraToCurrentPosition();
-                        },
-                        icon: const Icon(
-                          Icons.gps_fixed,
-                          color: greenPrimary,
-                          size: 40,
-                        ),
-                      ),
-                    )
+                    // Container(
+                    //   alignment: Alignment.bottomRight,
+                    //   padding: const EdgeInsets.all(10),
+                    //   child: IconButton(
+                    //     onPressed: () {
+                    //       Provider.of<LocationProvider>(context, listen: false)
+                    //           .setCameraToCurrentPosition();
+                    //     },
+                    //     icon: const Icon(
+                    //       Icons.gps_fixed,
+                    //       color: greenPrimary,
+                    //       size: 40,
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 )
               : const Center(child: CircularProgressIndicator()));

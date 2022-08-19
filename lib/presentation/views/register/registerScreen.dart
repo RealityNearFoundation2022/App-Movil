@@ -129,7 +129,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   press: () {
                     if (_emailController.text.isEmpty ||
                         _passwordController.text.isEmpty ||
-                        _userNameController.text.isEmpty) {
+                        _userNameController.text.isEmpty ||
+                        pathSelectedAvatar.isEmpty) {
                       showSnackBar(context, S.current.DatosIncompletos, true);
                     } else {
                       showDialog(
@@ -186,14 +187,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: ScreenWH(context).height * 0.23,
                 width: ScreenWH(context).width * 0.24),
           ),
-          Text(name,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.sourceSansPro(
-                  fontSize: avatarSelect[index] ? 22 : 20,
-                  fontWeight:
-                      avatarSelect[index] ? FontWeight.bold : FontWeight.w700,
-                  color: avatarSelect[index] ? greenPrimary : txtPrimary,
-                  decoration: TextDecoration.none))
+          // Text(name,
+          //     textAlign: TextAlign.center,
+          //     style: GoogleFonts.sourceSansPro(
+          //         fontSize: avatarSelect[index] ? 22 : 20,
+          //         fontWeight:
+          //             avatarSelect[index] ? FontWeight.bold : FontWeight.w700,
+          //         color: avatarSelect[index] ? greenPrimary : txtPrimary,
+          //         decoration: TextDecoration.none))
         ],
       ),
     );

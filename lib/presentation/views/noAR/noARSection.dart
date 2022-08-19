@@ -52,7 +52,6 @@ class _NoArSectionState extends State<NoArSection> {
             }
         });
 
-
     UserRepository().getMyData().then((value) => value.fold(
           (failure) => print(failure),
           (success) => {
@@ -280,11 +279,12 @@ class _NoArSectionState extends State<NoArSection> {
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 10),
-        height: 120,
+        height: MediaQuery.of(context).size.height * 0.16,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
-                image: AssetImage(imgURL), fit: BoxFit.cover)),
+                image: AssetImage(imgURL), fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.darken))),
         child: Center(
           child: Text(title,
               style: GoogleFonts.sourceSansPro(

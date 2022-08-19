@@ -9,6 +9,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/domain/usecases/cuppons/redeemCupon.dart';
+import 'package:reality_near/generated/l10n.dart';
 
 import '../../../data/models/cuponAssignModel.dart';
 
@@ -24,7 +25,7 @@ class QrScannScreen extends StatefulWidget {
 class _QrScannScreenState extends State<QrScannScreen> {
   AssignCuponModel cupon = AssignCuponModel();
   bool _loadingValidate = false;
-
+  String errorMessage = "";
   _redeemCupon() async {
     setState(() {
       _loadingValidate = true;
@@ -34,8 +35,9 @@ class _QrScannScreenState extends State<QrScannScreen> {
         (l) => {
           setState(() {
             _loadingValidate = false;
+            errorMessage= S.current.CuponInvalido;
           }),
-          print('Error: ${l.toString()}')},
+        },
         (r) => {
           setState(() {
                 cupon = r;
@@ -99,9 +101,9 @@ class _QrScannScreenState extends State<QrScannScreen> {
             height: MediaQuery.of(context).size.height * 0.4,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: (result==null || (cupon.redeemed??false)) ? greenPrimary : Colors.red,
+              color: errorMessage.isEmpty ? greenPrimary : Colors.red,
               border: Border.all(
-                color: (result==null || (cupon.redeemed??false)) ? greenPrimary : Colors.red,
+                color: errorMessage.isEmpty ? greenPrimary : Colors.red,
                 width: 4,
               ),
             ),
@@ -120,14 +122,14 @@ class _QrScannScreenState extends State<QrScannScreen> {
               child: Text(
                 result == null
                     ? 'Enfoca el codigo QR para validar'
-                    : _loadingValidate? 'Validando...'
-                    :'',
+                    : _loadingValidate ? 'Validando...'
+                    : errorMessage.isNotEmpty ? errorMessage :'',
                 // 'Validando...',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.sourceSansPro(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
-                  color: greenPrimary2,
+                  color: errorMessage.isEmpty ? greenPrimary2 : Colors.red,
                 ),
               ),
             ),

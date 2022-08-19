@@ -42,6 +42,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "Copiar" : MessageLookupByLibrary.simpleMessage("Copy"),
     "CreaUna" : MessageLookupByLibrary.simpleMessage("Create one"),
     "Cuenta" : MessageLookupByLibrary.simpleMessage("Account"),
+    "CuponInvalido" : MessageLookupByLibrary.simpleMessage("Invalid coupon"),
+    "CuponRepetido" : MessageLookupByLibrary.simpleMessage("You dont have a repeated coupon"),
     "DatosIncompletos" : MessageLookupByLibrary.simpleMessage("Incomplete data"),
     "Desconectado" : MessageLookupByLibrary.simpleMessage("disconnected"),
     "DescribeFallo" : MessageLookupByLibrary.simpleMessage("describe the problem"),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/datasource/nearRPC/contracts.dart';
@@ -25,7 +26,6 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
   String walletId = "";
   String usAvatar = "";
 
-
   @override
   void initState() {
     super.initState();
@@ -36,13 +36,13 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
         });
 
     getPersistData('usAvatar').then((value) => {
-      if (value != null)
-        {
-          setState(() {
-            usAvatar = value;
-          })
-        }
-    });
+          if (value != null)
+            {
+              setState(() {
+                usAvatar = value;
+              })
+            }
+        });
 
     getPersistData('walletId').then((value) => {
           if (value != null)
@@ -71,9 +71,7 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
 
   Widget topSection(BuildContext context) {
     return Column(children: [
-      Align(
-          alignment: Alignment.centerRight,
-          child: personCircle('https://picsum.photos/700/400?random')),
+      Align(alignment: Alignment.centerRight, child: personCircle()),
       Align(
         alignment: Alignment.centerRight,
         child: Text(
@@ -137,17 +135,22 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
     ]);
   }
 
-  Widget personCircle(String photo) {
+  Widget personCircle() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CircleAvatar(
         radius: 27.w,
-        // backgroundColor: Colors.transparent,
-        // backgroundImage: NetworkImage(photo),
-        child: Image.asset(
-          usAvatar,
-          fit: BoxFit.cover,
-        ),
+        child: usAvatar.isNotEmpty
+            ? Image.asset(
+                usAvatar,
+                fit: BoxFit.cover,
+              )
+            : Center(
+                child: LoadingAnimationWidget.dotsTriangle(
+                  color: Colors.white,
+                  size: ScreenWH(context).width * 0.2,
+                ),
+              ),
       ),
     );
   }

@@ -12,6 +12,10 @@ class UserRepository {
   final userRemoteDataSourceImpl userRemoteDataSource =
       userRemoteDataSourceImpl();
 
+  Future<void> editUser(String password, String username, String avatar) async {
+     await userRemoteDataSource.editUserData(password, username, avatar);
+  }
+
   Future<Either<Failure, User>> registerNewUser(
       String email, String password, String username, String path) async {
     try {

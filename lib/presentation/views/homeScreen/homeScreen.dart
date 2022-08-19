@@ -13,6 +13,9 @@ import 'package:reality_near/presentation/views/menuScreen/menuScreen.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:showcaseview/showcaseview.dart';
 
+import '../../../data/repository/userRepository.dart';
+import '../../../domain/entities/user.dart';
+
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home";
   const HomeScreen({Key key}) : super(key: key);
@@ -29,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool passInitGuide;
   int notifications = 0;
 
+  User user = User();
 
   _viewGuide() async {
     (await getPersistData('passInitGuide') == null &&
@@ -46,6 +50,17 @@ class _HomeScreenState extends State<HomeScreen> {
         (r) => setState(() => notifications = r)));
   }
 
+  _isSuperUSer(){
+    UserRepository().getMyData().then((value) => value.fold(
+          (failure) => print(failure),
+          (success) => {
+        setState(() {
+          user = success;
+        }),
+      },
+    ));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -55,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<MenuBloc>(context, listen: false).add(MenuCloseEvent());
     _viewGuide();
     _getNewNotifications();
+    _isSuperUSer();
   }
 
   @override
@@ -104,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   right: MediaQuery.of(context).size.height * 0.03,
                   child: _notificatios(notifications)),
               //Scanner QR
-              Positioned(
+              user.isSuperuser?? false ? Positioned(
                   top: MediaQuery.of(context).viewPadding.top,
                   left: MediaQuery.of(context).size.height * 0.03,
                   child: IconButton(
@@ -116,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: greenPrimary,
                       size: ScreenWH(context).height * 0.04,
                     ),
-                  )),
+                  )) : Container(),
             ],
           ),
         ),
