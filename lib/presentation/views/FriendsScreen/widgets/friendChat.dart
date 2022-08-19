@@ -25,9 +25,8 @@ class ChatCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 30,
-              // backgroundImage: NetworkImage(photo),
               child: Image.asset(
-                "assets/gift/MONSTER_SELECT.gif",
+                photo,
                 fit: BoxFit.cover,
               ),
             ),

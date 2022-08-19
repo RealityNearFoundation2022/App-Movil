@@ -185,7 +185,6 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
       placeholder: S.current.BuscarUsuario,
       controller: searchUserController,
       onChanged: searchUser);
-
   //funcion que filtra la lista segun lo que se escribe en la barra de busqueda
   void searchUser(String query) {
     final users = lstUsers.where((user) {
@@ -205,11 +204,7 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
     bool sendRequest = user.infContact != null;
     return ListTile(
       leading: CircleAvatar(
-        // backgroundImage: NetworkImage(
-        //   "https://picsum.photos/700/400?random",
-        // ),
-        child: user.avatar!=null  ? Image.asset(
-          // usAvatar ?? "assets/gift/MEN_SELECTED.gif",
+        child: user.avatar.isNotEmpty ? Image.asset(
           user.avatar,
           fit: BoxFit.cover,
         ) : const Center(child: SizedBox(height: 15,width: 15,child: CircularProgressIndicator(color: Colors.white,)),),
@@ -224,7 +219,12 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
                   (success) =>
               {
                 showSnackBar(context, 'Solicitud Denegada', false),
-                sendRequest = !sendRequest
+                sendRequest = !sendRequest,
+                setState(() {
+                  searchUserController.clear();
+                  searchUser('');
+                })
+
               },
             ))
           : await AddContactUseCase(user.id.toString()).call().then((value) => value.fold(
@@ -232,7 +232,11 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
                 (success) =>
             {
               showSnackBar(context, 'Solicitud Enviada', false),
-                sendRequest = !sendRequest
+                sendRequest = !sendRequest,
+              setState(() {
+                searchUserController.clear();
+                searchUser('');
+              })
             },
             ),
           );
@@ -248,9 +252,7 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
   Widget solicitudesCard(User user,BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        // backgroundImage: NetworkImage(
-        //   "https://picsum.photos/700/400?random",
-        // ),
+
           radius: 40,
       child: user.avatar!=null  ? Image.asset(
           // usAvatar ?? "assets/gift/MEN_SELECTED.gif",

@@ -14,8 +14,10 @@ import 'package:ar_flutter_plugin/datatypes/node_types.dart';
 import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
@@ -25,6 +27,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:vector_math/vector_math_64.dart';
 
+import '../../../providers/location_provider.dart';
 import '../mapScreen/widgets/placeDialog.dart';
 
 class ARSection extends StatefulWidget {
@@ -39,13 +42,10 @@ class ARSection extends StatefulWidget {
 class _ARSectionState extends State<ARSection> {
   ARSessionManager arSessionManager;
   ARObjectManager arObjectManager;
-  //String localObjectReference;
   ARNode localObjectNode;
-  //String webObjectReference;
   ARNode webObjectNode;
   ARNode fileSystemNode;
   HttpClient httpClient;
-  //Create an instance of ScreenshotController
   ScreenshotController screenshotController = ScreenshotController();
   String UrlAr =
       "https://github.com/eduperaltas/3dGLBRepository/raw/main/Luta_livre_final2.glb";
@@ -54,60 +54,104 @@ class _ARSectionState extends State<ARSection> {
   final GlobalKey _one = GlobalKey();
   final GlobalKey _two = GlobalKey();
 
-
+  List<String> tiempos = [
+    "11:00","11:30","11:39","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30"];
+  // LatLng coliseoMelgarBre = LatLng(-12.060201343870178, -77.05406694161285);
+  LatLng coliseoMelgarBre = LatLng(-12.108316671986834, -77.02463432199998);
+  bool arViewActive = false;
   @override
   void dispose() {
-    super.dispose();
     arSessionManager.dispose();
+    super.dispose();
   }
 
   @override
   void initState() {
-    onWebObjectAtOriginButtonPressed();
     super.initState();
+    onWebObjectAtOriginButtonPressed();
+    Provider.of<LocationProvider>(context, listen: false).initialization();
+
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          ARView(
-            onARViewCreated: onARViewCreated,
-            planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
-          ),
-          header(),
-          //Map-Button
-          Align(
-              alignment: Alignment.bottomLeft,
-              child: MapContainer(
-                showCaseKey: _two,
-              )),
-          //Menu-Button
-          Align(
-              alignment: Alignment.bottomRight,
-              child: MenuContainer(
-                showCaseKey: _one,
-              )),
-          Positioned(
-            left: ScreenWH(context).width * 0.4,
-            bottom: ScreenWH(context).height * 0.04,
-            //Button Cammera
-            child: SizedBox(
-              width: ScreenWH(context).width * 0.18,
-              height: ScreenWH(context).height * 0.08,
-              child: FloatingActionButton(
-                backgroundColor: greenPrimary,
-                onPressed: () {
-                  onTakeScreenshot();
-                },
-                child:  Icon(Icons.camera_alt, color:const Color.fromARGB(
-                    255, 255, 255, 255), size: ScreenWH(context).width * 0.1,),
-              ),
-            ),
+    return Consumer<LocationProvider>(builder: (consumerContext, model, child) {
+      model.ctx = consumerContext;
+      // if(model.locationPosition != null &&
+      //     calculateDistanceMts(model.locationPosition.latitude, model.locationPosition.longitude,
+      //         coliseoMelgarBre.latitude, coliseoMelgarBre.longitude)< 100){
+      //   setState(() {
+      //     arViewActive = true;
+      //   });
+      // }
+      return WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Scaffold(
+          body: Stack(
+            children: [
+              (model.locationPosition != null &&
+                  calculateDistanceMts(model.locationPosition.latitude, model.locationPosition.longitude,
+                      coliseoMelgarBre.latitude, coliseoMelgarBre.longitude)< 100) ? ARView(
+                  onARViewCreated: onARViewCreated,
+                  planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
+                )
+              : noAR(),
+              header(),
+              //Map-Button
+              Align(
+                  alignment: Alignment.bottomLeft,
+                  child: MapContainer(
+                    showCaseKey: _two,
+                  )),
+              //Menu-Button
+              Align(
+                  alignment: Alignment.bottomRight,
+                  child: MenuContainer(
+                    showCaseKey: _one,
+                  )),
+              arViewActive ? Positioned(
+                left: ScreenWH(context).width * 0.4,
+                bottom: ScreenWH(context).height * 0.04,
+                //Button Cammera
+                child: SizedBox(
+                  width: ScreenWH(context).width * 0.18,
+                  height: ScreenWH(context).height * 0.08,
+                  child: FloatingActionButton(
+                    backgroundColor: greenPrimary,
+                    onPressed: () {
+                      onTakeScreenshot();
+                    },
+                    child:  Icon(Icons.camera_alt, color:const Color.fromARGB(
+                        255, 255, 255, 255), size: ScreenWH(context).width * 0.1,),
+                  ),
+                ),
+              ) : const SizedBox(),
+            ],
           )
-        ],
-      )
+        ),
+      );
+    });
+  }
+
+  Widget noAR(){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Image.asset('assets/imgs/PersonaChateando.png'),
+        const SizedBox(height: 20),
+        Text(
+          'No hay misiones cerca a tu ubicación.',
+          textAlign: TextAlign.center,
+          style: GoogleFonts.sourceSansPro(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: txtPrimary,
+          ),
+        ),
+      ],
     );
   }
 
@@ -131,7 +175,7 @@ class _ARSectionState extends State<ARSection> {
               onChanged: (value) {
                 setState(() {
                   status = value;
-                  arSessionManager.dispose();
+                  if(arViewActive) arSessionManager.dispose();
                   Navigator.pushNamed(context, "/home");
                 });
               },
@@ -143,6 +187,7 @@ class _ARSectionState extends State<ARSection> {
   }
 
   Future<void> onARViewCreated(
+
       ARSessionManager arSessionManager,
       ARObjectManager arObjectManager,
       ARAnchorManager arAnchorManager,
@@ -164,11 +209,18 @@ class _ARSectionState extends State<ARSection> {
         type: NodeType.webGLB, uri: UrlAr, scale: Vector3(0.2, 0.2, 0.2));
     bool didAddWebNode = await this.arObjectManager.addNode(newNode);
 
+    setState(() {
+      arViewActive = true;
+    });
+
   }
 
   Future<void> onNodeTapped(List<String> nodes) async{
     print("Node tapped: ${nodes.toString()}");
-    showDialog(context: context, builder: (context) => const PlaceDialog());
+
+    if(tiempos.any((e) => e==getTimeHyM()) && true) {
+      showDialog(context: context, builder: (context) => const PlaceDialog());
+    }
   }
 
   Future<void> onTakeScreenshot() async {

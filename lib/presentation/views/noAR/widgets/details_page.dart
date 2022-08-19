@@ -16,7 +16,6 @@ class EventDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = MediaQuery.of(context).platformBrightness;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -28,7 +27,7 @@ class EventDetailsPage extends StatelessWidget {
                 child: ClipRRect(
                   child: Image.asset(
                     eventImg,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -41,7 +40,6 @@ class EventDetailsPage extends StatelessWidget {
                     Text(
                       title,
                       textAlign: TextAlign.left,
-                      overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.sourceSansPro(
                         color: greenPrimary,
                         fontSize: ScreenWH(context).width * 0.07,
@@ -62,25 +60,23 @@ class EventDetailsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
+               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
-                child: Text(
+                child: title != "Aniversario de Luta Livre Perú" ? Text(
                   eventContent,
                   textAlign: TextAlign.left,
                   style: GoogleFonts.sourceSansPro(
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: FontWeight.w400,
                       color: txtPrimary),
-                ),
-              ),
+                ) :  _contentLuta(),
+              )
+              ,
               const SizedBox(
-                height: 20,
+                height: 100,
               ),
-              
-              const SizedBox(
-                height: 10,
-              ),
+
             ],
           ),
         ),
@@ -88,6 +84,55 @@ class EventDetailsPage extends StatelessWidget {
       bottomSheet: _footter(context),
     );
   }
+
+  _contentLuta(){
+    return  Column(
+      children: [
+        Text(
+          "¡Sigue disfrutando tu pasión por el deporte !¡Gana una entrada doble para el Inka FC 35!",
+          textAlign: TextAlign.left,
+          style: GoogleFonts.sourceSansPro(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: txtPrimary),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          "A través de tu aplicativo Reality Near, usa la cámara y busca el logo de la asociación de Luta Livre. En determinadas horas del día, se activará la opción de poder capturarlo y podrás ganar 1 de las 10 entradas dobles para el Inka FC 35, el cual se llevará a cabo el 25 de setiembre del 2022.",
+          textAlign: TextAlign.left,
+          style: GoogleFonts.sourceSansPro(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: txtPrimary),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          "Si eres uno de los afortunados ganadores, obtendrás en tus notificaciones, un código QR. Deberás mostrar el QR a uno de los encargados y brindarle tus datos. El mismo día del evento, se dará a conocer el nombre de los ganadores y se realizará el registro con los datos personales. Las entradas no son transferibles.",
+          textAlign: TextAlign.left,
+          style: GoogleFonts.sourceSansPro(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: txtPrimary),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          "¡Muchas suerte!",
+          textAlign: TextAlign.left,
+          style: GoogleFonts.sourceSansPro(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: txtPrimary),
+        ),
+      ],
+    );
+  }
+
   
   _footter(BuildContext context){
     return Container(

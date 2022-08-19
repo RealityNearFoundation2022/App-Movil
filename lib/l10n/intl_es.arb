@@ -8,7 +8,7 @@
     "WalletOblig": "Wallet obligatoria",
     "EmailOblig":"Email obligatorio",
     "PasswordOblig":"Password obligatorio",
-    "failLogin":"No se pudo Iniciar sesión con esta wallet, prueba de nuevo",
+    "failLogin":"No se pudo Iniciar sesión, prueba de nuevo",
     "Ingresar":"Ingresar",
     "SyncWallet": "Vincula tu Near Wallet",
     "Email": "Correo",
@@ -46,7 +46,7 @@
     "Solicitudes":"Solicitudes",
     "BuscarUsuario" : "Buscar usuario ...",
     "CancelarSolicitud": "Cancelar Solicitud",
-    "EnviarSolicitud": "Enviar request",
+    "EnviarSolicitud": "Enviar solicitud",
     "amigosEnComun":"{amigos} amigos en común",
     "Aceptar":"Aceptar",
     "Rechazar":"Rechazar",
@@ -91,5 +91,7 @@
     "VerificaLosDatosIngresados": "Verifica los datos ingresados en el formulario, intenta de nuevo",
     "Intentardenuevo": "Intentalo de nuevo",
     "NoHayAmigos": "Aun no tienes amigos, puedes agregarlos con el botón de +",
-    "Canjear": "Canjear"
+    "Canjear": "Canjear",
+    "CuponRepetido": "No se le puede asignar un cupón con el que ya cuenta",
+    "CuponInvalido": "El cupón no es válido"
     }

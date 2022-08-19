@@ -30,12 +30,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
     _getCupons();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _readNotifications();
-  }
-
   _getNotificatonHis() async {
     await GetNotificationsHistory().call().then((value) => value.fold(
         (l) => print('Error: ${l.toString()}'),
@@ -46,65 +40,73 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   _readNotifications() async {
-    ReadNotifications(_notifications).call().then((value) =>
+    print('READ NOTIFICATIONS');
+    await ReadNotifications(_notifications).call().then((value) =>
         value.fold((l) => print('Error: ${l.toString()}'), (r) => {}));
   }
 
   _getCupons() async {
-   await GetCuponsFromUserUseCase().call().then((value) =>
-       setState(() {
-              _cupones = value;
-            }));
+    await GetCuponsFromUserUseCase().call().then((value) => setState(() {
+          _cupones = value;
+        }));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: Container(
-          margin: const EdgeInsets.only(right: 10),
-          alignment: Alignment.centerRight,
-          child: Text(
-            S.current.Notificaciones,
-            style: GoogleFonts.sourceSansPro(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              color: greenPrimary,
+    return WillPopScope(
+      onWillPop: () async {
+        await _readNotifications();
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          title: Container(
+            margin: const EdgeInsets.only(right: 10),
+            alignment: Alignment.centerRight,
+            child: Text(
+              S.current.Notificaciones,
+              style: GoogleFonts.sourceSansPro(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: greenPrimary,
+              ),
             ),
           ),
+          iconTheme: const IconThemeData(color: greenPrimary, size: 35),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () => {
+              _readNotifications(),
+              Navigator.pushNamed(context, "/home")},
+          ),
         ),
-        iconTheme: const IconThemeData(color: greenPrimary, size: 35),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () => Navigator.pushNamed(context, "/home"),
+        body: SingleChildScrollView(
+          child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              width: ScreenWH(context).width,
+              height: ScreenWH(context).height,
+              child: Column(
+                children: [
+                  _cuponSection(),
+                  const Divider(),
+                  _loadingNotifications
+                      ? const Center(child: CircularProgressIndicator())
+                      : _notifications.isEmpty
+                          ? _sinNotificaciones()
+                          : ListView.separated(
+                              shrinkWrap: true,
+                              itemCount: _notifications.length,
+                              itemBuilder: (context, index) {
+                                return _notificationWidget(_notifications[index]);
+                              },
+                              separatorBuilder: (context, index) =>
+                                  const Divider(),
+                            ),
+                ],
+              )),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-            margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            width: ScreenWH(context).width,
-            height: ScreenWH(context).height,
-            child: Column(
-              children: [
-                _cuponSection(),
-                const Divider(),
-                _loadingNotifications
-                    ? const Center(child: CircularProgressIndicator())
-                    : _notifications.isEmpty
-                        ? _sinNotificaciones()
-                        : ListView.separated(
-                            shrinkWrap: true,
-                            itemCount: _notifications.length,
-                            itemBuilder: (context, index) {
-                              return _notificationWidget(_notifications[index]);
-                            },
-                            separatorBuilder: (context, index) =>
-                                const Divider(),
-                          ),
-              ],
-            )),
       ),
     );
   }
@@ -121,21 +123,24 @@ class _NotificationScreenState extends State<NotificationScreen> {
     ));
   }
 
-  _cuponSection(){
-    return _cupones.isNotEmpty ? ListView.builder(
-      shrinkWrap: true,
-      itemCount: _cupones.length,
-        itemBuilder: (context, index) {
-          return _notificationQRWidget(_cupones[index]);
-        }) : Container();
+  _cuponSection() {
+    return _cupones.isNotEmpty
+        ? ListView.builder(
+            shrinkWrap: true,
+            itemCount: _cupones.length,
+            itemBuilder: (context, index) {
+              return _notificationQRWidget(_cupones[index]);
+            })
+        : Container();
   }
 
   _notificationQRWidget(CuponModel cupon) {
     return ListTile(
       onTap: () {
-        Navigator.pushNamed(context, "/qrViewScreen", arguments: <String, Object>{
-          "cuponId": cupon.id,
-        } );
+        Navigator.pushNamed(context, "/qrViewScreen",
+            arguments: <String, Object>{
+              "cuponId": cupon.id,
+            });
       },
       leading: CircleAvatar(
         backgroundColor: greenPrimary,
@@ -193,9 +198,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
   _notificationWidget(NotificationModel notification) {
     return ListTile(
       leading: CircleAvatar(
-        backgroundImage: const NetworkImage(
-            "https://source.unsplash.com/random/200x200?sig=1"),
         radius: ScreenWH(context).width * 0.08,
+        child: Icon(
+          Icons.person,
+          color: Colors.white,
+          size: ScreenWH(context).width * 0.08,
+        ),
       ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

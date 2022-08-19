@@ -3,7 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:vector_math/vector_math.dart' as math;
 class ScreenWH {
   BuildContext context;
 
@@ -87,4 +87,41 @@ String convertToBase64(String val) {
 //Convert dateTime To String
 String convertDateTimeToString(DateTime dateTime) {
   return "${dateTime.day}/${dateTime.month}/${dateTime.year}";
+}
+
+
+
+double calculateDistanceMts(double lat1, double lng1, double lat2, double lng2) {
+  int radiusEarth = 6371;
+  double distanceKm;
+  double distanceMts;
+  double dlat, dlng;
+  double a;
+  double c;
+
+  //Convertimos de grados a radianes
+  lat1 = math.radians(lat1);
+  lat2 = math.radians(lat2);
+  lng1 = math.radians(lng1);
+  lng2 = math.radians(lng2);
+  // Fórmula del semiverseno
+  dlat = lat2 - lat1;
+  dlng = lng2 - lng1;
+  a = sin(dlat / 2) * sin(dlat / 2) +
+      cos(lat1) * cos(lat2) * (sin(dlng / 2)) * (sin(dlng / 2));
+  c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+  distanceKm = radiusEarth * c;
+  print('Distancia en Kilométros:$distanceKm');
+  distanceMts = 1000 * distanceKm;
+  print('Distancia en Metros:$distanceMts');
+
+  // return distanceKm;
+  return distanceMts;
+}
+
+//Obtener hora y minuto actual
+String getTimeHyM() {
+  DateTime now = DateTime.now();
+  return "${now.hour}:${now.minute}";
 }

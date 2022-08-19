@@ -4,6 +4,7 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/bugScreen/bugScreen.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class InfoScreen extends StatelessWidget {
   //Variables
@@ -47,8 +48,15 @@ class InfoScreen extends StatelessWidget {
               }),
               child: textAndIcon(
                   S.current.ReporteFallos, Icons.keyboard_arrow_right_rounded)),
-          // textAndIcon(S.current.PoliticaDePrivacidad,
-          //     Icons.keyboard_arrow_right_rounded),
+          GestureDetector(
+            onTap: (() {
+              launchUrlString(
+                  "https://www.privacypolicies.com/live/ad5f099b-84a2-474d-8e1b-ffbd8f0be04a",
+                  mode: LaunchMode.externalApplication);
+            }),
+            child: textAndIcon(S.current.PoliticaDePrivacidad,
+                Icons.keyboard_arrow_right_rounded),
+          ),
           // textAndIcon(S.current.TerminosyCondiciones,
           //     Icons.keyboard_arrow_right_rounded),
         ],

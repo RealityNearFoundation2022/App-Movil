@@ -964,6 +964,26 @@ class S {
       args: [],
     );
   }
+
+  /// `You dont have a repeated coupon`
+  String get CuponRepetido {
+    return Intl.message(
+      'You dont have a repeated coupon',
+      name: 'CuponRepetido',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid coupon`
+  String get CuponInvalido {
+    return Intl.message(
+      'Invalid coupon',
+      name: 'CuponInvalido',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

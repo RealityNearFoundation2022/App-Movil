@@ -20,7 +20,7 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
 
   @override
   Future<List<NotificationModel>> getNotifications() async {
-    final url = baseUrl;
+    final url = baseUrl+"/?skip=0&limit=100";
     String token = await getPersistData("userToken");
 
     final response = await http.get(Uri.parse(url), headers: {
@@ -45,7 +45,7 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
 
   @override
   Future<List<NotificationModel>> getNotificationsHis() async {
-    final url = baseUrl + "/history";
+    final url = baseUrl + "/history"+"?skip=0&limit=100";
     String token = await getPersistData("userToken");
 
     final response = await http.get(Uri.parse(url), headers: {

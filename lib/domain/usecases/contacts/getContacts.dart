@@ -12,9 +12,7 @@ class GetContactsUseCase {
     List<ContactModel> lstRequest = [];
     await _repo.getContacts().then((value) => value.fold(
           (failure) => print(failure),
-          (success) => {
-            lstRequest = success.toList()
-          },
+          (success) => {lstRequest = success.toList()},
         ));
     return lstRequest;
   }
