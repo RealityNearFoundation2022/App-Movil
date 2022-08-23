@@ -20,6 +20,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/models/assetModel.dart';
+import 'package:reality_near/data/repository/assetRepository.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/mapScreen/mapScreen.dart';
 import 'package:reality_near/presentation/views/menuScreen/menuScreen.dart';
@@ -47,18 +49,19 @@ class _ARSectionState extends State<ARSection> {
   ARNode fileSystemNode;
   HttpClient httpClient;
   ScreenshotController screenshotController = ScreenshotController();
-  String UrlAr =
-      "https://github.com/eduperaltas/3dGLBRepository/raw/main/Luta_livre_final2.glb";
+  String UrlAr;
   bool status = true;
-
+  AssetModel assetAR;
   final GlobalKey _one = GlobalKey();
   final GlobalKey _two = GlobalKey();
 
   List<String> tiempos = [
-    "11:00","11:30","11:39","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30"];
-  // LatLng coliseoMelgarBre = LatLng(-12.060201343870178, -77.05406694161285);
-  LatLng coliseoMelgarBre = LatLng(-12.108316671986834, -77.02463432199998);
-  bool arViewActive = false;
+    "11:00","11:30", "12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30"];
+  LatLng positionAsset = LatLng(0, 0);
+  // LatLng positionAsset;
+  bool inLocationRange = false;
+
+
   @override
   void dispose() {
     arSessionManager.dispose();
@@ -67,23 +70,34 @@ class _ARSectionState extends State<ARSection> {
 
   @override
   void initState() {
-    super.initState();
+    getAsset("2").then((result) async {
+      setState(() { });
+    });
     onWebObjectAtOriginButtonPressed();
     Provider.of<LocationProvider>(context, listen: false).initialization();
-
+    super.initState();
+  }
+  
+  getAsset(String id) async{
+    assetAR = await AssetRepository().getAsset(id);
+    UrlAr = assetAR.path.split(" | ")[0];
+    double latitude = double.parse(assetAR.path.split(" | ")[1].split(",")[0]);
+    double longitude = double.parse(assetAR.path.split(" | ")[1].split(",")[1]);
+    positionAsset = LatLng(latitude, longitude);
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<LocationProvider>(builder: (consumerContext, model, child) {
       model.ctx = consumerContext;
-      // if(model.locationPosition != null &&
-      //     calculateDistanceMts(model.locationPosition.latitude, model.locationPosition.longitude,
-      //         coliseoMelgarBre.latitude, coliseoMelgarBre.longitude)< 100){
-      //   setState(() {
-      //     arViewActive = true;
-      //   });
-      // }
+      if(model.locationPosition != null &&
+          calculateDistanceMts(model.locationPosition.latitude, model.locationPosition.longitude,
+              positionAsset.latitude, positionAsset.longitude)< 100){
+        setState(() {
+          inLocationRange = true;
+          print("CAMBIO - " + inLocationRange.toString());
+        });
+      }
       return WillPopScope(
         onWillPop: () async {
           return false;
@@ -91,13 +105,10 @@ class _ARSectionState extends State<ARSection> {
         child: Scaffold(
           body: Stack(
             children: [
-              (model.locationPosition != null &&
-                  calculateDistanceMts(model.locationPosition.latitude, model.locationPosition.longitude,
-                      coliseoMelgarBre.latitude, coliseoMelgarBre.longitude)< 100) ? ARView(
+              ARView(
                   onARViewCreated: onARViewCreated,
                   planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
-                )
-              : noAR(),
+                ),
               header(),
               //Map-Button
               Align(
@@ -111,7 +122,7 @@ class _ARSectionState extends State<ARSection> {
                   child: MenuContainer(
                     showCaseKey: _one,
                   )),
-              arViewActive ? Positioned(
+              Positioned(
                 left: ScreenWH(context).width * 0.4,
                 bottom: ScreenWH(context).height * 0.04,
                 //Button Cammera
@@ -127,7 +138,7 @@ class _ARSectionState extends State<ARSection> {
                         255, 255, 255, 255), size: ScreenWH(context).width * 0.1,),
                   ),
                 ),
-              ) : const SizedBox(),
+              ),
             ],
           )
         ),
@@ -175,7 +186,7 @@ class _ARSectionState extends State<ARSection> {
               onChanged: (value) {
                 setState(() {
                   status = value;
-                  if(arViewActive) arSessionManager.dispose();
+                  arSessionManager.dispose();
                   Navigator.pushNamed(context, "/home");
                 });
               },
@@ -209,16 +220,12 @@ class _ARSectionState extends State<ARSection> {
         type: NodeType.webGLB, uri: UrlAr, scale: Vector3(0.2, 0.2, 0.2));
     bool didAddWebNode = await this.arObjectManager.addNode(newNode);
 
-    setState(() {
-      arViewActive = true;
-    });
-
   }
 
   Future<void> onNodeTapped(List<String> nodes) async{
-    print("Node tapped: ${nodes.toString()}");
+    print("Node tapped: ${nodes.toString()} || ${inLocationRange.toString()}");
 
-    if(tiempos.any((e) => e==getTimeHyM()) && true) {
+    if(tiempos.any((e) => e==getTimeHyM()) && inLocationRange ) {
       showDialog(context: context, builder: (context) => const PlaceDialog());
     }
   }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/register/registerScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:video_player/video_player.dart';
+import '../../../core/framework/globals.dart';
 import '../login/login.dart';
 
 class FirstScreen extends StatefulWidget {
@@ -15,6 +18,9 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
+  VideoPlayerController _controller;
+  Future<void> _initializeVideoPlayerFuture;
+
   _storeGuidedInfo() async {
     print("Shared pref called");
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -25,19 +31,43 @@ class _FirstScreenState extends State<FirstScreen> {
   @override
   void initState() {
     super.initState();
+
     _storeGuidedInfo();
+    _controller = VideoPlayerController.asset("assets/video/IntroAppRN.mp4")
+      ..initialize().then((_) {
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {});
+      });
+    // Inicializa el controlador y almacena el Future para utilizarlo luego
+    _initializeVideoPlayerFuture = _controller.initialize();
+    _controller.play();
+    // Usa el controlador para hacer un bucle en el vídeo
+    _controller.setLooping(true);
+
   }
 
   @override
+  void dispose() {
+    // Asegúrate de despachar el VideoPlayerController para liberar los recursos
+    _controller.dispose();
+
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-           Image.asset('assets/gift/IntroAppRN.gif',
-            fit: BoxFit.cover,
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width),
+          _controller.value.isInitialized
+              ? VideoPlayer(_controller) : loading(),
+           // Image.asset('assets/gift/IntroAppRN.gif',
+           //  fit: BoxFit.cover,
+           //  height: MediaQuery.of(context).size.height,
+           //  width: MediaQuery.of(context).size.width),
           //Logo image
           Container(
             margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
@@ -62,6 +92,21 @@ class _FirstScreenState extends State<FirstScreen> {
     );
   }
 
+  loading() {
+    return Align(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          LoadingAnimationWidget.dotsTriangle(
+            color: greenPrimary,
+            size: ScreenWH(context).width * 0.3,
+          )
+        ],
+      ),
+    );
+  }
   Widget loginBtns(BuildContext context) {
     return Column(
       children: [
