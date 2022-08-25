@@ -93,16 +93,6 @@ class _ARSectionState extends State<ARSection> {
   @override
   Widget build(BuildContext context) {
 
-    return Consumer<LocationProvider>(builder: (consumerContext, model, child) {
-      model.ctx = consumerContext;
-      if(model.locationPosition != null &&
-          calculateDistanceMts(model.locationPosition.latitude, model.locationPosition.longitude,
-              positionAsset.latitude, positionAsset.longitude)< 100){
-        setState(() {
-          inLocationRange = true;
-          print("CAMBIO - " + inLocationRange.toString());
-        });
-      }
       return WillPopScope(
         onWillPop: () async {
           return false;
@@ -149,7 +139,6 @@ class _ARSectionState extends State<ARSection> {
           )
         ),
       );
-    });
   }
   loading() {
     return Align(
@@ -235,6 +224,15 @@ class _ARSectionState extends State<ARSection> {
 
   Future<void> onNodeTapped(List<String> nodes) async{
     print("Node tapped: ${nodes.toString()} || ${inLocationRange.toString()}");
+    var location = await getCurrentLocation();
+    if(
+        calculateDistanceMts(location.latitude, location.longitude,
+            positionAsset.latitude, positionAsset.longitude)< 100){
+      setState(() {
+        inLocationRange = true;
+        print("CAMBIO - " + inLocationRange.toString());
+      });
+    }
 
     if(tiempos.any((e) => e==getTimeHyM()) && inLocationRange ) {
       showDialog(context: context, builder: (context) => const PlaceDialog());

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vector_math/vector_math.dart' as math;
+import 'package:location/location.dart' as loc;
+
 class ScreenWH {
   BuildContext context;
 
@@ -133,4 +135,11 @@ double calculateDistanceMts(double lat1, double lng1, double lat2, double lng2) 
 String getTimeHyM() {
   DateTime now = DateTime.now();
   return "${now.hour}:${now.minute}";
+}
+
+//obten posicion del usuario
+Future<loc.LocationData> getCurrentLocation() async {
+  // Location _location;
+  // return await location.getLocation();
+  return await loc.Location().getLocation();
 }
