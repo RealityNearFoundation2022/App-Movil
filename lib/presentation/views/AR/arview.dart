@@ -15,6 +15,7 @@ import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -52,13 +53,13 @@ class _ARSectionState extends State<ARSection> {
   String UrlAr;
   bool status = true;
   AssetModel assetAR;
+  bool loadDataAPI = true;
   final GlobalKey _one = GlobalKey();
   final GlobalKey _two = GlobalKey();
 
   List<String> tiempos = [
     "11:00","11:30", "12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30"];
   LatLng positionAsset = LatLng(0, 0);
-  // LatLng positionAsset;
   bool inLocationRange = false;
 
 
@@ -67,6 +68,7 @@ class _ARSectionState extends State<ARSection> {
     arSessionManager.dispose();
     super.dispose();
   }
+
 
   @override
   void initState() {
@@ -84,10 +86,13 @@ class _ARSectionState extends State<ARSection> {
     double latitude = double.parse(assetAR.path.split(" | ")[1].split(",")[0]);
     double longitude = double.parse(assetAR.path.split(" | ")[1].split(",")[1]);
     positionAsset = LatLng(latitude, longitude);
+    loadDataAPI = false;
   }
+
 
   @override
   Widget build(BuildContext context) {
+
     return Consumer<LocationProvider>(builder: (consumerContext, model, child) {
       model.ctx = consumerContext;
       if(model.locationPosition != null &&
@@ -105,10 +110,11 @@ class _ARSectionState extends State<ARSection> {
         child: Scaffold(
           body: Stack(
             children: [
-              ARView(
-                  onARViewCreated: onARViewCreated,
-                  planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
-                ),
+              loadDataAPI  ? loading()
+                  : ARView(
+                onARViewCreated: onARViewCreated,
+                planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
+              ),
               header(),
               //Map-Button
               Align(
@@ -138,33 +144,38 @@ class _ARSectionState extends State<ARSection> {
                         255, 255, 255, 255), size: ScreenWH(context).width * 0.1,),
                   ),
                 ),
-              ),
+              ) ,
             ],
           )
         ),
       );
     });
   }
-
-  Widget noAR(){
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Image.asset('assets/imgs/PersonaChateando.png'),
-        const SizedBox(height: 20),
-        Text(
-          'No hay misiones cerca a tu ubicación.',
-          textAlign: TextAlign.center,
-          style: GoogleFonts.sourceSansPro(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            color: txtPrimary,
+  loading() {
+    return Align(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          LoadingAnimationWidget.dotsTriangle(
+            color: greenPrimary,
+            size: ScreenWH(context).width * 0.3,
           ),
-        ),
-      ],
+          const SizedBox(height: 20),
+          Text(
+            S.current.Cargando,
+            style: GoogleFonts.sourceSansPro(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+            ),
+            textAlign: TextAlign.center,
+          )
+        ],
+      ),
     );
   }
+
 
   Widget header() {
     return Container(
@@ -186,7 +197,7 @@ class _ARSectionState extends State<ARSection> {
               onChanged: (value) {
                 setState(() {
                   status = value;
-                  arSessionManager.dispose();
+                    arSessionManager.dispose();
                   Navigator.pushNamed(context, "/home");
                 });
               },

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/domain/usecases/notifications/getNotifications.dart';
@@ -15,6 +16,7 @@ import 'package:showcaseview/showcaseview.dart';
 
 import '../../../data/repository/userRepository.dart';
 import '../../../domain/entities/user.dart';
+import '../../widgets/dialogs/PermissionsDialog.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home";
@@ -83,16 +85,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           body: Stack(
             children: [
-              //Body@
-              // status
-              //     ? ARSection()
-              //     : Container(
-              //   margin: EdgeInsets.only(
-              //       bottom: 20, top: ScreenWH(context).height * 0.17),
-              //   height: ScreenWH(context).height * 0.95,
-              //   width: ScreenWH(context).width,
-              //   child: const NoArSection(),
-              // ),
               Container(
                 margin: EdgeInsets.only(
                     bottom: 20, top: ScreenWH(context).height * 0.17),
@@ -212,13 +204,13 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CupertinoSwitch(
                 activeColor: greenPrimary,
                 value: status,
-                onChanged: (value) {
+                onChanged: (value) async {
+                  (await Permission.location.isGranted && await Permission.camera.isGranted) ?
                   setState(() {
                     status = value;
                     Navigator.pushNamed(context, "/arView");
-                    // BlocProvider.of<MenuBloc>(context, listen: false)
-                    //     .add(value ? MenuOpenArViewEvent() : MenuCloseEvent());
-                  });
+                  })
+                  : showDialog(context: context, builder: (context) => const PermissionsDialog());
                 },
               ),
             ),

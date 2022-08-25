@@ -140,6 +140,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               username: _userNameController.text,
                               avatar: pathSelectedAvatar,
                               pressFunc: () {
+                                getPermissions();
                                 //creamos un evento en el bloc
                                 BlocProvider.of<UserBloc>(context).add(
                                     UserRegisterEvent(
@@ -210,4 +211,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ],
     );
   }
+
+
 }

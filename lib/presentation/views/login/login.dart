@@ -48,6 +48,13 @@ class Login extends StatelessWidget {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) async {
         if (state is UserLoggedInState) {
+          getPermissions();
+          SyncWalletDialog(
+            onLogin: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/home', ModalRoute.withName('/'));
+            },
+          );
           showDialog(
               context: context,
               builder: (context) => SyncWalletDialog(

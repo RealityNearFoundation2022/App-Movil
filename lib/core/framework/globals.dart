@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vector_math/vector_math.dart' as math;
 class ScreenWH {
@@ -89,7 +90,15 @@ String convertDateTimeToString(DateTime dateTime) {
   return "${dateTime.day}/${dateTime.month}/${dateTime.year}";
 }
 
+getPermissions() async {
+  // You can request multiple permissions at once.
+  Map<Permission, PermissionStatus> statuses = await [
+    Permission.location,
+    Permission.camera,
+  ].request();
 
+  return (statuses[Permission.location].isGranted && statuses[Permission.camera].isGranted) ? true : false;
+}
 
 double calculateDistanceMts(double lat1, double lng1, double lat2, double lng2) {
   int radiusEarth = 6371;
