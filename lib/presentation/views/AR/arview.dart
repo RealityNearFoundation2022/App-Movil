@@ -57,18 +57,17 @@ class _ARSectionState extends State<ARSection> {
   final GlobalKey _one = GlobalKey();
   final GlobalKey _two = GlobalKey();
 
-  List<String> tiempos = [
-    "11:00","11:30", "12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30"];
+  // List<String> tiempos = [
+  //   "11:00","11:30", "12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30"];
   LatLng positionAsset = LatLng(0, 0);
   bool inLocationRange = false;
-
+  // LatLng prueba  = LatLng(-12.10832018152336, -77.02465149021108);
 
   @override
   void dispose() {
     arSessionManager.dispose();
     super.dispose();
   }
-
 
   @override
   void initState() {
@@ -228,13 +227,15 @@ class _ARSectionState extends State<ARSection> {
     if(
         calculateDistanceMts(location.latitude, location.longitude,
             positionAsset.latitude, positionAsset.longitude)< 100){
+        // calculateDistanceMts(location.latitude, location.longitude,
+        //     prueba.latitude, prueba.longitude)< 100){
       setState(() {
         inLocationRange = true;
         print("CAMBIO - " + inLocationRange.toString());
       });
     }
 
-    if(tiempos.any((e) => e==getTimeHyM()) && inLocationRange ) {
+    if(inLocationRange ) {
       showDialog(context: context, builder: (context) => const PlaceDialog());
     }
   }

@@ -124,9 +124,25 @@ class _QrScreenState extends State<QrViewScreen> {
             height: ScreenWH(context).height * 0.02,
           ),
           _infoSection('Terminos y Condiciónes', cupon.terms),
+          // SizedBox(
+          //   height: ScreenWH(context).height * 0.02,
+          // ),
+          // SizedBox(
+          //   width: ScreenWH(context).width * 0.9,
+          //   child: Text(
+          //     'Válido hasta el ${cupon.expiration.day}/${cupon.expiration.month}/${cupon.expiration.year}',
+          //     textAlign: TextAlign.center,
+          //     style: GoogleFonts.sourceSansPro(
+          //       fontSize: 14,
+          //       fontWeight: FontWeight.w600,
+          //       color: greenPrimary2,
+          //     ),
+          //   ),
+          // ),
           SizedBox(
             height: ScreenWH(context).height * 0.05,
           ),
+
         ],
       ),
     );

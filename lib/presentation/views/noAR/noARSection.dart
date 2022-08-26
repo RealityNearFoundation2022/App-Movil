@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/core/helper/url_constants.dart';
 import 'package:reality_near/data/datasource/nearRPC/contracts.dart';
 import 'package:reality_near/data/repository/userRepository.dart';
 import 'package:reality_near/domain/entities/user.dart';
@@ -15,6 +16,7 @@ import 'package:reality_near/presentation/views/noAR/widgets/details_page.dart';
 import 'package:reality_near/presentation/views/walletScreen/receiveScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/transferScreen.dart';
 import 'package:reality_near/presentation/widgets/dialogs/syncWalletDialog.dart';
+import 'package:reality_near/presentation/widgets/dialogs/updateDialog.dart';
 import 'package:sizer/sizer.dart';
 
 class NoArSection extends StatefulWidget {

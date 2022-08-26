@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "Aceptar" : MessageLookupByLibrary.simpleMessage("Aceptar"),
+    "ActualizacionDesc" : MessageLookupByLibrary.simpleMessage("Recomendamos tener tu app actualizada para que puedas disfrutar de las ultimas novedades"),
+    "Actualizar" : MessageLookupByLibrary.simpleMessage("Actualizar"),
     "AdjuntarFoto" : MessageLookupByLibrary.simpleMessage("Adjuntar foto"),
     "Amigos" : MessageLookupByLibrary.simpleMessage("Amigos"),
     "Bienvenido" : MessageLookupByLibrary.simpleMessage("Bienvenido"),
@@ -43,7 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "CreaUna" : MessageLookupByLibrary.simpleMessage("Crea una"),
     "Cuenta" : MessageLookupByLibrary.simpleMessage("Cuenta"),
     "CuponInvalido" : MessageLookupByLibrary.simpleMessage("El cupón no es válido"),
-    "CuponRepetido" : MessageLookupByLibrary.simpleMessage("No se le puede asignar un cupón con el que ya cuenta"),
+    "CuponRepetido" : MessageLookupByLibrary.simpleMessage("El cupón no esta disponible en este momento"),
     "DatosIncompletos" : MessageLookupByLibrary.simpleMessage("Datos incompletos"),
     "Desconectado" : MessageLookupByLibrary.simpleMessage("Desconectado"),
     "DescribeFallo" : MessageLookupByLibrary.simpleMessage("Describe el fallo"),
@@ -76,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "NoTinesNotificaciones" : MessageLookupByLibrary.simpleMessage("No tienes notificaciones"),
     "Notificaciones" : MessageLookupByLibrary.simpleMessage("Notificaciones"),
     "Novedades" : MessageLookupByLibrary.simpleMessage("Novedades"),
+    "NuevaActualizacion" : MessageLookupByLibrary.simpleMessage("Nueva actualización"),
     "NuevosNFts" : MessageLookupByLibrary.simpleMessage("nuevosNFts"),
     "O" : MessageLookupByLibrary.simpleMessage("O"),
     "Obligatorio" : MessageLookupByLibrary.simpleMessage("Obligatorio"),
@@ -115,6 +118,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "btnLogWallet" : MessageLookupByLibrary.simpleMessage("Ingresa con tu wallet"),
     "copyClip" : MessageLookupByLibrary.simpleMessage("Copiado al portapapeles"),
     "failLogin" : MessageLookupByLibrary.simpleMessage("No se pudo Iniciar sesión, prueba de nuevo"),
+    "luego" : MessageLookupByLibrary.simpleMessage("Luego"),
     "noTienesUna" : MessageLookupByLibrary.simpleMessage("¿No tienes una? "),
     "recientes" : MessageLookupByLibrary.simpleMessage("Recientes"),
     "reciveDescrip" : MessageLookupByLibrary.simpleMessage("Send this address to the person who will send your Realities")

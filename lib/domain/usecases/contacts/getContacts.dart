@@ -28,7 +28,7 @@ class GetContactsUseCase {
     for (var contact in lstContactRequest) {
       User user = User();
       await _userRepo
-          .getUserById(contact.ownerId.toString())
+          .getUserById(contact.contactId.toString())
           .then((value) => value.fold(
                 (failure) => print(failure),
                 (success) => {user = success},

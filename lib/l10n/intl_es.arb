@@ -92,6 +92,10 @@
     "Intentardenuevo": "Intentalo de nuevo",
     "NoHayAmigos": "Aun no tienes amigos, puedes agregarlos con el botón de +",
     "Canjear": "Canjear",
-    "CuponRepetido": "No se le puede asignar un cupón con el que ya cuenta",
-    "CuponInvalido": "El cupón no es válido"
+    "CuponRepetido": "El cupón no esta disponible en este momento",
+    "CuponInvalido": "El cupón no es válido",
+    "NuevaActualizacion": "Nueva actualización",
+    "ActualizacionDesc": "Recomendamos tener tu app actualizada para que puedas disfrutar de las ultimas novedades",
+    "Actualizar": "Actualizar",
+    "luego": "Luego"
     }

@@ -93,5 +93,9 @@
     "NoHayAmigos": "You don't have friends yet, you can add them with the + button",
     "Canjear": "exchange",
     "CuponRepetido": "You dont have a repeated coupon",
-    "CuponInvalido": "Invalid coupon"
+    "CuponInvalido": "Invalid coupon",
+    "NuevaActualizacion": "New update",
+    "ActualizacionDesc": "We recommend having your app updated so you can enjoy the latest news",
+    "Actualizar": "Actualizar",
+    "luego": "Luego"
 }
