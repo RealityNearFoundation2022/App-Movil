@@ -207,14 +207,20 @@ class _QrScreenState extends State<QrViewScreen> {
     );
   }
 
+  _getOwnerId()async{
+    return await getPersistData("userId");
+  }
+
   _qrGenerator() {
+    String owner = _getOwnerId();
     return Center(
       child: QrImage(
-        data: cupon.id.toString(),
+        data: cupon.id.toString()+' | '+ owner,
         foregroundColor: greenPrimary,
         version: QrVersions.auto,
         size: ScreenWH(context).width * 0.5,
       ),
     );
+
   }
 }

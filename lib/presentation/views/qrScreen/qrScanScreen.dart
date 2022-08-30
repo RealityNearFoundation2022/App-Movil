@@ -30,8 +30,9 @@ class _QrScannScreenState extends State<QrScannScreen> {
     setState(() {
       _loadingValidate = true;
     });
-    String cuponId = result.code;
-    await RedeemCuponUseCase(cuponId).call().then((value) => value.fold(
+    String cuponId = result.code.split(' | ')[0];
+    String ownerId = result.code.split(' | ')[1];
+    await RedeemCuponUseCase(cuponId,ownerId).call().then((value) => value.fold(
         (l) => {
           setState(() {
             _loadingValidate = false;

@@ -6,9 +6,10 @@ import 'package:reality_near/data/repository/cuponRepository.dart';
 class RedeemCuponUseCase {
   final CuponRepository _repo = CuponRepository();
   final String cuponId;
-  RedeemCuponUseCase(this.cuponId);
+  final String ownerId;
+  RedeemCuponUseCase(this.cuponId,this.ownerId);
 
   Future<Either<Failure, AssignCuponModel>> call() async {
-    return await _repo.RedeemCupon(cuponId);
+    return await _repo.RedeemCupon(cuponId,ownerId);
   }
 }

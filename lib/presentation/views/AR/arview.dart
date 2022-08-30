@@ -216,7 +216,9 @@ class _ARSectionState extends State<ARSection> {
     this.arObjectManager.onNodeTap = onNodeTapped;
 
     var newNode = ARNode(
-        type: NodeType.webGLB, uri: UrlAr, scale: Vector3(0.2, 0.2, 0.2));
+        type: NodeType.webGLB, uri: UrlAr,
+        scale: Vector3(0.25, 0.25, 0.2),
+        position: Vector3(0, -0.3, -0.8));
     bool didAddWebNode = await this.arObjectManager.addNode(newNode);
 
   }

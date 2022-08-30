@@ -93,11 +93,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
         //Body
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 40.0),
           child: ListView(children: <Widget>[
             //Logo image
             Image.asset('assets/imgs/Logo_sin_fondo.png',
-                height: 150, width: 150),
+                height: 120, width: 120),
+            const SizedBox(height: 20),
+
             //Login form
             _txtFormEmail,
             const SizedBox(height: 20),
@@ -108,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             //AVATAR
             Container(
               alignment: Alignment.centerLeft,
-              child: Text("Select you avatar",
+              child: Text(S.current.selectAvatar,
                   textAlign: TextAlign.center,
                   style: GoogleFonts.sourceSansPro(
                       fontSize: 24,
@@ -118,12 +120,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             const SizedBox(height: 20),
             SizedBox(
-                height: ScreenWH(context).height * 0.28, child: selectAvatar()),
-            const SizedBox(height: 20),
+                height: ScreenWH(context).height * 0.26, child: selectAvatar()),
+
             //Button
             Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40),
+                  const EdgeInsets.symmetric(horizontal: 40),
               child: ButtonWithStates(
                   text: S.current.Registrate,
                   press: () {
@@ -188,14 +190,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 height: ScreenWH(context).height * 0.23,
                 width: ScreenWH(context).width * 0.24),
           ),
-          // Text(name,
-          //     textAlign: TextAlign.center,
-          //     style: GoogleFonts.sourceSansPro(
-          //         fontSize: avatarSelect[index] ? 22 : 20,
-          //         fontWeight:
-          //             avatarSelect[index] ? FontWeight.bold : FontWeight.w700,
-          //         color: avatarSelect[index] ? greenPrimary : txtPrimary,
-          //         decoration: TextDecoration.none))
         ],
       ),
     );

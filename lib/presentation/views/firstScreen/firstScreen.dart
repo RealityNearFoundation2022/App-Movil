@@ -64,26 +64,22 @@ class _FirstScreenState extends State<FirstScreen> {
         children: [
           _controller.value.isInitialized
               ? VideoPlayer(_controller) : loading(),
-           // Image.asset('assets/gift/IntroAppRN.gif',
-           //  fit: BoxFit.cover,
-           //  height: MediaQuery.of(context).size.height,
-           //  width: MediaQuery.of(context).size.width),
           //Logo image
           Container(
-            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 15),
             alignment: Alignment.topCenter,
             child: Image.asset('assets/imgs/Logo_sin_fondo.png',
                 height: 120, width: 120),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              color: Colors.white,
-              height: MediaQuery.of(context).size.height * 0.09,
-            ),
-          ),
+          // Align(
+          //   alignment: Alignment.bottomCenter,
+          //   child: Container(
+          //     color: Colors.white,
+          //     height: MediaQuery.of(context).size.height * 0.21,
+          //   ),
+          // ),
           Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.01,
+              bottom: MediaQuery.of(context).size.height * 0.06,
               child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: loginBtns(context))),
@@ -122,30 +118,43 @@ class _FirstScreenState extends State<FirstScreen> {
                 decoration: BoxDecoration(
                     color: greenPrimary,
                     borderRadius: BorderRadius.circular(30)),
-                child: Text(S.current.btnLogEmail,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.sourceSansPro(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        decoration: TextDecoration.none))),
+                child: Center(
+                  child: Text(S.current.btnLogEmail,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.sourceSansPro(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                          decoration: TextDecoration.none)),
+                )),
           ),
         ),
+        // const SizedBox(height: 10,),
 
-        //Register Text
-        GestureDetector(
-          onTap: (() => Navigator.pushNamed(context, RegisterScreen.routeName)),
-          child: Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                S.current.Registrate,
-                style: GoogleFonts.sourceSansPro(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.grey[400],
+
+        FittedBox(
+          child: GestureDetector(
+            onTap: (() => Navigator.pushNamed(context, RegisterScreen.routeName)),
+              child: Container(
+                alignment: Alignment.center,
+                  margin:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 85),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30)
                 ),
-              )),
+                child: Center(
+                  child: Text(S.current.Registrate,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.sourceSansPro(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          color: greenPrimary,
+                          decoration: TextDecoration.none)),
+                )),
+          ),
         ),
         const SizedBox(height: 15),
       ],

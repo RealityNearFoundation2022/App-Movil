@@ -94,7 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "QueDeseasQueMejoremos" : MessageLookupByLibrary.simpleMessage("¿Qué deseas que mejoremos?"),
     "Rechazar" : MessageLookupByLibrary.simpleMessage("Rechazar"),
     "Recibir" : MessageLookupByLibrary.simpleMessage("Recibir"),
-    "Registrate" : MessageLookupByLibrary.simpleMessage("Registrate"),
+    "Registrate" : MessageLookupByLibrary.simpleMessage("Regístrate"),
     "Reportar" : MessageLookupByLibrary.simpleMessage("Reportar"),
     "ReporteFallos" : MessageLookupByLibrary.simpleMessage("Reporte de Fallos"),
     "Si" : MessageLookupByLibrary.simpleMessage("Si"),
@@ -121,6 +121,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "luego" : MessageLookupByLibrary.simpleMessage("Luego"),
     "noTienesUna" : MessageLookupByLibrary.simpleMessage("¿No tienes una? "),
     "recientes" : MessageLookupByLibrary.simpleMessage("Recientes"),
-    "reciveDescrip" : MessageLookupByLibrary.simpleMessage("Send this address to the person who will send your Realities")
+    "reciveDescrip" : MessageLookupByLibrary.simpleMessage("Send this address to the person who will send your Realities"),
+    "selectAvatar" : MessageLookupByLibrary.simpleMessage("Selecciona tu avatar")
   };
 }

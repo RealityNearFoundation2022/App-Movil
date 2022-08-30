@@ -16,7 +16,6 @@ import 'package:reality_near/presentation/views/noAR/widgets/details_page.dart';
 import 'package:reality_near/presentation/views/walletScreen/receiveScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/transferScreen.dart';
 import 'package:reality_near/presentation/widgets/dialogs/syncWalletDialog.dart';
-import 'package:reality_near/presentation/widgets/dialogs/updateDialog.dart';
 import 'package:sizer/sizer.dart';
 
 class NoArSection extends StatefulWidget {

@@ -96,6 +96,7 @@
     "CuponInvalido": "Invalid coupon",
     "NuevaActualizacion": "New update",
     "ActualizacionDesc": "We recommend having your app updated so you can enjoy the latest news",
-    "Actualizar": "Actualizar",
-    "luego": "Luego"
+    "Actualizar": "Update",
+    "luego": "After",
+    "selectAvatar": "Select your avatar"
 }

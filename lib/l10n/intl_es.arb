@@ -4,7 +4,7 @@
     "noTienesUna": "¿No tienes una? ",
     "CreaUna": "Crea una",
     "O": "O",
-    "Registrate": "Registrate",
+    "Registrate": "Regístrate",
     "WalletOblig": "Wallet obligatoria",
     "EmailOblig":"Email obligatorio",
     "PasswordOblig":"Password obligatorio",
@@ -97,5 +97,6 @@
     "NuevaActualizacion": "Nueva actualización",
     "ActualizacionDesc": "Recomendamos tener tu app actualizada para que puedas disfrutar de las ultimas novedades",
     "Actualizar": "Actualizar",
-    "luego": "Luego"
+    "luego": "Luego",
+    "selectAvatar": "Selecciona tu avatar"
     }

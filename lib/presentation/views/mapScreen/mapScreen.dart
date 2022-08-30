@@ -61,7 +61,7 @@ class _MapContainerState extends State<MapContainer>
               shapeBorder: const CircleBorder(),
               child: AnimatedContainer(
                 duration: Duration(milliseconds: animatedDuration),
-                width: ScreenWH(context).width * (isOpen ? 0.8 : 0.1),
+                width: ScreenWH(context).width * (isOpen ? 0.8 : 0.16),
                 height: ScreenWH(context).height * (isOpen ? 0.5 : 0.09),
                 decoration: BoxDecoration(
                     color: isOpen ? Colors.white : Colors.transparent,
@@ -75,7 +75,7 @@ class _MapContainerState extends State<MapContainer>
                       seeContent ? const MapSection() : const SizedBox(),
                       Container(
                           alignment: Alignment.topRight,
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                           child: GestureDetector(
                             child: Icon(
                               isOpen

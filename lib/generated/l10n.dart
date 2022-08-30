@@ -1005,21 +1005,31 @@ class S {
     );
   }
 
-  /// `Actualizar`
+  /// `Update`
   String get Actualizar {
     return Intl.message(
-      'Actualizar',
+      'Update',
       name: 'Actualizar',
       desc: '',
       args: [],
     );
   }
 
-  /// `Luego`
+  /// `After`
   String get luego {
     return Intl.message(
-      'Luego',
+      'After',
       name: 'luego',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select your avatar`
+  String get selectAvatar {
+    return Intl.message(
+      'Select your avatar',
+      name: 'selectAvatar',
       desc: '',
       args: [],
     );

@@ -98,21 +98,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   //Header
                   header(),
                   //Map-Button
-                  Align(
-                      alignment: Alignment.bottomLeft,
+                  Positioned(
+                      bottom: MediaQuery.of(context).viewPadding.bottom ,
+                      left: MediaQuery.of(context).viewPadding.left,
                       child: MapContainer(
                         showCaseKey: _two,
                       )),
                   //Menu-Button
-                  Align(
-                      alignment: Alignment.bottomRight,
+                  Positioned(
+                      bottom: MediaQuery.of(context).viewPadding.bottom ,
+                      right: MediaQuery.of(context).viewPadding.right,
                       child: MenuContainer(
                         showCaseKey: _one,
                       )),
                   //Notifications
                   Positioned(
                       top: MediaQuery.of(context).viewPadding.top + 10,
-                      right: MediaQuery.of(context).size.height * 0.03,
+                      right: MediaQuery.of(context).viewPadding.right+15,
                       child: _notificatios(notifications)),
                   //Scanner QR
                   user.isSuperuser?? false ? Positioned(
@@ -178,14 +180,15 @@ class _HomeScreenState extends State<HomeScreen> {
       width: double.infinity,
       child: Column(
         children: [
+          // const SizedBox(height: 10,),
           Image.asset(
             "assets/imgs/Logo_sin_fondo.png",
             width: ScreenWH(context).width * 0.45,
             height: ScreenWH(context).height * 0.12,
           ),
           Container(
-            width: ScreenWH(context).width * 0.8,
             alignment: Alignment.centerRight,
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Showcase(
               key: _three,
               overlayPadding: const EdgeInsets.all(12),
@@ -207,17 +210,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.white,
               ),
               shapeBorder: const CircleBorder(),
-              child: CupertinoSwitch(
-                activeColor: greenPrimary,
-                value: status,
-                onChanged: (value) async {
-                  (await Permission.location.isGranted && await Permission.camera.isGranted) ?
-                  setState(() {
-                    status = value;
-                    Navigator.pushNamed(context, "/arView");
-                  })
-                  : showDialog(context: context, builder: (context) => const PermissionsDialog());
-                },
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(
+                    Icons.camera_alt,
+                    color: greenPrimary,
+                    size: ScreenWH(context).height * 0.04,
+                  ),
+                  const SizedBox(width: 10,),
+                  CupertinoSwitch(
+                    activeColor: greenPrimary,
+                    value: status,
+                    onChanged: (value) async {
+                      (await Permission.location.isGranted && await Permission.camera.isGranted) ?
+                      setState(() {
+                        status = value;
+                        Navigator.pushNamed(context, "/arView");
+                      })
+                      : showDialog(context: context, builder: (context) => const PermissionsDialog());
+                    },
+                  ),
+                ],
               ),
             ),
           ),
