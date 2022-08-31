@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "Aceptar" : MessageLookupByLibrary.simpleMessage("Accept"),
+    "ActualizacionDesc" : MessageLookupByLibrary.simpleMessage("We recommend having your app updated so you can enjoy the latest news"),
+    "Actualizar" : MessageLookupByLibrary.simpleMessage("Update"),
     "AdjuntarFoto" : MessageLookupByLibrary.simpleMessage("attach a photo"),
     "Amigos" : MessageLookupByLibrary.simpleMessage("Friends"),
     "Bienvenido" : MessageLookupByLibrary.simpleMessage("Welcome"),
@@ -76,6 +78,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "NoTinesNotificaciones" : MessageLookupByLibrary.simpleMessage("you don\'t have notifications"),
     "Notificaciones" : MessageLookupByLibrary.simpleMessage("Notifications"),
     "Novedades" : MessageLookupByLibrary.simpleMessage("News"),
+    "NuevaActualizacion" : MessageLookupByLibrary.simpleMessage("New update"),
     "NuevosNFts" : MessageLookupByLibrary.simpleMessage("New Nft\'s"),
     "O" : MessageLookupByLibrary.simpleMessage("Or"),
     "Obligatorio" : MessageLookupByLibrary.simpleMessage("Required"),
@@ -115,8 +118,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "btnLogWallet" : MessageLookupByLibrary.simpleMessage("Login with wallet"),
     "copyClip" : MessageLookupByLibrary.simpleMessage("Copied to clipboard"),
     "failLogin" : MessageLookupByLibrary.simpleMessage("Login failed, please try again"),
+    "luego" : MessageLookupByLibrary.simpleMessage("After"),
     "noTienesUna" : MessageLookupByLibrary.simpleMessage("You don\'t have a wallet yet? "),
     "recientes" : MessageLookupByLibrary.simpleMessage("Recents"),
-    "reciveDescrip" : MessageLookupByLibrary.simpleMessage("Send this address to the person who will send your Realities")
+    "reciveDescrip" : MessageLookupByLibrary.simpleMessage("Send this address to the person who will send your Realities"),
+    "selectAvatar" : MessageLookupByLibrary.simpleMessage("Select your avatar")
   };
 }

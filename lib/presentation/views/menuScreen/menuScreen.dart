@@ -65,7 +65,7 @@ class _MenuContainerState extends State<MenuContainer>
                     seeContent = isOpen;
                   });
                 },
-                width: ScreenWH(context).width * (isOpen ? 0.5 : 0.15),
+                width: ScreenWH(context).width * (isOpen ? 0.5 : 0.16),
                 height: ScreenWH(context).height * (isOpen ? 0.45 : 0.09),
                 decoration: BoxDecoration(
                     color: isOpen ? backgroundWhite : Colors.transparent,
@@ -77,7 +77,8 @@ class _MenuContainerState extends State<MenuContainer>
                   padding: const EdgeInsets.all(10),
                   child: Stack(
                     children: [
-                      Align(
+                      Container(
+                        padding: const EdgeInsets.only(right: 20),
                         alignment: Alignment.topLeft,
                         child: GestureDetector(
                           child: AnimatedIcon(

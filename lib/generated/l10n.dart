@@ -984,6 +984,56 @@ class S {
       args: [],
     );
   }
+
+  /// `New update`
+  String get NuevaActualizacion {
+    return Intl.message(
+      'New update',
+      name: 'NuevaActualizacion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We recommend having your app updated so you can enjoy the latest news`
+  String get ActualizacionDesc {
+    return Intl.message(
+      'We recommend having your app updated so you can enjoy the latest news',
+      name: 'ActualizacionDesc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Update`
+  String get Actualizar {
+    return Intl.message(
+      'Update',
+      name: 'Actualizar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `After`
+  String get luego {
+    return Intl.message(
+      'After',
+      name: 'luego',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select your avatar`
+  String get selectAvatar {
+    return Intl.message(
+      'Select your avatar',
+      name: 'selectAvatar',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

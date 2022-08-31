@@ -1,20 +1,21 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/domain/usecases/notifications/getNotifications.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
-import 'package:reality_near/presentation/views/AR/arview.dart';
 import 'package:reality_near/presentation/views/noAR/noARSection.dart';
 import 'package:reality_near/presentation/views/mapScreen/mapScreen.dart';
 import 'package:reality_near/presentation/views/menuScreen/menuScreen.dart';
-import 'package:screenshot/screenshot.dart';
 import 'package:showcaseview/showcaseview.dart';
-
+import 'package:upgrader/upgrader.dart';
 import '../../../data/repository/userRepository.dart';
 import '../../../domain/entities/user.dart';
+import '../../widgets/dialogs/PermissionsDialog.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home";
@@ -61,9 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
     ));
   }
 
+
+
   @override
   void initState() {
     super.initState();
+
     setState(() {
       status=false;
     });
@@ -80,61 +84,55 @@ class _HomeScreenState extends State<HomeScreen> {
         onWillPop: () async {
           return false;
         },
-        child: Scaffold(
-          body: Stack(
-            children: [
-              //Body@
-              // status
-              //     ? ARSection()
-              //     : Container(
-              //   margin: EdgeInsets.only(
-              //       bottom: 20, top: ScreenWH(context).height * 0.17),
-              //   height: ScreenWH(context).height * 0.95,
-              //   width: ScreenWH(context).width,
-              //   child: const NoArSection(),
-              // ),
-              Container(
-                margin: EdgeInsets.only(
-                    bottom: 20, top: ScreenWH(context).height * 0.17),
-                height: ScreenWH(context).height * 0.95,
-                width: ScreenWH(context).width,
-                child: const NoArSection(),
+        child:  UpgradeAlert(
+          child: Scaffold(
+              body: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(
+                        bottom: 20, top: ScreenWH(context).height * 0.17),
+                    height: ScreenWH(context).height * 0.95,
+                    width: ScreenWH(context).width,
+                    child: const NoArSection(),
+                  ),
+                  //Header
+                  header(),
+                  //Map-Button
+                  Positioned(
+                      bottom: MediaQuery.of(context).viewPadding.bottom ,
+                      left: MediaQuery.of(context).viewPadding.left,
+                      child: MapContainer(
+                        showCaseKey: _two,
+                      )),
+                  //Menu-Button
+                  Positioned(
+                      bottom: MediaQuery.of(context).viewPadding.bottom ,
+                      right: MediaQuery.of(context).viewPadding.right,
+                      child: MenuContainer(
+                        showCaseKey: _one,
+                      )),
+                  //Notifications
+                  Positioned(
+                      top: MediaQuery.of(context).viewPadding.top + 10,
+                      right: MediaQuery.of(context).viewPadding.right+15,
+                      child: _notificatios(notifications)),
+                  //Scanner QR
+                  user.isSuperuser?? false ? Positioned(
+                      top: MediaQuery.of(context).viewPadding.top,
+                      left: MediaQuery.of(context).size.height * 0.03,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/qrScannScreen');
+                        },
+                        icon: Icon(
+                          Icons.qr_code_scanner_outlined,
+                          color: greenPrimary,
+                          size: ScreenWH(context).height * 0.04,
+                        ),
+                      )) : Container(),
+                ],
               ),
-              //Header
-              header(),
-              //Map-Button
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: MapContainer(
-                    showCaseKey: _two,
-                  )),
-              //Menu-Button
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: MenuContainer(
-                    showCaseKey: _one,
-                  )),
-              //Notifications
-              Positioned(
-                  top: MediaQuery.of(context).viewPadding.top + 10,
-                  right: MediaQuery.of(context).size.height * 0.03,
-                  child: _notificatios(notifications)),
-              //Scanner QR
-              user.isSuperuser?? false ? Positioned(
-                  top: MediaQuery.of(context).viewPadding.top,
-                  left: MediaQuery.of(context).size.height * 0.03,
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/qrScannScreen');
-                    },
-                    icon: Icon(
-                      Icons.qr_code_scanner_outlined,
-                      color: greenPrimary,
-                      size: ScreenWH(context).height * 0.04,
-                    ),
-                  )) : Container(),
-            ],
-          ),
+            ),
         ),
       );
     }));
@@ -174,20 +172,23 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+
+
   Widget header() {
     return Container(
       margin: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
       width: double.infinity,
       child: Column(
         children: [
+          // const SizedBox(height: 10,),
           Image.asset(
             "assets/imgs/Logo_sin_fondo.png",
             width: ScreenWH(context).width * 0.45,
             height: ScreenWH(context).height * 0.12,
           ),
           Container(
-            width: ScreenWH(context).width * 0.8,
             alignment: Alignment.centerRight,
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Showcase(
               key: _three,
               overlayPadding: const EdgeInsets.all(12),
@@ -209,17 +210,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.white,
               ),
               shapeBorder: const CircleBorder(),
-              child: CupertinoSwitch(
-                activeColor: greenPrimary,
-                value: status,
-                onChanged: (value) {
-                  setState(() {
-                    status = value;
-                    Navigator.pushNamed(context, "/arView");
-                    // BlocProvider.of<MenuBloc>(context, listen: false)
-                    //     .add(value ? MenuOpenArViewEvent() : MenuCloseEvent());
-                  });
-                },
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(
+                    Icons.camera_alt,
+                    color: greenPrimary,
+                    size: ScreenWH(context).height * 0.04,
+                  ),
+                  const SizedBox(width: 10,),
+                  CupertinoSwitch(
+                    activeColor: greenPrimary,
+                    value: status,
+                    onChanged: (value) async {
+                      (await Permission.location.isGranted && await Permission.camera.isGranted) ?
+                      setState(() {
+                        status = value;
+                        Navigator.pushNamed(context, "/arView");
+                      })
+                      : showDialog(context: context, builder: (context) => const PermissionsDialog());
+                    },
+                  ),
+                ],
               ),
             ),
           ),

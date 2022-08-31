@@ -131,19 +131,26 @@ class _txtFormState extends State<TxtForm> {
               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
           .hasMatch(textFieldValue);
       validationMessage = widget.errorMessage ?? 'Email no es valido';
+      _isValidate = textFieldValue.isNotEmpty;
+      validationMessage = widget.errorMessage ?? 'Dato obligatorio';
     } else if (widget.inputType == InputType.Number) {
       //contact number validation
       _isValidate = textFieldValue.length == widget.maxLength;
       validationMessage = widget.errorMessage ?? 'Numero no es valido';
+      _isValidate = textFieldValue.isNotEmpty;
+      validationMessage = widget.errorMessage ?? 'Dato obligatorio';
     } else if (widget.inputType == InputType.Password) {
       //password validation
       _isValidate =
           RegExp(r'^(=.*[A-Z])(=.*[a-z])(=.*[0-9])(=.*[!@#\$&*~]).{8,}$')
               .hasMatch(textFieldValue);
       validationMessage = widget.errorMessage ?? 'Contraseña no es valido';
+      _isValidate = textFieldValue.isNotEmpty;
+      validationMessage = widget.errorMessage ?? 'Dato obligatorio';
+    } else if(widget.inputType == InputType.Default){
+      _isValidate = textFieldValue.isNotEmpty;
+      validationMessage = widget.errorMessage ?? 'Dato obligatorio';
     }
-    _isValidate = textFieldValue.isNotEmpty;
-    validationMessage = widget.errorMessage ?? 'Dato obligatorio';
   }
 
   // return input type for setting keyboard

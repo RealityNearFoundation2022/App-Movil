@@ -124,9 +124,25 @@ class _QrScreenState extends State<QrViewScreen> {
             height: ScreenWH(context).height * 0.02,
           ),
           _infoSection('Terminos y Condiciónes', cupon.terms),
+          // SizedBox(
+          //   height: ScreenWH(context).height * 0.02,
+          // ),
+          // SizedBox(
+          //   width: ScreenWH(context).width * 0.9,
+          //   child: Text(
+          //     'Válido hasta el ${cupon.expiration.day}/${cupon.expiration.month}/${cupon.expiration.year}',
+          //     textAlign: TextAlign.center,
+          //     style: GoogleFonts.sourceSansPro(
+          //       fontSize: 14,
+          //       fontWeight: FontWeight.w600,
+          //       color: greenPrimary2,
+          //     ),
+          //   ),
+          // ),
           SizedBox(
             height: ScreenWH(context).height * 0.05,
           ),
+
         ],
       ),
     );
@@ -191,14 +207,30 @@ class _QrScreenState extends State<QrViewScreen> {
     );
   }
 
+  Future<String> _getOwnerId()async{
+    return await getPersistData("userId");
+  }
+
   _qrGenerator() {
     return Center(
-      child: QrImage(
-        data: cupon.id.toString(),
-        foregroundColor: greenPrimary,
-        version: QrVersions.auto,
-        size: ScreenWH(context).width * 0.5,
-      ),
+        child: FutureBuilder<String>(
+          future: _getOwnerId(),
+          builder: (context, snapshot){
+            String owner = snapshot.data;
+            if(snapshot.hasData){
+              return QrImage(
+                data: cupon.id.toString() + ' | ' + owner,
+                foregroundColor: greenPrimary,
+                version: QrVersions.auto,
+                size: ScreenWH(context).width * 0.5,
+              );
+            }
+            return LoadingAnimationWidget.dotsTriangle(
+              color: greenPrimary,
+              size: ScreenWH(context).width * 0.3,
+            );
+          },
+        )
     );
   }
 }

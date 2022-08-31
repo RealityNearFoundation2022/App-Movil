@@ -12,7 +12,7 @@ abstract class CuponRemoteDataSource {
   Future<String> AssignCuponToUser(String cuponId);
   Future<List<AssignCuponModel>> ReadCuponFromUser();
   Future<CuponModel> ReadCupon(String cuponId);
-  Future<AssignCuponModel> RedeemCupon(String cuponId);
+  Future<AssignCuponModel> RedeemCupon(String cuponId,String ownerId);
 }
 
 class CuponRemoteDataSourceImpl extends CuponRemoteDataSource{
@@ -76,7 +76,8 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource{
     final response = await http.get(
       Uri.parse(url),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json; charset=UTF-8",
+        // 'Accept': 'application/json; charset=UTF-8',
         "Authorization": "Bearer $token",
       },
     );
@@ -92,8 +93,7 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource{
   }
 
   @override
-  Future<AssignCuponModel> RedeemCupon(String cuponId) async{
-    String ownerId = await getPersistData("userId");
+  Future<AssignCuponModel> RedeemCupon(String cuponId,String ownerId) async{
     String url = API_REALITY_NEAR + "coupons/redeem/$ownerId/$cuponId";
     String token = await getPersistData("userToken");
     final response = await http.put(
