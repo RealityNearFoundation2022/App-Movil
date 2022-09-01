@@ -19,8 +19,20 @@ With this app our users will be able to interact using augmented reality with ob
 - internationalization
 
 ## Screenshoots
+<p align="center" margin="20px">
 
-<img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/initScreen.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/Map.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/walltet%20NFT.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/FriendsChat.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/userInfoScreen.jpeg" alt="drawing" width="200"/> <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/AR.jpeg" alt="drawing" width="200"/> 
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/initScreen.jpeg" alt="drawing" width="200"/>
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/registerScreen.jpeg" alt="drawing" width="200"/>
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/loginScreen.jpeg" alt="drawing" width="200"/>
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/guideScreen.jpeg" alt="drawing" width="200"/> 
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/loginNearScreen.jpeg" alt="drawing" width="200"/> 
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/mapScreen.jpeg" alt="drawing" width="200"/>
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/AR.jpeg" alt="drawing" width="200"/> 
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/bugScreen.jpeg" alt="drawing" width="200"/>
+
+</p>
+
+
 ## More details
 ## _Wallet_
 *In this section the user will be able to view information about his Realitys and NFTs in his NEAR Wallet.*
@@ -110,9 +122,9 @@ The winning users of a coupon will see in the notifications section a screen whe
 
 <p align="center" margin="20px">
 
-  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/loginNearScreen.jpeg" alt="drawing" width="200"/> 
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/homeScreenWithNear.jpeg" alt="drawing" width="200"/> 
 
-  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/qrViewScreen.jpeg" alt="drawing" width="200"/>
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/newsScreen.jpeg" alt="drawing" width="200"/>
 
 </p>
 
@@ -121,6 +133,13 @@ The winning users of a coupon will see in the notifications section a screen whe
 
 ## _NEAR Protocol_
 *For the integration with the NEAR bolckchain we use the near_flutter library, this allows us to login with the user's NEAR wallet and thus obtain the token and wallet information to perform the queries needed in the blockchain. The queries are made mainly through the NEAR API calling contracts developed for the project that allow us to make transfers, query for the user's balance, query for the NFTs that belong to the user, etc.*
+
+<p align="center" margin="20px">
+
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/loginNearScreen.jpeg" alt="drawing" width="200"/> 
+
+
+</p>
 
 # Download
 <a href='https://play.google.com/store/apps/details?id=org.realitynear.reality_near&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="50%"/></a>
