@@ -55,6 +55,19 @@ To display the augmented reality asset we use the [ar_flutter_plugin](https://pu
 ### Tap
 When touching the augmented reality asset on the screen, we show a dialog concerning it where we give the user the option to redeem the prize obtained by capturing the asset.
 
+### Screenshoot
+users can take a screenshot of the asset, this image can be shared. for this purpose we are using the library [share_plus](https://pub.dev/packages/share_plus).
+
+<p align="center" margin="20px">
+
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/arScreen.jpeg" alt="drawing" width="200"/> 
+  
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/arSnapshootScreen.jpeg" alt="drawing" width="200"/> 
+
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/shareAR.jpeg" alt="drawing" width="200"/> 
+
+
+</p>
 
 ## _Multi language_
 *Our purpose is to make more people have access to this app, so we implemented the relevant translations for the moment in Spanish and English. This is possible by making use of internationalization concepts and the [flutter_localizations](https://docs.flutter.dev/development/accessibility-and-localization/internationalization) package.
@@ -131,13 +144,18 @@ The winning users of a coupon will see in the notifications section a screen whe
 ## _Notifications_
 *This section notifies users of new friend requests or new coupons purchased.*
 
+<p align="center" margin="20px">
+
+  <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/notificationScreen.jpeg" alt="drawing" width="200"/> 
+
+</p>
+
 ## _NEAR Protocol_
 *For the integration with the NEAR bolckchain we use the near_flutter library, this allows us to login with the user's NEAR wallet and thus obtain the token and wallet information to perform the queries needed in the blockchain. The queries are made mainly through the NEAR API calling contracts developed for the project that allow us to make transfers, query for the user's balance, query for the NFTs that belong to the user, etc.*
 
 <p align="center" margin="20px">
 
   <img src="https://github.com/RealityNearFoundation2022/App-Movil/blob/main/APP-Screenshoots/loginNearScreen.jpeg" alt="drawing" width="200"/> 
-
 
 </p>
 
