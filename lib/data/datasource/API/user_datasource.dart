@@ -40,7 +40,7 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
   }
 
   Future<List<User>> getUsers() async {
-    String url = API_REALITY_NEAR + "users/?skip=0&limit=100";
+    String url = API_REALITY_NEAR + "users/?skip=0&limit=250";
     String token = await getPersistData("userToken");
     final response = await http.get(
       Uri.parse(url),
@@ -85,29 +85,26 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
     }
   }
 
-  editUserData(String avatar, String username, String password) async{
+  editUserData(String avatar, String username, String password) async {
     String url = API_REALITY_NEAR + "users/me";
     String token = await getPersistData("userToken");
 
     Map data = {
       "full_name": username,
-      if(password.isNotEmpty)"password": password,
+      if (password.isNotEmpty) "password": password,
       "avatar": avatar,
     };
 
     var bodyData = json.encode(data);
 
-    final response = await http.put(
-      Uri.parse(url),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $token",
-      },
+    final response = await http.put(Uri.parse(url),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer $token",
+        },
         body: bodyData);
     //PARA VERIFICAR
     log.i(response.body);
     log.i(response.statusCode);
   }
-
-
 }

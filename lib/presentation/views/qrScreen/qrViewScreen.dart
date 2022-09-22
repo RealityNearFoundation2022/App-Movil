@@ -113,9 +113,9 @@ class _QrScreenState extends State<QrViewScreen> {
           SizedBox(
             height: ScreenWH(context).height * 0.01,
           ),
-          Center(
-            child: _partnerInfo(),
-          ),
+          // Center(
+          //   child: _partnerInfo(),
+          // ),
           SizedBox(
             height: ScreenWH(context).height * 0.03,
           ),
@@ -207,20 +207,30 @@ class _QrScreenState extends State<QrViewScreen> {
     );
   }
 
-  _getOwnerId()async{
+  Future<String> _getOwnerId()async{
     return await getPersistData("userId");
   }
 
   _qrGenerator() {
-    String owner = _getOwnerId();
     return Center(
-      child: QrImage(
-        data: cupon.id.toString()+' | '+ owner,
-        foregroundColor: greenPrimary,
-        version: QrVersions.auto,
-        size: ScreenWH(context).width * 0.5,
-      ),
+        child: FutureBuilder<String>(
+          future: _getOwnerId(),
+          builder: (context, snapshot){
+            String owner = snapshot.data;
+            if(snapshot.hasData){
+              return QrImage(
+                data: cupon.id.toString() + ' | ' + owner,
+                foregroundColor: greenPrimary,
+                version: QrVersions.auto,
+                size: ScreenWH(context).width * 0.5,
+              );
+            }
+            return LoadingAnimationWidget.dotsTriangle(
+              color: greenPrimary,
+              size: ScreenWH(context).width * 0.3,
+            );
+          },
+        )
     );
-
   }
 }

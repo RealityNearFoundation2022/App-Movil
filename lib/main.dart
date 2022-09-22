@@ -76,6 +76,7 @@ class MyApp extends StatelessWidget {
                     supportedLocales: S.delegate.supportedLocales,
                     initialRoute:
                         isLoggedIn ? HomeScreen.routeName : FirstScreen.routeName,
+                    // initialRoute:"/qrViewScreen",
                     routes: routes,
                   );
               },

@@ -166,7 +166,7 @@ class _FriendScreenState extends State<FriendScreen> {
           photo: contact.avatar,
           name: contact.fullName,
           message:
-              "Habla Juan, estaba jugando un rato por larcomar y no creeras lo que hay por aquí",
+              "Se el primero en saludar",
           time: "17:46 P.M.",
         );
       },

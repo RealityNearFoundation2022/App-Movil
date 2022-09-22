@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
-import 'package:reality_near/presentation/views/bugScreen/bugScreen.dart';
-import 'package:sizer/sizer.dart';
 
 import '../../../data/repository/userRepository.dart';
 import '../../../domain/entities/user.dart';
 import '../../widgets/forms/textForm.dart';
-import '../../widgets/others/snackBar.dart';
-import '../login/widgets/button_with_states.dart';
-import '../register/widgets/ConfirmDialog.dart';
 
 class userScreen extends StatefulWidget {
   //Variables
@@ -29,6 +22,7 @@ class _userScreenState extends State<userScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
   List<bool> avatarSelect = [false, false, false];
   User user = User();
@@ -54,15 +48,15 @@ class _userScreenState extends State<userScreen> {
     UserRepository().getMyData().then((value) => value.fold(
           (failure) => print(failure),
           (success) => {
-        setState(() {
-          user = success;
-          avatarSelect[pathAvatarSelected.indexWhere((element) => element == user.avatar)] = true;
-          loadingData=false;
-        }),
-      },
-    ));
+            setState(() {
+              user = success;
+              avatarSelect[pathAvatarSelected
+                  .indexWhere((element) => element == user.avatar)] = true;
+              loadingData = false;
+            }),
+          },
+        ));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +77,15 @@ class _userScreenState extends State<userScreen> {
       txtColor: txtPrimary,
       prefixIcon: const Icon(Icons.lock),
       errorMessage: S.current.PasswordOblig,
+    );
+//text-Form-mail
+    TxtForm _txtFormEmail = TxtForm(
+      placeholder: user.email,
+      controller: _emailController,
+      inputType: InputType.Email,
+      txtColor: txtPrimary,
+      prefixIcon: const Icon(Icons.mail),
+      errorMessage: S.current.Obligatorio,
     );
 
     return Scaffold(
@@ -109,75 +112,78 @@ class _userScreenState extends State<userScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: loadingData ? loading()
-            : ListView(
-            children: <Widget>[
-              Image.asset('assets/imgs/Logo_sin_fondo.png',
-                  height: 150, width: 150),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text("Edita tus datos",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.sourceSansPro(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w800,
-                        color: greenPrimary,
-                        decoration: TextDecoration.none)),
-              ),
-              const SizedBox(height: 20),
-              _txtFormUserName,
-              const SizedBox(height: 20),
-              _txtFormPassword,
-              const SizedBox(height: 20),
-              //AVATAR
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Text("Edita tú avatar",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.sourceSansPro(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w800,
-                        color: greenPrimary,
-                        decoration: TextDecoration.none)),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                  height: ScreenWH(context).height * 0.28, child: selectAvatar()),
-              const SizedBox(height: 20),
-              //Button
-              Padding(
-                padding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: greenPrimary,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        padding: const EdgeInsets.all(10),),
-                    child:  Text(
-                  S.current.Guardar,
-                  style: GoogleFonts.sourceSansPro(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white),
+        child: loadingData
+            ? loading()
+            : ListView(children: <Widget>[
+                Image.asset('assets/imgs/Logo_sin_fondo.png',
+                    height: 150, width: 150),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Edita tus datos",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.sourceSansPro(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w800,
+                          color: greenPrimary,
+                          decoration: TextDecoration.none)),
                 ),
-                    onPressed: () {
-                      // _userNameController.text = _userNameController.text.isEmpty ? user.fullName : _userNameController.text;
-                      //   showDialog(
-                      //       context: context,
-                      //       builder: (context) {
-                      //         return ConfirmUserDialog(
-                      //           username: _userNameController.text,
-                      //           avatar: pathSelectedAvatar,
-                      //           pressFunc: () {
-                      //             UserRepository().editUser(_passwordController.text, _userNameController.text, pathSelectedAvatar);
-                      //           },
-                      //         );
-                      //       });
-                    }
-              ),
-              ),
-            ]
-        ),
+                const SizedBox(height: 20),
+                _txtFormUserName,
+                const SizedBox(height: 20),
+                _txtFormEmail,
+                const SizedBox(height: 20),
+                _txtFormPassword,
+                const SizedBox(height: 20),
+                //AVATAR
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Edita tú avatar",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.sourceSansPro(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w800,
+                          color: greenPrimary,
+                          decoration: TextDecoration.none)),
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                    height: ScreenWH(context).height * 0.28,
+                    child: selectAvatar()),
+                const SizedBox(height: 20),
+                //Button
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 40),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: greenPrimary,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        padding: const EdgeInsets.all(10),
+                      ),
+                      child: Text(
+                        S.current.Guardar,
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white),
+                      ),
+                      onPressed: () {
+                        // _userNameController.text = _userNameController.text.isEmpty ? user.fullName : _userNameController.text;
+                        //   showDialog(
+                        //       context: context,
+                        //       builder: (context) {
+                        //         return ConfirmUserDialog(
+                        //           username: _userNameController.text,
+                        //           avatar: pathSelectedAvatar,
+                        //           pressFunc: () {
+                        //             UserRepository().editUser(_passwordController.text, _userNameController.text, pathSelectedAvatar);
+                        //           },
+                        //         );
+                        //       });
+                      }),
+                ),
+              ]),
       ),
       // body: Column(
       //   // crossAxisAlignment: CrossAxisAlignment.start,

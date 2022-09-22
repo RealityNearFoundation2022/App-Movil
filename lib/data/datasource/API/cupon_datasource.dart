@@ -76,7 +76,7 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource{
     final response = await http.get(
       Uri.parse(url),
       headers: {
-        'Accept': 'application/json; charset=UTF-8',
+        "Accept": "application/json; charset=UTF-8",
         "Authorization": "Bearer $token",
       },
     );
