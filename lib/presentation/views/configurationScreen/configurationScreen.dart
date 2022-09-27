@@ -8,6 +8,7 @@ import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/widgets/permisosDialog.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
+import 'package:reality_near/presentation/views/userProfile/ProfileScreen.dart';
 import 'package:reality_near/presentation/views/userScreen/userScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/walletScreen.dart';
 import 'package:sizer/sizer.dart';
@@ -66,7 +67,19 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
       body: Column(
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ExpansionMenu(context),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(ProfileScreen.routeName);
+            },
+            child: textAndIcon("Perfil", null),
+          ),
+          walletId.isEmpty
+              ? const SizedBox()
+              : GestureDetector(
+                  onTap: () =>
+                      Navigator.pushNamed(context, WalletScreen.routeName),
+                  child: textAndIcon(S.current.Wallet, null),
+                ),
           GestureDetector(
               onTap: (() {
                 showDialog(
@@ -109,62 +122,6 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
         ],
       ),
     );
-  }
-
-  Widget ExpansionMenu(BuildContext context) {
-    return Sizer(builder: (context, orientation, deviceType) {
-      return Align(
-        alignment: Alignment.centerRight,
-        child: SizedBox(
-          width: ScreenWH(context).width * 0.4,
-          child: Theme(
-            data: ThemeData().copyWith(dividerColor: Colors.transparent),
-            child: ExpansionTile(
-              collapsedTextColor: greenPrimary,
-              textColor: greenPrimary,
-              onExpansionChanged: (bool value) {
-                setState(() {
-                  isExpanded = value;
-                });
-              },
-              trailing: Icon(
-                isExpanded
-                    ? Icons.keyboard_arrow_up_rounded
-                    : Icons.keyboard_arrow_right_rounded,
-                color: greenPrimary,
-                size: 35,
-              ),
-              childrenPadding: const EdgeInsets.only(right: 15),
-              title: Text(
-                S.current.Cuenta,
-                style: GoogleFonts.sourceSansPro(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  color: greenPrimary,
-                ),
-              ),
-              children: <Widget>[
-                GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(userScreen.routeName);
-                    },
-                    child: txtSubMenu(S.current.Usuario)),
-                walletId.isEmpty
-                    ? const SizedBox()
-                    : GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                            context, WalletScreen.routeName),
-                        child: txtSubMenu(S.current.Wallet)),
-                GestureDetector(
-                    onTap: () =>
-                        Navigator.pushNamed(context, FriendScreen.routeName),
-                    child: txtSubMenu(S.current.Amigos))
-              ],
-            ),
-          ),
-        ),
-      );
-    });
   }
 
   Widget txtSubMenu(String txt) {

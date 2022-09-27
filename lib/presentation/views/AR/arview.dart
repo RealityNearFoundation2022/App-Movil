@@ -6,7 +6,6 @@ import 'package:ar_flutter_plugin/managers/ar_session_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_object_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_anchor_manager.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:ar_flutter_plugin/datatypes/config_planedetection.dart';
@@ -18,7 +17,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/models/assetModel.dart';
@@ -31,7 +29,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:vector_math/vector_math_64.dart';
 
 import '../../../core/helper/url_constants.dart';
-import '../../../providers/location_provider.dart';
 import '../mapScreen/widgets/placeDialog.dart';
 
 class ARSection extends StatefulWidget {
@@ -78,7 +75,7 @@ class _ARSectionState extends State<ARSection> {
 
   getAsset(String id) async {
     assetAR = await AssetRepository().getAsset(id);
-    UrlAr =API_REALITY_NEAR_IMGs + assetAR.path.split(" | ")[0];
+    UrlAr = API_REALITY_NEAR_IMGs + assetAR.path.split(" | ")[0];
     double latitude = double.parse(assetAR.path.split(" | ")[1].split(",")[0]);
     double longitude = double.parse(assetAR.path.split(" | ")[1].split(",")[1]);
     positionAsset = LatLng(latitude, longitude);
@@ -246,19 +243,19 @@ class _ARSectionState extends State<ARSection> {
   }
 
   //Function active when usser tap AR asset
-  Future<void> onNodeTapped(List<String> nodes) async{
+  Future<void> onNodeTapped(List<String> nodes) async {
     print("Node tapped: ${nodes.toString()} || ${inLocationRange.toString()}");
     var location = await getCurrentLocation();
-    if(
-    calculateDistanceMts(location.latitude, location.longitude,
-        positionAsset.latitude, positionAsset.longitude)< 100){
+    if (calculateDistanceMts(location.latitude, location.longitude,
+            positionAsset.latitude, positionAsset.longitude) <
+        100) {
       setState(() {
         inLocationRange = true;
         print("CAMBIO - " + inLocationRange.toString());
       });
     }
 
-    if(inLocationRange ) {
+    if (inLocationRange) {
       showDialog(context: context, builder: (context) => const PlaceDialog());
     }
   }

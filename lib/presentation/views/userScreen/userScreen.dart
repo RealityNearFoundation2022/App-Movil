@@ -185,47 +185,6 @@ class _userScreenState extends State<userScreen> {
                 ),
               ]),
       ),
-      // body: Column(
-      //   // crossAxisAlignment: CrossAxisAlignment.start,
-      //   children: [
-      //     const SizedBox(
-      //       height: 40,
-      //     ),
-      //     Container(
-      //       alignment: Alignment.centerRight,
-      //       margin: const EdgeInsets.only(right: 20, bottom: 10),
-      //       child: const CircleAvatar(
-      //         backgroundImage:
-      //             NetworkImage("https://picsum.photos/700/400?random"),
-      //         radius: 60,
-      //       ),
-      //     ),
-      //     textAndIcon('Username'),
-      //     textAndIcon('Avatar'),
-      //     // textAndIcon(S.current.VincularEmail),
-      //     Expanded(
-      //         child: Container(
-      //       alignment: Alignment.bottomRight,
-      //       margin: const EdgeInsets.only(bottom: 30, right: 20),
-      //       child: GestureDetector(
-      //         onTap: () {
-      //           BlocProvider.of<UserBloc>(context, listen: false)
-      //               .add(UserLogOutEvent());
-      //           Navigator.pushNamedAndRemoveUntil(
-      //               context, '/firstScreen', ModalRoute.withName('/'));
-      //         },
-      //         child: Text(
-      //           'Logout',
-      //           style: GoogleFonts.sourceCodePro(
-      //             fontSize: 18,
-      //             fontWeight: FontWeight.w700,
-      //             color: greenPrimary,
-      //           ),
-      //         ),
-      //       ),
-      //     )),
-      //   ],
-      // ),
     );
   }
 
@@ -282,14 +241,6 @@ class _userScreenState extends State<userScreen> {
                 height: ScreenWH(context).height * 0.23,
                 width: ScreenWH(context).width * 0.24),
           ),
-          // Text(name,
-          //     textAlign: TextAlign.center,
-          //     style: GoogleFonts.sourceSansPro(
-          //         fontSize: avatarSelect[index] ? 22 : 20,
-          //         fontWeight:
-          //         avatarSelect[index] ? FontWeight.bold : FontWeight.w700,
-          //         color: avatarSelect[index] ? greenPrimary : txtPrimary,
-          //         decoration: TextDecoration.none))
         ],
       ),
     );

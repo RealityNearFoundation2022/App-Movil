@@ -117,6 +117,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "btnLogEmail" : MessageLookupByLibrary.simpleMessage("Login with email"),
     "btnLogWallet" : MessageLookupByLibrary.simpleMessage("Login with wallet"),
     "copyClip" : MessageLookupByLibrary.simpleMessage("Copied to clipboard"),
+    "editar" : MessageLookupByLibrary.simpleMessage("Edit"),
     "failLogin" : MessageLookupByLibrary.simpleMessage("Login failed, please try again"),
     "luego" : MessageLookupByLibrary.simpleMessage("After"),
     "noTienesUna" : MessageLookupByLibrary.simpleMessage("You don\'t have a wallet yet? "),

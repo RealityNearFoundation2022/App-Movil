@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/views/userProfile/userProfile.dart';
+import 'package:reality_near/presentation/views/userProfile/chatUserProfile.dart';
 import 'package:reality_near/presentation/views/walletScreen/widgets/transactionDetail.dart';
 import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
 
@@ -31,63 +31,63 @@ class _TransferScreenState extends State<TransferScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          title: Container(
-            margin: const EdgeInsets.only(right: 10),
-            alignment: Alignment.centerRight,
-            child: Text(
-              S.current.Transferir + ' Realities',
-              style: GoogleFonts.sourceSansPro(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: greenPrimary,
-              ),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        title: Container(
+          margin: const EdgeInsets.only(right: 10),
+          alignment: Alignment.centerRight,
+          child: Text(
+            S.current.Transferir + ' Realities',
+            style: GoogleFonts.sourceSansPro(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: greenPrimary,
             ),
           ),
-          iconTheme: const IconThemeData(color: greenPrimary, size: 35),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
         ),
-        body: SoonScreen(),
-        // body: Column(
-        //   children: [
-        //     Container(
-        //       padding: const EdgeInsets.symmetric(horizontal: 10),
-        //       alignment: Alignment.centerLeft,
-        //       child: Text(
-        //         S.current.recientes,
-        //         style: GoogleFonts.sourceSansPro(
-        //           color: txtPrimary,
-        //           fontSize: 24,
-        //           fontWeight: FontWeight.w700,
-        //         ),
-        //         overflow: TextOverflow.ellipsis,
-        //       ),
-        //     ),
-        //     //Lista de amigos conectados
-        //     SizedBox(height: 125, child: RecentFriends()),
-        //     //Barra de busqueda
-        //     Padding(
-        //       padding: const EdgeInsets.symmetric(horizontal: 20),
-        //       child: Searchbar(
-        //           placeholder: S.current.BuscarUsuario,
-        //           controller: _searchController),
-        //     ),
-        //     // Lista de Chats
-        //     Expanded(
-        //         child: SizedBox(
-        //             height: MediaQuery.of(context).size.height,
-        //             child: chatList()))
-        //   ],
-        // )
+        iconTheme: const IconThemeData(color: greenPrimary, size: 35),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      body: SoonScreen(),
+      // body: Column(
+      //   children: [
+      //     Container(
+      //       padding: const EdgeInsets.symmetric(horizontal: 10),
+      //       alignment: Alignment.centerLeft,
+      //       child: Text(
+      //         S.current.recientes,
+      //         style: GoogleFonts.sourceSansPro(
+      //           color: txtPrimary,
+      //           fontSize: 24,
+      //           fontWeight: FontWeight.w700,
+      //         ),
+      //         overflow: TextOverflow.ellipsis,
+      //       ),
+      //     ),
+      //     //Lista de amigos conectados
+      //     SizedBox(height: 125, child: RecentFriends()),
+      //     //Barra de busqueda
+      //     Padding(
+      //       padding: const EdgeInsets.symmetric(horizontal: 20),
+      //       child: Searchbar(
+      //           placeholder: S.current.BuscarUsuario,
+      //           controller: _searchController),
+      //     ),
+      //     // Lista de Chats
+      //     Expanded(
+      //         child: SizedBox(
+      //             height: MediaQuery.of(context).size.height,
+      //             child: chatList()))
+      //   ],
+      // )
     );
   }
 
-  SoonScreen(){
+  SoonScreen() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,8 +107,7 @@ class _TransferScreenState extends State<TransferScreen> {
         ElevatedButton(
           onPressed: () => Navigator.of(context).pop(),
           style: ButtonStyle(
-            backgroundColor:
-            MaterialStateProperty.all<Color>(greenPrimary),
+            backgroundColor: MaterialStateProperty.all<Color>(greenPrimary),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0))),
             padding: MaterialStateProperty.all<EdgeInsets>(

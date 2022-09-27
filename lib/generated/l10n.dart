@@ -205,6 +205,16 @@ class S {
     );
   }
 
+  /// `Edit`
+  String get editar {
+    return Intl.message(
+      'Edit',
+      name: 'editar',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Menu`
   String get Menu {
     return Intl.message(
