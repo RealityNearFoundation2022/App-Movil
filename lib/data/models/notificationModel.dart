@@ -42,14 +42,11 @@ class NotificationModel {
 }
 
 class Data {
-  Data({
-    @required this.contactId,
-    @required this.username,
-  });
+  Data({@required this.contactId, @required this.username, this.userPhoto});
 
   final int contactId;
   final String username;
-
+  final String userPhoto;
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         contactId: json["contact_id"],
         username: json["username"],

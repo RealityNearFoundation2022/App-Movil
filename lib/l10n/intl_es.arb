@@ -98,5 +98,8 @@
     "ActualizacionDesc": "Recomendamos tener tu app actualizada para que puedas disfrutar de las ultimas novedades",
     "Actualizar": "Actualizar",
     "luego": "Luego",
-    "selectAvatar": "Selecciona tu avatar"
+    "selectAvatar": "Selecciona tu avatar",
+    "editar": "Editar",
+    "ChangePermission":"El cambio de permisos se debe hacer desde la sección de permisos en las configuraciones de tu dispositivo",
+    "irConfig": "Ir a configuraciones"
     }

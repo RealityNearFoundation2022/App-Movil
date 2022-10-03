@@ -205,6 +205,16 @@ class S {
     );
   }
 
+  /// `Edit`
+  String get editar {
+    return Intl.message(
+      'Edit',
+      name: 'editar',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Menu`
   String get Menu {
     return Intl.message(
@@ -1030,6 +1040,26 @@ class S {
     return Intl.message(
       'Select your avatar',
       name: 'selectAvatar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `to change permissions, please go to the configuration section of your device`
+  String get ChangePermission {
+    return Intl.message(
+      'to change permissions, please go to the configuration section of your device',
+      name: 'ChangePermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go to configuration`
+  String get irConfig {
+    return Intl.message(
+      'Go to configuration',
+      name: 'irConfig',
       desc: '',
       args: [],
     );

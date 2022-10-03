@@ -9,6 +9,7 @@ import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configurationScreen.dart';
+import 'package:reality_near/presentation/views/userProfile/ProfileScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/walletScreen.dart';
 import 'package:reality_near/presentation/widgets/dialogs/syncWalletDialog.dart';
 import 'package:sizer/sizer.dart';
@@ -138,19 +139,24 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
   Widget personCircle() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: CircleAvatar(
-        radius: 27.w,
-        child: usAvatar.isNotEmpty
-            ? Image.asset(
-                usAvatar,
-                fit: BoxFit.cover,
-              )
-            : Center(
-                child: LoadingAnimationWidget.dotsTriangle(
-                  color: Colors.white,
-                  size: ScreenWH(context).width * 0.2,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pushNamed(ProfileScreen.routeName);
+        },
+        child: CircleAvatar(
+          radius: 27.w,
+          child: usAvatar.isNotEmpty
+              ? Image.asset(
+                  usAvatar,
+                  fit: BoxFit.cover,
+                )
+              : Center(
+                  child: LoadingAnimationWidget.dotsTriangle(
+                    color: Colors.white,
+                    size: ScreenWH(context).width * 0.2,
+                  ),
                 ),
-              ),
+        ),
       ),
     );
   }

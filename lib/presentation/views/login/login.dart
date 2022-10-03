@@ -7,7 +7,6 @@ import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/login/widgets/button_with_states.dart';
 import 'package:reality_near/presentation/widgets/dialogs/errorAlertDialog.dart';
-import 'package:reality_near/presentation/widgets/dialogs/infoDialog.dart';
 import 'package:reality_near/presentation/widgets/dialogs/syncWalletDialog.dart';
 import 'package:reality_near/presentation/widgets/forms/textForm.dart';
 import 'package:reality_near/presentation/widgets/others/snackBar.dart';

@@ -48,7 +48,6 @@ class _PermisosDialogState extends State<PlaceDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       child: error
           ? errorView()
@@ -61,29 +60,32 @@ class _PermisosDialogState extends State<PlaceDialog> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Aniversario asociación Luta Livre Perú',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.sourceSansPro(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                          color: greenPrimary),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'INKA FC 35',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.sourceSansPro(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                            color: greenPrimary),
+                      ),
                     ),
-                    Container(
-                      height: ScreenWH(context).height * 0.28,
-                      width: ScreenWH(context).width * 0.6,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage('assets/imgs/lutaLivreAR.png'),
-                          fit: BoxFit.cover,
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/imgs/imgInkaFC35.png'),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
                     Center(
                       child: ElevatedButton(
-                        onPressed: () => _AssignCupon('1'),
+                        onPressed: () => _AssignCupon('2'),
                         style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(greenPrimary),
@@ -149,7 +151,9 @@ class _PermisosDialogState extends State<PlaceDialog> {
           SizedBox(
             width: ScreenWH(context).width * 0.6,
             child: Text(
-              errorMessage.isNotEmpty ? S.current.CuponRepetido : 'Error al canjear cupón',
+              errorMessage.isNotEmpty
+                  ? S.current.CuponRepetido
+                  : 'Error al canjear cupón',
               textAlign: TextAlign.center,
               style: GoogleFonts.sourceSansPro(
                   fontWeight: FontWeight.w600, fontSize: 16, color: txtPrimary),

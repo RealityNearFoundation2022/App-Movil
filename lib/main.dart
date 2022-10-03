@@ -30,7 +30,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -50,35 +49,35 @@ class MyApp extends StatelessWidget {
             onFinish: () => persistData('passInitGuide', 'true'),
             builder: Builder(
               builder: (context) {
-                return  MaterialApp(
-                    debugShowCheckedModeBanner: false,
-                    title: 'Reality Near',
-                    //Tema Principal, se usa cuando no está activo el modo oscuro
-                    theme: ThemeData(
-                      //Se indica que el tema tiene un brillo luminoso/claro
-                      brightness: Brightness.light,
-                      primarySwatch: Palette.kgreenNR,
-                    ),
-                    //Tema Oscuro, se usa cuando se activa el modo oscuro
-                    // darkTheme: ThemeData(
-                    //   //Se indica que el tema tiene un brillo oscuro
-                    //   brightness: Brightness.dark,
-                    //   scaffoldBackgroundColor: Colors.black,
-                    //   backgroundColor: Colors.black,
-                    //   primarySwatch: Palette.kgreenNR,
-                    // ),
-                    localizationsDelegates: const [
-                      S.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                    ],
-                    supportedLocales: S.delegate.supportedLocales,
-                    initialRoute:
-                        isLoggedIn ? HomeScreen.routeName : FirstScreen.routeName,
-                    // initialRoute:"/qrViewScreen",
-                    routes: routes,
-                  );
+                return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: 'Reality Near',
+                  //Tema Principal, se usa cuando no está activo el modo oscuro
+                  theme: ThemeData(
+                    //Se indica que el tema tiene un brillo luminoso/claro
+                    brightness: Brightness.light,
+                    primarySwatch: Palette.kgreenNR,
+                  ),
+                  //Tema Oscuro, se usa cuando se activa el modo oscuro
+                  // darkTheme: ThemeData(
+                  //   //Se indica que el tema tiene un brillo oscuro
+                  //   brightness: Brightness.dark,
+                  //   scaffoldBackgroundColor: Colors.black,
+                  //   backgroundColor: Colors.black,
+                  //   primarySwatch: Palette.kgreenNR,
+                  // ),
+                  localizationsDelegates: const [
+                    S.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: S.delegate.supportedLocales,
+                  initialRoute:
+                      isLoggedIn ? HomeScreen.routeName : FirstScreen.routeName,
+                  // initialRoute:"/qrViewScreen",
+                  routes: routes,
+                );
               },
             ),
           )),

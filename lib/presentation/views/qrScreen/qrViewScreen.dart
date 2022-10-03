@@ -113,9 +113,9 @@ class _QrScreenState extends State<QrViewScreen> {
           SizedBox(
             height: ScreenWH(context).height * 0.01,
           ),
-          Center(
-            child: _partnerInfo(),
-          ),
+          // Center(
+          //   child: _partnerInfo(),
+          // ),
           SizedBox(
             height: ScreenWH(context).height * 0.03,
           ),

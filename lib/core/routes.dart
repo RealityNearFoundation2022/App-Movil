@@ -14,7 +14,8 @@ import 'package:reality_near/presentation/views/notificationScreen/notificationS
 import 'package:reality_near/presentation/views/qrScreen/qrScanScreen.dart';
 import 'package:reality_near/presentation/views/qrScreen/qrViewScreen.dart';
 import 'package:reality_near/presentation/views/register/registerScreen.dart';
-import 'package:reality_near/presentation/views/userProfile/userProfile.dart';
+import 'package:reality_near/presentation/views/userProfile/ProfileScreen.dart';
+import 'package:reality_near/presentation/views/userProfile/chatUserProfile.dart';
 import 'package:reality_near/presentation/views/userScreen/userScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/receiveScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/transferScreen.dart';
@@ -34,7 +35,7 @@ final Map<String, WidgetBuilder> routes = {
   WalletScreen.routeName: (context) => const WalletScreen(),
   userScreen.routeName: (context) => userScreen(),
   RegisterScreen.routeName: (context) => const RegisterScreen(),
-  ReceiveScreen.routeName: (context) =>  ReceiveScreen(),
+  ReceiveScreen.routeName: (context) => ReceiveScreen(),
   TransferScreen.routeName: (context) => TransferScreen(),
   TransferDetail.routeName: (context) => TransferDetail(),
   UserProfile.routeName: (context) => UserProfile(),
@@ -43,4 +44,5 @@ final Map<String, WidgetBuilder> routes = {
   QrScannScreen.routeName: (context) => const QrScannScreen(),
   chatSoonScreen.routeName: (context) => const chatSoonScreen(),
   ARSection.routeName: (context) => const ARSection(),
+  ProfileScreen.routeName: (context) => const ProfileScreen(),
 };

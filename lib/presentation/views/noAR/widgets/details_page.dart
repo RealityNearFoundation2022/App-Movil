@@ -7,12 +7,9 @@ class EventDetailsPage extends StatelessWidget {
   final String title;
   final String eventImg;
   final String eventContent;
-  const EventDetailsPage({
-    Key key,
-    this.title,
-    this.eventImg,
-    this.eventContent
-  }) : super(key: key);
+  const EventDetailsPage(
+      {Key key, this.title, this.eventImg, this.eventContent})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +24,7 @@ class EventDetailsPage extends StatelessWidget {
                 child: ClipRRect(
                   child: Image.asset(
                     eventImg,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
@@ -60,23 +57,23 @@ class EventDetailsPage extends StatelessWidget {
                   ],
                 ),
               ),
-               Padding(
+              Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
-                child: title != "Aniversario de Luta Livre Perú" ? Text(
-                  eventContent,
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.sourceSansPro(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: txtPrimary),
-                ) :  _contentLuta(),
-              )
-              ,
+                child: title != "INKA FC 35"
+                    ? Text(
+                        eventContent,
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: txtPrimary),
+                      )
+                    : _contentLuta(),
+              ),
               const SizedBox(
                 height: 100,
               ),
-
             ],
           ),
         ),
@@ -85,56 +82,136 @@ class EventDetailsPage extends StatelessWidget {
     );
   }
 
-  _contentLuta(){
-    return  Column(
+  _contentLuta() {
+    return Column(
       children: [
         Text(
-          "¡Sigue disfrutando tu pasión por el deporte !¡Gana una entrada doble para el Inka FC 35!",
+          "¡No te pierdas el siguiente Inka FC y gana una entrada con Reality Near! Sé parte de los 10 ganadores de entradas para el siguiente Inka FC.",
           textAlign: TextAlign.left,
           style: GoogleFonts.sourceSansPro(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: txtPrimary),
+              fontSize: 16, fontWeight: FontWeight.w400, color: txtPrimary),
         ),
         const SizedBox(
           height: 10,
         ),
-        Text(
-          "A través de tu aplicativo Reality Near, usa la cámara y busca el logo de la asociación de Luta Livre. En determinadas horas del día, se activará la opción de poder capturarlo y podrás ganar 1 de las 10 entradas dobles para el Inka FC 35, el cual se llevará a cabo el 25 de setiembre del 2022.",
-          textAlign: TextAlign.left,
-          style: GoogleFonts.sourceSansPro(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: txtPrimary),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text("Para competir sigue los siguientes pasos:",
+            textAlign: TextAlign.left,
+            style: GoogleFonts.sourceSansPro(
+                fontSize: 16, fontWeight: FontWeight.w400, color: txtPrimary),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+          child: Text.rich(
+            TextSpan(
+                text: "1. Durante el Inka FC 35, ingresa al aplicativo de Reality Near y ",
+                style: GoogleFonts.sourceSansPro(
+                    fontSize: 16, fontWeight: FontWeight.w400, color: txtPrimary),
+                children: [
+                  TextSpan(
+                    text: 'activa el botón de la cámara',
+                    style: GoogleFonts.sourceSansPro(
+                        fontSize: 16, fontWeight: FontWeight.bold, color: txtPrimary),
+                  ),
+                  TextSpan(
+                    text: ' situado en la esquina superior derecha de la pantalla de inicio.',
+                    style: GoogleFonts.sourceSansPro(
+                        fontSize: 16, fontWeight: FontWeight.w400, color: txtPrimary),
+                  )
+                ]
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text.rich(
+            TextSpan(
+                text: "2. Deberás ",
+                style: GoogleFonts.sourceSansPro(
+                    fontSize: 16, fontWeight: FontWeight.w400, color: txtPrimary),
+                children: [
+                  TextSpan(
+                    text: 'buscar con tu cámara el cinturón',
+                    style: GoogleFonts.sourceSansPro(
+                        fontSize: 16, fontWeight: FontWeight.bold, color: txtPrimary),
+                  ),
+                  TextSpan(
+                    text: ', el cual estará habilitado para reclamar en distintas horas del día, así que no te duermas.',
+                    style: GoogleFonts.sourceSansPro(
+                        fontSize: 16, fontWeight: FontWeight.w400, color: txtPrimary),
+                  )
+                ]
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text.rich(
+            TextSpan(
+                text: "3. Una vez encontrado el cinturón, presionalo, y dale al ",
+                style: GoogleFonts.sourceSansPro(
+                    fontSize: 16, fontWeight: FontWeight.w400, color: txtPrimary),
+                children: [
+                  TextSpan(
+                    text: 'botón de canjear',
+                    style: GoogleFonts.sourceSansPro(
+                        fontSize: 16, fontWeight: FontWeight.bold, color: txtPrimary),
+                  ),
+                  TextSpan(
+                    text: '. Después de presionarlo, si no está activo el premio, te saldrá un mensaje para seguir participando. Pero, si tienes suerte, y el premio está activo en ese momento, ¡ganaste una de las ',
+                    style: GoogleFonts.sourceSansPro(
+                        fontSize: 16, fontWeight: FontWeight.w400, color: txtPrimary),
+                  ),
+                  TextSpan(
+                    text: '10 entradas',
+                    style: GoogleFonts.sourceSansPro(
+                        fontSize: 16, fontWeight: FontWeight.bold, color: txtPrimary),
+                  ),
+                  TextSpan(
+                    text: ' para el',
+                    style: GoogleFonts.sourceSansPro(
+                        fontSize: 16, fontWeight: FontWeight.w400, color: txtPrimary),
+                  ),
+                  TextSpan(
+                    text: ' Inka FC 36!',
+                    style: GoogleFonts.sourceSansPro(
+                        fontSize: 16, fontWeight: FontWeight.bold, color: txtPrimary),
+                  ),
+                ]
+            ),
+          ),
         ),
         const SizedBox(
           height: 10,
         ),
-        Text(
-          "Si eres uno de los afortunados ganadores, obtendrás en tus notificaciones, un código QR. Deberás mostrar el QR a uno de los encargados y brindarle tus datos. El mismo día del evento, se dará a conocer el nombre de los ganadores y se realizará el registro con los datos personales. Las entradas no son transferibles.",
-          textAlign: TextAlign.left,
-          style: GoogleFonts.sourceSansPro(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: txtPrimary),
+        Text.rich(
+          TextSpan(
+            text: "Si eres uno de los afortunados ganadores, verás el mensaje correspondiente y, si no, uno que indica que el premio no está disponible. Pero no te desanimes, ",
+            style: GoogleFonts.sourceSansPro(
+                fontSize: 16, fontWeight: FontWeight.w400, color: txtPrimary),
+              children: <InlineSpan>[
+                TextSpan(
+                  text: '¡sigue peleando!',
+                  style: GoogleFonts.sourceSansPro(
+                      fontSize: 16, fontWeight: FontWeight.bold, color: txtPrimary),
+                )
+              ]
+          ),
         ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          "¡Muchas suerte!",
-          textAlign: TextAlign.left,
-          style: GoogleFonts.sourceSansPro(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-              color: txtPrimary),
-        ),
+
+        // Text(
+        //   "¡Muchas suerte!",
+        //   textAlign: TextAlign.left,
+        //   style: GoogleFonts.sourceSansPro(
+        //       fontSize: 16, fontWeight: FontWeight.w400, color: txtPrimary),
+        // ),
       ],
     );
   }
 
-  
-  _footter(BuildContext context){
+  _footter(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -142,8 +219,8 @@ class EventDetailsPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back_ios,
-                color: greenPrimary, size: 35),
+            icon:
+                const Icon(Icons.arrow_back_ios, color: greenPrimary, size: 35),
             onPressed: () => Navigator.of(context).pop(),
           ),
           // ElevatedButton(

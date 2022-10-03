@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +7,7 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/domain/usecases/notifications/getNotifications.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
-import 'package:reality_near/presentation/views/noAR/noARSection.dart';
+import 'package:reality_near/presentation/views/noAR/no_ar_section.dart';
 import 'package:reality_near/presentation/views/mapScreen/mapScreen.dart';
 import 'package:reality_near/presentation/views/menuScreen/menuScreen.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -51,25 +50,23 @@ class _HomeScreenState extends State<HomeScreen> {
         (r) => setState(() => notifications = r)));
   }
 
-  _isSuperUSer(){
+  _isSuperUSer() {
     UserRepository().getMyData().then((value) => value.fold(
           (failure) => print(failure),
           (success) => {
-        setState(() {
-          user = success;
-        }),
-      },
-    ));
+            setState(() {
+              user = success;
+            }),
+          },
+        ));
   }
-
-
 
   @override
   void initState() {
     super.initState();
 
     setState(() {
-      status=false;
+      status = false;
     });
     BlocProvider.of<MenuBloc>(context, listen: false).add(MenuCloseEvent());
     _viewGuide();
@@ -84,55 +81,57 @@ class _HomeScreenState extends State<HomeScreen> {
         onWillPop: () async {
           return false;
         },
-        child:  UpgradeAlert(
+        child: UpgradeAlert(
           child: Scaffold(
-              body: Stack(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(
-                        bottom: 20, top: ScreenWH(context).height * 0.17),
-                    height: ScreenWH(context).height * 0.95,
-                    width: ScreenWH(context).width,
-                    child: const NoArSection(),
-                  ),
-                  //Header
-                  header(),
-                  //Map-Button
-                  Positioned(
-                      bottom: MediaQuery.of(context).viewPadding.bottom ,
-                      left: MediaQuery.of(context).viewPadding.left,
-                      child: MapContainer(
-                        showCaseKey: _two,
-                      )),
-                  //Menu-Button
-                  Positioned(
-                      bottom: MediaQuery.of(context).viewPadding.bottom ,
-                      right: MediaQuery.of(context).viewPadding.right,
-                      child: MenuContainer(
-                        showCaseKey: _one,
-                      )),
-                  //Notifications
-                  Positioned(
-                      top: MediaQuery.of(context).viewPadding.top + 10,
-                      right: MediaQuery.of(context).viewPadding.right+15,
-                      child: _notificatios(notifications)),
-                  //Scanner QR
-                  user.isSuperuser?? false ? Positioned(
-                      top: MediaQuery.of(context).viewPadding.top,
-                      left: MediaQuery.of(context).size.height * 0.03,
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/qrScannScreen');
-                        },
-                        icon: Icon(
-                          Icons.qr_code_scanner_outlined,
-                          color: greenPrimary,
-                          size: ScreenWH(context).height * 0.04,
-                        ),
-                      )) : Container(),
-                ],
-              ),
+            body: Stack(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(
+                      bottom: 20, top: ScreenWH(context).height * 0.17),
+                  height: ScreenWH(context).height * 0.95,
+                  width: ScreenWH(context).width,
+                  child: const NoArSection(),
+                ),
+                //Header
+                header(),
+                //Map-Button
+                Positioned(
+                    bottom: MediaQuery.of(context).viewPadding.bottom,
+                    left: MediaQuery.of(context).viewPadding.left,
+                    child: MapContainer(
+                      showCaseKey: _two,
+                    )),
+                //Menu-Button
+                Positioned(
+                    bottom: MediaQuery.of(context).viewPadding.bottom,
+                    right: MediaQuery.of(context).viewPadding.right,
+                    child: MenuContainer(
+                      showCaseKey: _one,
+                    )),
+                //Notifications
+                Positioned(
+                    top: MediaQuery.of(context).viewPadding.top + 10,
+                    right: MediaQuery.of(context).viewPadding.right + 15,
+                    child: _notificatios(notifications)),
+                //Scanner QR
+                user.isSuperuser ?? false
+                    ? Positioned(
+                        top: MediaQuery.of(context).viewPadding.top,
+                        left: MediaQuery.of(context).size.height * 0.03,
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/qrScannScreen');
+                          },
+                          icon: Icon(
+                            Icons.qr_code_scanner_outlined,
+                            color: greenPrimary,
+                            size: ScreenWH(context).height * 0.04,
+                          ),
+                        ))
+                    : Container(),
+              ],
             ),
+          ),
         ),
       );
     }));
@@ -171,8 +170,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-
 
   Widget header() {
     return Container(
@@ -219,17 +216,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: greenPrimary,
                     size: ScreenWH(context).height * 0.04,
                   ),
-                  const SizedBox(width: 10,),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   CupertinoSwitch(
                     activeColor: greenPrimary,
                     value: status,
                     onChanged: (value) async {
-                      (await Permission.location.isGranted && await Permission.camera.isGranted) ?
-                      setState(() {
-                        status = value;
-                        Navigator.pushNamed(context, "/arView");
-                      })
-                      : showDialog(context: context, builder: (context) => const PermissionsDialog());
+                      (await Permission.location.isGranted &&
+                              await Permission.camera.isGranted)
+                          ? setState(() {
+                              status = value;
+                              Navigator.pushNamed(context, "/arView");
+                            })
+                          : showDialog(
+                              context: context,
+                              builder: (context) => const PermissionsDialog());
                     },
                   ),
                 ],

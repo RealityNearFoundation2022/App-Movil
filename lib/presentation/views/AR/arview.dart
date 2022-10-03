@@ -6,7 +6,6 @@ import 'package:ar_flutter_plugin/managers/ar_session_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_object_manager.dart';
 import 'package:ar_flutter_plugin/managers/ar_anchor_manager.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:ar_flutter_plugin/ar_flutter_plugin.dart';
 import 'package:ar_flutter_plugin/datatypes/config_planedetection.dart';
@@ -18,7 +17,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/models/assetModel.dart';
@@ -26,11 +24,12 @@ import 'package:reality_near/data/repository/assetRepository.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/mapScreen/mapScreen.dart';
 import 'package:reality_near/presentation/views/menuScreen/menuScreen.dart';
+import 'package:reality_near/presentation/widgets/others/snackBar.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:vector_math/vector_math_64.dart';
 
-import '../../../providers/location_provider.dart';
+import '../../../core/helper/url_constants.dart';
 import '../mapScreen/widgets/placeDialog.dart';
 
 class ARSection extends StatefulWidget {
@@ -68,73 +67,74 @@ class _ARSectionState extends State<ARSection> {
 
   @override
   void initState() {
-    getAsset("2").then((result) async {
-      setState(() { });
+    getAsset("6").then((result) async {
+      setState(() {});
     });
     onWebObjectAtOriginButtonPressed();
-    Provider.of<LocationProvider>(context, listen: false).initialization();
     super.initState();
   }
-  
-  getAsset(String id) async{
+
+  getAsset(String id) async {
     assetAR = await AssetRepository().getAsset(id);
-    UrlAr = assetAR.path.split(" | ")[0];
+    UrlAr = API_REALITY_NEAR_IMGs + assetAR.path.split(" | ")[0];
     double latitude = double.parse(assetAR.path.split(" | ")[1].split(",")[0]);
     double longitude = double.parse(assetAR.path.split(" | ")[1].split(",")[1]);
     positionAsset = LatLng(latitude, longitude);
     loadDataAPI = false;
   }
 
-
   @override
   Widget build(BuildContext context) {
-
-      return WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
-        child: Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
           body: Stack(
-            children: [
-              loadDataAPI  ? loading()
-                  : ARView(
-                onARViewCreated: onARViewCreated,
-                planeDetectionConfig: PlaneDetectionConfig.horizontalAndVertical,
-              ),
-              header(),
-              //Map-Button
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: MapContainer(
-                    showCaseKey: _two,
-                  )),
-              //Menu-Button
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: MenuContainer(
-                    showCaseKey: _one,
-                  )),
-              Positioned(
-                left: ScreenWH(context).width * 0.4,
-                bottom: ScreenWH(context).height * 0.04,
-                //Button Cammera
-                child: SizedBox(
-                  width: ScreenWH(context).width * 0.18,
-                  height: ScreenWH(context).height * 0.08,
-                  child: FloatingActionButton(
-                    backgroundColor: greenPrimary,
-                    onPressed: () {
-                      onTakeScreenshot();
-                    },
-                    child:  Icon(Icons.camera_alt, color:const Color.fromARGB(
-                        255, 255, 255, 255), size: ScreenWH(context).width * 0.1,),
-                  ),
+        children: [
+          loadDataAPI
+              ? loading()
+              : ARView(
+                  onARViewCreated: onARViewCreated,
+                  planeDetectionConfig:
+                      PlaneDetectionConfig.horizontalAndVertical,
                 ),
-              ) ,
-            ],
-          )
-        ),
-      );
+          header(),
+          //Map-Button
+          Align(
+              alignment: Alignment.bottomLeft,
+              child: MapContainer(
+                showCaseKey: _two,
+              )),
+          //Menu-Button
+          Align(
+              alignment: Alignment.bottomRight,
+              child: MenuContainer(
+                showCaseKey: _one,
+              )),
+          Positioned(
+            left: ScreenWH(context).width * 0.4,
+            bottom: ScreenWH(context).height * 0.04,
+            //Button Cammera
+            child: SizedBox(
+              width: ScreenWH(context).width * 0.18,
+              height: ScreenWH(context).height * 0.08,
+              child: FloatingActionButton(
+                backgroundColor: greenPrimary,
+                onPressed: () {
+                  onTakeScreenshot();
+                },
+                child: Icon(
+                  Icons.camera_alt,
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  size: ScreenWH(context).width * 0.1,
+                ),
+              ),
+            ),
+          ),
+        ],
+      )),
+    );
   }
 
   //Loading Screen
@@ -163,31 +163,46 @@ class _ARSectionState extends State<ARSection> {
     );
   }
 
-  //Header with icon logo and Switch for AR
+
   Widget header() {
     return Container(
       margin: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
       width: double.infinity,
       child: Column(
         children: [
+          // const SizedBox(height: 10,),
           Image.asset(
             "assets/imgs/Logo_sin_fondo.png",
             width: ScreenWH(context).width * 0.45,
             height: ScreenWH(context).height * 0.12,
           ),
           Container(
-            width: ScreenWH(context).width * 0.8,
             alignment: Alignment.centerRight,
-            child: CupertinoSwitch(
-              activeColor: greenPrimary,
-              value: status,
-              onChanged: (value) {
-                setState(() {
-                  status = value;
-                    arSessionManager.dispose();
-                  Navigator.pushNamed(context, "/home");
-                });
-              },
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Icon(
+                  Icons.camera_alt,
+                  color: greenPrimary,
+                  size: ScreenWH(context).height * 0.04,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                CupertinoSwitch(
+                  activeColor: greenPrimary,
+                  value: status,
+                  onChanged: (value) {
+                    setState(() {
+                      status = value;
+                      arSessionManager.dispose();
+                      Navigator.pushNamed(context, "/home");
+                    });
+                  },
+                ),
+              ],
             ),
           ),
         ],
@@ -197,7 +212,6 @@ class _ARSectionState extends State<ARSection> {
 
   //When call this function, add a ARNode with networkAsset (UrlAr) type .glb
   Future<void> onARViewCreated(
-
       ARSessionManager arSessionManager,
       ARObjectManager arObjectManager,
       ARAnchorManager arAnchorManager,
@@ -216,27 +230,27 @@ class _ARSectionState extends State<ARSection> {
     this.arObjectManager.onNodeTap = onNodeTapped;
 
     var newNode = ARNode(
-        type: NodeType.webGLB, uri: UrlAr,
+        type: NodeType.webGLB,
+        uri: UrlAr,
         scale: Vector3(0.25, 0.25, 0.2),
         position: Vector3(0, -0.3, -0.8));
     bool didAddWebNode = await this.arObjectManager.addNode(newNode);
-
   }
 
   //Function active when usser tap AR asset
-  Future<void> onNodeTapped(List<String> nodes) async{
+  Future<void> onNodeTapped(List<String> nodes) async {
     print("Node tapped: ${nodes.toString()} || ${inLocationRange.toString()}");
     var location = await getCurrentLocation();
-    if(
-        calculateDistanceMts(location.latitude, location.longitude,
-            positionAsset.latitude, positionAsset.longitude)< 100){
+    if (calculateDistanceMts(location.latitude, location.longitude,
+            positionAsset.latitude, positionAsset.longitude) <
+        100) {
       setState(() {
         inLocationRange = true;
         print("CAMBIO - " + inLocationRange.toString());
       });
     }
 
-    if(inLocationRange ) {
+    if (inLocationRange) {
       showDialog(context: context, builder: (context) => const PlaceDialog());
     }
   }
@@ -244,12 +258,11 @@ class _ARSectionState extends State<ARSection> {
   //Function to take screenshot and share image
   Future<void> onTakeScreenshot() async {
     var capture = await arSessionManager.snapshot();
-
     await showDialog(
         context: context,
         builder: (_) => Dialog(
-            shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0)),
             child: FittedBox(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -277,7 +290,8 @@ class _ARSectionState extends State<ARSection> {
                             height: MediaQuery.of(context).size.height * 0.6,
                             decoration: BoxDecoration(
                               image: DecorationImage(image: capture),
-                              borderRadius: BorderRadius.circular(20.0),),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
                           ),
                           Positioned(
                             top: 10,
@@ -288,11 +302,9 @@ class _ARSectionState extends State<ARSection> {
                               height: ScreenWH(context).height * 0.08,
                             ),
                           ),
-
                         ],
                       ),
                     ),
-
                     const SizedBox(
                       height: 10,
                     ),
@@ -301,15 +313,16 @@ class _ARSectionState extends State<ARSection> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          button(S.current.Confirmar, () async{
+                          button(S.current.Confirmar, () async {
                             //Take Screenshot
                             final image = await screenshotController.capture();
                             //Save Screenshot
-                            if(image != null){
-                              await saveAndShare(image);
+                            if (image != null) {
+                              await saveimage(image);
                             }
-                          },  greenPrimary),
-                          button(S.current.Volver, () => Navigator.pop(context),  const Color.fromRGBO(183, 182, 182, 1.0)),
+                          }, greenPrimary),
+                          button(S.current.Volver, () => Navigator.pop(context),
+                              const Color.fromRGBO(183, 182, 182, 1.0)),
                         ],
                       ),
                     ),
@@ -353,24 +366,17 @@ class _ARSectionState extends State<ARSection> {
     }
   }
 
-  Future<String> saveImage(Uint8List bytes) async{
-    await [Permission.storage].request();
-    final time = DateTime.now().toIso8601String()
+  Future<bool> saveimage(Uint8List bytes) async {
+    final directory = await getApplicationDocumentsDirectory();
+    String time = DateTime.now()
+        .toIso8601String()
         .replaceAll(':', '-')
         .replaceAll('.', '-');
-    final name = 'RealityNear_SS_$time';
-    final result = await ImageGallerySaver.saveImage(bytes, name: name);
-
-    return result['filePath'];
-  }
-
-  Future saveAndShare(Uint8List bytes) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final image = File('${directory.path}/flutter.png');
+    final image = File('${directory.path}/realityNearSS$time.png');
     image.writeAsBytes(bytes);
-
-    await Share.shareFiles([image.path]);
+    await ImageGallerySaver.saveFile(image.path).whenComplete(() => showSnackBar(context, "Imagen Guardada", false));
   }
+
 
 
 }
