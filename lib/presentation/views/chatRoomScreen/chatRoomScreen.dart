@@ -50,7 +50,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     types.PreviewData previewData,
   ) {
     final index = _messages.indexWhere((element) => element.id == message.id);
-    final updatedMessage = _messages[index].copyWith(previewData: previewData);
+    final updatedMessage = _messages[index].copyWith();
 
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       setState(() {

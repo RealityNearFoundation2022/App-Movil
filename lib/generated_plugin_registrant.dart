@@ -7,7 +7,7 @@
 
 import 'package:device_info_plus_web/device_info_plus_web.dart';
 import 'package:flutter_native_splash/flutter_native_splash_web.dart';
-import 'package:geolocator_web/geolocator_web.dart';
+// import 'package:geolocator_web/geolocator_web.dart';
 import 'package:location_web/location_web.dart';
 import 'package:package_info_plus_web/package_info_plus_web.dart';
 import 'package:share_plus_web/share_plus_web.dart';
@@ -21,7 +21,7 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 void registerPlugins(Registrar registrar) {
   DeviceInfoPlusPlugin.registerWith(registrar);
   FlutterNativeSplashWeb.registerWith(registrar);
-  GeolocatorPlugin.registerWith(registrar);
+  // GeolocatorPlugin.registerWith(registrar);
   LocationWebPlugin.registerWith(registrar);
   PackageInfoPlugin.registerWith(registrar);
   SharePlusPlugin.registerWith(registrar);

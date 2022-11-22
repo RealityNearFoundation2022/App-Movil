@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:near_flutter/near_flutter.dart';
+// import 'package:near_flutter/near_flutter.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/generated/l10n.dart';
 
@@ -131,17 +131,17 @@ class _TransferDetailState extends State<TransferDetail> {
                           const EdgeInsets.symmetric(
                               horizontal: 40, vertical: 10))),
                   onPressed: () async {
-                    var endUrl = await RestApiProvider()
-                        .transferRestApiProvider(
-                            'eduperaltas.testnet',
-                            'eduperaltas98.testnet' /*args['walletId']*/,
-                            _amountController.text);
-                    String urlToLaunch = endUrl.toString();
-                    if (urlToLaunch.contains('https')) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              NearUrlLauncher(initialUrl: urlToLaunch)));
-                    }
+                    // var endUrl = await RestApiProvider()
+                    //     .transferRestApiProvider(
+                    //         'eduperaltas.testnet',
+                    //         'eduperaltas98.testnet' /*args['walletId']*/,
+                    //         _amountController.text);
+                    // String urlToLaunch = endUrl.toString();
+                    // if (urlToLaunch.contains('https')) {
+                    //   Navigator.of(context).push(MaterialPageRoute(
+                    //       builder: (context) =>
+                    //           NearUrlLauncher(initialUrl: urlToLaunch)));
+                    // }
                   },
                   child: Text('Enviar',
                       style: GoogleFonts.sourceSansPro(
