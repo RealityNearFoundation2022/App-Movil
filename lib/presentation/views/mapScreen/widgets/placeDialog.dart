@@ -77,7 +77,7 @@ class _PermisosDialogState extends State<PlaceDialog> {
                             horizontal: 20, vertical: 10),
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage('assets/imgs/imgInkaFC35.png'),
+                            image: AssetImage('assets/imgs/lutaLivreAR.png'),
                             fit: BoxFit.cover,
                           ),
                         ),

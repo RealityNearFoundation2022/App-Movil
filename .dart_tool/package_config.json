@@ -3,7 +3,7 @@
   "packages": [
     {
       "name": "archive",
-      "rootUri": "file:///Users/eduardoperaltasaravia/Development/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.3.4",
+      "rootUri": "file:///Users/eduardoperaltasaravia/Development/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.3.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -219,7 +219,7 @@
     },
     {
       "name": "flutter_native_splash",
-      "rootUri": "file:///Users/eduardoperaltasaravia/Development/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_native_splash-2.2.15",
+      "rootUri": "file:///Users/eduardoperaltasaravia/Development/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_native_splash-2.2.16",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -387,7 +387,13 @@
     },
     {
       "name": "mime",
-      "rootUri": "file:///Users/eduardoperaltasaravia/Development/flutter/.pub-cache/hosted/pub.dartlang.org/mime-1.0.2",
+      "rootUri": "file:///Users/eduardoperaltasaravia/Development/flutter/.pub-cache/hosted/pub.dartlang.org/mime-1.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "native_screenshot",
+      "rootUri": "file:///Users/eduardoperaltasaravia/Development/flutter/.pub-cache/hosted/pub.dartlang.org/native_screenshot-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -465,7 +471,7 @@
     },
     {
       "name": "path_provider_android",
-      "rootUri": "file:///Users/eduardoperaltasaravia/Development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.21",
+      "rootUri": "file:///Users/eduardoperaltasaravia/Development/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_android-2.0.22",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -915,7 +921,7 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///Users/eduardoperaltasaravia/Development/flutter/.pub-cache/hosted/pub.dartlang.org/win32-3.1.1",
+      "rootUri": "file:///Users/eduardoperaltasaravia/Development/flutter/.pub-cache/hosted/pub.dartlang.org/win32-3.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -950,7 +956,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2022-11-22T15:02:39.171712Z",
+  "generated": "2022-12-05T01:48:02.232964Z",
   "generator": "pub",
-  "generatorVersion": "2.18.4"
+  "generatorVersion": "2.18.5"
 }

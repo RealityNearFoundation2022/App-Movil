@@ -1,12 +1,15 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:native_screenshot/native_screenshot.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
@@ -17,7 +20,6 @@ import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/mapScreen/mapScreen.dart';
 import 'package:reality_near/presentation/views/menuScreen/menuScreen.dart';
 import 'package:reality_near/presentation/widgets/others/snackBar.dart';
-import 'package:screenshot/screenshot.dart';
 import '../mapScreen/widgets/placeDialog.dart';
 
 class ARSection extends StatefulWidget {
@@ -31,7 +33,7 @@ class ARSection extends StatefulWidget {
 
 class _ARSectionState extends State<ARSection> {
   HttpClient httpClient;
-  ScreenshotController screenshotController = ScreenshotController();
+  var scr = GlobalKey();
   String urlAr;
   bool status = true;
   AssetModel assetAR;
@@ -77,8 +79,8 @@ class _ARSectionState extends State<ARSection> {
         children: [
           loadDataAPI
               ? loading()
-              : Screenshot(
-                  controller: screenshotController,
+              : RepaintBoundary(
+                  key: scr,
                   child: UnityWidget(
                     onUnityCreated: _onUnityCreated,
                     onUnityMessage: onUnityMessage,
@@ -208,11 +210,16 @@ class _ARSectionState extends State<ARSection> {
   }
 
   void onUnityMessage(message) async {
-    var location = await getCurrentLocation();
-    if (message.toString() == "touchAsset" &&
-        (calculateDistanceMts(location.latitude, location.longitude,
-                positionAsset.latitude, positionAsset.longitude) <
-            100)) {
+    // var location = await getCurrentLocation();
+    // if (message.toString() == "touchAsset" &&
+    //     (calculateDistanceMts(location.latitude, location.longitude,
+    //             positionAsset.latitude, positionAsset.longitude) <
+    //         100)) {
+    //   setState(() {
+    //     showDialog(context: context, builder: (context) => const PlaceDialog());
+    //   });
+    // }
+    if (message.toString() == "touchAsset") {
       setState(() {
         showDialog(context: context, builder: (context) => const PlaceDialog());
       });
@@ -226,15 +233,45 @@ class _ARSectionState extends State<ARSection> {
     controller.resume();
     _unityWidgetController = controller;
     _unityWidgetController.postMessage(
-        "assetAR",
-        "DownloadAssetBundleFromServer",
-        "https://drive.google.com/u/0/uc?id=1EFnShz7yh8awVNW8tkqQuTQ_4FADCwJP&export=download | ");
+        "assetAR", "DownloadAssetBundleFromServer", assetAR.path);
+    // "https://drive.google.com/u/0/uc?id=1EFnShz7yh8awVNW8tkqQuTQ_4FADCwJP&export=download | ");
+  }
+
+  takescreenshot() async {
+    RenderRepaintBoundary boundary = scr.currentContext.findRenderObject();
+    var image = await boundary.toImage();
+    var byteData = await image.toByteData(format: ImageByteFormat.png);
+    var pngBytes = byteData.buffer.asUint8List();
+    return pngBytes;
+  }
+
+  ss() async {
+    String path = await NativeScreenshot.takeScreenshot();
+
+    debugPrint('Screenshot taken, path: $path');
+
+    if (path == null || path.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Error taking the screenshot :('),
+        backgroundColor: Colors.red,
+      )); // showSnackBar()
+    } // if error
+
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('The screenshot has been saved'))); // showSnackBar()
+  }
+
+  deleteImageFromPath(String path) async {
+    final file = File(path);
+    await file.delete();
+    Navigator.pop(context);
   }
 
   // //Function to take screenshot and share image
   Future<void> onTakeScreenshot() async {
     // var capture = await arSessionManager.snapshot();
-    var screenshot = await screenshotController.capture();
+    String path = await NativeScreenshot.takeScreenshot();
+    File screenShot = File(path);
     await showDialog(
         context: context,
         builder: (_) => Dialog(
@@ -258,27 +295,35 @@ class _ARSectionState extends State<ARSection> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Stack(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          height: MediaQuery.of(context).size.height * 0.6,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              image: DecorationImage(
-                                  image: MemoryImage(screenshot),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Positioned(
-                          top: 10,
-                          left: MediaQuery.of(context).size.width * 0.22,
-                          child: Image.asset(
-                            "assets/imgs/Logo_sin_fondo.png",
-                            width: ScreenWH(context).width * 0.25,
-                            height: ScreenWH(context).height * 0.08,
-                          ),
-                        ),
-                      ],
+                    // Stack(
+                    //   children: [
+                    //     Container(
+                    //       width: MediaQuery.of(context).size.width * 0.7,
+                    //       height: MediaQuery.of(context).size.height * 0.6,
+                    //       decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.circular(20),
+                    //           image: DecorationImage(
+                    //               image: FileImage(screenShot),
+                    //               fit: BoxFit.cover)),
+                    //     ),
+                    //     // Positioned(
+                    //     //   top: 10,
+                    //     //   left: MediaQuery.of(context).size.width * 0.22,
+                    //     //   child: Image.asset(
+                    //     //     "assets/imgs/Logo_sin_fondo.png",
+                    //     //     width: ScreenWH(context).width * 0.25,
+                    //     //     height: ScreenWH(context).height * 0.08,
+                    //     //   ),
+                    //     // ),
+                    //   ],
+                    // ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      height: MediaQuery.of(context).size.height * 0.6,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: FileImage(screenShot), fit: BoxFit.fill)),
                     ),
                     const SizedBox(
                       height: 10,
@@ -288,15 +333,11 @@ class _ARSectionState extends State<ARSection> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          button(S.current.Confirmar, () async {
-                            //Take Screenshot
-                            // final image = await screenshotController.capture();
-                            //Save Screenshot
-                            if (screenshot != null) {
-                              await saveimage(screenshot);
-                            }
-                          }, greenPrimary),
-                          button(S.current.Volver, () => Navigator.pop(context),
+                          button(S.current.Confirmar,
+                              () => Navigator.pop(context), greenPrimary),
+                          button(
+                              S.current.Volver,
+                              () => deleteImageFromPath(path),
                               const Color.fromRGBO(183, 182, 182, 1.0)),
                         ],
                       ),

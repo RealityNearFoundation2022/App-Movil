@@ -12,45 +12,46 @@ abstract class CuponRemoteDataSource {
   Future<String> AssignCuponToUser(String cuponId);
   Future<List<AssignCuponModel>> ReadCuponFromUser();
   Future<CuponModel> ReadCupon(String cuponId);
-  Future<AssignCuponModel> RedeemCupon(String cuponId,String ownerId);
+  Future<AssignCuponModel> RedeemCupon(String cuponId, String ownerId);
 }
 
-class CuponRemoteDataSourceImpl extends CuponRemoteDataSource{
+class CuponRemoteDataSourceImpl extends CuponRemoteDataSource {
   final String baseUrl = API_REALITY_NEAR + "coupons/";
   var log = Logger();
 
   @override
   Future<String> AssignCuponToUser(String cuponId) async {
-    final url = baseUrl+"assign/"+cuponId;
+    final url = baseUrl + "assign/" + cuponId;
     String token = await getPersistData("userToken");
     print('URL: $url');
-    final response = await http.post(Uri.parse(url),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer $token",
-        });
+    final response = await http.post(Uri.parse(url), headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $token",
+    });
 
     //PARA VERIFICAR
-    print('respuesta assignCuponToUser: '+response.body);
+    print('respuesta assignCuponToUser: ' + response.body);
     log.i(response.statusCode);
     log.i(response.body);
     if (response.statusCode == 200) {
       bool redeemed = json.decode(response.body)["redeemed"];
       return "Cupón asignado";
-    } if (response.statusCode == 404) {
+    }
+    if (response.statusCode == 404) {
       return json.decode(response.body)["detail"];
-    }else {
+    } else {
       throw ServerException();
     }
   }
 
   @override
   Future<List<AssignCuponModel>> ReadCuponFromUser() async {
-    final url = baseUrl+"assign";
+    final url = baseUrl + "assign";
     String token = await getPersistData("userToken");
     final response = await http.get(
       Uri.parse(url),
       headers: {
+        'Accept': 'application/json; charset=UTF-8',
         "Content-Type": "application/json",
         "Authorization": "Bearer $token",
       },
@@ -76,7 +77,7 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource{
     final response = await http.get(
       Uri.parse(url),
       headers: {
-        "Accept": "application/json; charset=UTF-8",
+        'Accept': 'application/json; charset=UTF-8',
         "Authorization": "Bearer $token",
       },
     );
@@ -85,14 +86,15 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource{
     log.i(response.statusCode);
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
-      return CuponModel.fromJson(json.decode(response.body));
+      String body = utf8.decode(response.bodyBytes);
+      return CuponModel.fromJson(json.decode(body));
     } else {
       throw ServerException();
     }
   }
 
   @override
-  Future<AssignCuponModel> RedeemCupon(String cuponId,String ownerId) async{
+  Future<AssignCuponModel> RedeemCupon(String cuponId, String ownerId) async {
     String url = API_REALITY_NEAR + "coupons/redeem/$ownerId/$cuponId";
     String token = await getPersistData("userToken");
     final response = await http.put(
@@ -112,5 +114,4 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource{
       throw ServerException();
     }
   }
-
 }

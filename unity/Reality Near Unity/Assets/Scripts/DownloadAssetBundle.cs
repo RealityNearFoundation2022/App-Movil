@@ -14,10 +14,21 @@ public class DownloadAssetBundle : MonoBehaviour
     //    StartCoroutine(DownloadAssetBundleFromServer());
     // }
 
+    Vector3 StringToVector3(String scale){
+        return new Vector3(float.Parse(scale.Split(",")[0]), float.Parse(scale.Split(",")[1]), float.Parse(scale.Split(",")[2]));
+    }
+    Quaternion StringToQuaternion(String val)
+    {
+        return new Quaternion(float.Parse(val.Split(",")[0]), float.Parse(val.Split(",")[1]), float.Parse(val.Split(",")[2]), float.Parse(val.Split(",")[3]));
+    }
+
     public IEnumerator DownloadAssetBundleFromServer(String assetData)
     {
         GameObject go = null;
         String url = assetData.Split(" | ")[0];
+        String scale = assetData.Split(" | ")[2];
+        String position = assetData.Split(" | ")[3];
+        String rotation = assetData.Split(" | ")[4];
 
 
         using (UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle(url))
@@ -41,22 +52,22 @@ public class DownloadAssetBundle : MonoBehaviour
             yield return new WaitForEndOfFrame();            }
             www.Dispose();
         }
-        InstantiateGameObjectFromAssetBundle(go);
+        InstantiateGameObjectFromAssetBundle(go, scale,position,rotation);
     }
 
-    private void InstantiateGameObjectFromAssetBundle(GameObject go)
+    private void InstantiateGameObjectFromAssetBundle(GameObject go, String scale, String position, String rotation)
     {
         if(go!=null){
             GameObject instenceGo = Instantiate(go);
             
             instenceGo.transform.position = Vector3.zero;
             //sacale object
-            instenceGo.transform.localScale = new Vector3(10f,10f,10f);
-            instenceGo.transform.rotation = new Quaternion(0, 180, 180,0);
-            instenceGo.transform.position = new Vector3(0f, 0f, 0.6f);
-           
-
-
+            // instenceGo.transform.localScale = new Vector3(10f,10f,10f);
+            // instenceGo.transform.rotation = new Quaternion(0, 180, 180,0);
+            instenceGo.transform.rotation = StringToQuaternion(rotation);
+            // instenceGo.transform.position = new Vector3(0f, 0f, 0.6f);
+            instenceGo.transform.localScale = StringToVector3(scale);
+            instenceGo.transform.position = StringToVector3(position);
         }
         else {
             Debug.LogWarning("your asset bundle go is null");
