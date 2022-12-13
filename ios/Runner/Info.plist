@@ -27,21 +27,21 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to access your photo librry</string>
+	<string>$(PRODUCT_NAME) would like to access your photo library to save screenshoots from app</string>
 	<key>NSMotionUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to access your motion</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to access your bluetooth</string>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) camera use</string>
+	<string>$(PRODUCT_NAME) would like to access your camera to interact with AR</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs access to location when in the background.</string>
+	<string>$(PRODUCT_NAME) needs access to location for see the events and friend in the map.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs access to location.</string>
+	<string>$(PRODUCT_NAME) needs access to location for see the events and friend in the map.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs access to photo library.</string>
+	<string>$(PRODUCT_NAME) needs access to photo library to save screenshoots from app</string>
 	<key>Privacy - Location When In Use usage Description</key>
-	<string>value: $(PRODUCT_NAME) camera use</string>
+	<string>$(PRODUCT_NAME) needs access to location for see the events and friend in the map.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

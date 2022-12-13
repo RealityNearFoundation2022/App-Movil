@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
+// import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../core/helper/url_constants.dart';
@@ -49,10 +49,11 @@ class _SyncWalletDialogState extends State<SyncWalletDialog> {
                           children: [
                             button(
                                 S.current.Si,
-                                () => //creamos un evento en el bloc
-                                    BlocProvider.of<UserBloc>(context,
-                                            listen: false)
-                                        .add(UserLoginWalletEvent(context, '')),
+                                widget.onLogin(),
+                                // () => //creamos un evento en el bloc
+                                //     BlocProvider.of<UserBloc>(context,
+                                //             listen: false)
+                                //         .add(UserLoginWalletEvent(context, '')),
                                 greenPrimary),
                             button(S.current.No, () {
                               setState(() {
