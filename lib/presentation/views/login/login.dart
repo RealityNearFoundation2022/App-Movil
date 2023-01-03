@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/repository/userRepository.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
+import 'package:reality_near/presentation/views/login/no_avatar_screen.dart';
 import 'package:reality_near/presentation/views/login/widgets/button_with_states.dart';
 import 'package:reality_near/presentation/widgets/dialogs/errorAlertDialog.dart';
-import 'package:reality_near/presentation/widgets/dialogs/syncWalletDialog.dart';
 import 'package:reality_near/presentation/widgets/forms/textForm.dart';
 import 'package:reality_near/presentation/widgets/others/snackBar.dart';
 
@@ -47,21 +47,33 @@ class Login extends StatelessWidget {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) async {
         if (state is UserLoggedInState) {
-          getPermissions();
-          SyncWalletDialog(
-            onLogin: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/home', ModalRoute.withName('/'));
-            },
-          );
-          showDialog(
-              context: context,
-              builder: (context) => SyncWalletDialog(
-                    onLogin: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, '/home', ModalRoute.withName('/'));
-                    },
-                  ));
+          // If no have avatarPath go to noAvatar Screen to select one
+          UserRepository().getMyData().then((value) => value.fold(
+                // ignore: avoid_print
+                (failure) => print(failure),
+                (success) async => {
+                  success.avatar.isEmpty
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NoAvatarScreen(
+                                    user: success,
+                                  )),
+                        )
+                      : await getPermissions().then((value) {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/home', ModalRoute.withName('/'));
+                        })
+                },
+              ));
+          // showDialog(
+          //     context: context,
+          //     builder: (context) => SyncWalletDialog(
+          //           onLogin: () {
+          //             Navigator.pushNamedAndRemoveUntil(
+          //                 context, '/home', ModalRoute.withName('/'));
+          //           },
+          //         ));
         } else if (state is UserFailState) {
           //Show dialog when Login failed
           showDialog(

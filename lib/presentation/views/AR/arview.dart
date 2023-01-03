@@ -183,27 +183,6 @@ class _ARSectionState extends State<ARSection> {
               },
             ),
           ),
-          // Container(
-          //     width: ScreenWH(context).width * 0.6,
-          //     height: 30,
-          //     decoration: BoxDecoration(
-          //       color: const Color.fromRGBO(255, 255, 255, 1.0),
-          //       borderRadius: BorderRadius.circular(10),
-          //     ),
-          //     child: Center(
-          //       child: location != null
-          //           ? Text(
-          //               location.latitude.toString() +
-          //                   " - " +
-          //                   location.longitude.toString(),
-          //               style: GoogleFonts.sourceCodePro(
-          //                   fontSize: 14,
-          //                   fontWeight: FontWeight.w600,
-          //                   color: greenPrimary,
-          //                   decoration: TextDecoration.none),
-          //             )
-          //           : const CircularProgressIndicator(),
-          //     ))
         ],
       ),
     );

@@ -8,7 +8,7 @@ import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/widgets/permisosDialog.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
-import 'package:reality_near/presentation/views/userProfile/ProfileScreen.dart';
+import 'package:reality_near/presentation/views/userProfile/profile_screen.dart';
 import 'package:reality_near/presentation/views/userScreen/userScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/walletScreen.dart';
 import 'package:sizer/sizer.dart';

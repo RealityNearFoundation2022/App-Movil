@@ -1,16 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/core/helper/url_constants.dart';
 import 'package:reality_near/data/datasource/nearRPC/contracts.dart';
 import 'package:reality_near/data/models/news_model.dart';
 import 'package:reality_near/data/repository/userRepository.dart';
 import 'package:reality_near/domain/entities/user.dart';
 import 'package:reality_near/domain/usecases/news/get_news.dart';
 import 'package:reality_near/generated/l10n.dart';
+import 'package:reality_near/presentation/views/login/no_avatar_screen.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/news_widget.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/category.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/details_page.dart';
@@ -48,7 +46,6 @@ class _NoArSectionState extends State<NoArSection> {
   ];
   @override
   initState() {
-    // TODO: implement initState
     super.initState();
     getWalletData();
     getUserData();
@@ -72,16 +69,26 @@ class _NoArSectionState extends State<NoArSection> {
         });
   }
 
-  getUserData() {
-    UserRepository().getMyData().then((value) => value.fold(
+  getUserData() async {
+    await UserRepository().getMyData().then((value) => value.fold(
           (failure) => print(failure),
           (success) => {
-            persistData('username', success.fullName),
-            persistData('userId', success.id.toString()),
-            setState(() {
-              user = success;
-            }),
-            persistData('usAvatar', user.avatar)
+            success.avatar.isEmpty
+                ? Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NoAvatarScreen(
+                              user: success,
+                            )),
+                  )
+                : {
+                    persistData('username', success.fullName),
+                    persistData('userId', success.id.toString()),
+                    setState(() {
+                      user = success;
+                    }),
+                    persistData('usAvatar', user.avatar)
+                  }
           },
         ));
   }

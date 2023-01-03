@@ -35,6 +35,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `One more step`
+  String get unpasoMas {
+    return Intl.message(
+      'One more step',
+      name: 'unpasoMas',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login with wallet`
   String get btnLogWallet {
     return Intl.message(

@@ -22,7 +22,6 @@ void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {
     isLoggedIn = await getPersistData('userToken') != null;
-    print('isLoggedIn: $isLoggedIn');
     runApp(const MyApp());
   });
 }

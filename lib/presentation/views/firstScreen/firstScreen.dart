@@ -22,10 +22,8 @@ class _FirstScreenState extends State<FirstScreen> {
   Future<void> _initializeVideoPlayerFuture;
 
   _storeGuidedInfo() async {
-    print("Shared pref called");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('Guide', true);
-    print(prefs.getBool('Guide'));
   }
 
   @override
@@ -33,17 +31,21 @@ class _FirstScreenState extends State<FirstScreen> {
     super.initState();
 
     _storeGuidedInfo();
-    _controller = VideoPlayerController.network("https://github.com/RealityNearFoundation2022/App-Movil/raw/develop/assets/video/IntroAppRN.mp4")
+    _controller = VideoPlayerController.asset("assets/videos/IntroAppRN.mp4")
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
+        setState(() {
+          _initializeVideoPlayerFuture = _controller.initialize();
+          _controller.play();
+          // Usa el controlador para hacer un bucle en el vídeo
+          _controller.setLooping(true);
+        });
       });
     // Inicializa el controlador y almacena el Future para utilizarlo luego
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.play();
     // Usa el controlador para hacer un bucle en el vídeo
     _controller.setLooping(true);
-
   }
 
   @override
@@ -54,19 +56,19 @@ class _FirstScreenState extends State<FirstScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         children: [
           _controller.value.isInitialized
-              ? VideoPlayer(_controller) : loading(),
+              ? VideoPlayer(_controller)
+              : loading(),
           //Logo image
           Container(
-            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 15),
+            margin:
+                EdgeInsets.only(top: MediaQuery.of(context).padding.top + 15),
             alignment: Alignment.topCenter,
             child: Image.asset('assets/imgs/Logo_sin_fondo.png',
                 height: 120, width: 120),
@@ -103,6 +105,7 @@ class _FirstScreenState extends State<FirstScreen> {
       ),
     );
   }
+
   Widget loginBtns(BuildContext context) {
     return Column(
       children: [
@@ -131,20 +134,19 @@ class _FirstScreenState extends State<FirstScreen> {
         ),
         // const SizedBox(height: 10,),
 
-
         FittedBox(
           child: GestureDetector(
-            onTap: (() => Navigator.pushNamed(context, RegisterScreen.routeName)),
-              child: Container(
+            onTap: (() =>
+                Navigator.pushNamed(context, RegisterScreen.routeName)),
+            child: Container(
                 alignment: Alignment.center,
-                  margin:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  padding:
-                  const EdgeInsets.symmetric(vertical: 10, horizontal: 85),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 85),
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(30)
-                ),
+                    borderRadius: BorderRadius.circular(30)),
                 child: Center(
                   child: Text(S.current.Registrate,
                       textAlign: TextAlign.center,

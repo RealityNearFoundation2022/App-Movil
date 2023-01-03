@@ -14,7 +14,7 @@ import 'package:showcaseview/showcaseview.dart';
 import 'package:upgrader/upgrader.dart';
 import '../../../data/repository/userRepository.dart';
 import '../../../domain/entities/user.dart';
-import '../../widgets/dialogs/PermissionsDialog.dart';
+import '../../widgets/dialogs/permissions_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   static String routeName = "/home";
@@ -50,8 +50,9 @@ class _HomeScreenState extends State<HomeScreen> {
         (r) => setState(() => notifications = r)));
   }
 
-  _isSuperUSer() {
+  _getUserData() {
     UserRepository().getMyData().then((value) => value.fold(
+          // ignore: avoid_print
           (failure) => print(failure),
           (success) => {
             setState(() {
@@ -71,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
     BlocProvider.of<MenuBloc>(context, listen: false).add(MenuCloseEvent());
     _viewGuide();
     _getNewNotifications();
-    _isSuperUSer();
+    _getUserData();
   }
 
   @override

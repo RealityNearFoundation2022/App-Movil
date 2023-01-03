@@ -12,8 +12,8 @@ class UserRepository {
   final userRemoteDataSourceImpl userRemoteDataSource =
       userRemoteDataSourceImpl();
 
-  Future<void> editUser(String password, String username, String avatar) async {
-     await userRemoteDataSource.editUserData(password, username, avatar);
+  Future<void> editUser(String avatar, String username, String email) async {
+    await userRemoteDataSource.editUserData(avatar, username, email);
   }
 
   Future<Either<Failure, User>> registerNewUser(

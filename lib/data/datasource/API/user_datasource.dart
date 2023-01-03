@@ -85,13 +85,13 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
     }
   }
 
-  editUserData(String avatar, String username, String password) async {
+  editUserData(String avatar, String username, String email) async {
     String url = API_REALITY_NEAR + "users/me";
     String token = await getPersistData("userToken");
 
     Map data = {
       "full_name": username,
-      if (password.isNotEmpty) "password": password,
+      "email": email,
       "avatar": avatar,
     };
 

@@ -123,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noTienesUna" : MessageLookupByLibrary.simpleMessage("¿No tienes una? "),
     "recientes" : MessageLookupByLibrary.simpleMessage("Recientes"),
     "reciveDescrip" : MessageLookupByLibrary.simpleMessage("Send this address to the person who will send your Realities"),
-    "selectAvatar" : MessageLookupByLibrary.simpleMessage("Selecciona tu avatar")
+    "selectAvatar" : MessageLookupByLibrary.simpleMessage("Selecciona tu avatar"),
+    "unpasoMas" : MessageLookupByLibrary.simpleMessage("Un paso más")
   };
 }

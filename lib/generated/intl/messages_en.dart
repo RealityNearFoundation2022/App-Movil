@@ -123,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noTienesUna" : MessageLookupByLibrary.simpleMessage("You don\'t have a wallet yet? "),
     "recientes" : MessageLookupByLibrary.simpleMessage("Recents"),
     "reciveDescrip" : MessageLookupByLibrary.simpleMessage("Send this address to the person who will send your Realities"),
-    "selectAvatar" : MessageLookupByLibrary.simpleMessage("Select your avatar")
+    "selectAvatar" : MessageLookupByLibrary.simpleMessage("Select your avatar"),
+    "unpasoMas" : MessageLookupByLibrary.simpleMessage("One more step")
   };
 }
