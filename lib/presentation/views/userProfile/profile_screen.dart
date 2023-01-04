@@ -5,7 +5,9 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/repository/userRepository.dart';
 import 'package:reality_near/domain/entities/user.dart';
+import 'package:reality_near/domain/usecases/contacts/getContacts.dart';
 import 'package:reality_near/generated/l10n.dart';
+import 'package:reality_near/presentation/views/userProfile/chatUserProfile.dart';
 import 'package:reality_near/presentation/widgets/forms/textForm.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -35,10 +37,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     "assets/gift/WOMEN_WAITING.gif",
     "assets/gift/MONSTER_WAITING.gif"
   ];
+
+  List<User> lstContacts = [];
+
+  Future<void> getContacts() async {
+    var response = await GetContactsUseCase().call();
+    setState(() {
+      lstContacts = response;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getUserData();
+    getContacts();
   }
 
   getUserData() {
@@ -122,9 +135,132 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const SizedBox(height: 10),
                   editUsrData(Icons.mail_outline, user.email, false),
-                  // editUsrData(Icons.password, user., false),
+                  const SizedBox(height: 20),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          S.current.Amigos,
+                          style: GoogleFonts.sourceSansPro(
+                              fontSize: 20,
+                              color: greenPrimary,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const Spacer(),
+                        Text(
+                          "ver mas",
+                          style: GoogleFonts.sourceSansPro(
+                              fontSize: 16,
+                              color: txtPrimary,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Expanded(child: chatList())
                 ],
               ));
+  }
+
+  Widget chatList() {
+    return ListView.builder(
+      itemCount: lstContacts.length > 5 ? 5 : lstContacts.length,
+      itemBuilder: (context, index) {
+        User contact = lstContacts[index];
+        return Contact(contact.avatar, contact.fullName, "", context);
+      },
+    );
+  }
+
+  Widget Contact(
+      String photo, String name, String walletId, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // goToTransferDeatil(photo, name, walletId, context);
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: ScreenWH(context).width * 0.075,
+              child: Image.asset(
+                user.avatar,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    name,
+                    style: GoogleFonts.sourceSansPro(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    walletId,
+                    style: GoogleFonts.sourceSansPro(
+                      color: Colors.grey,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            options(context, photo, name, walletId),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget options(
+    BuildContext context,
+    String photo,
+    String name,
+    String walletId,
+  ) {
+    return PopupMenuButton(
+        icon: const Icon(Icons.more_horiz),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        onSelected: (val) => {
+              print('value $val'),
+              if (val == 1)
+                {
+                  Navigator.of(context)
+                      .pushNamed(UserProfile.routeName, arguments: {
+                    'photo': photo,
+                    'name': name,
+                    'walletId': walletId,
+                  })
+                }
+            },
+        itemBuilder: (context) => const [
+              PopupMenuItem(
+                child: Text('Ver Perfil'),
+                value: 1,
+              ),
+              PopupMenuItem(
+                child: Text('Favorito'),
+                value: 2,
+              ),
+              PopupMenuItem(
+                child: Text('Eliminar'),
+                value: 3,
+              ),
+            ]);
   }
 
   editUsrData(IconData icon, String data, bool password) {
@@ -202,7 +338,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   margin:
                                       const EdgeInsets.symmetric(vertical: 10),
                                   width:
-                                      MediaQuery.of(context).size.width * 0.5,
+                                      MediaQuery.of(context).size.width * 0.6,
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -287,7 +423,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               child: selectAvatar()),
                           Container(
                             margin: const EdgeInsets.only(bottom: 10),
-                            width: MediaQuery.of(context).size.width * 0.5,
+                            width: MediaQuery.of(context).size.width * 0.6,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

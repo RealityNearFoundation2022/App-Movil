@@ -12,6 +12,7 @@ import 'package:reality_near/presentation/views/login/no_avatar_screen.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/news_widget.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/category.dart';
 import 'package:reality_near/presentation/views/noAR/widgets/details_page.dart';
+import 'package:reality_near/presentation/views/userProfile/profile_screen.dart';
 import 'package:reality_near/presentation/views/walletScreen/receiveScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/transferScreen.dart';
 import 'package:reality_near/presentation/widgets/dialogs/syncWalletDialog.dart';
@@ -121,18 +122,23 @@ class _NoArSectionState extends State<NoArSection> {
   Widget userSection(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-          radius: (ScreenWH(context).width * 0.25) / 2,
-          child: user.path != null
-              ? Image.asset(
-                  user.avatar,
-                  fit: BoxFit.cover,
-                )
-              : const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(ProfileScreen.routeName);
+          },
+          child: CircleAvatar(
+            radius: (ScreenWH(context).width * 0.25) / 2,
+            child: user.path != null
+                ? Image.asset(
+                    user.avatar,
+                    fit: BoxFit.cover,
+                  )
+                : const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
                   ),
-                ),
+          ),
         ),
         const SizedBox(width: 15),
         SizedBox(
