@@ -82,12 +82,13 @@ class _ARSectionState extends State<ARSection> {
               : RepaintBoundary(
                   key: scr,
                   child: UnityWidget(
-                    onUnityCreated: _onUnityCreated,
-                    onUnityMessage: onUnityMessage,
-                    onUnitySceneLoaded: onUnitySceneLoaded,
-                    useAndroidViewSurface: false,
-                    printSetupLog: false,
-                    enablePlaceholder: false,
+                      onUnityCreated: _onUnityCreated,
+                      onUnityMessage: onUnityMessage,
+                      onUnitySceneLoaded: onUnitySceneLoaded,
+                      useAndroidViewSurface: false,
+                      printSetupLog: false,
+                      enablePlaceholder: false,
+                      // fullscreen: false
                   ),
                 ),
           header(),

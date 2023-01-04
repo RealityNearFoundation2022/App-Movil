@@ -103,6 +103,7 @@ class _NoArSectionState extends State<NoArSection> {
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
       return ListView(
+        shrinkWrap: true,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -134,43 +135,46 @@ class _NoArSectionState extends State<NoArSection> {
                 ),
         ),
         const SizedBox(width: 15),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              user.fullName ?? 'notUsername',
-              style: GoogleFonts.sourceSansPro(
-                  fontSize: 20.sp,
-                  color: txtPrimary,
-                  fontWeight: FontWeight.w800),
-            ),
-            walletId.isNotEmpty ?? false
-                ? userWalletOpt()
-                : GestureDetector(
-                    onTap: () => showDialog(
-                        context: context,
-                        builder: (context) => SyncWalletDialog(
-                              onLogin: () {
-                                Navigator.pop(context);
-                              },
-                            )),
-                    child: Container(
-                      // margin: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.black45),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 15),
-                      child: Center(
-                          child: Text(S.current.SyncWallet,
-                              style: GoogleFonts.sourceSansPro(
-                                  fontSize: 13.sp,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w800))),
-                    ),
-                  )
-          ],
+        SizedBox(
+          height: ScreenWH(context).width * 0.18,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                user.fullName ?? 'notUsername',
+                style: GoogleFonts.sourceSansPro(
+                    fontSize: 20.sp,
+                    color: txtPrimary,
+                    fontWeight: FontWeight.w800),
+              ),
+              walletId.isNotEmpty ?? false
+                  ? userWalletOpt()
+                  : GestureDetector(
+                      onTap: () => showDialog(
+                          context: context,
+                          builder: (context) => SyncWalletDialog(
+                                onLogin: () {
+                                  Navigator.pop(context);
+                                },
+                              )),
+                      child: Container(
+                        // margin: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.black45),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 15),
+                        child: Center(
+                            child: Text(S.current.SyncWallet,
+                                style: GoogleFonts.sourceSansPro(
+                                    fontSize: 13.sp,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w800))),
+                      ),
+                    )
+            ],
+          ),
         )
       ],
     );

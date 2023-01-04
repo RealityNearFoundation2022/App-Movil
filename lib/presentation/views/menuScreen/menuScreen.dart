@@ -77,19 +77,21 @@ class _MenuContainerState extends State<MenuContainer>
                   padding: const EdgeInsets.all(10),
                   child: Stack(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.only(right: 20),
-                        alignment: Alignment.topLeft,
-                        child: GestureDetector(
+                      GestureDetector(
+                        onTap: () => _handleOnPressed(state),
+                        child: Container(
+                          padding: const EdgeInsets.only(right: 20),
+                          color: Colors.transparent,
+                          width:
+                              ScreenWH(context).width * (isOpen ? 0.1 : 0.16),
+                          height: ScreenWH(context).height * 0.05,
+                          alignment: Alignment.topLeft,
                           child: AnimatedIcon(
                             icon: AnimatedIcons.menu_close,
                             progress: _animationController,
                             size: 40,
                             color: greenPrimary,
                           ),
-                          onTap: () {
-                            _handleOnPressed(state);
-                          },
                         ),
                       ),
                       seeContent ? const MenuPrincSection() : const SizedBox()

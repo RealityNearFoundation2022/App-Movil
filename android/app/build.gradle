@@ -32,7 +32,19 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion flutter.compileSdkVersion
+    // compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
+    packagingOptions {
+        pickFirst '**'
+        pickFirst 'lib/armeabi-v7a/libarcore_sdk_jni.so'
+        pickFirst 'lib/arm64-v8a/libarcore_sdk_jni.so'
+        pickFirst 'lib/armeabi-v7a/libarcore_sdk_c.so'
+        pickFirst 'lib/arm64-v8a/libUnityARCore.so'
+        pickFirst 'lib/armeabi-v7a/libUnityARCore.so'
+        pickFirst 'lib/armeabi-v7a/libarpresto_api.so'
+        pickFirst 'lib/arm64-v8a/libarpresto_api.so'
+        pickFirst 'lib/arm64-v8a/libarcore_sdk_c.so'
+    }
     lintOptions {
         checkReleaseBuilds false
     }
@@ -70,6 +82,15 @@ android {
         release {
             signingConfig signingConfigs.release
         }
+        debug {
+             signingConfig signingConfigs.debug
+         }
+         profile {
+             signingConfig signingConfigs.debug
+         }
+         innerTest {
+             matchingFallbacks = ['debug', 'release']
+         }
     }
 
 }
@@ -78,6 +99,9 @@ flutter {
     source '../..'
 }
 
+
 dependencies {
+    implementation project(':unityLibrary')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

@@ -1,4 +1,4 @@
- using System.IO;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
@@ -14,7 +14,8 @@ public class DownloadAssetBundle : MonoBehaviour
     //    StartCoroutine(DownloadAssetBundleFromServer());
     // }
 
-    Vector3 StringToVector3(String scale){
+    Vector3 StringToVector3(String scale)
+    {
         return new Vector3(float.Parse(scale.Split(",")[0]), float.Parse(scale.Split(",")[1]), float.Parse(scale.Split(",")[2]));
     }
     Quaternion StringToQuaternion(String val)
@@ -22,10 +23,14 @@ public class DownloadAssetBundle : MonoBehaviour
         return new Quaternion(float.Parse(val.Split(",")[0]), float.Parse(val.Split(",")[1]), float.Parse(val.Split(",")[2]), float.Parse(val.Split(",")[3]));
     }
 
+
+
     public IEnumerator DownloadAssetBundleFromServer(String assetData)
     {
         GameObject go = null;
-        String url = assetData.Split(" | ")[0];
+        //String url = assetData.Split(" | ")[0];
+        //String url = "https://github.com/eduperaltas/3dGLBRepository/raw/main/monsternuruk";
+        String url = "https://drive.google.com/u/0/uc?id=19noo3PGfBqrcc395SNsFZdCKK9TgziO1&export=download";
         String scale = assetData.Split(" | ")[2];
         String position = assetData.Split(" | ")[3];
         String rotation = assetData.Split(" | ")[4];
@@ -35,7 +40,7 @@ public class DownloadAssetBundle : MonoBehaviour
         {
             yield return www.SendWebRequest();
 
-            if(www.isNetworkError || www.isHttpError)
+            if (www.result != UnityWebRequest.Result.Success)
             {
                 Debug.Log(www.error);
             }
@@ -47,19 +52,20 @@ public class DownloadAssetBundle : MonoBehaviour
                 go.AddComponent<touchAsset>();
                 go.AddComponent<UnityMessageManager>();
                 go.AddComponent<BoxCollider>();
-                go.AddComponent<Collider>();
                 bundle.Unload(false);
-            yield return new WaitForEndOfFrame();            }
+                yield return new WaitForEndOfFrame();
+            }
             www.Dispose();
         }
-        InstantiateGameObjectFromAssetBundle(go, scale,position,rotation);
+        InstantiateGameObjectFromAssetBundle(go, scale, position, rotation);
     }
 
     private void InstantiateGameObjectFromAssetBundle(GameObject go, String scale, String position, String rotation)
     {
-        if(go!=null){
+        if (go != null)
+        {
             GameObject instenceGo = Instantiate(go);
-            
+
             instenceGo.transform.position = Vector3.zero;
             //sacale object
             // instenceGo.transform.localScale = new Vector3(10f,10f,10f);
@@ -69,7 +75,8 @@ public class DownloadAssetBundle : MonoBehaviour
             instenceGo.transform.localScale = StringToVector3(scale);
             instenceGo.transform.position = StringToVector3(position);
         }
-        else {
+        else
+        {
             Debug.LogWarning("your asset bundle go is null");
         }
     }

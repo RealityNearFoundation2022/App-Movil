@@ -88,13 +88,14 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Container(
                   margin: EdgeInsets.only(
-                      bottom: 20, top: ScreenWH(context).height * 0.17),
+                      bottom: 20, top: ScreenWH(context).height * 0.13),
                   height: ScreenWH(context).height * 0.95,
                   width: ScreenWH(context).width,
                   child: const NoArSection(),
                 ),
                 //Header
                 header(),
+                // bottomBar(),
                 //Map-Button
                 Positioned(
                     bottom: MediaQuery.of(context).viewPadding.bottom,
@@ -102,6 +103,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: MapContainer(
                       showCaseKey: _two,
                     )),
+                //Camera-Button
+                Positioned(
+                    //centers
+                    bottom: MediaQuery.of(context).viewPadding.bottom + 20,
+                    left: MediaQuery.of(context).size.width * 0.5 -
+                        ScreenWH(context).height * 0.04,
+                    child: cameraBtn()),
                 //Menu-Button
                 Positioned(
                     bottom: MediaQuery.of(context).viewPadding.bottom,
@@ -135,6 +143,66 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       );
+    }));
+  }
+
+  cameraBtn() {
+    return BlocBuilder<MenuBloc, MenuState>(builder: ((context, state) {
+      return state is MenuPrincipalState || state is MenuMapaState
+          ? const SizedBox()
+          : Showcase(
+              key: _three,
+              overlayPadding: const EdgeInsets.all(12),
+              radius: BorderRadius.circular(100),
+              contentPadding: const EdgeInsets.all(15),
+              title: 'AR Switch',
+              description:
+                  "Al seleccionar esta opcion, podras entrar en contacto con los objetos de realidad aumentada que forman parte de los eventos y actividades",
+              showcaseBackgroundColor: Theme.of(context).primaryColor,
+              textColor: Colors.white,
+              titleTextStyle: GoogleFonts.sourceSansPro(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              descTextStyle: GoogleFonts.sourceSansPro(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+              shapeBorder: const CircleBorder(),
+              child: GestureDetector(
+                onTap: () async {
+                  (await Permission.location.isGranted &&
+                          await Permission.camera.isGranted)
+                      ? Navigator.pushNamed(context, "/arView")
+                      : showDialog(
+                          context: context,
+                          builder: (context) => const PermissionsDialog());
+                },
+                child: Container(
+                  height: ScreenWH(context).height * 0.08,
+                  width: ScreenWH(context).height * 0.08,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 10,
+                        spreadRadius: 2,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                    color: greenPrimary,
+                  ),
+                  child: Icon(
+                    Icons.camera_alt,
+                    color: Colors.white,
+                    size: ScreenWH(context).height * 0.05,
+                  ),
+                ),
+              ),
+            );
     }));
   }
 
@@ -183,61 +251,6 @@ class _HomeScreenState extends State<HomeScreen> {
             "assets/imgs/Logo_sin_fondo.png",
             width: ScreenWH(context).width * 0.45,
             height: ScreenWH(context).height * 0.12,
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Showcase(
-              key: _three,
-              overlayPadding: const EdgeInsets.all(12),
-              radius: BorderRadius.circular(100),
-              contentPadding: const EdgeInsets.all(15),
-              title: 'AR Switch',
-              description:
-                  "Al seleccionar esta opcion, podras entrar en contacto con los objetos de realidad aumentada que forman parte de los eventos y actividades",
-              showcaseBackgroundColor: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-              titleTextStyle: GoogleFonts.sourceSansPro(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-              descTextStyle: GoogleFonts.sourceSansPro(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
-              shapeBorder: const CircleBorder(),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Icon(
-                    Icons.camera_alt,
-                    color: greenPrimary,
-                    size: ScreenWH(context).height * 0.04,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  CupertinoSwitch(
-                    activeColor: greenPrimary,
-                    value: status,
-                    onChanged: (value) async {
-                      (await Permission.location.isGranted &&
-                              await Permission.camera.isGranted)
-                          ? setState(() {
-                              status = value;
-                              Navigator.pushNamed(context, "/arView");
-                            })
-                          : showDialog(
-                              context: context,
-                              builder: (context) => const PermissionsDialog());
-                    },
-                  ),
-                ],
-              ),
-            ),
           ),
         ],
       ),

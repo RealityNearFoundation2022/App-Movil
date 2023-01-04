@@ -58,7 +58,7 @@ dependencies:
   provider: ^6.0.3
   showcaseview: ^1.1.7
   qr_flutter: ^4.0.0
-  qr_code_scanner: ^0.7.0
+  qr_code_scanner: ^1.0.1
   loading_animation_widget: ^1.1.0+5
   screenshot: ^1.2.3
   image_gallery_saver: ^1.7.1
