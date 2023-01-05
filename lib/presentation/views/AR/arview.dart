@@ -53,7 +53,7 @@ class _ARSectionState extends State<ARSection> {
 
   @override
   void initState() {
-    getAsset("8").then((result) async {
+    getAsset("9").then((result) async {
       setState(() {});
     });
     super.initState();
@@ -88,8 +88,7 @@ class _ARSectionState extends State<ARSection> {
                       useAndroidViewSurface: false,
                       printSetupLog: false,
                       enablePlaceholder: false,
-                      // fullscreen: false
-                  ),
+                      fullscreen: false),
                 ),
           header(),
           //Map-Button
@@ -159,29 +158,31 @@ class _ARSectionState extends State<ARSection> {
   Widget header() {
     return Container(
       margin: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
-      width: double.infinity,
-      child: Column(
+      width: ScreenWH(context).width * 0.725,
+      height: ScreenWH(context).height * 0.1,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            "assets/imgs/Logo_sin_fondo.png",
-            width: ScreenWH(context).width * 0.45,
-            height: ScreenWH(context).height * 0.12,
-          ),
-          Container(
-            width: ScreenWH(context).width * 0.8,
-            alignment: Alignment.centerRight,
-            child: CupertinoSwitch(
-              activeColor: greenPrimary,
-              value: status,
-              onChanged: (value) {
-                setState(() {
-                  status = value;
-                  // arSessionManager.dispose();
+          Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: IconButton(
+                onPressed: (() {
                   _unityWidgetController.dispose();
 
                   Navigator.pushNamed(context, "/home");
-                });
-              },
+                }),
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: greenPrimary,
+                  size: 35,
+                )),
+          ),
+          const Spacer(),
+          Center(
+            child: Image.asset(
+              "assets/imgs/Logo_sin_fondo.png",
+              width: ScreenWH(context).width * 0.45,
+              height: ScreenWH(context).height * 0.12,
             ),
           ),
         ],
@@ -214,7 +215,6 @@ class _ARSectionState extends State<ARSection> {
     _unityWidgetController = controller;
     _unityWidgetController.postMessage(
         "assetAR", "DownloadAssetBundleFromServer", assetAR.path);
-    // "https://drive.google.com/u/0/uc?id=1EFnShz7yh8awVNW8tkqQuTQ_4FADCwJP&export=download | ");
   }
 
   takescreenshot() async {
@@ -249,7 +249,6 @@ class _ARSectionState extends State<ARSection> {
 
   // //Function to take screenshot and share image
   Future<void> onTakeScreenshot() async {
-    // var capture = await arSessionManager.snapshot();
     String path = await NativeScreenshot.takeScreenshot();
     File screenShot = File(path);
     await showDialog(

@@ -13,6 +13,7 @@ public class DownloadAssetBundle : MonoBehaviour
     // {
     //    StartCoroutine(DownloadAssetBundleFromServer());
     // }
+    const String API_REALITY_NEAR_IMGs = "https://api.realitynear.org";
 
     Vector3 StringToVector3(String scale)
     {
@@ -28,9 +29,7 @@ public class DownloadAssetBundle : MonoBehaviour
     public IEnumerator DownloadAssetBundleFromServer(String assetData)
     {
         GameObject go = null;
-        //String url = assetData.Split(" | ")[0];
-        //String url = "https://github.com/eduperaltas/3dGLBRepository/raw/main/monsternuruk";
-        String url = "https://drive.google.com/u/0/uc?id=19noo3PGfBqrcc395SNsFZdCKK9TgziO1&export=download";
+        String url = API_REALITY_NEAR_IMGs + assetData.Split(" | ")[0];
         String scale = assetData.Split(" | ")[2];
         String position = assetData.Split(" | ")[3];
         String rotation = assetData.Split(" | ")[4];
