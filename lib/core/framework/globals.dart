@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vector_math/vector_math.dart' as math;
@@ -99,16 +100,24 @@ getPermissions() async {
     Permission.camera,
   ].request();
 
-  return (statuses[Permission.location].isGranted && statuses[Permission.camera].isGranted) ? true : false;
+  return (statuses[Permission.location].isGranted &&
+          statuses[Permission.camera].isGranted)
+      ? true
+      : false;
 }
 
-double calculateDistanceMts(double lat1, double lng1, double lat2, double lng2) {
+double calculateDistanceMts(LatLng pos1, LatLng pos2) {
   int radiusEarth = 6371;
   double distanceKm;
   double distanceMts;
   double dlat, dlng;
   double a;
   double c;
+
+  double lat1 = pos1.latitude;
+  double lat2 = pos2.latitude;
+  double lng1 = pos1.longitude;
+  double lng2 = pos2.longitude;
 
   //Convertimos de grados a radianes
   lat1 = math.radians(lat1);
@@ -139,7 +148,5 @@ String getTimeHyM() {
 
 //obten posicion del usuario
 Future<loc.LocationData> getCurrentLocation() async {
-  // Location _location;
-  // return await location.getLocation();
   return await loc.Location().getLocation();
 }

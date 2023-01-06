@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
@@ -13,8 +12,7 @@ import 'package:native_screenshot/native_screenshot.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/core/helper/url_constants.dart';
-import 'package:reality_near/data/models/assetModel.dart';
+import 'package:reality_near/data/models/asset_model.dart';
 import 'package:reality_near/data/repository/assetRepository.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/mapScreen/mapScreen.dart';
@@ -34,14 +32,9 @@ class ARSection extends StatefulWidget {
 class _ARSectionState extends State<ARSection> {
   HttpClient httpClient;
   var scr = GlobalKey();
-  String urlAr;
-  bool status = true;
   AssetModel assetAR;
   bool loadDataAPI = true;
-  final GlobalKey _one = GlobalKey();
-  final GlobalKey _two = GlobalKey();
   UnityWidgetController _unityWidgetController;
-  LatLng positionAsset = LatLng(0, 0);
   bool inLocationRange = false;
 
   @override
@@ -53,18 +46,37 @@ class _ARSectionState extends State<ARSection> {
 
   @override
   void initState() {
-    getAsset("9").then((result) async {
+    getAssets().then((result) {
       setState(() {});
     });
+
     super.initState();
   }
 
-  getAsset(String id) async {
-    assetAR = await AssetRepository().getAsset(id);
-    urlAr = API_REALITY_NEAR_IMGs + assetAR.path.split(" | ")[0];
-    double latitude = double.parse(assetAR.path.split(" | ")[1].split(",")[0]);
-    double longitude = double.parse(assetAR.path.split(" | ")[1].split(",")[1]);
-    positionAsset = LatLng(latitude, longitude);
+  getAssets() async {
+    var lstAssets = await AssetRepository().getAllAssets();
+    await evaluateMostCloseAsset(lstAssets);
+  }
+
+  evaluateMostCloseAsset(List<AssetModel> lst) async {
+    AssetModel mostCloseAsset;
+    double distance = 0;
+    LatLng userLocation;
+    await getCurrentLocation().then(
+        (value) => userLocation = LatLng(value.latitude, value.longitude));
+    for (var item in lst) {
+      for (var location in item.locations) {
+        double distanceTemp = calculateDistanceMts(userLocation, location);
+        if (distance == 0) {
+          distance = distanceTemp;
+          mostCloseAsset = item;
+        } else if (distanceTemp < distance) {
+          distance = distanceTemp;
+          mostCloseAsset = item;
+        }
+      }
+    }
+    assetAR = mostCloseAsset;
     loadDataAPI = false;
   }
 
@@ -92,17 +104,9 @@ class _ARSectionState extends State<ARSection> {
                 ),
           header(),
           //Map-Button
-          Align(
-              alignment: Alignment.bottomLeft,
-              child: MapContainer(
-                showCaseKey: _two,
-              )),
+          const Align(alignment: Alignment.bottomLeft, child: MapContainer()),
           //Menu-Button
-          Align(
-              alignment: Alignment.bottomRight,
-              child: MenuContainer(
-                showCaseKey: _one,
-              )),
+          const Align(alignment: Alignment.bottomRight, child: MenuContainer()),
           Positioned(
             left: ScreenWH(context).width * 0.4,
             bottom: ScreenWH(context).height * 0.04,
@@ -191,15 +195,6 @@ class _ARSectionState extends State<ARSection> {
   }
 
   void onUnityMessage(message) async {
-    // var location = await getCurrentLocation();
-    // if (message.toString() == "touchAsset" &&
-    //     (calculateDistanceMts(location.latitude, location.longitude,
-    //             positionAsset.latitude, positionAsset.longitude) <
-    //         100)) {
-    //   setState(() {
-    //     showDialog(context: context, builder: (context) => const PlaceDialog());
-    //   });
-    // }
     if (message.toString() == "touchAsset") {
       setState(() {
         showDialog(context: context, builder: (context) => const PlaceDialog());
