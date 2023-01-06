@@ -10,7 +10,6 @@ class WalletRepository {
   Future<Either<Failure, dynamic>> loginNearWallet(
       BuildContext context, String accountId) async {
     try {
-      print('en funcion login');
       // walletAccount = setupWallet(accountId);
       // var response = await walletAccount.requestSignIn(
       //     context,

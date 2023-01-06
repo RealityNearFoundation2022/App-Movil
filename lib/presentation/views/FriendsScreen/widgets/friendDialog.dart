@@ -46,7 +46,6 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -76,44 +75,53 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
                             const SizedBox(height: 10),
                             buildSearch(),
                             Expanded(
-                              child:FutureBuilder(
+                              child: FutureBuilder(
                                   future: GetPendingUseCase().call(),
                                   builder: (context, snapshot) {
-                                    if(snapshot.hasData) {
+                                    if (snapshot.hasData) {
                                       lstUsers = snapshot.data;
 
                                       //Lista Filtrada de a quienes les enviamos solicitud
                                       List<User> lstSendRequest = lstUsers
-                                          .where((us) => us.infContact!=null).toList();
+                                          .where((us) => us.infContact != null)
+                                          .toList();
 
-                                      return (lstSendRequest.isNotEmpty || searchUserController.text.isNotEmpty) ? RefreshIndicator(
-                                          onRefresh: _pendingRefresh,
-                                          child: ListView.builder(
-                                            itemCount: searchUserController.text.isEmpty
-                                                      ? lstSendRequest.length
-                                                      : lstUsersFiltered.length,
-                                            itemBuilder: (context, index) {
-                                              User user = searchUserController.text.isEmpty
-                                                  ? lstSendRequest[index] : lstUsersFiltered[index];
-                                              return pendientesCard(user);
-                                            },
-                                          )
-                                      ) : ListView(
-                                        children: [
-                                          const SizedBox(height: 30),
-                                            Center(
-                                              child: Text(S.current.NoSolicitudes),
-                                            ),
-                                          ],
-                                        );
-                                    }
-                                    else {
+                                      return (lstSendRequest.isNotEmpty ||
+                                              searchUserController
+                                                  .text.isNotEmpty)
+                                          ? RefreshIndicator(
+                                              onRefresh: _pendingRefresh,
+                                              child: ListView.builder(
+                                                itemCount: searchUserController
+                                                        .text.isEmpty
+                                                    ? lstSendRequest.length
+                                                    : lstUsersFiltered.length,
+                                                itemBuilder: (context, index) {
+                                                  User user =
+                                                      searchUserController
+                                                              .text.isEmpty
+                                                          ? lstSendRequest[
+                                                              index]
+                                                          : lstUsersFiltered[
+                                                              index];
+                                                  return pendientesCard(user);
+                                                },
+                                              ))
+                                          : ListView(
+                                              children: [
+                                                const SizedBox(height: 30),
+                                                Center(
+                                                  child: Text(
+                                                      S.current.NoSolicitudes),
+                                                ),
+                                              ],
+                                            );
+                                    } else {
                                       return const Center(
                                         child: CircularProgressIndicator(),
                                       );
                                     }
-                                  }
-                              ),
+                                  }),
                             ),
                           ],
                         ),
@@ -121,36 +129,40 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
                           children: [
                             const SizedBox(height: 10),
                             Expanded(
-                              child:FutureBuilder(
+                              child: FutureBuilder(
                                   future: GetRequestsUseCase().call(),
                                   builder: (context, snapshot) {
-                                    if(snapshot.hasData) {
+                                    if (snapshot.hasData) {
                                       lstUsersRequest = snapshot.data;
                                       return RefreshIndicator(
                                           onRefresh: _requestRefresh,
-                                          child: lstUsersRequest.isNotEmpty ?
-                                          ListView.builder(
-                                            itemCount: lstUsersRequest.length,
-                                            itemBuilder: (context, index) {
-                                              User user = lstUsersRequest[index];
-                                              return solicitudesCard(user,context);
-                                            },
-                                          ): ListView(
-                                            children: [
-                                              const SizedBox(height: 30),
-                                              Center(
-                                                child: Text(S.current.NoSolicitudes),
-                                              ),
-                                            ],
-                                          )
-                                      ) ;
+                                          child: lstUsersRequest.isNotEmpty
+                                              ? ListView.builder(
+                                                  itemCount:
+                                                      lstUsersRequest.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    User user =
+                                                        lstUsersRequest[index];
+                                                    return solicitudesCard(
+                                                        user, context);
+                                                  },
+                                                )
+                                              : ListView(
+                                                  children: [
+                                                    const SizedBox(height: 30),
+                                                    Center(
+                                                      child: Text(S.current
+                                                          .NoSolicitudes),
+                                                    ),
+                                                  ],
+                                                ));
                                     } else {
                                       return const Center(
                                         child: CircularProgressIndicator(),
                                       );
                                     }
-                                  }
-                              ),
+                                  }),
                             ),
                           ],
                         ),
@@ -170,7 +182,7 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
                 borderRadius: BorderRadius.all(Radius.circular(50)),
               ),
               child: IconButton(
-                icon: const Icon(Icons.close, size: 30,color: Colors.white),
+                icon: const Icon(Icons.close, size: 30, color: Colors.white),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
@@ -204,61 +216,82 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
     bool sendRequest = user.infContact != null;
     return ListTile(
       leading: CircleAvatar(
-        child: user.avatar.isNotEmpty ? Image.asset(
-          user.avatar,
-          fit: BoxFit.cover,
-        ) : const Center(child: SizedBox(height: 15,width: 15,child: CircularProgressIndicator(color: Colors.white,)),),
+        child: user.avatar.isNotEmpty
+            ? Image.asset(
+                user.avatar,
+                fit: BoxFit.cover,
+              )
+            : const Center(
+                child: SizedBox(
+                    height: 15,
+                    width: 15,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    )),
+              ),
       ),
       title: Text(user.fullName ?? 'NotUsername'),
       subtitle: GestureDetector(
         onTap: () async {
           //Mostramos snackbar para avisar al cliente el resultado de la peticion y refrescamos la lista que se ve en pantalla
-          sendRequest ?
-            await DeclineRequestUseCase(user.infContact.id.toString()).call().then((value) => value.fold(
-                  (failure) => showSnackBar(context, failure.message, true),
-                  (success) =>
-              {
-                showSnackBar(context, 'Solicitud Denegada', false),
-                sendRequest = !sendRequest,
-                setState(() {
-                  searchUserController.clear();
-                  searchUser('');
-                })
-
-              },
-            ))
-          : await AddContactUseCase(user.id.toString()).call().then((value) => value.fold(
-                (failure) => showSnackBar(context, failure.message, true),
-                (success) =>
-            {
-              showSnackBar(context, 'Solicitud Enviada', false),
-                sendRequest = !sendRequest,
-              setState(() {
-                searchUserController.clear();
-                searchUser('');
-              })
-            },
-            ),
-          );
+          sendRequest
+              ? await DeclineRequestUseCase(user.infContact.id.toString())
+                  .call()
+                  .then((value) => value.fold(
+                        (failure) =>
+                            showSnackBar(context, failure.message, true),
+                        (success) => {
+                          showSnackBar(context, 'Solicitud Denegada', false),
+                          sendRequest = !sendRequest,
+                          setState(() {
+                            searchUserController.clear();
+                            searchUser('');
+                          })
+                        },
+                      ))
+              : await AddContactUseCase(user.id.toString()).call().then(
+                    (value) => value.fold(
+                      (failure) => showSnackBar(context, failure.message, true),
+                      (success) => {
+                        showSnackBar(context, 'Solicitud Enviada', false),
+                        sendRequest = !sendRequest,
+                        setState(() {
+                          searchUserController.clear();
+                          searchUser('');
+                        })
+                      },
+                    ),
+                  );
           _pendingRefresh();
         },
-        child: Text( sendRequest ? S.current.CancelarSolicitud : S.current.EnviarSolicitud,
+        child: Text(
+            sendRequest
+                ? S.current.CancelarSolicitud
+                : S.current.EnviarSolicitud,
             style: const TextStyle(color: greenPrimary)),
       ),
     );
   }
 
 //Widget de card de solicitud de amistad pendientes
-  Widget solicitudesCard(User user,BuildContext context) {
+  Widget solicitudesCard(User user, BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-
-          radius: 40,
-      child: user.avatar!=null  ? Image.asset(
-          // usAvatar ?? "assets/gift/MEN_SELECTED.gif",
-          user.avatar,
-          fit: BoxFit.cover,
-        ) : const Center(child: SizedBox(height: 15,width: 15,child: CircularProgressIndicator(color: Colors.white,)),),
+        radius: 40,
+        child: user.avatar != null
+            ? Image.asset(
+                // usAvatar ?? "assets/gift/MEN_SELECTED.gif",
+                user.avatar,
+                fit: BoxFit.cover,
+              )
+            : const Center(
+                child: SizedBox(
+                    height: 15,
+                    width: 15,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    )),
+              ),
       ),
       title: Text(user.fullName ?? 'noUsername'),
       subtitle: Column(
@@ -268,40 +301,39 @@ class _FriendsSolicitudesDialogState extends State<FriendsSolicitudesDialog> {
           Text(
             S.current.amigosEnComun(Random().nextInt(50)),
           ),
-
           const SizedBox(height: 2),
           Row(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(3.0),
-                child: btnsolicitud(
-                    S.current.Aceptar, () async {
-                      print('click en aceptar');
-                      //Mostramos snackbar para avisar al cliente el resultado de la peticion y refrescamos la lista que se ve en pantalla
-                      await AcceptRequestUseCase(user.infContact.id.toString()).call().then((value) => value.fold(
-                            (failure) => showSnackBar(context, failure.message, true),
-                            (success) =>
-                            {
-                                _requestRefresh(),
-                                  showSnackBar(context, 'Solicitud aceptada', false)
-                                },
+                child: btnsolicitud(S.current.Aceptar, () async {
+                  //Mostramos snackbar para avisar al cliente el resultado de la peticion y refrescamos la lista que se ve en pantalla
+                  await AcceptRequestUseCase(user.infContact.id.toString())
+                      .call()
+                      .then((value) => value.fold(
+                            (failure) =>
+                                showSnackBar(context, failure.message, true),
+                            (success) => {
+                              _requestRefresh(),
+                              showSnackBar(context, 'Solicitud aceptada', false)
+                            },
                           ));
                 }, context, greenPrimary),
               ),
               Padding(
                 padding: const EdgeInsets.all(3.0),
-                child: btnsolicitud(
-                    S.current.Rechazar, () async {
-                  print('click en rechazar');
+                child: btnsolicitud(S.current.Rechazar, () async {
                   //Mostramos snackbar para avisar al cliente el resultado de la peticion y refrescamos la lista que se ve en pantalla
-                  await DeclineRequestUseCase(user.infContact.id.toString()).call().then((value) => value.fold(
-                        (failure) => showSnackBar(context, failure.message, true),
-                        (success) =>
-                        {
-                          _requestRefresh(),
-                          showSnackBar(context, 'Solicitud Denegada', false)
-                        },
-                      ));
+                  await DeclineRequestUseCase(user.infContact.id.toString())
+                      .call()
+                      .then((value) => value.fold(
+                            (failure) =>
+                                showSnackBar(context, failure.message, true),
+                            (success) => {
+                              _requestRefresh(),
+                              showSnackBar(context, 'Solicitud Denegada', false)
+                            },
+                          ));
                 }, context, Colors.black26),
               ),
             ],

@@ -1,7 +1,10 @@
 ManifestFileVersion: 0
-CRC: 3684614780
+CRC: 2590352314
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: jaggerbottle
+      Dependencies: {}
+    Info_1:
+      Name: monstruo
       Dependencies: {}

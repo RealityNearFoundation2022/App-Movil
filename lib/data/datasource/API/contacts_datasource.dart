@@ -37,14 +37,14 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
         body: bodyData);
 
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     if (response.statusCode == 200) {
       return true;
     } else {
       throw ServerException();
     }
   }
+
   @override
   getContacts() async {
     final url = baseUrl;
@@ -58,8 +58,7 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
     );
     String body = utf8.decode(response.bodyBytes);
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
       return (json.decode(response.body) as List)
@@ -83,8 +82,7 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
     );
     String body = utf8.decode(response.bodyBytes);
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
       return (json.decode(response.body) as List)
@@ -96,20 +94,19 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
   }
 
   @override
-  acceptPendigRequest(String contactId) async{
+  acceptPendigRequest(String contactId) async {
     final url = baseUrl + "$contactId/approved";
     String token = await getPersistData("userToken");
     final response = await http.put(
-          Uri.parse(url),
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer $token",
-          },
-        );
+      Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+    );
 
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     if (response.statusCode == 200) {
       return true;
     } else {
@@ -118,7 +115,7 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
   }
 
   @override
-  removeDeleteContacts(String contactId) async{
+  removeDeleteContacts(String contactId) async {
     final url = baseUrl + contactId;
     String token = await getPersistData("userToken");
     final response = await http.delete(
@@ -130,8 +127,7 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
     );
     String body = utf8.decode(response.bodyBytes);
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
       return true;
@@ -139,6 +135,4 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
       throw ServerException();
     }
   }
-
-
 }

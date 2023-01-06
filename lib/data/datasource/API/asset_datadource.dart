@@ -28,9 +28,6 @@ class AssetRemoteDataSourceImpl implements AssetRemoteDataSource {
       "Authorization": "Bearer $token",
     });
 
-    //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
     if (response.statusCode == 200) {
       return AssetModel.fromJson(json.decode(response.body));
     } else {
@@ -49,8 +46,7 @@ class AssetRemoteDataSourceImpl implements AssetRemoteDataSource {
     });
 
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     if (response.statusCode == 200) {
       List<dynamic> list = json.decode(response.body);
       return list.map((e) => AssetModel.fromJson(e)).toList();

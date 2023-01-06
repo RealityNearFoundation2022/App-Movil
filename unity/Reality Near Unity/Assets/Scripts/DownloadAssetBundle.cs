@@ -30,9 +30,9 @@ public class DownloadAssetBundle : MonoBehaviour
     {
         GameObject go = null;
         String url = API_REALITY_NEAR_IMGs + assetData.Split(" | ")[0];
-        String scale = assetData.Split(" | ")[2];
-        String position = assetData.Split(" | ")[3];
-        String rotation = assetData.Split(" | ")[4];
+        String scale = assetData.Split(" | ")[1];
+        String position = assetData.Split(" | ")[2];
+        String rotation = assetData.Split(" | ")[3];
 
 
         using (UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle(url))

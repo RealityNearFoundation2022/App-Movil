@@ -54,33 +54,25 @@ String getRandomName() {
 }
 
 persistData(String key, String value) async {
-  print("Shared pref called");
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setString(key, value);
   dynamic token = prefs.getString(key);
-  print('SET -> $key: $token');
 }
 
 getPersistData(String key) async {
-  print("Shared pref called");
   SharedPreferences prefs = await SharedPreferences.getInstance();
   dynamic token = prefs.getString(key);
-  print('GET -> $key: $token');
   return token;
 }
 
 deletePersistData(String key) async {
-  print("Shared pref called");
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.remove(key);
-  print('DELETE -> $key');
 }
 
 deleteAllPersistData() async {
-  print("Shared pref called");
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.clear();
-  print('DELETE ALL');
 }
 
 //Convert a string to base64
@@ -132,7 +124,6 @@ double calculateDistanceMts(LatLng pos1, LatLng pos2) {
   c = 2 * atan2(sqrt(a), sqrt(1 - a));
 
   distanceKm = radiusEarth * c;
-  print('Distancia en Kilométros:$distanceKm');
   distanceMts = 1000 * distanceKm;
   print('Distancia en Metros:$distanceMts');
 

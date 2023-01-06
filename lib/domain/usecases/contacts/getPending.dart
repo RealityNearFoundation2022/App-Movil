@@ -23,7 +23,6 @@ class GetPendingUseCase {
   }
 
   Future<List<User>> call() async {
-    print('dentro');
     //CONTACTOS - Obtenemos lista de solicitudes pendientes
     List<ContactModel> lstContactRequest = await getPendingRequest();
 

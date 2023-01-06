@@ -23,16 +23,13 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource {
   Future<String> AssignCuponToUser(String cuponId) async {
     final url = baseUrl + "assign/" + cuponId;
     String token = await getPersistData("userToken");
-    print('URL: $url');
     final response = await http.post(Uri.parse(url), headers: {
       "Content-Type": "application/json",
       "Authorization": "Bearer $token",
     });
 
     //PARA VERIFICAR
-    print('respuesta assignCuponToUser: ' + response.body);
-    log.i(response.statusCode);
-    log.i(response.body);
+
     if (response.statusCode == 200) {
       bool redeemed = json.decode(response.body)["redeemed"];
       return "Cupón asignado";
@@ -58,8 +55,7 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource {
     );
     String body = utf8.decode(response.bodyBytes);
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
       return (json.decode(response.body) as List)
@@ -82,8 +78,7 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource {
       },
     );
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
@@ -105,8 +100,7 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource {
       },
     );
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
       return AssignCuponModel.fromJson(json.decode(response.body));

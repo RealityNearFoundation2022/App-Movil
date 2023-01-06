@@ -29,8 +29,7 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
       },
     );
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
       return UserModel.fromJson(json.decode(response.body));
@@ -51,8 +50,7 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
     );
     String body = utf8.decode(response.bodyBytes);
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
       return (json.decode(response.body) as List)
@@ -75,8 +73,7 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
       },
     );
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
       return UserModel.fromJson(json.decode(response.body));
@@ -104,7 +101,5 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
         },
         body: bodyData);
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
   }
 }

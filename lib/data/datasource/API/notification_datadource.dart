@@ -20,7 +20,7 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
 
   @override
   Future<List<NotificationModel>> getNotifications() async {
-    final url = baseUrl+"/?skip=0&limit=100";
+    final url = baseUrl + "/?skip=0&limit=100";
     String token = await getPersistData("userToken");
 
     final response = await http.get(Uri.parse(url), headers: {
@@ -29,8 +29,7 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
     });
 
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     if (response.statusCode == 200) {
       List<NotificationModel> notificationList = [];
       List<dynamic> jsonList = json.decode(response.body);
@@ -45,7 +44,7 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
 
   @override
   Future<List<NotificationModel>> getNotificationsHis() async {
-    final url = baseUrl + "/history"+"?skip=0&limit=100";
+    final url = baseUrl + "/history" + "?skip=0&limit=100";
     String token = await getPersistData("userToken");
 
     final response = await http.get(Uri.parse(url), headers: {
@@ -54,8 +53,7 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
     });
 
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     if (response.statusCode == 200) {
       List<NotificationModel> notificationList = [];
       List<dynamic> jsonList = json.decode(response.body);
@@ -79,8 +77,7 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
     });
 
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     if (response.statusCode == 200) {
       return true;
     } else {

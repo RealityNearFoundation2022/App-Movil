@@ -25,8 +25,7 @@ class NewsRemoteDataSourceImpl extends NewsRemoteDataSource {
     );
     String body = utf8.decode(response.bodyBytes);
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     if (response.statusCode == 200) {
       List<NewsModel> news = [];
       List<dynamic> newsJson = json.decode(response.body);

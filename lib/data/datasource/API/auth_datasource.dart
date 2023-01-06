@@ -38,8 +38,7 @@ class AuthsRemoteDataSourceImpl implements AuthsRemoteDataSource {
         body: bodyData);
 
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     if (response.statusCode == 200) {
       return UserModel.fromJson(json.decode(response.body));
     } else {
@@ -63,9 +62,7 @@ class AuthsRemoteDataSourceImpl implements AuthsRemoteDataSource {
     String body = utf8.decode(response.bodyBytes);
     final jsonData = jsonDecode(body);
     String token = jsonData["access_token"];
-    print('token: $token');
-    log.i(response.body);
-    log.i(response.statusCode);
+
     response.statusCode == 200 ? {persistData('userToken', token)} : null;
     return response.statusCode == 200 ? true : false;
   }

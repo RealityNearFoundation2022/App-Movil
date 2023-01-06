@@ -31,8 +31,7 @@ class ReportsRemoteDataSourceImpl implements ReportsRemoteDataSource {
         body: bodyData);
 
     //PARA VERIFICAR
-    log.i(response.body);
-    log.i(response.statusCode);
+
     if (response.statusCode == 200) {
       return true;
     } else {

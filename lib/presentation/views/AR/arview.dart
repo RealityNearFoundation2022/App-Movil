@@ -69,7 +69,6 @@ class _ARSectionState extends State<ARSection> {
     LatLng userLocation;
     await getCurrentLocation().then(
         (value) => userLocation = LatLng(value.latitude, value.longitude));
-    print("My position: $userLocation");
     for (var item in lst) {
       for (var location in item.locations) {
         double distanceTemp =
@@ -88,6 +87,7 @@ class _ARSectionState extends State<ARSection> {
                 .where((element) => element.rule == "default")
                 .isNotEmpty)
             .first;
+    print("el asset mas cercano es: ${assetAR.name} esta a $distance mts");
     loadDataAPI = false;
   }
 
@@ -239,8 +239,6 @@ class _ARSectionState extends State<ARSection> {
 
   ss() async {
     String path = await NativeScreenshot.takeScreenshot();
-
-    debugPrint('Screenshot taken, path: $path');
 
     if (path == null || path.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

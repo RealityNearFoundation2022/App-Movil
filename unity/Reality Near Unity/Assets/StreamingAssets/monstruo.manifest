@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3401066775
+CRC: 2912139008
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 5a5fdfd56d6f123ccc9b9a77d8fe1bc8
+    Hash: 621301b5486e7bac2b7470e54a5db429
   TypeTreeHash:
     serializedVersion: 2
     Hash: 25e3098f277c4b9ac881561c022c5313
@@ -25,5 +25,5 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Monstruo_001.fbx
+- Assets/Images/monstruo/Monstruo_001.fbx
 Dependencies: []
