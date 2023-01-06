@@ -36,6 +36,8 @@ class _ARSectionState extends State<ARSection> {
   bool loadDataAPI = true;
   UnityWidgetController _unityWidgetController;
   bool inLocationRange = false;
+  final GlobalKey _one = GlobalKey();
+  final GlobalKey _two = GlobalKey();
 
   @override
   void dispose() {
@@ -55,28 +57,37 @@ class _ARSectionState extends State<ARSection> {
 
   getAssets() async {
     var lstAssets = await AssetRepository().getAllAssets();
-    await evaluateMostCloseAsset(lstAssets);
+    var lstWithLocations =
+        lstAssets.where((element) => element.locations.isNotEmpty).toList();
+    await evaluateMostCloseAsset(lstWithLocations);
   }
 
+  //distancia apropriada para AR
   evaluateMostCloseAsset(List<AssetModel> lst) async {
     AssetModel mostCloseAsset;
     double distance = 0;
     LatLng userLocation;
     await getCurrentLocation().then(
         (value) => userLocation = LatLng(value.latitude, value.longitude));
+    print("My position: $userLocation");
     for (var item in lst) {
       for (var location in item.locations) {
-        double distanceTemp = calculateDistanceMts(userLocation, location);
+        double distanceTemp =
+            calculateDistanceMts(userLocation, location.position);
         if (distance == 0) {
           distance = distanceTemp;
-          mostCloseAsset = item;
-        } else if (distanceTemp < distance) {
+        } else if (distanceTemp < distance && distanceTemp < 100) {
           distance = distanceTemp;
           mostCloseAsset = item;
         }
       }
     }
-    assetAR = mostCloseAsset;
+    assetAR = mostCloseAsset ??
+        lst
+            .where((element) => element.locations
+                .where((element) => element.rule == "default")
+                .isNotEmpty)
+            .first;
     loadDataAPI = false;
   }
 
@@ -104,9 +115,15 @@ class _ARSectionState extends State<ARSection> {
                 ),
           header(),
           //Map-Button
-          const Align(alignment: Alignment.bottomLeft, child: MapContainer()),
-          //Menu-Button
-          const Align(alignment: Alignment.bottomRight, child: MenuContainer()),
+          Align(
+              alignment: Alignment.bottomLeft,
+              child: MapContainer(
+                showCaseKey: _one,
+              )),
+          // //Menu-Button
+          Align(
+              alignment: Alignment.bottomRight,
+              child: MenuContainer(showCaseKey: _two)),
           Positioned(
             left: ScreenWH(context).width * 0.4,
             bottom: ScreenWH(context).height * 0.04,
