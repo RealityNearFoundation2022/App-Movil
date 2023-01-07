@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -57,8 +58,10 @@ class _ARSectionState extends State<ARSection> {
 
   getAssets() async {
     var lstAssets = await AssetRepository().getAllAssets();
-    var lstWithLocations =
-        lstAssets.where((element) => element.locations.isNotEmpty).toList();
+    var lstWithLocations = lstAssets
+        .where((element) =>
+            element.locations.isNotEmpty && element.name.contains("test"))
+        .toList();
     await evaluateMostCloseAsset(lstWithLocations);
   }
 
@@ -67,28 +70,41 @@ class _ARSectionState extends State<ARSection> {
     AssetModel mostCloseAsset;
     double distance = 0;
     LatLng userLocation;
+    //lista de objetos no default
+    var lstNoDefault =
+        lst.where((element) => !element.name.contains("default")).toList();
+    //lista de objetos default
+    var lstDefault =
+        lst.where((element) => element.name.contains("default")).toList();
+
     await getCurrentLocation().then(
         (value) => userLocation = LatLng(value.latitude, value.longitude));
-    for (var item in lst) {
+    for (var item in lstNoDefault) {
       for (var location in item.locations) {
+        double range = double.parse(location.rule);
         double distanceTemp =
             calculateDistanceMts(userLocation, location.position);
         if (distance == 0) {
           distance = distanceTemp;
-        } else if (distanceTemp < distance && distanceTemp < 100) {
+          if (distanceTemp < range) {
+            mostCloseAsset = item;
+          }
+        } else if (distanceTemp < distance && distanceTemp < range) {
           distance = distanceTemp;
           mostCloseAsset = item;
         }
       }
     }
-    assetAR = mostCloseAsset ??
-        lst
-            .where((element) => element.locations
-                .where((element) => element.rule == "default")
-                .isNotEmpty)
-            .first;
+
+    assetAR = mostCloseAsset ?? randomElementFromList(lstDefault);
     print("el asset mas cercano es: ${assetAR.name} esta a $distance mts");
     loadDataAPI = false;
+  }
+
+  randomElementFromList(List lst) {
+    var random = Random();
+    var element = lst[random.nextInt(lst.length)];
+    return element;
   }
 
   @override
