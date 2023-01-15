@@ -72,10 +72,10 @@ class _ARSectionState extends State<ARSection> {
     LatLng userLocation;
     //lista de objetos no default
     var lstNoDefault =
-        lst.where((element) => !element.name.contains("default")).toList();
+        lst.where((element) => element.defaultAsset == false).toList();
     //lista de objetos default
     var lstDefault =
-        lst.where((element) => element.name.contains("default")).toList();
+        lst.where((element) => element.defaultAsset == true).toList();
 
     await getCurrentLocation().then(
         (value) => userLocation = LatLng(value.latitude, value.longitude));
@@ -241,8 +241,9 @@ class _ARSectionState extends State<ARSection> {
   void _onUnityCreated(controller) {
     controller.resume();
     _unityWidgetController = controller;
+    var path = Platform.isAndroid ? assetAR.path : assetAR.path2;
     _unityWidgetController.postMessage(
-        "assetAR", "DownloadAssetBundleFromServer", assetAR.path);
+        "assetAR", "DownloadAssetBundleFromServer", path);
   }
 
   takescreenshot() async {
