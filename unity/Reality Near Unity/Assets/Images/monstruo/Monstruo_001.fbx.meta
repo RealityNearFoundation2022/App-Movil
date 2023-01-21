@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: 4ba9a8e16e9854bce814d2be23176bf4
+guid: 44cf60a18f3274a59b7d37298b2a788a
 ModelImporter:
   serializedVersion: 22103
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Luz
+    second: {fileID: 2100000, guid: a0b5893b594824a9783ef00a80dc3a2b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mini simple toon
+    second: {fileID: 2100000, guid: 36d500b4b060b4b19b2507fcb0a363b4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -104,5 +114,5 @@ ModelImporter:
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 
-  assetBundleName: monstruo
+  assetBundleName: 
   assetBundleVariant: 

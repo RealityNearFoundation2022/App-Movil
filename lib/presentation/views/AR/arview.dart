@@ -58,10 +58,8 @@ class _ARSectionState extends State<ARSection> {
 
   getAssets() async {
     var lstAssets = await AssetRepository().getAllAssets();
-    var lstWithLocations = lstAssets
-        .where((element) =>
-            element.locations.isNotEmpty && element.name.contains("test"))
-        .toList();
+    var lstWithLocations =
+        lstAssets.where((element) => element.locations.isNotEmpty).toList();
     await evaluateMostCloseAsset(lstWithLocations);
   }
 
