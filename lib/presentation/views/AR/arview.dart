@@ -58,9 +58,7 @@ class _ARSectionState extends State<ARSection> {
 
   getAssets() async {
     var lstAssets = await AssetRepository().getAllAssets();
-    var lstWithLocations =
-        lstAssets.where((element) => element.locations.isNotEmpty).toList();
-    await evaluateMostCloseAsset(lstWithLocations);
+    await evaluateMostCloseAsset(lstAssets);
   }
 
   //distancia apropriada para AR
@@ -75,8 +73,8 @@ class _ARSectionState extends State<ARSection> {
     var lstDefault =
         lst.where((element) => element.defaultAsset == true).toList();
 
-    await getCurrentLocation().then(
-        (value) => userLocation = LatLng(value.latitude, value.longitude));
+    var currentLocation = await getCurrentLocation();
+    userLocation = LatLng(currentLocation.latitude, currentLocation.longitude);
     for (var item in lstNoDefault) {
       for (var location in item.locations) {
         double range = double.parse(location.rule);
@@ -100,9 +98,13 @@ class _ARSectionState extends State<ARSection> {
   }
 
   randomElementFromList(List lst) {
-    var random = Random();
-    var element = lst[random.nextInt(lst.length)];
-    return element;
+    if (lst.length > 1) {
+      var random = Random();
+      var element = lst[random.nextInt(lst.length)];
+      return element;
+    } else {
+      return lst[0];
+    }
   }
 
   @override

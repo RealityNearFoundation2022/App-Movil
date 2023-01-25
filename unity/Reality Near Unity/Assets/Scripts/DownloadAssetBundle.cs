@@ -69,7 +69,7 @@ public class DownloadAssetBundle : MonoBehaviour
             //sacale object
             // instenceGo.transform.localScale = new Vector3(10f,10f,10f);
             // instenceGo.transform.rotation = new Quaternion(0, 180, 180,0);
-            instenceGo.transform.rotation = StringToQuaternion(rotation);
+            instenceGo.transform.eulerAngles = StringToVector3(rotation);
             // instenceGo.transform.position = new Vector3(0f, 0f, 0.6f);
             instenceGo.transform.localScale = StringToVector3(scale);
             instenceGo.transform.position = StringToVector3(position);
