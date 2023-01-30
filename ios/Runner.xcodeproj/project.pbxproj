@@ -13,6 +13,10 @@
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		8F5A34BA296492B900EEAEE3 /* UnityFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FFD6537293AABAA00B43CC2 /* UnityFramework.framework */; };
 		8F5A34BB296492B900EEAEE3 /* UnityFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8FFD6537293AABAA00B43CC2 /* UnityFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F8F1FC9298589CC00B11303 /* UnityDriver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F8F1FC4298589CB00B11303 /* UnityDriver.framework */; };
+		8F8F1FCA298589CC00B11303 /* UnityDriver.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F8F1FC4298589CB00B11303 /* UnityDriver.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8F8F1FCB298589CC00B11303 /* VuforiaEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F8F1FC8298589CC00B11303 /* VuforiaEngine.framework */; };
+		8F8F1FCC298589CC00B11303 /* VuforiaEngine.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F8F1FC8298589CC00B11303 /* VuforiaEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
@@ -49,6 +53,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8F8F1FCC298589CC00B11303 /* VuforiaEngine.framework in Embed Frameworks */,
+				8F8F1FCA298589CC00B11303 /* UnityDriver.framework in Embed Frameworks */,
 				8F5A34BB296492B900EEAEE3 /* UnityFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -64,6 +70,8 @@
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
+		8F8F1FC4298589CB00B11303 /* UnityDriver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UnityDriver.framework; path = UnityLibrary/Frameworks/com.ptc.vuforia.engine/Vuforia/Plugins/iOS/UnityDriver.framework; sourceTree = "<group>"; };
+		8F8F1FC8298589CC00B11303 /* VuforiaEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VuforiaEngine.framework; path = UnityLibrary/Frameworks/com.ptc.vuforia.engine/Vuforia/Plugins/iOS/VuforiaEngine.framework; sourceTree = "<group>"; };
 		8F9FEBC1292D1F0900D641D8 /* UnityFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UnityFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FFD652C293AABA700B43CC2 /* Unity-iPhone.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "Unity-iPhone.xcodeproj"; path = "UnityLibrary/Unity-iPhone.xcodeproj"; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
@@ -84,6 +92,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				677E79703FEC4DDCF6FFBAE5 /* Pods_Runner.framework in Frameworks */,
+				8F8F1FCB298589CC00B11303 /* VuforiaEngine.framework in Frameworks */,
+				8F8F1FC9298589CC00B11303 /* UnityDriver.framework in Frameworks */,
 				8F5A34BA296492B900EEAEE3 /* UnityFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,6 +169,8 @@
 		9A54FA8101B5BC659773A241 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8F8F1FC4298589CB00B11303 /* UnityDriver.framework */,
+				8F8F1FC8298589CC00B11303 /* VuforiaEngine.framework */,
 				8FFD652C293AABA700B43CC2 /* Unity-iPhone.xcodeproj */,
 				8F9FEBC1292D1F0900D641D8 /* UnityFramework.framework */,
 				0E97BF4406491DDFD13AAD42 /* Pods_Runner.framework */,
@@ -431,6 +443,10 @@
 				DEVELOPMENT_TEAM = VLB6VM3ZZ2;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UnityLibrary/Frameworks/com.ptc.vuforia.engine/Vuforia/Plugins/iOS",
+				);
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -563,6 +579,10 @@
 				DEVELOPMENT_TEAM = VLB6VM3ZZ2;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UnityLibrary/Frameworks/com.ptc.vuforia.engine/Vuforia/Plugins/iOS",
+				);
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -589,6 +609,10 @@
 				DEVELOPMENT_TEAM = VLB6VM3ZZ2;
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/UnityLibrary/Frameworks/com.ptc.vuforia.engine/Vuforia/Plugins/iOS",
+				);
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

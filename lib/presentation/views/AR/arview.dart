@@ -204,6 +204,7 @@ class _ARSectionState extends State<ARSection> {
             padding: const EdgeInsets.only(left: 10),
             child: IconButton(
                 onPressed: (() {
+                  _unityWidgetController.unload();
                   _unityWidgetController.dispose();
 
                   Navigator.pushNamed(context, "/home");
