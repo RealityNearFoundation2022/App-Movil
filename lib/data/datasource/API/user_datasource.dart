@@ -20,7 +20,7 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
   @override
   Future<UserModel> getMyData() async {
     String url = API_REALITY_NEAR + "users/me";
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
     final response = await http.get(
       Uri.parse(url),
       headers: {
@@ -40,7 +40,7 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
 
   Future<List<User>> getUsers() async {
     String url = API_REALITY_NEAR + "users/?skip=0&limit=250";
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
     final response = await http.get(
       Uri.parse(url),
       headers: {
@@ -64,7 +64,7 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
   @override
   Future<User> getUserById(String userId) async {
     String url = API_REALITY_NEAR + "users/${userId}";
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
     final response = await http.get(
       Uri.parse(url),
       headers: {
@@ -84,7 +84,7 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
 
   editUserData(String avatar, String username, String email) async {
     String url = API_REALITY_NEAR + "users/me";
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
 
     Map data = {
       "full_name": username,

@@ -10,7 +10,7 @@ import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/core/routes.dart';
 import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
-import 'package:reality_near/presentation/views/homeScreen/homeScreen.dart';
+import 'package:reality_near/presentation/views/homeScreen/home_screen_v2.dart';
 import 'package:reality_near/presentation/views/mapScreen/widgets/map.dart';
 import 'package:reality_near/providers/location_provider.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -21,7 +21,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {
-    isLoggedIn = await getPersistData('userToken') != null;
+    isLoggedIn = await getPreference('userToken') != null;
     runApp(const MyApp());
   });
 }
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             ),
           ],
           child: ShowCaseWidget(
-            onFinish: () => persistData('passInitGuide', 'true'),
+            onFinish: () => setPreference('passInitGuide', 'true'),
             builder: Builder(
               builder: (context) {
                 return MaterialApp(
@@ -72,8 +72,7 @@ class MyApp extends StatelessWidget {
                     GlobalCupertinoLocalizations.delegate,
                   ],
                   supportedLocales: S.delegate.supportedLocales,
-                  initialRoute:
-                      isLoggedIn ? HomeScreen.routeName : FirstScreen.routeName,
+                  initialRoute: isLoggedIn ? '/home' : '/firstScreen',
                   // initialRoute:"/qrViewScreen",
                   routes: routes,
                 );

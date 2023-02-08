@@ -55,6 +55,16 @@ class S {
     );
   }
 
+  /// `Login`
+  String get btnLog {
+    return Intl.message(
+      'Login',
+      name: 'btnLog',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login with email`
   String get btnLogEmail {
     return Intl.message(

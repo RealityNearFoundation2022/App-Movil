@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/repository/userRepository.dart';
@@ -132,6 +133,64 @@ class Login extends StatelessWidget {
                     }),
                   ),
                 ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Row(
+                    children: const [
+                      Expanded(
+                        child: Divider(
+                          endIndent: 10,
+                          color: bordergrey,
+                        ),
+                      ),
+                      Text(
+                        "O ingresa con",
+                        style: TextStyle(color: bordergrey),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          indent: 10,
+                          color: bordergrey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+
+                // ElevatedButton(
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: Colors.white,
+                //       shape: const CircleBorder(),
+                //       padding: const EdgeInsets.all(15),
+                //       side: const BorderSide(color: greenPrimary, width: 2),
+                //     ),
+                //     onPressed: () {},
+                //     child: SvgPicture.asset(
+                //       'assets/icons/near_logo_stack.svg',
+                //       color: greenPrimary,
+                //       height: MediaQuery.of(context).size.height * 0.06,
+                //       width: MediaQuery.of(context).size.height * 0.15,
+                //     )),
+
+                IconButton(
+                    constraints: const BoxConstraints(
+                        maxHeight: 50,
+                        maxWidth: 200,
+                        minHeight: 50,
+                        minWidth: 200),
+                    onPressed: () {},
+                    icon: SvgPicture.asset(
+                      'assets/icons/near_logo_complete.svg',
+                      color: greenPrimary,
+                      height: MediaQuery.of(context).size.height * 0.04,
+                      width: MediaQuery.of(context).size.height * 0.1,
+                    )),
               ]),
         ),
       ),

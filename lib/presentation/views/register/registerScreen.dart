@@ -73,7 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (state is UserLoggedInState) {
           //Show dialog when Login failed or login without wallet
           if (state.isLoggedIn) {
-            persistData('usAvatar',pathSelectedAvatar);
+            setPreference('usAvatar', pathSelectedAvatar);
             //Go to Home
             Navigator.pushNamedAndRemoveUntil(
                 context, '/home', (Route<dynamic> route) => false);
@@ -124,8 +124,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
             //Button
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 40),
               child: ButtonWithStates(
                   text: S.current.Registrate,
                   press: () {
@@ -205,6 +204,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ],
     );
   }
-
-
 }

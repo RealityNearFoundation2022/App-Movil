@@ -22,7 +22,7 @@ class ReportsRemoteDataSourceImpl implements ReportsRemoteDataSource {
     final url = baseUrl;
     var body = report.toJson();
     var bodyData = json.encode(body);
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
     final response = await http.post(Uri.parse(url),
         headers: {
           "Content-Type": "application/json",

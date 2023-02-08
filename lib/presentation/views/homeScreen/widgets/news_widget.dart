@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/helper/url_constants.dart';
 import 'package:reality_near/data/models/news_model.dart';
-import 'package:reality_near/presentation/views/noAR/widgets/news_details_page.dart';
+import 'package:reality_near/presentation/views/homeScreen/widgets/news_details_page.dart';
 
 class NewsWidget extends StatelessWidget {
   final NewsModel news;
@@ -11,11 +11,11 @@ class NewsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double width = size.width * 0.7;
-    double height = size.height * 0.2;
+    double width = size.width * 0.9;
+    double height = size.height * 0.25;
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.only(left: size.width * 0.055),
+      padding: const EdgeInsets.only(left: 5, right: 10, top: 5),
       height: height,
       width: width,
       child: InkWell(
@@ -49,30 +49,23 @@ class NewsWidget extends StatelessWidget {
                 },
               ),
             ),
-            FittedBox(
-              child: Container(
-                alignment: Alignment.topLeft,
-                height: height * 0.14,
-                // width: width * 0.7,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
+            ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: height,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   color: Colors.black.withOpacity(0.5),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
+                  child: Text(
+                    news.title,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.sourceSansPro(
+                      color: Colors.white,
+                      fontSize: width * 0.055,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                child: Text(
-                  news.title,
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.sourceSansPro(
-                    color: Colors.white,
-                    fontSize: width * 0.055,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
+                )),
           ],
         ),
       ),

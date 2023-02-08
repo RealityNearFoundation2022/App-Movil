@@ -114,6 +114,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "Wallet" : MessageLookupByLibrary.simpleMessage("Wallet"),
     "WalletOblig" : MessageLookupByLibrary.simpleMessage("Wallet obligatoria"),
     "amigosEnComun" : m0,
+    "btnLog" : MessageLookupByLibrary.simpleMessage("Iniciar sesión"),
     "btnLogEmail" : MessageLookupByLibrary.simpleMessage("Ingresa con tu correo"),
     "btnLogWallet" : MessageLookupByLibrary.simpleMessage("Ingresa con tu wallet"),
     "copyClip" : MessageLookupByLibrary.simpleMessage("Copiado al portapapeles"),

@@ -4,7 +4,9 @@ import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:latlong2/latlong.dart';
@@ -16,8 +18,8 @@ import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/models/asset_model.dart';
 import 'package:reality_near/data/repository/assetRepository.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/views/mapScreen/mapScreen.dart';
-import 'package:reality_near/presentation/views/menuScreen/menuScreen.dart';
+import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
+import 'package:reality_near/presentation/views/mapScreen/map_button.dart';
 import 'package:reality_near/presentation/widgets/others/snackBar.dart';
 import '../mapScreen/widgets/placeDialog.dart';
 
@@ -37,8 +39,6 @@ class _ARSectionState extends State<ARSection> {
   bool loadDataAPI = true;
   UnityWidgetController _unityWidgetController;
   bool inLocationRange = false;
-  final GlobalKey _one = GlobalKey();
-  final GlobalKey _two = GlobalKey();
 
   @override
   void dispose() {
@@ -113,56 +113,101 @@ class _ARSectionState extends State<ARSection> {
       onWillPop: () async {
         return false;
       },
-      child: Scaffold(
-          body: Stack(
-        children: [
-          loadDataAPI
-              ? loading()
-              : RepaintBoundary(
-                  key: scr,
-                  child: UnityWidget(
-                      onUnityCreated: _onUnityCreated,
-                      onUnityMessage: onUnityMessage,
-                      onUnitySceneLoaded: onUnitySceneLoaded,
-                      useAndroidViewSurface: false,
-                      printSetupLog: false,
-                      enablePlaceholder: false,
-                      fullscreen: false),
-                ),
-          header(),
-          //Map-Button
-          Align(
-              alignment: Alignment.bottomLeft,
-              child: MapContainer(
-                showCaseKey: _one,
-              )),
-          // //Menu-Button
-          Align(
-              alignment: Alignment.bottomRight,
-              child: MenuContainer(showCaseKey: _two)),
-          Positioned(
-            left: ScreenWH(context).width * 0.4,
-            bottom: ScreenWH(context).height * 0.04,
-            //Button Cammera
-            child: SizedBox(
-              width: ScreenWH(context).width * 0.18,
-              height: ScreenWH(context).height * 0.08,
-              child: FloatingActionButton(
-                backgroundColor: greenPrimary,
-                onPressed: () {
-                  onTakeScreenshot();
-                },
-                child: Icon(
-                  Icons.camera_alt,
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  size: ScreenWH(context).width * 0.1,
-                ),
-              ),
-            ),
+      child: Material(
+        child: GestureDetector(
+          onHorizontalDragEnd: (details) {
+            Navigator.pushNamed(context, "/home");
+          },
+          child: Stack(
+            children: [
+              loadDataAPI
+                  ? loading()
+                  : RepaintBoundary(
+                      key: scr,
+                      child: UnityWidget(
+                          onUnityCreated: _onUnityCreated,
+                          onUnityMessage: onUnityMessage,
+                          onUnitySceneLoaded: onUnitySceneLoaded,
+                          useAndroidViewSurface: false,
+                          printSetupLog: false,
+                          enablePlaceholder: false,
+                          fullscreen: false),
+                    ),
+              // : Container(
+              //     color: Colors.grey,
+              //     child: Center(
+              //       child: Text("AR no disponible"),
+              //     ),
+              //   ),
+              header(),
+              bottomBar()
+            ],
           ),
-        ],
-      )),
+        ),
+      ),
     );
+  }
+
+  bottomBar() {
+    return BlocBuilder<MenuBloc, MenuState>(builder: ((context, state) {
+      return Positioned(
+        bottom: 0,
+        child: SizedBox(
+          height:
+              ScreenWH(context).height * (state is MenuMapaState ? 0.5 : 0.15),
+          width: ScreenWH(context).width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                  alignment: Alignment.bottomLeft, child: const MapContainer()),
+              state is MenuMapaState
+                  ? const SizedBox()
+                  : Container(
+                      width: ScreenWH(context).width * 0.15,
+                      height: ScreenWH(context).width * 0.15,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: greenPrimary, width: 2),
+                      ),
+                      //Button Cammera
+                      child: IconButton(
+                        onPressed: () {
+                          onTakeScreenshot();
+                        },
+                        icon: Icon(
+                          FontAwesomeIcons.camera,
+                          color: greenPrimary,
+                          size: MediaQuery.of(context).size.height * 0.04,
+                        ),
+                      ),
+                    ),
+              //back-Button
+              state is MenuMapaState
+                  ? const SizedBox()
+                  : Container(
+                      alignment: Alignment.bottomRight,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 15,
+                      ),
+                      child: IconButton(
+                          onPressed: (() {
+                            _unityWidgetController.unload();
+                            _unityWidgetController.dispose();
+
+                            Navigator.pushNamed(context, "/home");
+                          }),
+                          icon: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: greenPrimary,
+                            size: MediaQuery.of(context).size.height * 0.055,
+                          )),
+                    ),
+            ],
+          ),
+        ),
+      );
+    }));
   }
 
   //Loading Screen
@@ -194,36 +239,15 @@ class _ARSectionState extends State<ARSection> {
   //Header with icon logo and Switch for AR
   Widget header() {
     return Container(
-      margin: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top),
-      width: ScreenWH(context).width * 0.725,
-      height: ScreenWH(context).height * 0.1,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 10),
-            child: IconButton(
-                onPressed: (() {
-                  _unityWidgetController.unload();
-                  _unityWidgetController.dispose();
-
-                  Navigator.pushNamed(context, "/home");
-                }),
-                icon: const Icon(
-                  Icons.arrow_back_ios,
-                  color: greenPrimary,
-                  size: 35,
-                )),
-          ),
-          const Spacer(),
-          Center(
-            child: Image.asset(
-              "assets/imgs/Logo_sin_fondo.png",
-              width: ScreenWH(context).width * 0.45,
-              height: ScreenWH(context).height * 0.12,
-            ),
-          ),
-        ],
+      margin: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top + 10),
+      width: ScreenWH(context).width,
+      height: ScreenWH(context).height * 0.15,
+      child: Center(
+        child: Image.asset(
+          "assets/imgs/Logo_sin_fondo.png",
+          width: ScreenWH(context).width * 0.45,
+          height: ScreenWH(context).height * 0.12,
+        ),
       ),
     );
   }

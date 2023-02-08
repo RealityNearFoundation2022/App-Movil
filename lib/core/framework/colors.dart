@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 //User Interface and Theming
 const txtPrimary = Color.fromRGBO(85, 85, 85, 1);
+final txtGrey = Colors.black54.withOpacity(0.5);
 const offSwitch = Color.fromRGBO(102, 102, 102, 1);
 const icongrey = Color.fromRGBO(112, 112, 112, 1);
 const greenPrimary = Color.fromRGBO(51, 204, 153, 1);
 const greenPrimary2 = Color.fromRGBO(70, 183, 142, 1);
 const greenPrimary3 = Color.fromRGBO(51, 204, 153, 1);
 const greySoft = Color.fromRGBO(223, 222, 211, 1);
+const bordergrey = Color(0xFFDDDDDD);
 
 const backgroundWhite = Colors.white;
 

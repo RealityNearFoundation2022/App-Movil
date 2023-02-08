@@ -9,7 +9,7 @@ import 'package:reality_near/generated/l10n.dart';
 import 'package:sizer/sizer.dart';
 
 class ReceiveScreen extends StatefulWidget {
-   ReceiveScreen({Key key}) : super(key: key);
+  ReceiveScreen({Key key}) : super(key: key);
   static String routeName = "/receive";
 
   @override
@@ -22,7 +22,7 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
   bool _loading = true;
 
   _getWalletAddress() async {
-    getPersistData('walletId').then((value) {
+    getPreference('walletId').then((value) {
       setState(() {
         _walletAddress = value;
         _loading = false;
@@ -82,82 +82,84 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
         ),
       ),
       body: Center(
-        child: _loading ?
-        LoadingAnimationWidget.dotsTriangle(
-          color: greenPrimary,
-          size: ScreenWH(context).width * 0.3,
-        )
-        : SizedBox(
-          width: ScreenWH(context).width * 0.8,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 20),
-              DottedBorder(
-                  borderType: BorderType.RRect,
-                  color: txtPrimary,
-                  dashPattern: const [12],
-                  strokeWidth: 2,
-                  child: SizedBox(
-                    height: 80,
-                    child: Center(
-                      child: Text(
-                        _walletAddress,
-                        style: GoogleFonts.sourceSansPro(
-                            fontSize: 24,
-                            color: txtPrimary,
-                            fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                  )),
-              const SizedBox(height: 20),
-              Text(
-                S.current.reciveDescrip,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.sourceSansPro(
-                    fontSize: 18,
-                    color: txtPrimary,
-                    fontWeight: FontWeight.w800),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      //copy to clipboard
-                      Clipboard.setData(ClipboardData(text: _walletAddress));
-                      copyConfirm();
-                    },
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(greenPrimary),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0))),
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                          const EdgeInsets.symmetric(horizontal: 30)),
-                    ),
-                    child: Text(
-                      S.current.Copiar,
+        child: _loading
+            ? LoadingAnimationWidget.dotsTriangle(
+                color: greenPrimary,
+                size: ScreenWH(context).width * 0.3,
+              )
+            : SizedBox(
+                width: ScreenWH(context).width * 0.8,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 20),
+                    DottedBorder(
+                        borderType: BorderType.RRect,
+                        color: txtPrimary,
+                        dashPattern: const [12],
+                        strokeWidth: 2,
+                        child: SizedBox(
+                          height: 80,
+                          child: Center(
+                            child: Text(
+                              _walletAddress,
+                              style: GoogleFonts.sourceSansPro(
+                                  fontSize: 24,
+                                  color: txtPrimary,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        )),
+                    const SizedBox(height: 20),
+                    Text(
+                      S.current.reciveDescrip,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.sourceSansPro(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w800,
-                      ),
+                          fontSize: 18,
+                          color: txtPrimary,
+                          fontWeight: FontWeight.w800),
                     ),
-                  ),
-                  const SizedBox(width: 20),
-                  // IconButton(
-                  //   icon: const Icon(Icons.share_outlined,
-                  //       color: icongrey, size: 35),
-                  //   onPressed: () => Navigator.of(context).pop(),
-                  // ),
-                ],
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            //copy to clipboard
+                            Clipboard.setData(
+                                ClipboardData(text: _walletAddress));
+                            copyConfirm();
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(greenPrimary),
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20.0))),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                const EdgeInsets.symmetric(horizontal: 30)),
+                          ),
+                          child: Text(
+                            S.current.Copiar,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.sourceSansPro(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        // IconButton(
+                        //   icon: const Icon(Icons.share_outlined,
+                        //       color: icongrey, size: 35),
+                        //   onPressed: () => Navigator.of(context).pop(),
+                        // ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
       ),
     );
   }

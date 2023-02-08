@@ -13,9 +13,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserInitialState()) {
 //Evento para Login con Wallet
     on<UserLoginWalletEvent>((event, emit) async {
-      final WalletLogin walletLogin =
-          WalletLogin(event.context, event.walletId);
-      // emit(UserLoadingState());
+      final WalletLogin walletLogin = WalletLogin(event.context);
       final result = await walletLogin();
       emit(UserLoggedInState(result.isRight()));
     });
@@ -42,7 +40,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserLogOutEvent>(
       (event, emit) {
         emit(UserInitialState());
-        deleteAllPersistData();
+        deleteAllsetPreference();
       },
     );
 

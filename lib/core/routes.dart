@@ -7,7 +7,8 @@ import 'package:reality_near/presentation/views/chatRoomScreen/chatRoomScreen.da
 import 'package:reality_near/presentation/views/chatRoomScreen/widgets/chatUserDetail.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configurationScreen.dart';
 import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
-import 'package:reality_near/presentation/views/homeScreen/homeScreen.dart';
+import 'package:reality_near/presentation/views/homeScreen/home_screen_v2.dart';
+// import 'package:reality_near/presentation/views/homeScreen/homeScreen.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
 import 'package:reality_near/presentation/views/login/login.dart';
 import 'package:reality_near/presentation/views/login/no_avatar_screen.dart';
@@ -26,7 +27,7 @@ import 'package:reality_near/presentation/views/walletScreen/widgets/transaction
 final Map<String, WidgetBuilder> routes = {
   FirstScreen.routeName: (context) => const FirstScreen(),
   Login.routeName: (context) => Login(),
-  HomeScreen.routeName: (context) => const HomeScreen(),
+  HomeScreenV2.routeName: (context) => const HomeScreenV2(),
   FriendScreen.routeName: (context) => const FriendScreen(),
   ConfigurationScreen.routeName: (context) => const ConfigurationScreen(),
   InfoScreen.routeName: (context) => const InfoScreen(),

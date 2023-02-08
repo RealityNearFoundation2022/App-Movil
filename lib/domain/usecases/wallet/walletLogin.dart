@@ -5,12 +5,11 @@ import 'package:reality_near/data/repository/WalletRepository.dart';
 
 class WalletLogin {
   WalletRepository walletRepository = WalletRepository();
-  final String accountId;
   final BuildContext context;
 
-  WalletLogin(this.context, this.accountId);
+  WalletLogin(this.context);
 
   Future<Either<Failure, dynamic>> call() async {
-    return walletRepository.loginNearWallet(context, accountId);
+    return walletRepository.loginNearWallet(context);
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/data/datasource/nearRPC/contracts.dart';
+import 'package:reality_near/data/datasource/near/contracts.dart';
 import 'package:reality_near/data/models/nftModel.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
@@ -30,8 +30,8 @@ class _TabMovesNFTsState extends State<TabMovesNFTs> {
 
     //obtener NFTs de wallet
     ContractRemoteDataSourceImpl().getMyNFTs().then((value) => setState(() {
-      lstNFTs = value;
-    }));
+          lstNFTs = value;
+        }));
   }
 
   @override

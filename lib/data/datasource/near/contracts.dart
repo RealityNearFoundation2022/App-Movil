@@ -20,7 +20,7 @@ class ContractRemoteDataSourceImpl implements ContractRemoteDataSource {
   @override
   Future<double> getMyBalance() async {
     final url = baseUrl;
-    var accoutId = await getPersistData('walletId');
+    var accoutId = await getPreference('walletId');
     //convertimos a base64 los args
     var argsBase64 = convertToBase64('{"account_id":"$accoutId"}');
     Map data = {
@@ -63,7 +63,7 @@ class ContractRemoteDataSourceImpl implements ContractRemoteDataSource {
   @override
   Future<List<NftModel>> getMyNFTs() async {
     final url = baseUrl;
-    var accoutId = await getPersistData('walletId');
+    var accoutId = await getPreference('walletId');
     //convertimos a base64 los args
     var argsBase64 = convertToBase64('{"account_id":"$accoutId"}');
     List<NftModel> lstNFTs = [];

@@ -12,63 +12,64 @@ class NewsDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                width: ScreenWH(context).width,
-                height: ScreenWH(context).height * 0.35,
-                child: ClipRRect(
-                  child: Image.network(
-                    API_REALITY_NEAR_IMGs + news.image,
-                    fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).padding.top,
+            ),
+            SizedBox(
+              width: ScreenWH(context).width,
+              height: ScreenWH(context).height * 0.6,
+              child: ClipRRect(
+                child: Image.network(
+                  API_REALITY_NEAR_IMGs + news.image,
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+            Padding( 
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    news.title,
+                    textAlign: TextAlign.left,
+                    style: GoogleFonts.sourceSansPro(
+                      color: greenPrimary,
+                      fontSize: ScreenWH(context).width * 0.07,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      news.title,
-                      textAlign: TextAlign.left,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "by ${news.planners ?? 'Reality Near Foundation'}",
+                      textAlign: TextAlign.start,
                       style: GoogleFonts.sourceSansPro(
-                        color: greenPrimary,
-                        fontSize: ScreenWH(context).width * 0.07,
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontSize: ScreenWH(context).width * 0.04,
+                          fontWeight: FontWeight.bold,
+                          color: txtPrimary),
                     ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "by ${news.planners ?? 'Reality Near Foundation'}",
-                        textAlign: TextAlign.start,
-                        style: GoogleFonts.sourceSansPro(
-                            fontSize: ScreenWH(context).width * 0.04,
-                            fontWeight: FontWeight.bold,
-                            color: txtPrimary),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: news.articles.length,
-                itemBuilder: (context, index) {
-                  var article = news.articles[index];
-                  return articleContent(article.data, article.image, context);
-                },
-              ),
-              SizedBox(
-                height: ScreenWH(context).height * 0.05,
-              ),
-            ],
-          ),
+            ),
+            ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: news.articles.length,
+              itemBuilder: (context, index) {
+                var article = news.articles[index];
+                return articleContent(article.data, article.image, context);
+              },
+            ),
+            SizedBox(
+              height: ScreenWH(context).height * 0.05,
+            ),
+          ],
         ),
       ),
       bottomSheet: _footter(context),

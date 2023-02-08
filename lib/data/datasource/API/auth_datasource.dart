@@ -63,7 +63,7 @@ class AuthsRemoteDataSourceImpl implements AuthsRemoteDataSource {
     final jsonData = jsonDecode(body);
     String token = jsonData["access_token"];
 
-    response.statusCode == 200 ? {persistData('userToken', token)} : null;
+    response.statusCode == 200 ? {setPreference('userToken', token)} : null;
     return response.statusCode == 200 ? true : false;
   }
 }

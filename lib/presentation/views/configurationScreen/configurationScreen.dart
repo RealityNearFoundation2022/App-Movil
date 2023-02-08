@@ -30,7 +30,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getPersistData('walletId').then((value) => {
+    getPreference('walletId').then((value) => {
           if (value != null)
             {
               setState(() {

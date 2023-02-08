@@ -22,7 +22,7 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource {
   @override
   Future<String> AssignCuponToUser(String cuponId) async {
     final url = baseUrl + "assign/" + cuponId;
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
     final response = await http.post(Uri.parse(url), headers: {
       "Content-Type": "application/json",
       "Authorization": "Bearer $token",
@@ -44,7 +44,7 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource {
   @override
   Future<List<AssignCuponModel>> ReadCuponFromUser() async {
     final url = baseUrl + "assign";
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
     final response = await http.get(
       Uri.parse(url),
       headers: {
@@ -69,7 +69,7 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource {
   @override
   Future<CuponModel> ReadCupon(String cuponId) async {
     String url = API_REALITY_NEAR + "coupons/$cuponId";
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
     final response = await http.get(
       Uri.parse(url),
       headers: {
@@ -91,7 +91,7 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource {
   @override
   Future<AssignCuponModel> RedeemCupon(String cuponId, String ownerId) async {
     String url = API_REALITY_NEAR + "coupons/redeem/$ownerId/$cuponId";
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
     final response = await http.put(
       Uri.parse(url),
       headers: {

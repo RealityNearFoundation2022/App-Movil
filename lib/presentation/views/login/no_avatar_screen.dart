@@ -39,7 +39,7 @@ class _NoAvatarScreenState extends State<NoAvatarScreen> {
         if (state is UserLoggedInState) {
           //Show dialog when Login failed or login without wallet
           if (state.isLoggedIn) {
-            persistData('usAvatar', pathSelectedAvatar);
+            setPreference('usAvatar', pathSelectedAvatar);
             //Go to Home
             Navigator.pushNamedAndRemoveUntil(
                 context, '/home', (Route<dynamic> route) => false);

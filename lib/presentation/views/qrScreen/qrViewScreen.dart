@@ -18,13 +18,11 @@ class QrViewScreen extends StatefulWidget {
 }
 
 class _QrScreenState extends State<QrViewScreen> {
-
   bool _loadingInfoCupon = true;
   CuponModel cupon = CuponModel();
 
   _getInfoCupon(String cuponId) async {
-    await GetCuponsWithIdUseCase(cuponId).call().then((value) =>
-        setState(() {
+    await GetCuponsWithIdUseCase(cuponId).call().then((value) => setState(() {
           cupon = value;
           _loadingInfoCupon = false;
         }));
@@ -32,9 +30,10 @@ class _QrScreenState extends State<QrViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
+    final args =
+        ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
 
-    if(cupon.id ==null) _getInfoCupon(args['cuponId'].toString());
+    if (cupon.id == null) _getInfoCupon(args['cuponId'].toString());
 
     return Scaffold(
         appBar: AppBar(
@@ -61,7 +60,7 @@ class _QrScreenState extends State<QrViewScreen> {
         body: _loadingInfoCupon ? loadScreen() : _body());
   }
 
-  loadScreen(){
+  loadScreen() {
     return Align(
       alignment: Alignment.center,
       child: Column(
@@ -142,7 +141,6 @@ class _QrScreenState extends State<QrViewScreen> {
           SizedBox(
             height: ScreenWH(context).height * 0.05,
           ),
-
         ],
       ),
     );
@@ -207,30 +205,29 @@ class _QrScreenState extends State<QrViewScreen> {
     );
   }
 
-  Future<String> _getOwnerId()async{
-    return await getPersistData("userId");
+  Future<String> _getOwnerId() async {
+    return await getPreference("userId");
   }
 
   _qrGenerator() {
     return Center(
         child: FutureBuilder<String>(
-          future: _getOwnerId(),
-          builder: (context, snapshot){
-            String owner = snapshot.data;
-            if(snapshot.hasData){
-              return QrImage(
-                data: cupon.id.toString() + ' | ' + owner,
-                foregroundColor: greenPrimary,
-                version: QrVersions.auto,
-                size: ScreenWH(context).width * 0.5,
-              );
-            }
-            return LoadingAnimationWidget.dotsTriangle(
-              color: greenPrimary,
-              size: ScreenWH(context).width * 0.3,
-            );
-          },
-        )
-    );
+      future: _getOwnerId(),
+      builder: (context, snapshot) {
+        String owner = snapshot.data;
+        if (snapshot.hasData) {
+          return QrImage(
+            data: cupon.id.toString() + ' | ' + owner,
+            foregroundColor: greenPrimary,
+            version: QrVersions.auto,
+            size: ScreenWH(context).width * 0.5,
+          );
+        }
+        return LoadingAnimationWidget.dotsTriangle(
+          color: greenPrimary,
+          size: ScreenWH(context).width * 0.3,
+        );
+      },
+    ));
   }
 }

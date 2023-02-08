@@ -22,7 +22,7 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
   @override
   addContact(String contactId) async {
     final url = baseUrl;
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
 
     Map data = {
       "contact_id": contactId,
@@ -48,7 +48,7 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
   @override
   getContacts() async {
     final url = baseUrl;
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
     final response = await http.get(
       Uri.parse(url),
       headers: {
@@ -72,7 +72,7 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
   @override
   getPendingContacts() async {
     final url = baseUrl + "pending";
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
     final response = await http.get(
       Uri.parse(url),
       headers: {
@@ -96,7 +96,7 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
   @override
   acceptPendigRequest(String contactId) async {
     final url = baseUrl + "$contactId/approved";
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
     final response = await http.put(
       Uri.parse(url),
       headers: {
@@ -117,7 +117,7 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
   @override
   removeDeleteContacts(String contactId) async {
     final url = baseUrl + contactId;
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
     final response = await http.delete(
       Uri.parse(url),
       headers: {

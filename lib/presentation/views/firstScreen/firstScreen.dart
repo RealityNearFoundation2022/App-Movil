@@ -31,28 +31,19 @@ class _FirstScreenState extends State<FirstScreen> {
     super.initState();
 
     _storeGuidedInfo();
-    _controller = VideoPlayerController.asset("assets/videos/IntroAppRN.mp4")
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {
-          _initializeVideoPlayerFuture = _controller.initialize();
-          _controller.play();
-          // Usa el controlador para hacer un bucle en el vídeo
-          _controller.setLooping(true);
-        });
-      });
-    // Inicializa el controlador y almacena el Future para utilizarlo luego
-    _initializeVideoPlayerFuture = _controller.initialize();
-    _controller.play();
-    // Usa el controlador para hacer un bucle en el vídeo
+    _controller = VideoPlayerController.asset("assets/videos/IntroAppRN.mp4");
+    _controller.addListener(() {
+      setState(() {});
+    });
     _controller.setLooping(true);
+    _controller.setVolume(0.0);
+    _controller.initialize().then((_) => setState(() {}));
+    _controller.play();
   }
 
   @override
   void dispose() {
-    // Asegúrate de despachar el VideoPlayerController para liberar los recursos
     _controller.dispose();
-
     super.dispose();
   }
 
@@ -73,13 +64,6 @@ class _FirstScreenState extends State<FirstScreen> {
             child: Image.asset('assets/imgs/Logo_sin_fondo.png',
                 height: 120, width: 120),
           ),
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: Container(
-          //     color: Colors.white,
-          //     height: MediaQuery.of(context).size.height * 0.21,
-          //   ),
-          // ),
           Positioned(
               bottom: MediaQuery.of(context).size.height * 0.06,
               child: SizedBox(
@@ -111,8 +95,12 @@ class _FirstScreenState extends State<FirstScreen> {
       children: [
         FittedBox(
           child: GestureDetector(
-            onTap: (() => Navigator.pushNamed(context, Login.routeName)),
+            onTap: (() {
+              Navigator.pushNamed(context, Login.routeName);
+            }),
             child: Container(
+                width: MediaQuery.of(context).size.width * 0.67,
+                height: MediaQuery.of(context).size.height * 0.065,
                 alignment: Alignment.center,
                 margin:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -122,10 +110,10 @@ class _FirstScreenState extends State<FirstScreen> {
                     color: greenPrimary,
                     borderRadius: BorderRadius.circular(30)),
                 child: Center(
-                  child: Text(S.current.btnLogEmail,
+                  child: Text(S.current.btnLog,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.sourceSansPro(
-                          fontSize: 24,
+                          fontSize: getResponsiveText(context, 21),
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
                           decoration: TextDecoration.none)),
@@ -139,6 +127,8 @@ class _FirstScreenState extends State<FirstScreen> {
             onTap: (() =>
                 Navigator.pushNamed(context, RegisterScreen.routeName)),
             child: Container(
+                width: MediaQuery.of(context).size.width * 0.67,
+                height: MediaQuery.of(context).size.height * 0.065,
                 alignment: Alignment.center,
                 margin:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -151,7 +141,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   child: Text(S.current.Registrate,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.sourceSansPro(
-                          fontSize: 24,
+                          fontSize: getResponsiveText(context, 21),
                           fontWeight: FontWeight.w600,
                           color: greenPrimary,
                           decoration: TextDecoration.none)),

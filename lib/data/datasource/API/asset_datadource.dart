@@ -21,7 +21,7 @@ class AssetRemoteDataSourceImpl implements AssetRemoteDataSource {
   @override
   Future<AssetModel> getAsset(String id) async {
     final url = baseUrl + "/$id";
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
 
     final response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json",
@@ -38,7 +38,7 @@ class AssetRemoteDataSourceImpl implements AssetRemoteDataSource {
   @override
   Future<List<AssetModel>> getAllAssets() async {
     final url = "$baseUrl/";
-    String token = await getPersistData("userToken");
+    String token = await getPreference("userToken");
 
     final response = await http.get(Uri.parse(url), headers: {
       "Content-Type": "application/json",

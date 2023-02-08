@@ -53,24 +53,38 @@ String getRandomName() {
       apellidos[Random().nextInt(apellidos.length)];
 }
 
-persistData(String key, String value) async {
+setPreference(String key, dynamic value) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.setString(key, value);
-  dynamic token = prefs.getString(key);
+  switch (value.runtimeType) {
+    case String:
+      await prefs.setString(key, value);
+      break;
+    case int:
+      await prefs.setInt(key, value);
+      break;
+    case double:
+      await prefs.setDouble(key, value);
+      break;
+    case bool:
+      await prefs.setBool(key, value);
+      break;
+    case List:
+      await prefs.setStringList(key, value);
+      break;
+  }
 }
 
-getPersistData(String key) async {
+getPreference(String key) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  dynamic token = prefs.getString(key);
-  return token;
+  return prefs.get(key);
 }
 
-deletePersistData(String key) async {
+deletesetPreference(String key) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.remove(key);
 }
 
-deleteAllPersistData() async {
+deleteAllsetPreference() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.clear();
 }
@@ -141,3 +155,6 @@ String getTimeHyM() {
 Future<loc.LocationData> getCurrentLocation() async {
   return await loc.Location().getLocation();
 }
+
+double getResponsiveText(BuildContext context, double size) =>
+    size * 900 / MediaQuery.of(context).size.longestSide;

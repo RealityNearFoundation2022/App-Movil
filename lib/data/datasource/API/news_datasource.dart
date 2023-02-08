@@ -28,7 +28,7 @@ class NewsRemoteDataSourceImpl extends NewsRemoteDataSource {
 
     if (response.statusCode == 200) {
       List<NewsModel> news = [];
-      List<dynamic> newsJson = json.decode(response.body);
+      List<dynamic> newsJson = json.decode(body);
       for (var element in newsJson) {
         news.add(NewsModel.fromJson(element));
       }

@@ -9,7 +9,7 @@ class GetRequestsUseCase {
   final UserRepository _userRepo = UserRepository();
 
   Future<List<ContactModel>> getPendingRequest() async {
-    final String userId = await getPersistData('userId');
+    final String userId = await getPreference('userId');
     List<ContactModel> lstRequest = [];
     await _repo.getPendingContacts().then((value) => value.fold(
           (failure) => print(failure),

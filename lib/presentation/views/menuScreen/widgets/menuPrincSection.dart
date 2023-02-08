@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/data/datasource/nearRPC/contracts.dart';
+import 'package:reality_near/data/datasource/near/contracts.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/FriendsScreen/friendsScreen.dart';
@@ -30,13 +30,13 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
   @override
   void initState() {
     super.initState();
-    getPersistData('username').then((value) => {
+    getPreference('username').then((value) => {
           setState(() {
             username = value;
           })
         });
 
-    getPersistData('usAvatar').then((value) => {
+    getPreference('usAvatar').then((value) => {
           if (value != null)
             {
               setState(() {
@@ -45,7 +45,7 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
             }
         });
 
-    getPersistData('walletId').then((value) => {
+    getPreference('walletId').then((value) => {
           if (value != null)
             {
               //obtener balance de wallet
@@ -169,13 +169,13 @@ class _MenuPrincSectionState extends State<MenuPrincSection> {
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
                   onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => SyncWalletDialog(
-                              onLogin: () {
-                                Navigator.pop(context);
-                              },
-                            ));
+                    // showDialog(
+                    //     context: context,
+                    //     builder: (context) => SyncWalletDialog(
+                    //           onLogin: () {
+                    //             Navigator.pop(context);
+                    //           },
+                    //         ));
                   },
                   child: Text(
                     S.current.SyncWallet,
