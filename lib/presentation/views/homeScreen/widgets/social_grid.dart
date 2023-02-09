@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/presentation/views/homeScreen/widgets/social_dialog.dart';
 
 class SocialGrid extends StatefulWidget {
   const SocialGrid({Key key}) : super(key: key);
@@ -48,12 +49,12 @@ class _SocialGridState extends State<SocialGrid>
               crossAxisSpacing: 10.0,
             ),
             itemBuilder: (context, index) {
-              return socialWidget();
+              return socialWidget(index);
             }));
   }
 
   bool like = false;
-  socialWidget() {
+  socialWidget(int id) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.45,
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -73,53 +74,85 @@ class _SocialGridState extends State<SocialGrid>
                           _animationController.reverse();
                         });
                       },
-                      child: Container(
-                          height: MediaQuery.of(context).size.height * 0.27,
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: const AssetImage(
-                                  "assets/imgs/imgAlfaTest.png"),
-                              fit: BoxFit.cover,
-                              colorFilter: ColorFilter.mode(
-                                  _colorBackgroundPhoto.value,
-                                  BlendMode.srcOver),
+                      onTap: () {
+                        //show dialog
+                        showDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: ((context) => SocialDetailDialog(
+                                  heroId: 'social $id',
+                                )));
+                      },
+                      child: Hero(
+                        tag: 'social $id',
+                        child: Container(
+                            height: MediaQuery.of(context).size.height * 0.27,
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: const AssetImage(
+                                    "assets/imgs/imgAlfaTest.png"),
+                                fit: BoxFit.cover,
+                                colorFilter: ColorFilter.mode(
+                                    _colorBackgroundPhoto.value,
+                                    BlendMode.srcOver),
+                              ),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: _animationController.isCompleted
-                              ? Icon(FontAwesomeIcons.solidHeart,
-                                  color: Colors.white,
-                                  size: MediaQuery.of(context).size.height *
-                                      0.27 /
-                                      8)
-                              : const SizedBox()),
+                            child: _animationController.isCompleted
+                                ? Icon(FontAwesomeIcons.solidHeart,
+                                    color: Colors.white,
+                                    size: MediaQuery.of(context).size.height *
+                                        0.27 /
+                                        8)
+                                : const SizedBox()),
+                      ),
                     ),
                     _colorBackgroundPhoto.isCompleted
                         ? const SizedBox()
                         : Positioned(
-                            bottom: 0,
+                            bottom: 5,
                             right: 0,
-                            child: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  like = !like;
-                                });
-                                Future.delayed(const Duration(seconds: 3), () {
-                                  setState(() {
-                                    like = !like;
-                                  });
-                                });
-                              },
-                              icon: Icon(
-                                like
-                                    ? FontAwesomeIcons.solidHeart
-                                    : FontAwesomeIcons.heart,
-                                color: greenPrimary,
-                                size: MediaQuery.of(context).size.height *
-                                    0.27 /
-                                    8,
-                              ),
+                            child: Column(
+                              children: [
+                                IconButton(
+                                  constraints: BoxConstraints(
+                                    minWidth: 0,
+                                    minHeight: 0,
+                                    maxHeight:
+                                        MediaQuery.of(context).size.height *
+                                            0.27 /
+                                            7,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      like = !like;
+                                    });
+                                    Future.delayed(const Duration(seconds: 3),
+                                        () {
+                                      setState(() {
+                                        like = !like;
+                                      });
+                                    });
+                                  },
+                                  icon: Icon(
+                                    like
+                                        ? FontAwesomeIcons.solidHeart
+                                        : FontAwesomeIcons.heart,
+                                    color: greenPrimary,
+                                    size: MediaQuery.of(context).size.height *
+                                        0.27 /
+                                        9,
+                                  ),
+                                ),
+                                Text(
+                                  "${id + 100}",
+                                  style: GoogleFonts.roboto(
+                                      color: Colors.white,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
                             ),
                           ),
                   ],

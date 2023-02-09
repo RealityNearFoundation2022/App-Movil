@@ -6,6 +6,9 @@ PODS:
     - Flutter
   - flutter_unity_widget (4.0.0):
     - Flutter
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
   - image_gallery_saver (1.5.0):
     - Flutter
   - location (0.0.1):
@@ -28,6 +31,9 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - sqflite (0.0.2):
+    - Flutter
+    - FMDB (>= 2.7.5)
   - url_launcher_ios (0.0.1):
     - Flutter
   - video_player_avfoundation (0.0.1):
@@ -49,12 +55,14 @@ DEPENDENCIES:
   - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
   - share_plus (from `.symlinks/plugins/share_plus/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
 SPEC REPOS:
   trunk:
+    - FMDB
     - MTBBarcodeScanner
 
 EXTERNAL SOURCES:
@@ -84,6 +92,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/share_plus/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
   url_launcher_ios:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
   video_player_avfoundation:
@@ -96,6 +106,7 @@ SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
   flutter_unity_widget: e509f3109933aa0c63b1bc149ca3d5b90fb68543
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   image_gallery_saver: 259eab68fb271cfd57d599904f7acdc7832e7ef2
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
@@ -106,6 +117,7 @@ SPEC CHECKSUMS:
   qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
   share_plus: 056a1e8ac890df3e33cb503afffaf1e9b4fbae68
   shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
+  sqflite: 6d358c025f5b867b29ed92fc697fd34924e11904
   url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2
   video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
   webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f

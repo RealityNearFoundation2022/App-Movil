@@ -10,6 +10,7 @@ const greenPrimary2 = Color.fromRGBO(70, 183, 142, 1);
 const greenPrimary3 = Color.fromRGBO(51, 204, 153, 1);
 const greySoft = Color.fromRGBO(223, 222, 211, 1);
 const bordergrey = Color(0xFFDDDDDD);
+const greenSoft = Color(0xFFC1EBDD);
 
 const backgroundWhite = Colors.white;
 

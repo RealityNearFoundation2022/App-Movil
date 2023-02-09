@@ -17,6 +17,7 @@ class MapBoxScreen extends StatefulWidget {
 class _MapBoxScreenState extends State<MapBoxScreen> {
   List<Marker> lstMarkers = [];
   bool loadMarkers = false;
+  final MapController _mapController = MapController();
 
   getAssets() async {
     var lstAssets = await AssetRepository().getAllAssets();
@@ -49,25 +50,14 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
   }
 
   LatLng coliseoMelgarBre = LatLng(-12.060201343870178, -77.05406694161285);
+  setCameraToCurrentPosition(LatLng position) {
+    _mapController.move(position, 18);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<LocationProvider>(builder: (consumerContext, model, child) {
       model.ctx = consumerContext;
-
-      if (model.locationPosition != null) {
-        lstMarkers.add(Marker(
-          width: 40.0,
-          height: 40.0,
-          point: LatLng(model.locationPosition.latitude,
-              model.locationPosition.longitude),
-          builder: (context) => const Icon(
-            Icons.navigation_rounded,
-            color: greenPrimary,
-            size: 20,
-          ),
-        ));
-      }
 
       return ClipRRect(
           borderRadius: const BorderRadius.only(
@@ -80,18 +70,19 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                   ? Stack(
                       children: [
                         FlutterMap(
+                          mapController: _mapController,
                           options: MapOptions(
                             center: LatLng(model.locationPosition.latitude,
                                 model.locationPosition.longitude),
                             zoom: 18,
-                            // maxZoom: 20.4,
-                            // minZoom: 14,
-                            controller: model.mapController,
+                            controller: _mapController,
                           ),
                           layers: [
                             TileLayerOptions(
-                              maxZoom: 35,
-                              minZoom: 18,
+                              maxZoom: 18,
+                              minZoom: 15,
+                              maxNativeZoom: 18,
+                              minNativeZoom: 15,
                               urlTemplate:
                                   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
                               subdomains: ['a', 'b', 'c'],
@@ -101,25 +92,53 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                               },
                             ),
                             MarkerLayerOptions(
-                              markers: lstMarkers,
+                              markers: [
+                                Marker(
+                                  width: 40.0,
+                                  height: 40.0,
+                                  point: LatLng(model.locationPosition.latitude,
+                                      model.locationPosition.longitude),
+                                  builder: (context) => const Icon(
+                                    Icons.navigation_rounded,
+                                    color: greenPrimary,
+                                    size: 20,
+                                  ),
+                                ),
+                                for (var marker in lstMarkers) marker
+                              ],
                             ),
                           ],
                         ),
-                        // Container(
-                        //   alignment: Alignment.bottomRight,
-                        //   padding: const EdgeInsets.all(10),
-                        //   child: IconButton(
-                        //     onPressed: () {
-                        //       Provider.of<LocationProvider>(context, listen: false)
-                        //           .setCameraToCurrentPosition();
-                        //     },
-                        //     icon: const Icon(
-                        //       Icons.gps_fixed,
-                        //       color: greenPrimary,
-                        //       size: 40,
-                        //     ),
-                        //   ),
-                        // )
+                        Container(
+                          alignment: Alignment.bottomRight,
+                          padding: const EdgeInsets.all(20),
+                          child: IconButton(
+                            onPressed: () {
+                              setCameraToCurrentPosition(LatLng(
+                                  model.locationPosition.latitude,
+                                  model.locationPosition.longitude));
+                            },
+                            icon: const Icon(
+                              Icons.gps_fixed,
+                              color: greenPrimary,
+                              size: 40,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.topRight,
+                          padding: const EdgeInsets.all(10),
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.arrow_back_ios_new_rounded,
+                              color: greenPrimary,
+                              size: 40,
+                            ),
+                          ),
+                        )
                       ],
                     )
                   : const Center(child: CircularProgressIndicator())));

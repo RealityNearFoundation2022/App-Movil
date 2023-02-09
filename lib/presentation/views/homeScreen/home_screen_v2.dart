@@ -12,8 +12,7 @@ import 'package:reality_near/presentation/views/homeScreen/widgets/category.dart
 import 'package:reality_near/presentation/views/homeScreen/widgets/news_widget.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/social_grid.dart';
 import 'package:reality_near/presentation/views/lateralBar/lateral_drawer.dart';
-import 'package:reality_near/presentation/views/mapScreen/map_button.dart';
-import 'package:reality_near/presentation/views/mapScreen/new_map.dart';
+import 'package:reality_near/presentation/views/mapScreen/map_halfscreen.dart';
 
 import '../../bloc/menu/menu_bloc.dart';
 
@@ -51,14 +50,15 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
       backgroundColor: Colors.white,
       appBar: _header(),
       body: _body(),
-      // bottomNavigationBar: _bottomBar()
     );
   }
 
   _body() {
     return GestureDetector(
         onHorizontalDragStart: (details) {
-          if (details.globalPosition.dy > 200) {
+          if (details.globalPosition.dy > 200 &&
+              details.globalPosition.dx < 150) {
+            // print('dx position: ${details.globalPosition.dx}');
             Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => const ARSection()));
           } else {
@@ -163,10 +163,10 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
         return Container(
           height: state is MenuMapaState
               ? MediaQuery.of(context).size.height * 0.5
-              : MediaQuery.of(context).size.height * 0.09,
+              : (MediaQuery.of(context).size.height * 0.09),
           width: MediaQuery.of(context).size.width,
           color: state is MenuMapaState ? Colors.transparent : Colors.white,
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

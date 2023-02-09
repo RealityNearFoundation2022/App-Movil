@@ -69,7 +69,6 @@ dependencies:
   font_awesome_flutter: ^10.3.0
   flutter_svg: ^1.1.6
   cached_network_image: ^3.2.3
-  mapbox_gl: ^0.16.0
 
 
 dev_dependencies:

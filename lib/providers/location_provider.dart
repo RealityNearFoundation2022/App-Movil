@@ -55,7 +55,6 @@ class LocationProvider with ChangeNotifier {
 
         print(_locationPosition);
 
-
         notifyListeners();
       },
     );
@@ -74,12 +73,6 @@ class LocationProvider with ChangeNotifier {
 
   setMapController(MapController controller) {
     _mapController = controller;
-    notifyListeners();
-  }
-
-  setCameraToCurrentPosition() {
-    _mapController.move(
-        LatLng(_locationPosition.latitude, _locationPosition.longitude), 17);
     notifyListeners();
   }
 }

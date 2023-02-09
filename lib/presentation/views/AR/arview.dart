@@ -19,8 +19,7 @@ import 'package:reality_near/data/models/asset_model.dart';
 import 'package:reality_near/data/repository/assetRepository.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
-import 'package:reality_near/presentation/views/mapScreen/map_button.dart';
-import 'package:reality_near/presentation/widgets/others/snackBar.dart';
+import 'package:reality_near/presentation/views/mapScreen/map_corner.dart';
 import '../mapScreen/widgets/placeDialog.dart';
 
 class ARSection extends StatefulWidget {
@@ -34,7 +33,6 @@ class ARSection extends StatefulWidget {
 
 class _ARSectionState extends State<ARSection> {
   HttpClient httpClient;
-  var scr = GlobalKey();
   AssetModel assetAR;
   bool loadDataAPI = true;
   UnityWidgetController _unityWidgetController;
@@ -42,7 +40,7 @@ class _ARSectionState extends State<ARSection> {
 
   @override
   void dispose() {
-    _unityWidgetController.dispose();
+    _unityWidgetController.unload();
 
     super.dispose();
   }
@@ -116,31 +114,24 @@ class _ARSectionState extends State<ARSection> {
       child: Material(
         child: GestureDetector(
           onHorizontalDragEnd: (details) {
+            _unityWidgetController.unload();
             Navigator.pushNamed(context, "/home");
           },
           child: Stack(
             children: [
               loadDataAPI
                   ? loading()
-                  : RepaintBoundary(
-                      key: scr,
-                      child: UnityWidget(
-                          onUnityCreated: _onUnityCreated,
-                          onUnityMessage: onUnityMessage,
-                          onUnitySceneLoaded: onUnitySceneLoaded,
-                          useAndroidViewSurface: false,
-                          printSetupLog: false,
-                          enablePlaceholder: false,
-                          fullscreen: false),
-                    ),
-              // : Container(
-              //     color: Colors.grey,
-              //     child: Center(
-              //       child: Text("AR no disponible"),
-              //     ),
-              //   ),
+                  : UnityWidget(
+                      onUnityCreated: _onUnityCreated,
+                      onUnityMessage: onUnityMessage,
+                      onUnitySceneLoaded: onUnitySceneLoaded,
+                      unloadOnDispose: true,
+                      useAndroidViewSurface: false,
+                      printSetupLog: false,
+                      enablePlaceholder: false,
+                      fullscreen: true),
               header(),
-              bottomBar()
+              _bottomBar()
             ],
           ),
         ),
@@ -148,66 +139,69 @@ class _ARSectionState extends State<ARSection> {
     );
   }
 
-  bottomBar() {
-    return BlocBuilder<MenuBloc, MenuState>(builder: ((context, state) {
-      return Positioned(
-        bottom: 0,
-        child: SizedBox(
-          height:
-              ScreenWH(context).height * (state is MenuMapaState ? 0.5 : 0.15),
-          width: ScreenWH(context).width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  alignment: Alignment.bottomLeft, child: const MapContainer()),
-              state is MenuMapaState
-                  ? const SizedBox()
-                  : Container(
-                      width: ScreenWH(context).width * 0.15,
-                      height: ScreenWH(context).width * 0.15,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50),
-                        border: Border.all(color: greenPrimary, width: 2),
-                      ),
-                      //Button Cammera
-                      child: IconButton(
-                        onPressed: () {
-                          onTakeScreenshot();
-                        },
-                        icon: Icon(
-                          FontAwesomeIcons.camera,
-                          color: greenPrimary,
-                          size: MediaQuery.of(context).size.height * 0.04,
+  _bottomBar() {
+    return BlocBuilder<MenuBloc, MenuState>(
+      builder: (context, state) {
+        return Positioned(
+          bottom: 0,
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.5,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.transparent,
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const MapContainer(),
+                state is MenuMapaState
+                    ? const SizedBox()
+                    : Container(
+                        width: ScreenWH(context).width * 0.15,
+                        height: ScreenWH(context).width * 0.15,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          border: Border.all(color: greenPrimary, width: 2),
+                        ),
+                        margin: const EdgeInsets.only(bottom: 15),
+
+                        //Button Cammera
+                        child: IconButton(
+                          onPressed: () {
+                            onTakeScreenshot();
+                          },
+                          icon: Icon(
+                            FontAwesomeIcons.camera,
+                            color: greenPrimary,
+                            size: MediaQuery.of(context).size.height * 0.04,
+                          ),
                         ),
                       ),
-                    ),
-              //back-Button
-              state is MenuMapaState
-                  ? const SizedBox()
-                  : Container(
-                      alignment: Alignment.bottomRight,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 15,
-                      ),
-                      child: IconButton(
-                          onPressed: (() {
-                            _unityWidgetController.unload();
-                            _unityWidgetController.dispose();
-
-                            Navigator.pushNamed(context, "/home");
-                          }),
-                          icon: Icon(
+                state is MenuMapaState
+                    ? const SizedBox()
+                    : Container(
+                        width: ScreenWH(context).width * 0.15,
+                        height: ScreenWH(context).width * 0.15,
+                        margin: const EdgeInsets.only(bottom: 15),
+                        child: IconButton(
+                          iconSize: MediaQuery.of(context).size.height * 0.06,
+                          icon: const Icon(
                             Icons.arrow_forward_ios_rounded,
                             color: greenPrimary,
-                            size: MediaQuery.of(context).size.height * 0.055,
-                          )),
-                    ),
-            ],
+                          ),
+                          onPressed: () {
+                            //end unity
+                            _unityWidgetController.unload();
+                            Navigator.pushNamed(context, "/home");
+                          },
+                        ),
+                      ),
+              ],
+            ),
           ),
-        ),
-      );
-    }));
+        );
+      },
+    );
   }
 
   //Loading Screen
@@ -271,34 +265,6 @@ class _ARSectionState extends State<ARSection> {
         "assetAR", "DownloadAssetBundleFromServer", path);
   }
 
-  takescreenshot() async {
-    RenderRepaintBoundary boundary = scr.currentContext.findRenderObject();
-    var image = await boundary.toImage();
-    var byteData = await image.toByteData(format: ImageByteFormat.png);
-    var pngBytes = byteData.buffer.asUint8List();
-    return pngBytes;
-  }
-
-  ss() async {
-    String path = await NativeScreenshot.takeScreenshot();
-
-    if (path == null || path.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Error taking the screenshot :('),
-        backgroundColor: Colors.red,
-      )); // showSnackBar()
-    } // if error
-
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('The screenshot has been saved'))); // showSnackBar()
-  }
-
-  deleteImageFromPath(String path) async {
-    final file = File(path);
-    await file.delete();
-    Navigator.pop(context);
-  }
-
   // //Function to take screenshot and share image
   Future<void> onTakeScreenshot() async {
     String path = await NativeScreenshot.takeScreenshot();
@@ -326,35 +292,15 @@ class _ARSectionState extends State<ARSection> {
                     const SizedBox(
                       height: 10,
                     ),
-                    // Stack(
-                    //   children: [
-                    //     Container(
-                    //       width: MediaQuery.of(context).size.width * 0.7,
-                    //       height: MediaQuery.of(context).size.height * 0.6,
-                    //       decoration: BoxDecoration(
-                    //           borderRadius: BorderRadius.circular(20),
-                    //           image: DecorationImage(
-                    //               image: FileImage(screenShot),
-                    //               fit: BoxFit.cover)),
-                    //     ),
-                    //     // Positioned(
-                    //     //   top: 10,
-                    //     //   left: MediaQuery.of(context).size.width * 0.22,
-                    //     //   child: Image.asset(
-                    //     //     "assets/imgs/Logo_sin_fondo.png",
-                    //     //     width: ScreenWH(context).width * 0.25,
-                    //     //     height: ScreenWH(context).height * 0.08,
-                    //     //   ),
-                    //     // ),
-                    //   ],
-                    // ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.7,
                       height: MediaQuery.of(context).size.height * 0.6,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image: DecorationImage(
-                              image: FileImage(screenShot), fit: BoxFit.fill)),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Image.file(
+                        screenShot,
+                      ),
                     ),
                     const SizedBox(
                       height: 10,
@@ -366,9 +312,7 @@ class _ARSectionState extends State<ARSection> {
                         children: [
                           button(S.current.Confirmar,
                               () => Navigator.pop(context), greenPrimary),
-                          button(
-                              S.current.Volver,
-                              () => deleteImageFromPath(path),
+                          button(S.current.Volver, () => deleteFile(screenShot),
                               const Color.fromRGBO(183, 182, 182, 1.0)),
                         ],
                       ),
@@ -377,6 +321,22 @@ class _ARSectionState extends State<ARSection> {
                 ),
               ),
             )));
+  }
+
+  Future<void> deleteFile(File file) async {
+    try {
+      bool fileExists = await file.exists();
+
+      if (fileExists) {
+        file.deleteSync();
+      } else {
+        print('File does not exist.');
+      }
+
+      Navigator.pop(context);
+    } catch (e) {
+      print(e);
+    }
   }
 
   Widget button(String text, Function press, Color color) {
@@ -399,17 +359,5 @@ class _ARSectionState extends State<ARSection> {
         press();
       },
     );
-  }
-
-  saveimage(Uint8List bytes) async {
-    final directory = await getApplicationDocumentsDirectory();
-    String time = DateTime.now()
-        .toIso8601String()
-        .replaceAll(':', '-')
-        .replaceAll('.', '-');
-    final image = File('${directory.path}/realityNearSS$time.png');
-    image.writeAsBytes(bytes);
-    ImageGallerySaver.saveFile(image.path)
-        .whenComplete(() => showSnackBar(context, "Imagen Guardada", false));
   }
 }

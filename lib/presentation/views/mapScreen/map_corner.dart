@@ -50,8 +50,7 @@ class _MapContainerState extends State<MapContainer>
                     seeContent ? const MapSection() : const SizedBox(),
                     Container(
                         alignment: Alignment.topRight,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10, vertical: seeContent ? 10 : 0),
+                        padding: const EdgeInsets.all(10),
                         child: GestureDetector(
                           child: Icon(
                             isOpen
