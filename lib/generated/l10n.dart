@@ -105,6 +105,36 @@ class S {
     );
   }
 
+  /// `Profile`
+  String get perfil {
+    return Intl.message(
+      'Profile',
+      name: 'perfil',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Posts`
+  String get MisPosts {
+    return Intl.message(
+      'My Posts',
+      name: 'MisPosts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Collection`
+  String get Coleccionables {
+    return Intl.message(
+      'My Collection',
+      name: 'Coleccionables',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Register`
   String get Registrate {
     return Intl.message(

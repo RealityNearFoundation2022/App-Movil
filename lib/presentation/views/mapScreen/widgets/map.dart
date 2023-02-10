@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/helper/url_constants.dart';
 import 'package:reality_near/data/repository/assetRepository.dart';
-import 'package:reality_near/providers/location_provider.dart';
+import 'package:reality_near/core/providers/location_provider.dart';
 
 class MapSection extends StatefulWidget {
   const MapSection({Key key}) : super(key: key);

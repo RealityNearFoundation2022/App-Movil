@@ -10,9 +10,9 @@ import 'package:reality_near/presentation/views/AR/arview.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/carrousel.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/category.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/news_widget.dart';
-import 'package:reality_near/presentation/views/homeScreen/widgets/social_grid.dart';
 import 'package:reality_near/presentation/views/lateralBar/lateral_drawer.dart';
 import 'package:reality_near/presentation/views/mapScreen/map_halfscreen.dart';
+import 'package:reality_near/presentation/views/social/widget/social_grid.dart';
 
 import '../../bloc/menu/menu_bloc.dart';
 
@@ -97,7 +97,7 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         children: [
-          buildCategory(S.current.Novedades, greenPrimary, size),
+          buildCategory(S.current.Novedades, greenPrimary, size, () {}),
           SizedBox(
             width: size.width,
             height: size.height * 0.23,
@@ -122,9 +122,11 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         children: [
-          buildCategory('Reality Social', greenPrimary, size),
+          buildCategory('Reality Social', greenPrimary, size, () {
+            Navigator.of(context).pushNamed('/RealitySocial');
+          }),
           const SizedBox(height: 10),
-          const SocialGrid()
+          const SocialGrid(numElements: 12)
         ],
       ),
     );

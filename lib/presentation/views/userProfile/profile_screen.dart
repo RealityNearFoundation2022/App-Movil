@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
@@ -7,7 +9,9 @@ import 'package:reality_near/data/repository/userRepository.dart';
 import 'package:reality_near/domain/entities/user.dart';
 import 'package:reality_near/domain/usecases/contacts/getContacts.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/views/userProfile/chatUserProfile.dart';
+import 'package:reality_near/presentation/views/homeScreen/widgets/category.dart';
+import 'package:reality_near/presentation/views/login/no_avatar_screen.dart';
+import 'package:reality_near/presentation/views/social/widget/social_grid.dart';
 import 'package:reality_near/presentation/widgets/forms/textForm.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -40,130 +44,218 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   List<User> lstContacts = [];
 
-  Future<void> getContacts() async {
-    var response = await GetContactsUseCase().call();
-    setState(() {
-      lstContacts = response;
-    });
-  }
+  // Future<void> getContacts() async {
+  //   var response = await GetContactsUseCase().call();
+  //   setState(() {
+  //     lstContacts = response;
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
-    getUserData();
-    getContacts();
+    getUserData().then((value) => setState(() {}));
+    // getContacts();
   }
 
-  getUserData() {
-    UserRepository().getMyData().then((value) => value.fold(
-          (failure) => print(failure),
-          (success) => {
-            setState(() {
-              user = success;
-              avatarSelect[pathAvatarSelected
-                  .indexWhere((element) => element == user.avatar)] = true;
-            }),
-          },
-        ));
+  bool loading = true;
+
+  getUserData() async {
+    bool _CurrentUserComplete = await getPreference('username') != null &&
+        await getPreference('usAvatar') != null &&
+        await getPreference('userId') != null;
+    if (_CurrentUserComplete) {
+      String _fullName = await getPreference('username');
+      String _avatar = await getPreference('usAvatar');
+      int _id = int.parse(await getPreference('userId'));
+
+      user = User(
+        id: _id,
+        fullName: _fullName,
+        avatar: _avatar,
+      );
+      loading = false;
+    } else {
+      await UserRepository().getMyData().then((value) => value.fold(
+            (failure) => print(failure),
+            (success) => {
+              success.avatar.isEmpty
+                  ? Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NoAvatarScreen(
+                                user: success,
+                              )),
+                    )
+                  : {
+                      setPreference('username', success.fullName),
+                      setPreference('userId', success.id.toString()),
+                      user = success,
+                      setPreference('usAvatar', user.avatar),
+                      loading = false
+                    }
+            },
+          ));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          title: Container(
-            margin: const EdgeInsets.only(right: 10),
-            alignment: Alignment.centerRight,
-            child: Text(
-              "Perfil",
-              style: GoogleFonts.sourceSansPro(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: greenPrimary,
+        backgroundColor: Colors.white,
+        appBar: _appBar(
+          S.current.perfil,
+        ),
+        body: _body());
+  }
+
+  _body() {
+    return loading
+        ? loadScreen()
+        : SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                children: [
+                  _userSection(),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  buildCategory(S.current.Coleccionables, greenPrimary,
+                      MediaQuery.of(context).size, () {}),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  buildCategory(S.current.MisPosts, greenPrimary,
+                      MediaQuery.of(context).size, () {
+                    Navigator.pushNamed(context, '/MyPosts');
+                  }),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  const SocialGrid(numElements: 5),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                ],
               ),
             ),
+          );
+  }
+
+  _userSection() {
+    return Column(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width * 0.45,
+          height: MediaQuery.of(context).size.width * 0.45,
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: greenPrimary.withOpacity(0.2),
           ),
-          iconTheme: const IconThemeData(color: greenPrimary, size: 35),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () => Navigator.of(context).pop(),
+          child: loading
+              ? LoadingAnimationWidget.dotsTriangle(
+                  color: greenPrimary,
+                  size: ScreenWH(context).width * 0.2,
+                )
+              : Image.asset(user.avatar),
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.02,
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          alignment: Alignment.center,
+          child: Text(
+            user.fullName,
+            style: GoogleFonts.sourceSansPro(
+                fontSize: getResponsiveText(context, 19),
+                color: txtPrimary,
+                fontWeight: FontWeight.w800),
           ),
         ),
-        body: user.id == null
-            ? loadScreen()
-            : Column(
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      radius: ScreenWH(context).width * 0.15,
-                      child: Image.asset(
-                        user.avatar,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Container(
-                      padding: const EdgeInsets.only(right: 20.0),
-                      width: ScreenWH(context).width * 0.6,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            user.fullName,
-                            style: GoogleFonts.sourceSansPro(
-                                fontSize: 20,
-                                color: greenPrimary,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          editNameAndAvatar()
-                        ],
-                      ),
-                    ),
-                  ),
-                  Text(
-                    "321 Amigos",
-                    style: GoogleFonts.sourceSansPro(
-                        fontSize: 16,
-                        color: txtPrimary,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(height: 10),
-                  editUsrData(Icons.mail_outline, user.email, false),
-                  const SizedBox(height: 20),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          S.current.Amigos,
-                          style: GoogleFonts.sourceSansPro(
-                              fontSize: 20,
-                              color: greenPrimary,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const Spacer(),
-                        Text(
-                          "ver mas",
-                          style: GoogleFonts.sourceSansPro(
-                              fontSize: 16,
-                              color: txtPrimary,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Expanded(child: chatList())
-                ],
-              ));
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.01,
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.04,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _iconWithData(FontAwesomeIcons.userGroup, '100'),
+              const SizedBox(
+                width: 20,
+              ),
+              _iconWithData(FontAwesomeIcons.rankingStar, '100'),
+              const SizedBox(
+                width: 20,
+              ),
+              _iconWithData(FontAwesomeIcons.ticket, '100'),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  _iconWithData(IconData icon, String data) {
+    return Row(
+      children: [
+        Icon(
+          icon,
+          color: greenPrimary,
+          size: getResponsiveText(context, 15),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Text(
+          data,
+          style: GoogleFonts.sourceSansPro(
+            fontSize: getResponsiveText(context, 15),
+            color: txtPrimary,
+            fontWeight: FontWeight.w600,
+          ),
+        )
+      ],
+    );
+  }
+
+  _appBar(String title) {
+    return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      leadingWidth: 30,
+      leading: IconButton(
+        icon: const Icon(
+          Icons.arrow_back_ios_new_rounded,
+          color: greenPrimary,
+          size: 30,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      title: Text(
+        title,
+        style: GoogleFonts.sourceSansPro(
+          color: greenPrimary,
+          fontSize: 25,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: SvgPicture.asset(
+            'assets/icons/logo.svg',
+            color: greenPrimary,
+            height: 35,
+          ),
+        )
+      ],
+    );
   }
 
   Widget chatList() {
@@ -237,15 +329,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         onSelected: (val) => {
               print('value $val'),
-              if (val == 1)
-                {
-                  Navigator.of(context)
-                      .pushNamed(UserProfile.routeName, arguments: {
-                    'photo': photo,
-                    'name': name,
-                    'walletId': walletId,
-                  })
-                }
+              // if (val == 1)
+              //   {
+              //     Navigator.of(context)
+              //         .pushNamed(UserProfile.routeName, arguments: {
+              //       'photo': photo,
+              //       'name': name,
+              //       'walletId': walletId,
+              //     })
+              //   }
             },
         itemBuilder: (context) => const [
               PopupMenuItem(

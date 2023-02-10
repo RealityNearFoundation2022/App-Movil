@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/views/userProfile/chatUserProfile.dart';
 import 'package:reality_near/presentation/views/walletScreen/widgets/transactionDetail.dart';
 import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
 
@@ -195,15 +194,15 @@ class _TransferScreenState extends State<TransferScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         onSelected: (val) => {
               print('value $val'),
-              if (val == 1)
-                {
-                  Navigator.of(context)
-                      .pushNamed(UserProfile.routeName, arguments: {
-                    'photo': photo,
-                    'name': name,
-                    'walletId': walletId,
-                  })
-                }
+              // if (val == 1)
+              //   {
+              //     Navigator.of(context)
+              //         .pushNamed(UserProfile.routeName, arguments: {
+              //       'photo': photo,
+              //       'name': name,
+              //       'walletId': walletId,
+              //     })
+              //   }
             },
         itemBuilder: (context) => const [
               PopupMenuItem(

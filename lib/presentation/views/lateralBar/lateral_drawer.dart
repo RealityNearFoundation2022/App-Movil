@@ -20,11 +20,23 @@ class LateralDrawer extends StatefulWidget {
 class _LateralDrawerState extends State<LateralDrawer> {
   //List of Map<String, String> with the menu options
   final List<Map<String, String>> menuOptions = [
-    {'icon': 'assets/icons/profile_icon.svg', 'text': 'Mi Perfil'},
-    {'icon': 'assets/icons/wallet_icon.svg', 'text': 'Wallet'},
-    {'icon': 'assets/icons/social_icon.svg', 'text': 'Reality Social'},
-    {'icon': 'assets/icons/info_icon.svg', 'text': 'Eventos'},
-    {'icon': 'assets/icons/config_icon.svg', 'text': 'Configuración'},
+    {
+      'icon': 'assets/icons/profile_icon.svg',
+      'text': 'Mi Perfil',
+      'path': '/ProfileScreen'
+    },
+    {'icon': 'assets/icons/wallet_icon.svg', 'text': 'Wallet', 'path': ''},
+    {
+      'icon': 'assets/icons/social_icon.svg',
+      'text': 'Reality Social',
+      'path': '/RealitySocial'
+    },
+    {'icon': 'assets/icons/info_icon.svg', 'text': 'Eventos', 'path': ''},
+    {
+      'icon': 'assets/icons/config_icon.svg',
+      'text': 'Configuración',
+      'path': ''
+    },
   ];
   User user;
   bool loading = true;
@@ -135,8 +147,7 @@ class _LateralDrawerState extends State<LateralDrawer> {
                       fontWeight: FontWeight.w600),
                 ),
                 onTap: () {
-                  // Update the state of the app.
-                  // ...
+                  Navigator.pushNamed(context, menuOptions[i]['path']);
                 },
               ),
             const Spacer(),

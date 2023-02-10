@@ -11,13 +11,13 @@ import 'package:reality_near/presentation/views/homeScreen/home_screen_v2.dart';
 // import 'package:reality_near/presentation/views/homeScreen/homeScreen.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
 import 'package:reality_near/presentation/views/login/login.dart';
-import 'package:reality_near/presentation/views/login/no_avatar_screen.dart';
 import 'package:reality_near/presentation/views/notificationScreen/notificationScreen.dart';
 import 'package:reality_near/presentation/views/qrScreen/qrScanScreen.dart';
 import 'package:reality_near/presentation/views/qrScreen/qrViewScreen.dart';
 import 'package:reality_near/presentation/views/register/registerScreen.dart';
+import 'package:reality_near/presentation/views/social/social_screen.dart';
+import 'package:reality_near/presentation/views/userProfile/my_posts.dart';
 import 'package:reality_near/presentation/views/userProfile/profile_screen.dart';
-import 'package:reality_near/presentation/views/userProfile/chatUserProfile.dart';
 import 'package:reality_near/presentation/views/userScreen/userScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/receiveScreen.dart';
 import 'package:reality_near/presentation/views/walletScreen/transferScreen.dart';
@@ -40,11 +40,12 @@ final Map<String, WidgetBuilder> routes = {
   ReceiveScreen.routeName: (context) => ReceiveScreen(),
   TransferScreen.routeName: (context) => TransferScreen(),
   TransferDetail.routeName: (context) => TransferDetail(),
-  UserProfile.routeName: (context) => UserProfile(),
   NotificationScreen.routeName: (context) => const NotificationScreen(),
   QrViewScreen.routeName: (context) => const QrViewScreen(),
   QrScannScreen.routeName: (context) => const QrScannScreen(),
   chatSoonScreen.routeName: (context) => const chatSoonScreen(),
   ARSection.routeName: (context) => const ARSection(),
   ProfileScreen.routeName: (context) => const ProfileScreen(),
+  SocialScreen.routeName: (context) => const SocialScreen(),
+  MyPostsScreen.routeName: (context) => const MyPostsScreen(),
 };

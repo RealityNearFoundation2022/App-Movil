@@ -4,10 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/presentation/views/homeScreen/widgets/social_dialog.dart';
+import 'package:reality_near/presentation/views/social/widget/social_dialog.dart';
 
 class SocialGrid extends StatefulWidget {
-  const SocialGrid({Key key}) : super(key: key);
+  final int numElements;
+  const SocialGrid({Key key, this.numElements}) : super(key: key);
 
   @override
   State<SocialGrid> createState() => _SocialGridState();
@@ -35,10 +36,8 @@ class _SocialGridState extends State<SocialGrid>
     //grid 2x2
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0),
-        // height: MediaQuery.of(context).size.height * 1.06,
-        // width: MediaQuery.of(context).size.width,
         child: GridView.builder(
-            itemCount: 6,
+            itemCount: widget.numElements,
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -79,34 +78,29 @@ class _SocialGridState extends State<SocialGrid>
                         showDialog(
                             context: context,
                             barrierDismissible: true,
-                            builder: ((context) => SocialDetailDialog(
-                                  heroId: 'social $id',
-                                )));
+                            builder: ((context) => const SocialDetailDialog()));
                       },
-                      child: Hero(
-                        tag: 'social $id',
-                        child: Container(
-                            height: MediaQuery.of(context).size.height * 0.27,
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: const AssetImage(
-                                    "assets/imgs/imgAlfaTest.png"),
-                                fit: BoxFit.cover,
-                                colorFilter: ColorFilter.mode(
-                                    _colorBackgroundPhoto.value,
-                                    BlendMode.srcOver),
-                              ),
-                              borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                          height: MediaQuery.of(context).size.height * 0.27,
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: const AssetImage(
+                                  "assets/imgs/imgAlfaTest.png"),
+                              fit: BoxFit.cover,
+                              colorFilter: ColorFilter.mode(
+                                  _colorBackgroundPhoto.value,
+                                  BlendMode.srcOver),
                             ),
-                            child: _animationController.isCompleted
-                                ? Icon(FontAwesomeIcons.solidHeart,
-                                    color: Colors.white,
-                                    size: MediaQuery.of(context).size.height *
-                                        0.27 /
-                                        8)
-                                : const SizedBox()),
-                      ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: _animationController.isCompleted
+                              ? Icon(FontAwesomeIcons.solidHeart,
+                                  color: Colors.white,
+                                  size: MediaQuery.of(context).size.height *
+                                      0.27 /
+                                      8)
+                              : const SizedBox()),
                     ),
                     _colorBackgroundPhoto.isCompleted
                         ? const SizedBox()
