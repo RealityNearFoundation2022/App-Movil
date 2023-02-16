@@ -9,8 +9,6 @@ import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/core/routes.dart';
-import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
-import 'package:reality_near/presentation/views/homeScreen/home_screen_v2.dart';
 import 'package:reality_near/presentation/views/mapScreen/widgets/map.dart';
 import 'package:reality_near/core/providers/location_provider.dart';
 import 'package:showcaseview/showcaseview.dart';

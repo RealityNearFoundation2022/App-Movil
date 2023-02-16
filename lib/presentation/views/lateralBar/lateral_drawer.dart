@@ -33,6 +33,11 @@ class _LateralDrawerState extends State<LateralDrawer> {
     },
     {'icon': 'assets/icons/info_icon.svg', 'text': 'Eventos', 'path': ''},
     {
+      'icon': 'assets/icons/juegos_icon.svg',
+      'text': 'Minijuegos',
+      'path': '/miniGames'
+    },
+    {
       'icon': 'assets/icons/config_icon.svg',
       'text': 'Configuración',
       'path': ''

@@ -11,6 +11,7 @@ import 'package:reality_near/presentation/views/homeScreen/home_screen_v2.dart';
 // import 'package:reality_near/presentation/views/homeScreen/homeScreen.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
 import 'package:reality_near/presentation/views/login/login.dart';
+import 'package:reality_near/presentation/views/miniGames/miniGames.dart';
 import 'package:reality_near/presentation/views/notificationScreen/notificationScreen.dart';
 import 'package:reality_near/presentation/views/qrScreen/qrScanScreen.dart';
 import 'package:reality_near/presentation/views/qrScreen/qrViewScreen.dart';
@@ -48,4 +49,5 @@ final Map<String, WidgetBuilder> routes = {
   ProfileScreen.routeName: (context) => const ProfileScreen(),
   SocialScreen.routeName: (context) => const SocialScreen(),
   MyPostsScreen.routeName: (context) => const MyPostsScreen(),
+  MiniGames.routeName: (context) => const MiniGames(),
 };

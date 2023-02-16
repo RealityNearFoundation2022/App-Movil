@@ -61,7 +61,7 @@ class ContactRemoteDataSourceImpl implements ContactRemoteDataSource {
 
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
-      return (json.decode(response.body) as List)
+      return (json.decode(body) as List)
           .map((i) => ContactModel.fromJson(i))
           .toList();
     } else {

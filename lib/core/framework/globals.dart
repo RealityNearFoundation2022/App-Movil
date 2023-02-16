@@ -141,7 +141,6 @@ double calculateDistanceMts(LatLng pos1, LatLng pos2) {
 
   distanceKm = radiusEarth * c;
   distanceMts = 1000 * distanceKm;
-  print('Distancia en Metros:$distanceMts');
 
   // return distanceKm;
   return distanceMts;

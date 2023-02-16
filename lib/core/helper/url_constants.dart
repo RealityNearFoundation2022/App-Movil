@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 const REGISTER_NEAR_WALLET = "https://wallet.near.org/create";
 const API_REALITY_NEAR = "https://api.realitynear.org/api/v1/";
 const API_REALITY_NEAR_IMGs = "https://api.realitynear.org";

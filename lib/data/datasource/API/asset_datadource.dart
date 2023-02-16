@@ -5,7 +5,6 @@ import 'package:reality_near/core/helper/url_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:reality_near/data/models/asset_model.dart';
-import 'package:reality_near/data/models/notificationModel.dart';
 
 abstract class AssetRemoteDataSource {
   Future<AssetModel> getAsset(String id);
