@@ -15,7 +15,7 @@ class MapBoxScreen extends StatefulWidget {
 }
 
 class _MapBoxScreenState extends State<MapBoxScreen> {
-  List<Marker> lstMarkers = [];
+  List<CircleMarker> lstCircleMarkers = [];
   bool loadMarkers = false;
   final MapController _mapController = MapController();
 
@@ -24,16 +24,12 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
     var lstAssetsLocations = lstAssets.map((e) => e.locations).toList();
     for (var lstLocation in lstAssetsLocations) {
       for (var location in lstLocation) {
-        lstMarkers.add(Marker(
-          width: 80.0,
-          height: 80.0,
+        lstCircleMarkers.add(CircleMarker(
           point:
               LatLng(location.position.latitude, location.position.longitude),
-          builder: (ctx) => const Icon(
-            Icons.location_on,
-            color: greenPrimary,
-            size: 25,
-          ),
+          color: greenPrimary.withOpacity(0.3),
+          radius: double.parse(location.rule),
+          useRadiusInMeter: true,
         ));
       }
     }
@@ -75,14 +71,12 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                             center: LatLng(model.locationPosition.latitude,
                                 model.locationPosition.longitude),
                             zoom: 18,
-                            controller: _mapController,
+                            maxZoom: 18.4,
+                            minZoom: 13,
+                            controller: model.mapController,
                           ),
                           layers: [
                             TileLayerOptions(
-                              maxZoom: 18,
-                              minZoom: 15,
-                              maxNativeZoom: 18,
-                              minNativeZoom: 15,
                               urlTemplate:
                                   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
                               subdomains: ['a', 'b', 'c'],
@@ -104,14 +98,17 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                                     size: 20,
                                   ),
                                 ),
-                                for (var marker in lstMarkers) marker
                               ],
                             ),
+                            CircleLayerOptions(
+                              circles: lstCircleMarkers,
+                            )
                           ],
                         ),
                         Container(
                           alignment: Alignment.bottomRight,
-                          padding: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 20),
                           child: IconButton(
                             onPressed: () {
                               setCameraToCurrentPosition(LatLng(
@@ -127,15 +124,19 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
                         ),
                         Container(
                           alignment: Alignment.topRight,
-                          padding: const EdgeInsets.all(10),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: const Icon(
-                              Icons.arrow_back_ios_new_rounded,
-                              color: greenPrimary,
-                              size: 40,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
+                          child: RotatedBox(
+                            quarterTurns: 3,
+                            child: IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back_ios_new_rounded,
+                                color: greenPrimary,
+                                size: 40,
+                              ),
                             ),
                           ),
                         )

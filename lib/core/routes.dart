@@ -7,7 +7,7 @@ import 'package:reality_near/presentation/views/chatRoomScreen/chatRoomScreen.da
 import 'package:reality_near/presentation/views/chatRoomScreen/widgets/chatUserDetail.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configurationScreen.dart';
 import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
-import 'package:reality_near/presentation/views/homeScreen/home_screen_v2.dart';
+import 'package:reality_near/presentation/views/homeScreen/home_screen.dart';
 // import 'package:reality_near/presentation/views/homeScreen/homeScreen.dart';
 import 'package:reality_near/presentation/views/informationScreen/infoScreen.dart';
 import 'package:reality_near/presentation/views/login/login.dart';

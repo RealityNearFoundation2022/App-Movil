@@ -76,10 +76,10 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                   const SectionCarousel(),
                   const SizedBox(height: 10),
                   novedadesCarrousel(),
-                  const SizedBox(height: 10),
-                  social(),
                   SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.1 + 10),
+                      height: MediaQuery.of(context).size.height * 0.09 -
+                          MediaQuery.of(context).viewPadding.bottom +
+                          10),
                 ],
               ),
             ),
@@ -100,33 +100,17 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
           buildCategory(S.current.Novedades, greenPrimary, size, () {}),
           SizedBox(
             width: size.width,
-            height: size.height * 0.23,
+            // height: size.height * 0.23,
             child: ListView.builder(
               primary: false,
               shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
+              scrollDirection: Axis.vertical,
               itemCount: news.length,
               itemBuilder: (context, i) {
                 return NewsWidget(news: news[i]);
               },
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  social() {
-    Size size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: Column(
-        children: [
-          buildCategory('Reality Social', greenPrimary, size, () {
-            Navigator.of(context).pushNamed('/RealitySocial');
-          }),
-          const SizedBox(height: 10),
-          const SocialGrid(numElements: 12)
         ],
       ),
     );
@@ -165,7 +149,7 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
         return Container(
           height: state is MenuMapaState
               ? MediaQuery.of(context).size.height * 0.5
-              : (MediaQuery.of(context).size.height * 0.09),
+              : MediaQuery.of(context).size.height * 0.09,
           width: MediaQuery.of(context).size.width,
           color: state is MenuMapaState ? Colors.transparent : Colors.white,
           padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),

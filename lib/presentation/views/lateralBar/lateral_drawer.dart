@@ -25,12 +25,12 @@ class _LateralDrawerState extends State<LateralDrawer> {
       'text': 'Mi Perfil',
       'path': '/ProfileScreen'
     },
-    {'icon': 'assets/icons/wallet_icon.svg', 'text': 'Wallet', 'path': ''},
-    {
-      'icon': 'assets/icons/social_icon.svg',
-      'text': 'Reality Social',
-      'path': '/RealitySocial'
-    },
+    // {'icon': 'assets/icons/wallet_icon.svg', 'text': 'Wallet', 'path': ''},
+    // {
+    //   'icon': 'assets/icons/social_icon.svg',
+    //   'text': 'Reality Social',
+    //   'path': '/RealitySocial'
+    // },
     {'icon': 'assets/icons/info_icon.svg', 'text': 'Eventos', 'path': ''},
     {
       'icon': 'assets/icons/juegos_icon.svg',
@@ -46,10 +46,10 @@ class _LateralDrawerState extends State<LateralDrawer> {
   User user;
   bool loading = true;
   getUserData() async {
-    bool _CurrentUserComplete = await getPreference('username') != null &&
+    bool CurrentUserComplete = await getPreference('username') != null &&
         await getPreference('usAvatar') != null &&
         await getPreference('userId') != null;
-    if (_CurrentUserComplete) {
+    if (CurrentUserComplete) {
       String _fullName = await getPreference('username');
       String _avatar = await getPreference('usAvatar');
       int _id = int.parse(await getPreference('userId'));
@@ -127,7 +127,7 @@ class _LateralDrawerState extends State<LateralDrawer> {
               child: Text(
                 loading ? 'Cargando...' : user.fullName,
                 style: GoogleFonts.sourceSansPro(
-                    fontSize: getResponsiveText(context, 19),
+                    fontSize: getResponsiveText(context, 20),
                     color: txtPrimary,
                     fontWeight: FontWeight.w800),
               ),
@@ -152,7 +152,10 @@ class _LateralDrawerState extends State<LateralDrawer> {
                       fontWeight: FontWeight.w600),
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, menuOptions[i]['path']);
+                  var path = menuOptions[i]['path'];
+                  if (path.isNotEmpty) {
+                    Navigator.pushNamed(context, path);
+                  }
                 },
               ),
             const Spacer(),
@@ -175,6 +178,9 @@ class _LateralDrawerState extends State<LateralDrawer> {
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/firstScreen', ModalRoute.withName('/'));
               },
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).viewPadding.bottom - 20,
             ),
           ],
         ),
