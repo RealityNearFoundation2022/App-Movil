@@ -5,8 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/data/repository/userRepository.dart';
+import 'package:reality_near/data/repository/user_repository.dart';
 import 'package:reality_near/domain/entities/user.dart';
+import 'package:reality_near/domain/usecases/user/user_data.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/login/no_avatar_screen.dart';
 
@@ -25,68 +26,38 @@ class _LateralDrawerState extends State<LateralDrawer> {
       'text': 'Mi Perfil',
       'path': '/ProfileScreen'
     },
-    // {'icon': 'assets/icons/wallet_icon.svg', 'text': 'Wallet', 'path': ''},
+    {
+      'icon': 'assets/icons/wallet_icon.svg',
+      'text': 'Wallet',
+      'path': '/wallet'
+    },
     // {
     //   'icon': 'assets/icons/social_icon.svg',
     //   'text': 'Reality Social',
     //   'path': '/RealitySocial'
     // },
-    {'icon': 'assets/icons/info_icon.svg', 'text': 'Eventos', 'path': ''},
-    {
-      'icon': 'assets/icons/juegos_icon.svg',
-      'text': 'Minijuegos',
-      'path': '/miniGames'
-    },
+    // {'icon': 'assets/icons/info_icon.svg', 'text': 'Eventos', 'path': ''},
+    // {
+    //   'icon': 'assets/icons/juegos_icon.svg',
+    //   'text': 'Minijuegos',
+    //   'path': '/miniGames'
+    // },
     {
       'icon': 'assets/icons/config_icon.svg',
       'text': 'Configuración',
-      'path': ''
+      'path': '/configScreen'
     },
   ];
   User user;
   bool loading = true;
-  getUserData() async {
-    bool CurrentUserComplete = await getPreference('username') != null &&
-        await getPreference('usAvatar') != null &&
-        await getPreference('userId') != null;
-    if (CurrentUserComplete) {
-      String _fullName = await getPreference('username');
-      String _avatar = await getPreference('usAvatar');
-      int _id = int.parse(await getPreference('userId'));
-
-      user = User(
-        id: _id,
-        fullName: _fullName,
-        avatar: _avatar,
-      );
-      loading = false;
-    } else {
-      await UserRepository().getMyData().then((value) => value.fold(
-            (failure) => print(failure),
-            (success) => {
-              success.avatar.isEmpty
-                  ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => NoAvatarScreen(
-                                user: success,
-                              )),
-                    )
-                  : {
-                      setPreference('username', success.fullName),
-                      setPreference('userId', success.id.toString()),
-                      user = success,
-                      setPreference('usAvatar', user.avatar),
-                      loading = false
-                    }
-            },
-          ));
-    }
-  }
 
   @override
   void initState() {
-    getUserData().then((value) => setState(() {}));
+    // UserData().then((value) => setState(() {}));
+    UserData(context).get().then((value) => setState(() {
+          user = value;
+          loading = false;
+        }));
     super.initState();
   }
 
@@ -152,14 +123,13 @@ class _LateralDrawerState extends State<LateralDrawer> {
                       fontWeight: FontWeight.w600),
                 ),
                 onTap: () {
-                  var path = menuOptions[i]['path'];
-                  if (path.isNotEmpty) {
-                    Navigator.pushNamed(context, path);
-                  }
+                  Navigator.pushNamed(context, menuOptions[i]['path']);
                 },
               ),
             const Spacer(),
             ListTile(
+              horizontalTitleGap: 10,
+              minLeadingWidth: 10,
               leading: SvgPicture.asset(
                 'assets/icons/logout_icon.svg',
                 height: MediaQuery.of(context).size.height * 0.04,
@@ -173,14 +143,59 @@ class _LateralDrawerState extends State<LateralDrawer> {
                     fontWeight: FontWeight.w600),
               ),
               onTap: () {
-                BlocProvider.of<UserBloc>(context, listen: false)
-                    .add(UserLogOutEvent());
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/firstScreen', ModalRoute.withName('/'));
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text(
+                      'Cerrar Sesión',
+                      style: GoogleFonts.sourceSansPro(
+                          fontSize: getResponsiveText(context, 20),
+                          color: txtPrimary,
+                          fontWeight: FontWeight.w800),
+                    ),
+                    content: Text(
+                      '¿Estás seguro que deseas cerrar sesión?',
+                      style: GoogleFonts.sourceSansPro(
+                          fontSize: getResponsiveText(context, 16),
+                          color: txtPrimary,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          'Cancelar',
+                          style: GoogleFonts.sourceSansPro(
+                              fontSize: getResponsiveText(context, 16),
+                              color: txtPrimary,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          BlocProvider.of<UserBloc>(context, listen: false)
+                              .add(UserLogOutEvent());
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/firstScreen', (route) => false);
+                        },
+                        child: Text(
+                          'Aceptar',
+                          style: GoogleFonts.sourceSansPro(
+                              fontSize: getResponsiveText(context, 16),
+                              color: greenPrimary,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               },
             ),
             SizedBox(
-              height: MediaQuery.of(context).viewPadding.bottom - 20,
+              height: MediaQuery.of(context).viewPadding.bottom + 10,
             ),
           ],
         ),

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
@@ -7,7 +5,6 @@ import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/datasource/near/contracts.dart';
 import 'package:reality_near/data/models/nftModel.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
 
 class TabMovesNFTs extends StatefulWidget {
   const TabMovesNFTs({Key key}) : super(key: key);

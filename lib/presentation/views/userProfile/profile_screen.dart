@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/data/repository/userRepository.dart';
+import 'package:reality_near/data/datasource/API/user_datasource.dart';
 import 'package:reality_near/domain/entities/user.dart';
-import 'package:reality_near/domain/usecases/contacts/getContacts.dart';
+import 'package:reality_near/domain/usecases/user/user_data.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/views/homeScreen/widgets/category.dart';
-import 'package:reality_near/presentation/views/login/no_avatar_screen.dart';
-import 'package:reality_near/presentation/views/social/widget/social_grid.dart';
+import 'package:reality_near/presentation/views/userProfile/widgets/avatar_select.dart';
+import 'package:reality_near/presentation/widgets/buttons/default_button.dart';
+import 'package:reality_near/presentation/widgets/dialogs/errorAlertDialog.dart';
+import 'package:reality_near/presentation/widgets/dialogs/info_dialog.dart';
 import 'package:reality_near/presentation/widgets/forms/textForm.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -24,80 +24,19 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   User user = User();
-  final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
-  List<bool> avatarSelect = [false, false, false];
-
-  String pathSelectedAvatar = "";
-  // bool loadSaveData = false;
-  List<String> pathAvatarSelected = [
-    "assets/gift/MEN_SELECTED.gif",
-    "assets/gift/WOMEN_SELECT.gif",
-    "assets/gift/MONSTER_SELECT.gif"
-  ];
-  List<String> pathAvatarNoSelect = [
-    "assets/gift/MEN_WAITING.gif",
-    "assets/gift/WOMEN_WAITING.gif",
-    "assets/gift/MONSTER_WAITING.gif"
-  ];
-
-  List<User> lstContacts = [];
-
-  // Future<void> getContacts() async {
-  //   var response = await GetContactsUseCase().call();
-  //   setState(() {
-  //     lstContacts = response;
-  //   });
-  // }
 
   @override
   void initState() {
     super.initState();
-    getUserData().then((value) => setState(() {}));
-    // getContacts();
+    UserData(context).get().then((value) => setState(() {
+          user = value;
+          loading = false;
+        })); // getContacts();
   }
 
   bool loading = true;
-
-  getUserData() async {
-    bool _CurrentUserComplete = await getPreference('username') != null &&
-        await getPreference('usAvatar') != null &&
-        await getPreference('userId') != null;
-    if (_CurrentUserComplete) {
-      String _fullName = await getPreference('username');
-      String _avatar = await getPreference('usAvatar');
-      int _id = int.parse(await getPreference('userId'));
-
-      user = User(
-        id: _id,
-        fullName: _fullName,
-        avatar: _avatar,
-      );
-      loading = false;
-    } else {
-      await UserRepository().getMyData().then((value) => value.fold(
-            (failure) => print(failure),
-            (success) => {
-              success.avatar.isEmpty
-                  ? Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => NoAvatarScreen(
-                                user: success,
-                              )),
-                    )
-                  : {
-                      setPreference('username', success.fullName),
-                      setPreference('userId', success.id.toString()),
-                      user = success,
-                      setPreference('usAvatar', user.avatar),
-                      loading = false
-                    }
-            },
-          ));
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,24 +58,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   _userSection(),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.02,
+                    height: MediaQuery.of(context).size.height * 0.01,
                   ),
-                  buildCategory(S.current.Coleccionables, greenPrimary,
-                      MediaQuery.of(context).size, () {}),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.02,
-                  ),
-                  buildCategory(S.current.MisPosts, greenPrimary,
-                      MediaQuery.of(context).size, () {
-                    Navigator.pushNamed(context, '/MyPosts');
-                  }),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.02,
-                  ),
-                  const SocialGrid(numElements: 5),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.02,
-                  ),
+                  editData()
+                  // buildCategory(S.current.Coleccionables, greenPrimary,
+                  //     MediaQuery.of(context).size, () {}),
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.height * 0.02,
+                  // ),
+                  // buildCategory(S.current.MisPosts, greenPrimary,
+                  //     MediaQuery.of(context).size, () {
+                  //   Navigator.pushNamed(context, '/MyPosts');
+                  // }),
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.height * 0.02,
+                  // ),
+                  // const SocialGrid(numElements: 5),
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.height * 0.02,
+                  // ),
                 ],
               ),
             ),
@@ -178,23 +118,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.01,
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.04,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _iconWithData(FontAwesomeIcons.userGroup, '100'),
-              const SizedBox(
-                width: 20,
-              ),
-              _iconWithData(FontAwesomeIcons.rankingStar, '100'),
-              const SizedBox(
-                width: 20,
-              ),
-              _iconWithData(FontAwesomeIcons.ticket, '100'),
-            ],
-          ),
-        )
+        // SizedBox(
+        //   height: MediaQuery.of(context).size.height * 0.04,
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       _iconWithData(FontAwesomeIcons.userGroup, '100'),
+        //       const SizedBox(
+        //         width: 20,
+        //       ),
+        //       _iconWithData(FontAwesomeIcons.rankingStar, '100'),
+        //       const SizedBox(
+        //         width: 20,
+        //       ),
+        //       _iconWithData(FontAwesomeIcons.ticket, '100'),
+        //     ],
+        //   ),
+        // )
       ],
     );
   }
@@ -255,16 +195,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         )
       ],
-    );
-  }
-
-  Widget chatList() {
-    return ListView.builder(
-      itemCount: lstContacts.length > 5 ? 5 : lstContacts.length,
-      itemBuilder: (context, index) {
-        User contact = lstContacts[index];
-        return Contact(contact.avatar, contact.fullName, "", context);
-      },
     );
   }
 
@@ -355,248 +285,94 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ]);
   }
 
-  editUsrData(IconData icon, String data, bool password) {
-    //text-Form-Password
-    TxtForm _txtFormPassword = TxtForm(
-      placeholder: S.current.Password,
-      controller: _passwordController,
-      inputType: InputType.Password,
-      txtColor: txtPrimary,
-      prefixIcon: const Icon(Icons.lock),
-      errorMessage: S.current.PasswordOblig,
-    );
-//text-Form-mail
-    TxtForm _txtFormEmail = TxtForm(
-      placeholder: user.email,
-      controller: _emailController,
-      inputType: InputType.Email,
-      txtColor: txtPrimary,
-      prefixIcon: const Icon(Icons.mail),
-      errorMessage: S.current.Obligatorio,
-    );
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            color: greenPrimary,
-          ),
-          const SizedBox(width: 10),
-          Text(data,
-              style: GoogleFonts.sourceSansPro(
-                  fontSize: 16,
-                  color: txtPrimary,
-                  fontWeight: FontWeight.w500)),
-          const Spacer(),
-          //EditButton
-          IconButton(
-            icon: const Icon(Icons.edit_outlined, color: Colors.grey),
-            onPressed: () {
-              showDialog(
-                  useSafeArea: true,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Dialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                        child: FittedBox(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.5,
-                                  child: Text(
-                                    S.current.editar,
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.sourceSansPro(
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: 20,
-                                        color: greenPrimary),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                SizedBox(
-                                    height: 60,
-                                    width: ScreenWH(context).width * 0.6,
-                                    child: password
-                                        ? _txtFormPassword
-                                        : _txtFormEmail),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.6,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      button(S.current.Guardar, () {},
-                                          greenPrimary),
-                                      button(
-                                          S.current.Volver, () {}, Colors.grey),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ));
-                  });
-            },
-          )
-        ],
-      ),
-    );
-  }
-
-  editNameAndAvatar() {
+  editData() {
     //text-Form-Password
     TxtForm _txtFormUserName = TxtForm(
-      placeholder: user.fullName,
+      placeholder: user.fullName ?? 'Ingresa tu nombre',
       controller: _userNameController,
       inputType: InputType.Default,
       txtColor: txtPrimary,
       prefixIcon: const Icon(Icons.person),
       errorMessage: S.current.Obligatorio,
+      title: S.current.UserName,
     );
-    return IconButton(
-      icon: const Icon(Icons.edit_outlined, color: Colors.grey),
-      onPressed: () {
-        showDialog(
-            useSafeArea: true,
-            context: context,
-            builder: (BuildContext context) {
-              return Dialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  child: FittedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: Text(
-                              S.current.editar,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.sourceSansPro(
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 24,
-                                  color: greenPrimary),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            height: 60,
-                            width: ScreenWH(context).width * 0.8,
-                            child: _txtFormUserName,
-                          ), //AVATAR
-                          const SizedBox(height: 10),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            alignment: Alignment.centerLeft,
-                            child: Text("Edita tú avatar",
-                                textAlign: TextAlign.left,
-                                style: GoogleFonts.sourceSansPro(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w800,
-                                    color: greenPrimary,
-                                    decoration: TextDecoration.none)),
-                          ),
-                          const SizedBox(height: 20),
-                          SizedBox(
-                              height: ScreenWH(context).height * 0.28,
-                              width: ScreenWH(context).width * 0.72,
-                              child: selectAvatar()),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 10),
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                button(S.current.Guardar, () {}, greenPrimary),
-                                button(S.current.Volver, () {}, Colors.grey),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ));
-            });
-      },
+    TxtForm _txtFormEmail = TxtForm(
+      placeholder: user.email ?? 'Ingresa tu correo',
+      controller: _emailController,
+      inputType: InputType.Email,
+      txtColor: txtPrimary,
+      prefixIcon: const Icon(Icons.mail),
+      errorMessage: S.current.Obligatorio,
+      title: S.current.Email,
     );
-  }
-
-  Widget button(String text, Function press, Color color) {
-    return TextButton(
-      style: TextButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        primary: Colors.white,
-        backgroundColor: color,
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-      ),
-      child: Text(
-        text,
-        style: GoogleFonts.notoSansJavanese(
-          fontSize: 16,
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-      onPressed: () async {
-        press();
-      },
-    );
-  }
-
-  Widget avatar(String name, int index) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          for (int i = 0; i < avatarSelect.length; i++) {
-            avatarSelect[i] = index == i ? !avatarSelect[i] : false;
-          }
-          if (avatarSelect.contains(true)) {
-            pathSelectedAvatar = pathAvatarSelected[index];
-          }
-        });
-      },
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
       child: Column(
         children: [
+          _txtFormUserName, //AVATAR
+          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+          _txtFormEmail,
+          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
           Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(40),
-              border: Border.all(
-                  color: avatarSelect[index] ? greenPrimary : Colors.grey,
-                  width: avatarSelect[index] ? 3 : 2),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Avatar',
+              style: GoogleFonts.sourceSansPro(
+                  fontSize: getResponsiveText(context, 19),
+                  color: greenPrimary,
+                  fontWeight: FontWeight.w800),
             ),
-            child: Image.asset(
-                avatarSelect[index]
-                    ? pathAvatarSelected[index]
-                    : pathAvatarNoSelect[index],
-                height: ScreenWH(context).height * 0.20,
-                width: ScreenWH(context).width * 0.22),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+          AvatarSelect(userAvatar: user.avatar),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+          AppButton(
+            label: 'Guardar',
+            onPressed: () {
+              final username = _userNameController.text.isNotEmpty
+                  ? _userNameController.text
+                  : user.fullName;
+              final email = _emailController.text.isNotEmpty
+                  ? _emailController.text
+                  : user.email;
+              final avatar = const AvatarSelect().getAvatar() ?? user.avatar;
+              editUserData(avatar, username, email);
+            },
+            width: MediaQuery.of(context).size.width * 0.8,
           ),
         ],
       ),
     );
   }
 
-  Widget selectAvatar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        avatar("Male", 0),
-        avatar("Female", 1),
-        avatar("Monster", 2),
-      ],
-    );
+  editUserData(String avatar, String username, String email) {
+    UserRemoteDataSourceImpl service = UserRemoteDataSourceImpl();
+    service.editUserData(avatar, username, email).then((value) => {
+          if (value)
+            {
+              UserData(context).refresh(),
+            },
+          //see dialog to confirm or not
+          showDialog(
+            context: context,
+            builder: (context) => value
+                ? InfoDialog(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/home");
+                    },
+                    icon: SizedBox(
+                        child: Icon(
+                      Icons.check_circle_outline_rounded,
+                      color: greenPrimary,
+                      size: MediaQuery.of(context).size.height * 0.25,
+                    )),
+                    message: '',
+                    title: 'Datos editados correctamente',
+                  )
+                : const ErrorAlertDialog(
+                    errorMessage: 'Error al editar los datos'),
+          ),
+        });
   }
 
   loadScreen() {

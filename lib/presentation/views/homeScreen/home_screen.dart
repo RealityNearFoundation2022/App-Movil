@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/data/models/news_model.dart';
+import 'package:reality_near/domain/entities/user.dart';
 import 'package:reality_near/domain/usecases/news/get_news.dart';
+import 'package:reality_near/domain/usecases/user/user_data.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/AR/arview.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/carrousel.dart';
@@ -12,7 +15,6 @@ import 'package:reality_near/presentation/views/homeScreen/widgets/category.dart
 import 'package:reality_near/presentation/views/homeScreen/widgets/news_widget.dart';
 import 'package:reality_near/presentation/views/lateralBar/lateral_drawer.dart';
 import 'package:reality_near/presentation/views/mapScreen/map_halfscreen.dart';
-import 'package:reality_near/presentation/views/social/widget/social_grid.dart';
 
 import '../../bloc/menu/menu_bloc.dart';
 
@@ -26,18 +28,26 @@ class HomeScreenV2 extends StatefulWidget {
 
 class _HomeScreenV2State extends State<HomeScreenV2> {
   List<NewsModel> news = [];
+  User user;
   //Scaffold key
   final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
 
   @override
   void initState() {
     super.initState();
+    getUserData();
     getNews();
   }
 
   getNews() async {
     await GetNews().call().then((value) => setState(() {
           news = value;
+        }));
+  }
+
+  getUserData() async {
+    await UserData(context).get().then((value) => setState(() {
+          user = value;
         }));
   }
 
@@ -173,20 +183,26 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                     ),
               state is MenuMapaState
                   ? const SizedBox()
-                  : IconButton(
-                      iconSize: MediaQuery.of(context).size.height * 0.07,
-                      icon: CircleAvatar(
-                        radius: 40,
-                        backgroundColor: greenPrimary.withOpacity(0.2),
-                        child: Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: Image.asset(
-                            "assets/gift/MEN_SELECTED.gif",
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 3.0),
+                      child: CircleAvatar(
+                        radius: 45,
+                        backgroundColor: greenPrimary.withOpacity(0.1),
+                        child: user != null
+                            ? Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Image.asset(
+                                  user.avatar,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Center(
+                                child: LoadingAnimationWidget.dotsTriangle(
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              ),
                       ),
-                      onPressed: () {},
                     ),
               // const MapContainer(),
               IconButton(

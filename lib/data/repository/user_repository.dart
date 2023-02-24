@@ -9,8 +9,8 @@ class UserRepository {
   final AuthsRemoteDataSourceImpl authsRemoteDataSourceImpl =
       AuthsRemoteDataSourceImpl();
 
-  final userRemoteDataSourceImpl userRemoteDataSource =
-      userRemoteDataSourceImpl();
+  final UserRemoteDataSourceImpl userRemoteDataSource =
+      UserRemoteDataSourceImpl();
 
   Future<void> editUser(String avatar, String username, String email) async {
     await userRemoteDataSource.editUserData(avatar, username, email);
@@ -28,10 +28,6 @@ class UserRepository {
       ));
     }
   }
-
-  // setAvatar(String avatar,String pasword) async {
-  //   await userRemoteDataSource.setAvatar(avatar,pasword);
-  // }
 
   Future<Either<Failure, bool>> loginwithEmail(
       String email, String password) async {

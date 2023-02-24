@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
@@ -14,12 +15,19 @@ import 'package:reality_near/core/providers/location_provider.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 bool isLoggedIn;
+Future<void> getVersion() async {
+  await PackageInfo.fromPlatform().then((value) {
+    setPreference("current_version", value.version);
+  });
+}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {
     isLoggedIn = await getPreference('userToken') != null;
+    await getVersion();
+
     runApp(const MyApp());
   });
 }

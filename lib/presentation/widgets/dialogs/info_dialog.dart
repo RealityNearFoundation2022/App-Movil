@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/presentation/widgets/buttons/default_button.dart';
 
 class InfoDialog extends StatelessWidget {
   final String title, message;
@@ -44,18 +45,14 @@ class InfoDialog extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    onPressed();
-                  },
-                  child: Text(
-                    'Continuar',
-                    style: GoogleFonts.sourceSansPro(
-                        color: greenPrimary,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700),
-                  ),
-                )
+                AppButton(
+                  onPressed: onPressed,
+                  label: 'Continuar',
+                  // colorDefault: greenPrimary,
+                  textColor: Colors.white,
+
+                  width: MediaQuery.of(context).size.width * 0.5,
+                ),
               ],
             ),
           ),

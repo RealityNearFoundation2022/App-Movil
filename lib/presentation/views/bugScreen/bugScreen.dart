@@ -7,7 +7,7 @@ import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/models/reportModel.dart';
 import 'package:reality_near/domain/usecases/report/createReport.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:reality_near/presentation/widgets/dialogs/infoDialog.dart';
+import 'package:reality_near/presentation/widgets/dialogs/info_dialog.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../widgets/others/snackBar.dart';
@@ -225,7 +225,7 @@ class _BugScreenState extends State<BugScreen> {
                 ),
               ),
               onPressed: () {
-                if(_controller.text.isNotEmpty) {
+                if (_controller.text.isNotEmpty) {
                   ReportModel report = ReportModel(
                     title: "",
                     category: catergory,

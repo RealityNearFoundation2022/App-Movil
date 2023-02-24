@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/data/repository/userRepository.dart';
+import 'package:reality_near/data/repository/user_repository.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/login/no_avatar_screen.dart';
@@ -163,21 +163,6 @@ class Login extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.02,
                 ),
 
-                // ElevatedButton(
-                //     style: ElevatedButton.styleFrom(
-                //       backgroundColor: Colors.white,
-                //       shape: const CircleBorder(),
-                //       padding: const EdgeInsets.all(15),
-                //       side: const BorderSide(color: greenPrimary, width: 2),
-                //     ),
-                //     onPressed: () {},
-                //     child: SvgPicture.asset(
-                //       'assets/icons/near_logo_stack.svg',
-                //       color: greenPrimary,
-                //       height: MediaQuery.of(context).size.height * 0.06,
-                //       width: MediaQuery.of(context).size.height * 0.15,
-                //     )),
-
                 IconButton(
                     constraints: const BoxConstraints(
                         maxHeight: 50,
@@ -187,7 +172,6 @@ class Login extends StatelessWidget {
                     onPressed: () {},
                     icon: SvgPicture.asset(
                       'assets/icons/near_logo_complete.svg',
-                      color: greenPrimary,
                       height: MediaQuery.of(context).size.height * 0.04,
                       width: MediaQuery.of(context).size.height * 0.1,
                     )),

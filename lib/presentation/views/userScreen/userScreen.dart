@@ -5,7 +5,7 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
 
-import '../../../data/repository/userRepository.dart';
+import '../../../data/repository/user_repository.dart';
 import '../../../domain/entities/user.dart';
 import '../../widgets/forms/textForm.dart';
 

@@ -1,34 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 
-class DefaultButton extends StatelessWidget {
-  const DefaultButton({
-    Key key,
-    this.text,
-    this.press,
-  }) : super(key: key);
-  final String text;
-  final Function press;
+class AppButton extends StatelessWidget {
+  final String label;
+  final double width;
+  final double height;
+  final Color colorDefault;
+  final Color borderColorDefault;
+  final Color textColor;
+  final VoidCallback onPressed;
+  final double radius;
+  // ignore: use_key_in_widget_constructors
+  const AppButton({
+    this.label,
+    this.width,
+    this.colorDefault = greenPrimary,
+    this.borderColorDefault = Colors.transparent,
+    this.textColor = Colors.white,
+    this.height = 50,
+    this.onPressed,
+    this.radius = 20.0,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: ScreenWH(context).height * 0.065,
-      child: TextButton(
-        style: TextButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          primary: Colors.white,
-          backgroundColor: greenPrimary,
-        ),
-        onPressed: press as void Function(),
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontSize: 18,
-            color: Colors.white,
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(radius)),
+          color: colorDefault,
+          border: Border.all(color: borderColorDefault, width: 3)),
+      child: Material(
+        borderRadius: BorderRadius.all(Radius.circular(radius)),
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.all(Radius.circular(radius)),
+          onTap: onPressed,
+          child: Center(
+            child: Text(
+              label,
+              style: GoogleFonts.sourceSansPro(
+                  fontSize: getResponsiveText(context, 16),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800),
+            ),
           ),
         ),
       ),

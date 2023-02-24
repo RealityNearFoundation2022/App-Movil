@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:reality_near/core/errors/failure.dart';
-import 'package:reality_near/data/repository/userRepository.dart';
+import 'package:reality_near/data/repository/user_repository.dart';
 
 class EmailLoginUser {
   UserRepository userRepository = UserRepository();

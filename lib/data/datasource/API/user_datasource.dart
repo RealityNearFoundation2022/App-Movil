@@ -7,15 +7,14 @@ import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:reality_near/domain/entities/user.dart';
 
-abstract class userRemoteDataSource {
+abstract class UserRemoteDataSource {
   Future<UserModel> getMyData();
 }
 
-class userRemoteDataSourceImpl implements userRemoteDataSource {
-  final String baseUrl = API_REALITY_NEAR + "users/";
+class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   var log = Logger();
 
-  userRemoteDataSourceImpl();
+  UserRemoteDataSourceImpl();
 
   @override
   Future<UserModel> getMyData() async {
@@ -53,7 +52,7 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
 
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
-      return (json.decode(response.body) as List)
+      return (json.decode(body) as List)
           .map((i) => UserModel.fromJson(i))
           .toList();
     } else {
@@ -61,9 +60,8 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
     }
   }
 
-  @override
   Future<User> getUserById(String userId) async {
-    String url = API_REALITY_NEAR + "users/${userId}";
+    String url = API_REALITY_NEAR + "users/$userId";
     String token = await getPreference("userToken");
     final response = await http.get(
       Uri.parse(url),
@@ -82,7 +80,8 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
     }
   }
 
-  editUserData(String avatar, String username, String email) async {
+  Future<bool> editUserData(
+      String avatar, String username, String email) async {
     String url = API_REALITY_NEAR + "users/me";
     String token = await getPreference("userToken");
 
@@ -100,6 +99,12 @@ class userRemoteDataSourceImpl implements userRemoteDataSource {
           "Authorization": "Bearer $token",
         },
         body: bodyData);
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
     //PARA VERIFICAR
   }
 }

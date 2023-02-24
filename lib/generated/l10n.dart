@@ -135,6 +135,26 @@ class S {
     );
   }
 
+  /// `Coming soon`
+  String get proximamente {
+    return Intl.message(
+      'Coming soon',
+      name: 'proximamente',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Cupons`
+  String get cupones {
+    return Intl.message(
+      'My Cupons',
+      name: 'cupones',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Register`
   String get Registrate {
     return Intl.message(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/core/framework/globals.dart';
 
 class TxtForm extends StatefulWidget {
   final String title;
@@ -27,8 +28,6 @@ class TxtForm extends StatefulWidget {
 
   @override
   State<TxtForm> createState() => _txtFormState();
-
-
 }
 
 class _txtFormState extends State<TxtForm> {
@@ -60,13 +59,16 @@ class _txtFormState extends State<TxtForm> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   widget.title ?? '',
-                  style: GoogleFonts.sourceCodePro(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: widget.txtColor,
-                      decoration: TextDecoration.none),
+                  style: GoogleFonts.sourceSansPro(
+                      fontSize: getResponsiveText(context, 19),
+                      color: greenPrimary,
+                      fontWeight: FontWeight.w800),
                 ))
             : Container(),
+        SizedBox(
+            height: widget.title != null
+                ? MediaQuery.of(context).size.height * 0.01
+                : 0),
         Material(
           color: Colors.transparent,
           child: TextField(
@@ -88,6 +90,11 @@ class _txtFormState extends State<TxtForm> {
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
+            ),
+            style: GoogleFonts.sourceSansPro(
+              color: widget.txtColor,
+              fontSize: getResponsiveText(context, 14),
+              fontWeight: FontWeight.w400,
             ),
             onSubmitted: checkValidation,
             keyboardType: getInputType(),
@@ -147,7 +154,7 @@ class _txtFormState extends State<TxtForm> {
       validationMessage = widget.errorMessage ?? 'Contraseña no es valido';
       _isValidate = textFieldValue.isNotEmpty;
       validationMessage = widget.errorMessage ?? 'Dato obligatorio';
-    } else if(widget.inputType == InputType.Default){
+    } else if (widget.inputType == InputType.Default) {
       _isValidate = textFieldValue.isNotEmpty;
       validationMessage = widget.errorMessage ?? 'Dato obligatorio';
     }

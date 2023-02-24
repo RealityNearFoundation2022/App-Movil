@@ -1,7 +1,7 @@
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/models/contactModel.dart';
 import 'package:reality_near/data/repository/contactRepository.dart';
-import 'package:reality_near/data/repository/userRepository.dart';
+import 'package:reality_near/data/repository/user_repository.dart';
 import 'package:reality_near/domain/entities/user.dart';
 
 class GetPendingUseCase {
