@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/helper/url_constants.dart';
@@ -46,7 +47,7 @@ class SectionCarouselState extends State<SectionCarousel> {
     return Container(
       height: MediaQuery.of(context).size.height * 0.3,
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: _isLoading
           ? LoadingAnimationWidget.dotsTriangle(
               color: greenPrimary,
@@ -130,11 +131,10 @@ class CarouselCard extends StatelessWidget {
             child: Text(
               article.title,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontFamily: "Telefonica",
+              style: GoogleFonts.sourceSansPro(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
-                  fontSize: 14),
+                  fontSize: 24),
             ),
           ),
         ],

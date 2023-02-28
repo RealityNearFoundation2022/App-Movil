@@ -40,7 +40,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(S.current.Configuracion),
+      appBar: globalApppBar(context, S.current.Configuracion),
       backgroundColor: Colors.white,
       body: Column(
         // crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,45 +61,9 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                 S.current.PoliticaDePrivacidad, Icons.privacy_tip_rounded),
           ),
           //Version of app
-          textAndIcon('V. $version', Icons.verified_sharp),
+          textAndIcon('Versión: $version', Icons.verified_sharp),
         ],
       ),
-    );
-  }
-
-  _appBar(String title) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      leadingWidth: 30,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: greenPrimary,
-          size: 30,
-        ),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      title: Text(
-        title,
-        style: GoogleFonts.sourceSansPro(
-          color: greenPrimary,
-          fontSize: 25,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: SvgPicture.asset(
-            'assets/icons/logo.svg',
-            color: greenPrimary,
-            height: 35,
-          ),
-        )
-      ],
     );
   }
 

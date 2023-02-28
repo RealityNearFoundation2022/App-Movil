@@ -42,7 +42,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: _appBar(
+        appBar: globalApppBar(
+          context,
           S.current.perfil,
         ),
         body: _body());
@@ -56,10 +57,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Column(
                 children: [
-                  _userSection(),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.01,
+                    height: MediaQuery.of(context).size.height * 0.02,
                   ),
+                  _userSection(),
                   editData()
                   // buildCategory(S.current.Coleccionables, greenPrimary,
                   //     MediaQuery.of(context).size, () {}),
@@ -90,9 +91,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           width: MediaQuery.of(context).size.width * 0.45,
           height: MediaQuery.of(context).size.width * 0.45,
           padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: greenPrimary.withOpacity(0.2),
+            color: greenSoft,
           ),
           child: loading
               ? LoadingAnimationWidget.dotsTriangle(
@@ -102,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               : Image.asset(user.avatar),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.02,
+          height: MediaQuery.of(context).size.height * 0.01,
         ),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -110,13 +111,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Text(
             user.fullName,
             style: GoogleFonts.sourceSansPro(
-                fontSize: getResponsiveText(context, 19),
+                fontSize: getResponsiveText(context, 24),
                 color: txtPrimary,
-                fontWeight: FontWeight.w800),
+                fontWeight: FontWeight.bold),
           ),
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.01,
         ),
         // SizedBox(
         //   height: MediaQuery.of(context).size.height * 0.04,
@@ -156,42 +154,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             fontSize: getResponsiveText(context, 15),
             color: txtPrimary,
             fontWeight: FontWeight.w600,
-          ),
-        )
-      ],
-    );
-  }
-
-  _appBar(String title) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      leadingWidth: 30,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: greenPrimary,
-          size: 30,
-        ),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      title: Text(
-        title,
-        style: GoogleFonts.sourceSansPro(
-          color: greenPrimary,
-          fontSize: 25,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: SvgPicture.asset(
-            'assets/icons/logo.svg',
-            color: greenPrimary,
-            height: 35,
           ),
         )
       ],
@@ -306,13 +268,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       title: S.current.Email,
     );
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
       child: Column(
         children: [
           _txtFormUserName, //AVATAR
-          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           _txtFormEmail,
-          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -325,7 +287,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           AvatarSelect(userAvatar: user.avatar),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.06),
           AppButton(
             label: 'Guardar',
             onPressed: () {

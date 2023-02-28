@@ -84,6 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "NuevosNFts" : MessageLookupByLibrary.simpleMessage("nuevosNFts"),
     "O" : MessageLookupByLibrary.simpleMessage("O"),
     "Obligatorio" : MessageLookupByLibrary.simpleMessage("Obligatorio"),
+    "OiongresaCon" : MessageLookupByLibrary.simpleMessage("O ingresa con"),
     "Omitir" : MessageLookupByLibrary.simpleMessage("Omitir"),
     "Otro" : MessageLookupByLibrary.simpleMessage("Otro"),
     "Password" : MessageLookupByLibrary.simpleMessage("Contraseña"),

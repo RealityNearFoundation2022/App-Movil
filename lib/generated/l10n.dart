@@ -105,6 +105,16 @@ class S {
     );
   }
 
+  /// `Or login with`
+  String get OiongresaCon {
+    return Intl.message(
+      'Or login with',
+      name: 'OiongresaCon',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Profile`
   String get perfil {
     return Intl.message(
@@ -145,10 +155,10 @@ class S {
     );
   }
 
-  /// `My Cupons`
+  /// `My Coupons`
   String get cupones {
     return Intl.message(
-      'My Cupons',
+      'My Coupons',
       name: 'cupones',
       desc: '',
       args: [],

@@ -2,8 +2,11 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:reality_near/core/framework/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vector_math/vector_math.dart' as math;
 import 'package:location/location.dart' as loc;
@@ -159,3 +162,42 @@ Future<loc.LocationData> getCurrentLocation() async {
 
 double getResponsiveText(BuildContext context, double size) =>
     size * 900 / MediaQuery.of(context).size.longestSide;
+
+globalApppBar(BuildContext context, String title) {
+  return AppBar(
+    backgroundColor: Colors.white,
+    elevation: 0,
+    leadingWidth: 30,
+    leading: IconButton(
+      icon: const Icon(
+        Icons.arrow_back_ios_new_rounded,
+        color: greenPrimary,
+        size: 30,
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    ),
+    title: Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        title,
+        style: GoogleFonts.sourceSansPro(
+          color: greenPrimary,
+          fontSize: 25,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    ),
+    actions: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: SvgPicture.asset(
+          'assets/icons/logo.svg',
+          color: greenPrimary,
+          height: 35,
+        ),
+      )
+    ],
+  );
+}

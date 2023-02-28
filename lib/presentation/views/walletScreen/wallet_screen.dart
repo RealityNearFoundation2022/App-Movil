@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/data/datasource/near/contracts.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/walletScreen/widgets/tab_cupons_features.dart';
 
@@ -22,57 +19,23 @@ class _WalletScreenState extends State<WalletScreen> {
   void initState() {
     super.initState();
     //obtener balance de wallet
-    ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
-          walletBalance = value;
-        }));
+    // ContractRemoteDataSourceImpl().getMyBalance().then((value) => setState(() {
+    //       walletBalance = value;
+    //     }));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(S.current.Wallet),
+      appBar: globalApppBar(context, S.current.Wallet),
       backgroundColor: Colors.white,
       body: Container(
         color: Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 20),
+        width: ScreenWH(context).width,
+        height: ScreenWH(context).height,
         child: const TabCuponsFeatures(),
       ),
-    );
-  }
-
-  _appBar(String title) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      leadingWidth: 30,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: greenPrimary,
-          size: 30,
-        ),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      title: Text(
-        title,
-        style: GoogleFonts.sourceSansPro(
-          color: greenPrimary,
-          fontSize: 25,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: SvgPicture.asset(
-            'assets/icons/logo.svg',
-            color: greenPrimary,
-            height: 35,
-          ),
-        )
-      ],
     );
   }
 

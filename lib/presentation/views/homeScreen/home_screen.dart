@@ -35,7 +35,7 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
   @override
   void initState() {
     super.initState();
-    getUserData();
+    getUserData().then((value) => setState(() {}));
     getNews();
   }
 
@@ -46,9 +46,8 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
   }
 
   getUserData() async {
-    await UserData(context).get().then((value) => setState(() {
-          user = value;
-        }));
+    var currentUser = await UserData(context).get();
+    user = currentUser;
   }
 
   @override
@@ -87,7 +86,7 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                   const SizedBox(height: 10),
                   novedadesCarrousel(),
                   SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.09 -
+                      height: MediaQuery.of(context).size.height * 0.12 -
                           MediaQuery.of(context).viewPadding.bottom +
                           10),
                 ],
@@ -104,7 +103,7 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
   novedadesCarrousel() {
     Size size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         children: [
           buildCategory(S.current.Novedades, greenPrimary, size, () {}),
@@ -130,21 +129,29 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0,
-      toolbarHeight: MediaQuery.of(context).size.height * 0.1,
+      toolbarHeight: MediaQuery.of(context).size.height * 0.11,
       leading: Builder(builder: (context) {
-        return IconButton(
-          iconSize: MediaQuery.of(context).size.height * 0.05,
-          icon: const Icon(
-            Icons.menu_rounded,
-            color: greenPrimary,
+        return Container(
+          margin: const EdgeInsets.only(left: 10, top: 8),
+          child: IconButton(
+            iconSize: MediaQuery.of(context).size.height * 0.058,
+            icon: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.058,
+              width: MediaQuery.of(context).size.height * 0.058,
+              child: Icon(
+                Icons.menu_rounded,
+                color: greenPrimary,
+                size: MediaQuery.of(context).size.height * 0.05,
+              ),
+            ),
+            onPressed: () =>
+                Scaffold.of(context).openDrawer(), // <-- Opens drawer.
           ),
-          onPressed: () =>
-              Scaffold.of(context).openDrawer(), // <-- Opens drawer.
         );
       }),
       title: Image.asset(
         'assets/imgs/Logo_sin_fondo.png',
-        height: MediaQuery.of(context).size.height * 0.111,
+        height: MediaQuery.of(context).size.height * 0.09,
       ),
       centerTitle: true,
       actions: [
@@ -159,10 +166,10 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
         return Container(
           height: state is MenuMapaState
               ? MediaQuery.of(context).size.height * 0.5
-              : MediaQuery.of(context).size.height * 0.09,
+              : MediaQuery.of(context).size.height * 0.12,
           width: MediaQuery.of(context).size.width,
           color: state is MenuMapaState ? Colors.transparent : Colors.white,
-          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -184,9 +191,9 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
               state is MenuMapaState
                   ? const SizedBox()
                   : Padding(
-                      padding: const EdgeInsets.only(top: 3.0),
+                      padding: const EdgeInsets.symmetric(vertical: 3.0),
                       child: CircleAvatar(
-                        radius: 45,
+                        radius: 30,
                         backgroundColor: greenPrimary.withOpacity(0.1),
                         child: user != null
                             ? Padding(
@@ -238,17 +245,17 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
       onPressed: () {
         Navigator.pushNamed(context, "/notifications");
       },
-      iconSize: MediaQuery.of(context).size.height * 0.058,
+      iconSize: MediaQuery.of(context).size.height * 0.053,
       icon: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.058,
-        width: MediaQuery.of(context).size.height * 0.058,
+        height: MediaQuery.of(context).size.height * 0.053,
+        width: MediaQuery.of(context).size.height * 0.053,
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
             Icon(
               Icons.notifications,
               color: greenPrimary,
-              size: MediaQuery.of(context).size.height * 0.05,
+              size: MediaQuery.of(context).size.height * 0.045,
             ),
             numNotifications > 0
                 ? Positioned(

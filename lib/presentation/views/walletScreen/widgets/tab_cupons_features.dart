@@ -22,72 +22,90 @@ class _TabCuponsFeaturesState extends State<TabCuponsFeatures> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: DefaultTabController(
-            length: 2,
-            child: Column(
-              children: [
-                TabBar(
-                  unselectedLabelColor: Colors.black54,
-                  labelColor: Colors.white,
-                  indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50), // Creates border
-                      color: greenPrimary),
-                  tabs: [
-                    Tab(
-                      child: Text(
-                        S.current.cupones,
-                        style: GoogleFonts.sourceSansPro(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        S.current.proximamente,
-                        style: GoogleFonts.sourceSansPro(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: TabBarView(children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0),
-                      child: Column(
-                        children: [const SizedBox(height: 20), gridCupons()],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          SizedBox(height: ScreenWH(context).height * 0.06),
-                          Image.asset('assets/imgs/nftSoon.png'),
-                          const SizedBox(height: 20),
-                          Text(
-                            'Aquí podras ver todas las NFTs que tengas en tu wallet',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.sourceSansPro(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              color: txtPrimary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ]),
-                ),
-              ],
-            )),
+    return Padding(
+      padding: const EdgeInsets.only(top: 0),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              S.current.cupones,
+              style: GoogleFonts.sourceSansPro(
+                color: greenPrimary,
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          gridCupons(),
+        ],
       ),
+      // child: DefaultTabController(
+      //     length: 2,
+      //     child: Column(
+      //       children: [
+      //         TabBar(
+      //           unselectedLabelColor: Colors.black54,
+      //           labelColor: Colors.white,
+      //           indicator: BoxDecoration(
+      //               borderRadius: BorderRadius.circular(50), // Creates border
+      //               color: greenPrimary),
+      //           tabs: [
+      //             Tab(
+      //               child: Text(
+      //                 S.current.cupones,
+      //                 style: GoogleFonts.sourceSansPro(
+      //                   fontSize: 20,
+      //                   fontWeight: FontWeight.bold,
+      //                 ),
+      //               ),
+      //             ),
+      //             Tab(
+      //               child: Text(
+      //                 S.current.proximamente,
+      //                 style: GoogleFonts.sourceSansPro(
+      //                   fontSize: 20,
+      //                   fontWeight: FontWeight.bold,
+      //                 ),
+      //               ),
+      //             ),
+      //           ],
+      //         ),
+      //         Expanded(
+      //           child: TabBarView(children: [
+      //             Padding(
+      //               padding: const EdgeInsets.symmetric(horizontal: 0),
+      //               child: Column(
+      //                 children: [
+      //                   const SizedBox(height: 20),
+      //                   gridCupons(),
+      //                 ],
+      //               ),
+      //             ),
+      //             Padding(
+      //               padding: const EdgeInsets.symmetric(horizontal: 20),
+      //               child: Column(
+      //                 children: [
+      //                   SizedBox(height: ScreenWH(context).height * 0.06),
+      //                   Image.asset('assets/imgs/nftSoon.png'),
+      //                   const SizedBox(height: 20),
+      //                   Text(
+      //                     'Aquí podras ver todas las NFTs que tengas en tu wallet',
+      //                     textAlign: TextAlign.center,
+      //                     style: GoogleFonts.sourceSansPro(
+      //                       fontSize: 20,
+      //                       fontWeight: FontWeight.w600,
+      //                       color: txtPrimary,
+      //                     ),
+      //                   ),
+      //                 ],
+      //               ),
+      //             ),
+      //           ]),
+      //         ),
+      //       ],
+      //     )),
     );
   }
 
@@ -100,7 +118,7 @@ class _TabCuponsFeaturesState extends State<TabCuponsFeatures> {
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         itemCount: 10,
         itemBuilder: (BuildContext context, int index) {
           return _cupon('cupon $index');
@@ -143,7 +161,7 @@ class _TabCuponsFeaturesState extends State<TabCuponsFeatures> {
               ClipPath(
                 clipper: TriangleClipper(),
                 child: Container(
-                  height: ScreenWH(context).height * 0.3 / 2,
+                  height: ScreenWH(context).height * 0.3 / 2.1,
                   width: ScreenWH(context).width * 0.4,
                   decoration: const BoxDecoration(
                     color: Colors.blue,
@@ -161,8 +179,7 @@ class _TabCuponsFeaturesState extends State<TabCuponsFeatures> {
                 ),
               ),
               Container(
-                  height: ScreenWH(context).height * 0.3 -
-                      ScreenWH(context).height * 0.3 / 2.1,
+                  height: ScreenWH(context).height * 0.14,
                   width: ScreenWH(context).width * 0.4,
                   decoration: const BoxDecoration(
                     color: Colors.white,

@@ -23,7 +23,7 @@ class TxtForm extends StatefulWidget {
       this.maxLength,
       this.prefixIcon,
       this.sufixIcon,
-      this.txtColor = txtPrimary})
+      this.txtColor = const Color(0xFF555555)})
       : super(key: key);
 
   @override
@@ -82,11 +82,15 @@ class _txtFormState extends State<TxtForm> {
               focusedBorder: getBorder(true),
               filled: true,
               fillColor: Colors.white,
-              prefixIcon: widget.prefixIcon,
+              prefixIcon: Container(
+                margin: const EdgeInsets.only(left: 20.0, right: 10.0),
+                child: widget.prefixIcon,
+              ),
               suffixIcon: widget.sufixIcon ?? getSuffixIcon(),
               labelText: widget.placeholder,
-              labelStyle: GoogleFonts.sourceCodePro(
-                color: focused ? greenPrimary : greySoft,
+              contentPadding: const EdgeInsets.only(left: 20, right: 20),
+              labelStyle: GoogleFonts.sourceSansPro(
+                color: focused ? greenPrimary : const Color(0xFF555555),
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
@@ -107,14 +111,19 @@ class _txtFormState extends State<TxtForm> {
 
   getSuffixIcon() {
     if (widget.inputType == InputType.Password) {
-      return IconButton(
-        onPressed: () {
-          visibility = !visibility;
-          setState(() {});
-        },
-        icon: Icon(
-          visibility ? Icons.visibility : Icons.visibility_off,
-          color: focused ? greenPrimary.withOpacity(0.5) : greySoft,
+      return Container(
+        margin: const EdgeInsets.only(right: 10.0, left: 5.0),
+        child: IconButton(
+          onPressed: () {
+            visibility = !visibility;
+            setState(() {});
+          },
+          icon: Icon(
+            visibility ? Icons.visibility : Icons.visibility_off,
+            color: focused
+                ? greenPrimary.withOpacity(0.5)
+                : const Color(0xFFE8E8E8),
+          ),
         ),
       );
     }
@@ -124,8 +133,8 @@ class _txtFormState extends State<TxtForm> {
   OutlineInputBorder getBorder(bool focused) {
     return OutlineInputBorder(
       borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-      borderSide:
-          BorderSide(width: 2, color: focused ? greenPrimary : greySoft),
+      borderSide: BorderSide(
+          width: 2, color: focused ? greenPrimary : const Color(0xFFE8E8E8)),
       gapPadding: 2,
     );
   }

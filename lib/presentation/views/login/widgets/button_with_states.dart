@@ -36,15 +36,13 @@ class _ButtonWithStatesState extends State<ButtonWithStates> {
     return TextButton(
       style: TextButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        primary: Colors.white,
+        foregroundColor: Colors.white,
         backgroundColor: greenPrimary,
       ),
       child: Text(
         widget.text,
-        style: GoogleFonts.notoSansJavanese(
-          fontSize: 22,
-          color: Colors.white,
-        ),
+        style: GoogleFonts.sourceSansPro(
+            fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
       ),
       onPressed: () async {
         widget.press();

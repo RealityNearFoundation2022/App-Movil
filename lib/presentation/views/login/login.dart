@@ -104,13 +104,16 @@ class Login extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 //Top spacer
-                SizedBox(height: ScreenWH(context).height * 0.1),
+                SizedBox(height: ScreenWH(context).height * 0.04),
                 //Logo image
                 Image.asset('assets/imgs/Logo_sin_fondo.png',
                     height: 200, width: 200),
+                SizedBox(height: ScreenWH(context).height * 0.04),
+
                 //Login form
                 logInEmail(_txtFormEmail, _txtFormPassword),
                 //Button
+                const SizedBox(height: 16),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: BlocBuilder<UserBloc, UserState>(
@@ -134,23 +137,23 @@ class Login extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01,
+                  height: MediaQuery.of(context).size.height * 0.02,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30.0),
                   child: Row(
-                    children: const [
-                      Expanded(
+                    children: [
+                      const Expanded(
                         child: Divider(
                           endIndent: 10,
                           color: bordergrey,
                         ),
                       ),
                       Text(
-                        "O ingresa con",
-                        style: TextStyle(color: bordergrey),
+                        S.current.OiongresaCon,
+                        style: const TextStyle(color: Color(0xFF555555)),
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Divider(
                           indent: 10,
                           color: bordergrey,
@@ -160,7 +163,7 @@ class Login extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.02,
+                  height: MediaQuery.of(context).size.height * 0.01,
                 ),
 
                 IconButton(
@@ -172,8 +175,9 @@ class Login extends StatelessWidget {
                     onPressed: () {},
                     icon: SvgPicture.asset(
                       'assets/icons/near_logo_complete.svg',
-                      height: MediaQuery.of(context).size.height * 0.04,
-                      width: MediaQuery.of(context).size.height * 0.1,
+                      color: const Color(0xFF555555),
+                      height: MediaQuery.of(context).size.height * 0.030,
+                      width: MediaQuery.of(context).size.height * 0.090,
                     )),
               ]),
         ),
@@ -189,7 +193,7 @@ class Login extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 40.0),
           child: email,
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 12),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40.0),
           child: password,

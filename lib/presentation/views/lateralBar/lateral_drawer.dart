@@ -78,9 +78,9 @@ class _LateralDrawerState extends State<LateralDrawer> {
               width: MediaQuery.of(context).size.width * 0.35,
               height: MediaQuery.of(context).size.width * 0.35,
               padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: greenPrimary.withOpacity(0.2),
+                color: greenSoft,
               ),
               child: loading
                   ? LoadingAnimationWidget.dotsTriangle(
@@ -96,103 +96,133 @@ class _LateralDrawerState extends State<LateralDrawer> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               alignment: Alignment.centerLeft,
               child: Text(
-                loading ? 'Cargando...' : user.fullName,
+                loading ? 'Cargando...' : loremIpsum.substring(0, 10),
                 style: GoogleFonts.sourceSansPro(
-                    fontSize: getResponsiveText(context, 20),
+                    fontSize: getResponsiveText(context, 22),
                     color: txtPrimary,
-                    fontWeight: FontWeight.w800),
+                    fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.025,
+              height: MediaQuery.of(context).size.height * 0.015,
             ),
             for (var i = 0; i < menuOptions.length; i++)
-              ListTile(
-                horizontalTitleGap: 10,
-                minLeadingWidth: 10,
-                leading: SvgPicture.asset(
-                  menuOptions[i]['icon'],
-                  height: MediaQuery.of(context).size.height * 0.04,
-                  color: greenPrimary,
-                ),
-                title: Text(
-                  menuOptions[i]['text'],
-                  style: GoogleFonts.sourceSansPro(
-                      fontSize: getResponsiveText(context, 16),
-                      color: txtPrimary,
-                      fontWeight: FontWeight.w600),
-                ),
-                onTap: () {
-                  Navigator.pushNamed(context, menuOptions[i]['path']);
-                },
-              ),
-            const Spacer(),
-            ListTile(
-              horizontalTitleGap: 10,
-              minLeadingWidth: 10,
-              leading: SvgPicture.asset(
-                'assets/icons/logout_icon.svg',
-                height: MediaQuery.of(context).size.height * 0.04,
-                color: greenPrimary,
-              ),
-              title: Text(
-                'Cerrar Sesión',
-                style: GoogleFonts.sourceSansPro(
-                    fontSize: getResponsiveText(context, 16),
-                    color: txtPrimary,
-                    fontWeight: FontWeight.w600),
-              ),
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text(
-                      'Cerrar Sesión',
-                      style: GoogleFonts.sourceSansPro(
-                          fontSize: getResponsiveText(context, 20),
-                          color: txtPrimary,
-                          fontWeight: FontWeight.w800),
-                    ),
-                    content: Text(
-                      '¿Estás seguro que deseas cerrar sesión?',
-                      style: GoogleFonts.sourceSansPro(
-                          fontSize: getResponsiveText(context, 16),
-                          color: txtPrimary,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, menuOptions[i]['path']);
+                  },
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: menuOptions[i]['icon'] ==
+                                "assets/icons/config_icon.svg"
+                            ? const EdgeInsets.only(left: 3.0)
+                            : const EdgeInsets.all(0),
+                        child: SvgPicture.asset(
+                          menuOptions[i]['icon'],
+                          height: menuOptions[i]['icon'] ==
+                                  "assets/icons/config_icon.svg"
+                              ? MediaQuery.of(context).size.height * 0.035
+                              : MediaQuery.of(context).size.height * 0.04,
+                          color: greenPrimary,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
-                          'Cancelar',
+                          menuOptions[i]['text'],
                           style: GoogleFonts.sourceSansPro(
                               fontSize: getResponsiveText(context, 16),
                               color: txtPrimary,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          BlocProvider.of<UserBloc>(context, listen: false)
-                              .add(UserLogOutEvent());
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, '/firstScreen', (route) => false);
-                        },
-                        child: Text(
-                          'Aceptar',
-                          style: GoogleFonts.sourceSansPro(
-                              fontSize: getResponsiveText(context, 16),
-                              color: greenPrimary,
-                              fontWeight: FontWeight.w600),
+                              fontWeight: FontWeight.w400),
                         ),
                       ),
                     ],
                   ),
-                );
-              },
+                ),
+              ),
+            const Spacer(),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(
+                        'Cerrar Sesión',
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: getResponsiveText(context, 16),
+                            color: txtPrimary,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      content: Text(
+                        '¿Estás seguro que deseas cerrar sesión?',
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: getResponsiveText(context, 16),
+                            color: txtPrimary,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Cancelar',
+                            style: GoogleFonts.sourceSansPro(
+                                fontSize: getResponsiveText(context, 16),
+                                color: txtPrimary,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            BlocProvider.of<UserBloc>(context, listen: false)
+                                .add(UserLogOutEvent());
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, '/firstScreen', (route) => false);
+                          },
+                          child: Text(
+                            'Aceptar',
+                            style: GoogleFonts.sourceSansPro(
+                                fontSize: getResponsiveText(context, 16),
+                                color: greenPrimary,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(0),
+                      child: SvgPicture.asset(
+                        'assets/icons/logout_icon.svg',
+                        height: MediaQuery.of(context).size.height * 0.04,
+                        color: greenPrimary,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        'Cerrar Sesión',
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: getResponsiveText(context, 16),
+                            color: txtPrimary,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             SizedBox(
               height: MediaQuery.of(context).viewPadding.bottom + 10,

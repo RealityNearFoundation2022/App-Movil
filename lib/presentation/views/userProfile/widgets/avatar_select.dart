@@ -52,7 +52,7 @@ class _AvatarSelectState extends State<AvatarSelect> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.25,
+      height: MediaQuery.of(context).size.height * 0.24,
       child: GridView.builder(
           itemCount: avatars.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -73,12 +73,12 @@ class _AvatarSelectState extends State<AvatarSelect> {
               child: Container(
                 // padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(30),
                     border: Border.all(
-                        width: avatars[index]["select"] ? 3 : 1.5,
+                        width: avatars[index]["select"] ? 3 : 2,
                         color: avatars[index]["select"]
                             ? greenPrimary
-                            : bordergrey)),
+                            : const Color(0xffABABAB))),
                 child: Image.asset(
                   avatars[index]["select"]
                       ? avatars[index]["selected"]

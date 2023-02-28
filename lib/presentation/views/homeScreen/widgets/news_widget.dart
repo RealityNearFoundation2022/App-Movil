@@ -12,10 +12,10 @@ class NewsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     double width = size.width * 0.9;
-    double height = size.height * 0.25;
+    double height = size.height * 0.2;
     return Container(
       alignment: Alignment.center,
-      padding: const EdgeInsets.only(left: 5, right: 10, top: 5),
+      padding: const EdgeInsets.symmetric(vertical: 6),
       height: height,
       width: width,
       child: InkWell(
@@ -32,7 +32,7 @@ class NewsWidget extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(20)),
               child: Image.network(
                 API_REALITY_NEAR_IMGs + news.image,
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 width: width,
                 height: height,
                 errorBuilder: (context, error, stackTrace) {
@@ -61,7 +61,7 @@ class NewsWidget extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: GoogleFonts.sourceSansPro(
                       color: Colors.white,
-                      fontSize: width * 0.055,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

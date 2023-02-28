@@ -15,7 +15,6 @@ import 'package:reality_near/data/repository/assetRepository.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/mapScreen/map_halfscreen.dart';
-import '../mapScreen/widgets/placeDialog.dart';
 
 class ARSection extends StatefulWidget {
   static String routeName = "/arView";
@@ -138,10 +137,12 @@ class _ARSectionState extends State<ARSection> {
     return BlocBuilder<MenuBloc, MenuState>(
       builder: (context, state) {
         return Positioned(
-          bottom: 0,
+          bottom: 15,
           child: Container(
             height: MediaQuery.of(context).size.height * 0.5,
             width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.symmetric(
+                horizontal: state is MenuMapaState ? 0 : 15),
             color: Colors.transparent,
             alignment: Alignment.bottomCenter,
             child: Row(
@@ -174,27 +175,6 @@ class _ARSectionState extends State<ARSection> {
                     },
                   ),
                 ),
-                // IconButton(
-                //   iconSize: MediaQuery.of(context).size.height * 0.055,
-                //   icon: const Icon(
-                //     Icons.map_rounded,
-                //     color: greenPrimary,
-                //   ),
-                //   onPressed: () {
-                //     // show modal bottom sheet
-                //     showModalBottomSheet(
-                //       context: context,
-                //       isScrollControlled: false,
-                //       //border
-                //       shape: const RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.vertical(
-                //           top: Radius.circular(30),
-                //         ),
-                //       ),
-                //       builder: (context) => const MapBoxScreen(),
-                //     );
-                //   },
-                // ),
                 state is MenuMapaState
                     ? const SizedBox()
                     : Container(
@@ -288,11 +268,11 @@ class _ARSectionState extends State<ARSection> {
   }
 
   void onUnityMessage(message) async {
-    if (message.toString() == "touchAsset") {
-      setState(() {
-        showDialog(context: context, builder: (context) => const PlaceDialog());
-      });
-    }
+    // if (message.toString() == "touchAsset") {
+    //   setState(() {
+    //     showDialog(context: context, builder: (context) => const PlaceDialog());
+    //   });
+    // }
   }
 
   void onUnitySceneLoaded(SceneLoaded scene) {}

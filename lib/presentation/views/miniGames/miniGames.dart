@@ -16,44 +16,8 @@ class _MiniGamesState extends State<MiniGames> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar('Mini Games'),
+      appBar: globalApppBar(context, 'Mini Games'),
       body: _body(),
-    );
-  }
-
-  _appBar(String title) {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      leadingWidth: 30,
-      leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: greenPrimary,
-          size: 30,
-        ),
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      title: Text(
-        title,
-        style: GoogleFonts.sourceSansPro(
-          color: greenPrimary,
-          fontSize: 25,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: SvgPicture.asset(
-            'assets/icons/logo.svg',
-            color: greenPrimary,
-            height: 35,
-          ),
-        )
-      ],
     );
   }
 

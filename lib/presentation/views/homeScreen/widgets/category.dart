@@ -4,24 +4,24 @@ import 'package:reality_near/generated/l10n.dart';
 
 buildCategory(String name, Color defaultFontColor, Size size, Function onTap) {
   return Row(
-    // mainAxisAlignment: MainAxisAlignment.,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.end,
     children: [
       Text(
         name,
-        style: GoogleFonts.poppins(
+        style: GoogleFonts.sourceSansPro(
           color: defaultFontColor,
-          fontSize: size.width * 0.05,
+          fontSize: 28,
           fontWeight: FontWeight.bold,
         ),
       ),
-      const Spacer(),
       GestureDetector(
         onTap: onTap,
         child: Text(
           S.current.Vertodos,
           style: GoogleFonts.sourceSansPro(
-            color: Colors.black54.withOpacity(0.5),
-            fontSize: size.width * 0.042,
+            color: const Color(0xff555555),
+            fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
