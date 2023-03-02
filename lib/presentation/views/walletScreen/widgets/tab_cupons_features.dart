@@ -38,7 +38,20 @@ class _TabCuponsFeaturesState extends State<TabCuponsFeatures> {
               ),
             ),
           ),
-          gridCupons(),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            height: MediaQuery.of(context).size.height * 0.4,
+            alignment: Alignment.bottomCenter,
+            child: Text(
+              'Aún no tienes cupones disponibles',
+              style: GoogleFonts.sourceSansPro(
+                color: txtGrey,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          // gridCupons(),
         ],
       ),
       // child: DefaultTabController(
@@ -128,37 +141,37 @@ class _TabCuponsFeaturesState extends State<TabCuponsFeatures> {
   }
 
   _cupon(String name) {
-    return Hero(
-      tag: name,
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => const CuponDetail(
-                heroTag: 'cupon',
-                backGroungColor: Colors.blue,
-              ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => const CuponDetail(
+              heroTag: 'cupon',
+              backGroungColor: Colors.blue,
             ),
-          );
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 1,
-                blurRadius: 7,
-                offset: const Offset(0, 3), // changes position of shadow
-              ),
-            ],
           ),
-          child: Column(
-            children: [
-              //container with logo, and other with data
-              ClipPath(
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            //container with logo, and other with data
+            Hero(
+              tag: name,
+              child: ClipPath(
                 clipper: TriangleClipper(),
                 child: Container(
                   height: ScreenWH(context).height * 0.3 / 2.1,
@@ -178,55 +191,55 @@ class _TabCuponsFeaturesState extends State<TabCuponsFeatures> {
                   ),
                 ),
               ),
-              Container(
-                  height: ScreenWH(context).height * 0.14,
-                  width: ScreenWH(context).width * 0.4,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
+            ),
+            Container(
+                // height: ScreenWH(context).height * 0.14,
+                width: ScreenWH(context).width * 0.4,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
                   ),
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const SizedBox(height: 10),
-                      Text(
-                        '10% OFF',
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.sourceSansPro(
-                          fontSize: getResponsiveText(context, 14),
-                          fontWeight: FontWeight.bold,
-                          color: txtPrimary,
-                        ),
+                ),
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(height: 10),
+                    Text(
+                      '10% OFF',
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.sourceSansPro(
+                        fontSize: getResponsiveText(context, 14),
+                        fontWeight: FontWeight.bold,
+                        color: txtPrimary,
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Luta Livre',
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.sourceSansPro(
-                          fontSize: getResponsiveText(context, 12),
-                          fontWeight: FontWeight.w400,
-                          color: txtPrimary,
-                        ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      'Luta Livre',
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.sourceSansPro(
+                        fontSize: getResponsiveText(context, 12),
+                        fontWeight: FontWeight.w400,
+                        color: txtPrimary,
                       ),
-                      const SizedBox(height: 10),
-                      Text(
-                        '1 ENE - 30 FEB 2023',
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.sourceSansPro(
-                          fontSize: getResponsiveText(context, 12),
-                          fontWeight: FontWeight.w400,
-                          color: greenPrimary,
-                        ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      '1 ENE - 30 FEB 2023',
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.sourceSansPro(
+                        fontSize: getResponsiveText(context, 12),
+                        fontWeight: FontWeight.w400,
+                        color: greenPrimary,
                       ),
-                    ],
-                  )),
-            ],
-          ),
+                    ),
+                  ],
+                )),
+          ],
         ),
       ),
     );

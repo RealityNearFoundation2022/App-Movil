@@ -28,7 +28,7 @@ class NewsDetailPage extends StatelessWidget {
                 ),
               ),
             ),
-            Padding( 
+            Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
               child: Column(
@@ -97,8 +97,8 @@ class NewsDetailPage extends StatelessWidget {
               child: Image.network(
                 API_REALITY_NEAR_IMGs + img,
                 width: ScreenWH(context).width * 0.8,
-                height: ScreenWH(context).height * 0.2,
-                fit: BoxFit.fill,
+                // height: ScreenWH(context).height * 0.4,
+                fit: BoxFit.contain,
               ),
             ),
           ),

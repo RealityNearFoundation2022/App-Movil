@@ -287,8 +287,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           AvatarSelect(userAvatar: user.avatar),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+
           AppButton(
-            label: 'Guardar',
+            label: S.current.Guardar,
             onPressed: () {
               final username = _userNameController.text.isNotEmpty
                   ? _userNameController.text

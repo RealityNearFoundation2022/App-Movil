@@ -43,8 +43,8 @@ class _LateralDrawerState extends State<LateralDrawer> {
     //   'path': '/miniGames'
     // },
     {
-      'icon': 'assets/icons/config_icon.svg',
-      'text': 'Configuración',
+      'icon': 'assets/icons/info_icon.svg',
+      'text': 'About',
       'path': '/configScreen'
     },
   ];
@@ -96,7 +96,7 @@ class _LateralDrawerState extends State<LateralDrawer> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               alignment: Alignment.centerLeft,
               child: Text(
-                loading ? 'Cargando...' : loremIpsum.substring(0, 10),
+                loading ? 'Cargando...' : user.fullName,
                 style: GoogleFonts.sourceSansPro(
                     fontSize: getResponsiveText(context, 22),
                     color: txtPrimary,
@@ -153,22 +153,32 @@ class _LateralDrawerState extends State<LateralDrawer> {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
                       title: Text(
                         'Cerrar Sesión',
                         style: GoogleFonts.sourceSansPro(
                             fontSize: getResponsiveText(context, 16),
                             color: txtPrimary,
-                            fontWeight: FontWeight.w400),
+                            fontWeight: FontWeight.bold),
                       ),
                       content: Text(
                         '¿Estás seguro que deseas cerrar sesión?',
                         style: GoogleFonts.sourceSansPro(
                             fontSize: getResponsiveText(context, 16),
                             color: txtPrimary,
-                            fontWeight: FontWeight.w600),
+                            fontWeight: FontWeight.w400),
                       ),
+                      // actionsAlignment: MainAxisAlignment.center,
                       actions: [
-                        TextButton(
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black.withOpacity(0.25),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
                           onPressed: () {
                             Navigator.pop(context);
                           },
@@ -176,11 +186,17 @@ class _LateralDrawerState extends State<LateralDrawer> {
                             'Cancelar',
                             style: GoogleFonts.sourceSansPro(
                                 fontSize: getResponsiveText(context, 16),
-                                color: txtPrimary,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w600),
                           ),
                         ),
-                        TextButton(
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: greenPrimary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
                           onPressed: () {
                             Navigator.pop(context);
                             BlocProvider.of<UserBloc>(context, listen: false)
@@ -192,7 +208,7 @@ class _LateralDrawerState extends State<LateralDrawer> {
                             'Aceptar',
                             style: GoogleFonts.sourceSansPro(
                                 fontSize: getResponsiveText(context, 16),
-                                color: greenPrimary,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w600),
                           ),
                         ),

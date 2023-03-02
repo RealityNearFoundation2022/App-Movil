@@ -40,17 +40,11 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: globalApppBar(context, S.current.Configuracion),
+      appBar: globalApppBar(context, 'About'),
       backgroundColor: Colors.white,
       body: Column(
         // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-              onTap: (() {
-                Navigator.of(context).pushNamed(BugScreen.routeName);
-              }),
-              child: textAndIcon(
-                  S.current.ReporteFallos, Icons.bug_report_rounded)),
           GestureDetector(
             onTap: (() {
               launchUrlString(
