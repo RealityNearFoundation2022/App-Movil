@@ -291,6 +291,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
           AppButton(
             label: S.current.Guardar,
+            // txtSize: getResponsiveText(context, 16),
             onPressed: () {
               final username = _userNameController.text.isNotEmpty
                   ? _userNameController.text
@@ -301,8 +302,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               final avatar = const AvatarSelect().getAvatar() ?? user.avatar;
               editUserData(avatar, username, email);
             },
-            width: MediaQuery.of(context).size.width * 0.8,
+            width: MediaQuery.of(context).size.width * 0.6,
           ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
         ],
       ),
     );

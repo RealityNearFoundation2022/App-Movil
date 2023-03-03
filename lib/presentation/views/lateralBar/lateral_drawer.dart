@@ -20,40 +20,12 @@ class LateralDrawer extends StatefulWidget {
 
 class _LateralDrawerState extends State<LateralDrawer> {
   //List of Map<String, String> with the menu options
-  final List<Map<String, String>> menuOptions = [
-    {
-      'icon': 'assets/icons/profile_icon.svg',
-      'text': 'Mi Perfil',
-      'path': '/ProfileScreen'
-    },
-    {
-      'icon': 'assets/icons/wallet_icon.svg',
-      'text': 'Wallet',
-      'path': '/wallet'
-    },
-    // {
-    //   'icon': 'assets/icons/social_icon.svg',
-    //   'text': 'Reality Social',
-    //   'path': '/RealitySocial'
-    // },
-    // {'icon': 'assets/icons/info_icon.svg', 'text': 'Eventos', 'path': ''},
-    // {
-    //   'icon': 'assets/icons/juegos_icon.svg',
-    //   'text': 'Minijuegos',
-    //   'path': '/miniGames'
-    // },
-    {
-      'icon': 'assets/icons/info_icon.svg',
-      'text': 'About',
-      'path': '/configScreen'
-    },
-  ];
+
   User user;
   bool loading = true;
 
   @override
   void initState() {
-    // UserData().then((value) => setState(() {}));
     UserData(context).get().then((value) => setState(() {
           user = value;
           loading = false;
@@ -106,44 +78,99 @@ class _LateralDrawerState extends State<LateralDrawer> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.015,
             ),
-            for (var i = 0; i < menuOptions.length; i++)
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, menuOptions[i]['path']);
-                  },
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: menuOptions[i]['icon'] ==
-                                "assets/icons/config_icon.svg"
-                            ? const EdgeInsets.only(left: 3.0)
-                            : const EdgeInsets.all(0),
-                        child: SvgPicture.asset(
-                          menuOptions[i]['icon'],
-                          height: menuOptions[i]['icon'] ==
-                                  "assets/icons/config_icon.svg"
-                              ? MediaQuery.of(context).size.height * 0.035
-                              : MediaQuery.of(context).size.height * 0.04,
-                          color: greenPrimary,
-                        ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/ProfileScreen');
+                },
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(0),
+                      child: SvgPicture.asset(
+                        "assets/icons/profile_icon.svg",
+                        height: MediaQuery.of(context).size.height * 0.042,
+                        color: greenPrimary,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Text(
-                          menuOptions[i]['text'],
-                          style: GoogleFonts.sourceSansPro(
-                              fontSize: getResponsiveText(context, 16),
-                              color: txtPrimary,
-                              fontWeight: FontWeight.w400),
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        'Mi Perfil',
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: getResponsiveText(context, 16),
+                            color: txtPrimary,
+                            fontWeight: FontWeight.w400),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/wallet');
+                },
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(0),
+                      child: SvgPicture.asset(
+                        "assets/icons/wallet_icon.svg",
+                        height: MediaQuery.of(context).size.height * 0.042,
+                        color: greenPrimary,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        'Wallet',
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: getResponsiveText(context, 16),
+                            color: txtPrimary,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/configScreen');
+                },
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 4),
+                      child: SvgPicture.asset(
+                        "assets/icons/info_icon.svg",
+                        height: MediaQuery.of(context).size.height * 0.03,
+                        color: greenPrimary,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 13.0),
+                      child: Text(
+                        'About',
+                        style: GoogleFonts.sourceSansPro(
+                            fontSize: getResponsiveText(context, 16),
+                            color: txtPrimary,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
             const Spacer(),
             Padding(
               padding:
@@ -219,15 +246,15 @@ class _LateralDrawerState extends State<LateralDrawer> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(0),
+                      padding: const EdgeInsets.only(left: 1),
                       child: SvgPicture.asset(
                         'assets/icons/logout_icon.svg',
-                        height: MediaQuery.of(context).size.height * 0.04,
+                        height: MediaQuery.of(context).size.height * 0.033,
                         color: greenPrimary,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                      padding: const EdgeInsets.only(left: 13.0),
                       child: Text(
                         'Cerrar Sesión',
                         style: GoogleFonts.sourceSansPro(

@@ -52,14 +52,16 @@ class _AvatarSelectState extends State<AvatarSelect> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.24,
+      height: MediaQuery.of(context).size.height * 0.26,
       child: GridView.builder(
           itemCount: avatars.length,
+          padding: const EdgeInsets.only(top: 5),
+          physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 2 / 3.4),
+              mainAxisSpacing: 15,
+              childAspectRatio: 2 / 3.5),
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {

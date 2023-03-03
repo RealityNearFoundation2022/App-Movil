@@ -29,13 +29,14 @@ class HomeScreenV2 extends StatefulWidget {
 class _HomeScreenV2State extends State<HomeScreenV2> {
   List<NewsModel> news = [];
   User user;
+  bool load_user = true;
   //Scaffold key
   final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
 
   @override
   void initState() {
     super.initState();
-    getUserData().then((value) => setState(() {}));
+    getUserData();
     getNews();
   }
 
@@ -46,8 +47,10 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
   }
 
   getUserData() async {
-    var currentUser = await UserData(context).get();
-    user = currentUser;
+    UserData(context).get().then((value) => setState(() {
+          user = value;
+          load_user = false;
+        }));
   }
 
   @override
@@ -195,18 +198,18 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                       child: CircleAvatar(
                         radius: 30,
                         backgroundColor: greenPrimary.withOpacity(0.1),
-                        child: user != null
-                            ? Padding(
+                        child: load_user
+                            ? Center(
+                                child: LoadingAnimationWidget.dotsTriangle(
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              )
+                            : Padding(
                                 padding: const EdgeInsets.all(2.0),
                                 child: Image.asset(
                                   user.avatar,
                                   fit: BoxFit.cover,
-                                ),
-                              )
-                            : Center(
-                                child: LoadingAnimationWidget.dotsTriangle(
-                                  color: Colors.white,
-                                  size: 30,
                                 ),
                               ),
                       ),

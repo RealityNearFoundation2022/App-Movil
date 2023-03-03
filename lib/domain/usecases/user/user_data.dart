@@ -9,21 +9,11 @@ class UserData {
   UserData(this.context);
 
   final UserRepository repository = UserRepository();
-  get() async {
+  Future<User> get() async {
     bool currentUserComplete = await getPreference('username') != null &&
         await getPreference('usAvatar') != null &&
         await getPreference('userId') != null;
-    if (currentUserComplete) {
-      String _fullName = await getPreference('username');
-      String _avatar = await getPreference('usAvatar');
-      int _id = int.parse(await getPreference('userId'));
-
-      return User(
-        id: _id,
-        fullName: _fullName,
-        avatar: _avatar,
-      );
-    } else {
+    if (!currentUserComplete) {
       await repository.getMyData().then((value) => value.fold(
             (failure) => print(failure),
             (success) => {
@@ -43,6 +33,15 @@ class UserData {
             },
           ));
     }
+    String _fullName = await getPreference('username');
+    String _avatar = await getPreference('usAvatar');
+    int _id = int.parse(await getPreference('userId'));
+
+    return User(
+      id: _id,
+      fullName: _fullName,
+      avatar: _avatar,
+    );
   }
 
   refresh() async {

@@ -12,6 +12,7 @@ class AppButton extends StatelessWidget {
   final Color textColor;
   final VoidCallback onPressed;
   final double radius;
+  final double txtSize;
   // ignore: use_key_in_widget_constructors
   const AppButton({
     this.label,
@@ -22,6 +23,7 @@ class AppButton extends StatelessWidget {
     this.height = 50,
     this.onPressed,
     this.radius = 20.0,
+    this.txtSize = 16.0,
   });
 
   @override
@@ -43,7 +45,7 @@ class AppButton extends StatelessWidget {
             child: Text(
               label,
               style: GoogleFonts.sourceSansPro(
-                  fontSize: getResponsiveText(context, 16),
+                  fontSize: getResponsiveText(context, txtSize),
                   color: Colors.white,
                   fontWeight: FontWeight.w800),
             ),
