@@ -109,7 +109,7 @@ class _ARSectionState extends State<ARSection> {
         child: GestureDetector(
           onHorizontalDragEnd: (details) {
             _unityWidgetController.unload();
-            Navigator.pushNamed(context, "/home");
+            Navigator.pop(context);
           },
           child: Stack(
             children: [

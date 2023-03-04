@@ -287,7 +287,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
           AvatarSelect(userAvatar: user.avatar),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
 
           AppButton(
             label: S.current.Guardar,

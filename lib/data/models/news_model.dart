@@ -38,8 +38,10 @@ class NewsModel {
         planners: json["planners"],
         date: json["date"],
         url: json["url"],
-        articles: List<Article>.from(
-            json["articles"].map((x) => Article.fromJson(x))),
+        articles: json["articles"] == null
+            ? []
+            : List<Article>.from(
+                json["articles"].map((x) => Article.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

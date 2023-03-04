@@ -20,7 +20,8 @@ class SectionCarouselState extends State<SectionCarousel> {
 
   _getCarrousel() async {
     await GetNews().call().then((value) {
-      lstCarrousel = value;
+      lstCarrousel =
+          value.where((element) => element.planners == 'Banners').toList();
       _isLoading = false;
     });
   }
@@ -44,45 +45,47 @@ class SectionCarouselState extends State<SectionCarousel> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.3,
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: _isLoading
-          ? LoadingAnimationWidget.dotsTriangle(
-              color: greenPrimary,
-              size: MediaQuery.of(context).size.height * 0.15,
-            )
-          : ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              child: Stack(
-                children: [
-                  PageView.builder(
-                    itemCount: lstCarrousel.length,
-                    onPageChanged: (int index) {
-                      setState(() {
-                        _position = index;
-                      });
-                    },
-                    itemBuilder: (BuildContext context, int index) {
-                      return imageSlider(index);
-                    },
+    return lstCarrousel.isEmpty && !_isLoading
+        ? const SizedBox()
+        : Container(
+            height: MediaQuery.of(context).size.height * 0.3,
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: _isLoading
+                ? LoadingAnimationWidget.dotsTriangle(
+                    color: greenPrimary,
+                    size: MediaQuery.of(context).size.height * 0.15,
+                  )
+                : ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    child: Stack(
+                      children: [
+                        PageView.builder(
+                          itemCount: lstCarrousel.length,
+                          onPageChanged: (int index) {
+                            setState(() {
+                              _position = index;
+                            });
+                          },
+                          itemBuilder: (BuildContext context, int index) {
+                            return imageSlider(index);
+                          },
+                        ),
+                        Container(
+                            alignment: Alignment.bottomCenter,
+                            margin: const EdgeInsets.only(bottom: 25),
+                            child: AnimatedPageIndicatorFb1(
+                              currentPage: _position,
+                              numPages: lstCarrousel.length,
+                              gradient: const LinearGradient(
+                                  colors: [greenPrimary, greenPrimary]),
+                              activeGradient: const LinearGradient(
+                                  colors: [greenPrimary, greenPrimary]),
+                            )),
+                      ],
+                    ),
                   ),
-                  Container(
-                      alignment: Alignment.bottomCenter,
-                      margin: const EdgeInsets.only(bottom: 25),
-                      child: AnimatedPageIndicatorFb1(
-                        currentPage: _position,
-                        numPages: lstCarrousel.length,
-                        gradient: const LinearGradient(
-                            colors: [greenPrimary, greenPrimary]),
-                        activeGradient: const LinearGradient(
-                            colors: [greenPrimary, greenPrimary]),
-                      )),
-                ],
-              ),
-            ),
-    );
+          );
   }
 
   Widget imageSlider(int position) {

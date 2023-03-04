@@ -43,7 +43,8 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
 
   getNews() async {
     await GetNews().call().then((value) => setState(() {
-          news = value;
+          news =
+              value.where((element) => element.planners != 'Banners').toList();
         }));
   }
 
