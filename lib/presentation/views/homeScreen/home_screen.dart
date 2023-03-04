@@ -15,6 +15,7 @@ import 'package:reality_near/presentation/views/homeScreen/widgets/category.dart
 import 'package:reality_near/presentation/views/homeScreen/widgets/news_widget.dart';
 import 'package:reality_near/presentation/views/lateralBar/lateral_drawer.dart';
 import 'package:reality_near/presentation/views/mapScreen/map_halfscreen.dart';
+import 'package:reality_near/presentation/views/userProfile/profile_screen.dart';
 
 import '../../bloc/menu/menu_bloc.dart';
 
@@ -68,15 +69,17 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
   _body() {
     return GestureDetector(
         onHorizontalDragStart: (details) {
-          if (details.globalPosition.dy > 200 &&
-              details.globalPosition.dx < 150) {
-            // print('dx position: ${details.globalPosition.dx}');
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const ARSection()));
-          } else {
-            //open drawer with scaffold key
-            _key.currentState.openDrawer();
-          }
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => const ARSection()));
+          // if (details.globalPosition.dy > 200 &&
+          //     details.globalPosition.dx < 150) {
+          //   // print('dx position: ${details.globalPosition.dx}');
+          //   Navigator.of(context).push(
+          //       MaterialPageRoute(builder: (context) => const ARSection()));
+          // } else {
+          //   //open drawer with scaffold key
+          //   _key.currentState.openDrawer();
+          // }
         },
         child: Stack(
           children: [
@@ -87,7 +90,7 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                 children: [
                   const SectionCarousel(),
                   const SizedBox(height: 10),
-                  novedadesCarrousel(),
+                  noticias(),
                   SizedBox(
                       height: MediaQuery.of(context).size.height * 0.12 -
                           MediaQuery.of(context).viewPadding.bottom +
@@ -103,7 +106,7 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
         ));
   }
 
-  novedadesCarrousel() {
+  noticias() {
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -195,23 +198,30 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                   ? const SizedBox()
                   : Padding(
                       padding: const EdgeInsets.symmetric(vertical: 3.0),
-                      child: CircleAvatar(
-                        radius: 30,
-                        backgroundColor: greenPrimary.withOpacity(0.1),
-                        child: load_user
-                            ? Center(
-                                child: LoadingAnimationWidget.dotsTriangle(
-                                  color: Colors.white,
-                                  size: 30,
+                      child: GestureDetector(
+                        onTap: () {
+                          // navigate to ProfileScreen
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const ProfileScreen()));
+                        },
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundColor: greenPrimary.withOpacity(0.1),
+                          child: load_user
+                              ? Center(
+                                  child: LoadingAnimationWidget.dotsTriangle(
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Image.asset(
+                                    user.avatar,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Image.asset(
-                                  user.avatar,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
+                        ),
                       ),
                     ),
               // const MapContainer(),

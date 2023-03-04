@@ -59,28 +59,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
         return true;
       },
       child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          title: Container(
-            margin: const EdgeInsets.only(right: 10),
-            alignment: Alignment.centerRight,
-            child: Text(
-              S.current.Notificaciones,
-              style: GoogleFonts.sourceSansPro(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: greenPrimary,
-              ),
-            ),
-          ),
-          iconTheme: const IconThemeData(color: greenPrimary, size: 35),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () => {
-              _readNotifications(),
-              Navigator.pushNamed(context, "/home")},
-          ),
+        backgroundColor: Colors.white,
+        appBar: globalApppBar(
+          context,
+          S.current.Notificaciones,
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -99,7 +81,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               shrinkWrap: true,
                               itemCount: _notifications.length,
                               itemBuilder: (context, index) {
-                                return _notificationWidget(_notifications[index]);
+                                return _notificationWidget(
+                                    _notifications[index]);
                               },
                               separatorBuilder: (context, index) =>
                                   const Divider(),

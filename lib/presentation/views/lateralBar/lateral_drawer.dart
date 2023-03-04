@@ -142,7 +142,7 @@ class _LateralDrawerState extends State<LateralDrawer> {
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
               child: GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/configScreen');
@@ -150,7 +150,7 @@ class _LateralDrawerState extends State<LateralDrawer> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 4),
+                      padding: const EdgeInsets.only(left: 6),
                       child: SvgPicture.asset(
                         "assets/icons/info_icon.svg",
                         height: MediaQuery.of(context).size.height * 0.03,

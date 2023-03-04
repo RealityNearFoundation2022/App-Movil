@@ -6,7 +6,7 @@ import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
 import 'package:reality_near/presentation/views/homeScreen/home_screen.dart';
 import 'package:reality_near/presentation/views/login/login.dart';
 import 'package:reality_near/presentation/views/miniGames/miniGames.dart';
-import 'package:reality_near/presentation/views/notificationScreen/notificationScreen.dart';
+import 'package:reality_near/presentation/views/notificationScreen/notification_screen.dart';
 import 'package:reality_near/presentation/views/qrScreen/qrScanScreen.dart';
 import 'package:reality_near/presentation/views/qrScreen/qrViewScreen.dart';
 import 'package:reality_near/presentation/views/register/registerScreen.dart';
