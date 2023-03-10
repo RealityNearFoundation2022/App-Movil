@@ -23,12 +23,14 @@ class _LateralDrawerState extends State<LateralDrawer> {
 
   User user;
   bool loading = true;
+  bool isAdmin = false;
 
   @override
   void initState() {
     UserData(context).get().then((value) => setState(() {
           user = value;
           loading = false;
+          isAdmin = user.isSuperuser;
         }));
     super.initState();
   }
@@ -78,6 +80,40 @@ class _LateralDrawerState extends State<LateralDrawer> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.015,
             ),
+            isAdmin
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24.0, vertical: 8),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/adminAssetScreen');
+                      },
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: SvgPicture.asset(
+                              "assets/icons/config_icon.svg",
+                              height:
+                                  MediaQuery.of(context).size.height * 0.033,
+                              color: greenPrimary,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              'Admin',
+                              style: GoogleFonts.sourceSansPro(
+                                  fontSize: getResponsiveText(context, 16),
+                                  color: txtPrimary,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),

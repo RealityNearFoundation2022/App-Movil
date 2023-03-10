@@ -45,7 +45,6 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
     Provider.of<LocationProvider>(context, listen: false).initialization();
   }
 
-  LatLng coliseoMelgarBre = LatLng(-12.060201343870178, -77.05406694161285);
   setCameraToCurrentPosition(LatLng position) {
     _mapController.move(position, 18);
   }

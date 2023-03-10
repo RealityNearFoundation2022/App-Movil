@@ -29,6 +29,7 @@ class UserData {
                       setPreference('username', success.fullName),
                       setPreference('userId', success.id.toString()),
                       setPreference('usAvatar', success.avatar),
+                      setPreference('superUser', success.isSuperuser),
                     }
             },
           ));
@@ -36,11 +37,13 @@ class UserData {
     String _fullName = await getPreference('username');
     String _avatar = await getPreference('usAvatar');
     int _id = int.parse(await getPreference('userId'));
+    bool isSuperUser = await getPreference('superUser');
 
     return User(
       id: _id,
       fullName: _fullName,
       avatar: _avatar,
+      isSuperuser: isSuperUser,
     );
   }
 

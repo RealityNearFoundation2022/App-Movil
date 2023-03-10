@@ -201,3 +201,7 @@ globalApppBar(BuildContext context, String title) {
     ],
   );
 }
+
+getRandomColorHex() {
+  return Color((Random().nextDouble() * 0xFFFFFF).toInt());
+}

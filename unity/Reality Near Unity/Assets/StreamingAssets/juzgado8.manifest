@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 2524395695
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3ccf9be9828627c6ddc61b839cb93b8d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7b2a7039af95fabd4f2e1d8a36d64d3f
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Images/juzgado8/Personaje_juzgado.fbx
+Dependencies: []

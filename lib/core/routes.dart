@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:reality_near/presentation/views/AR/arview.dart';
+import 'package:reality_near/presentation/views/Admin/assets/admin_asset_screen.dart';
 import 'package:reality_near/presentation/views/bugScreen/bugScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configuration_screen.dart';
 import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
@@ -39,4 +40,5 @@ final Map<String, WidgetBuilder> routes = {
   SocialScreen.routeName: (context) => const SocialScreen(),
   MyPostsScreen.routeName: (context) => const MyPostsScreen(),
   MiniGames.routeName: (context) => const MiniGames(),
+  AdminAssetScreen.routeName: (context) => const AdminAssetScreen(),
 };
