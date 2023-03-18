@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
-import 'package:geocoding/geocoding.dart' as geocod;
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
@@ -8,6 +7,7 @@ import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/core/helper/url_constants.dart';
 import 'package:reality_near/core/providers/location_provider.dart';
 import 'package:reality_near/data/datasource/API/asset_datadource.dart';
+import 'package:reality_near/data/datasource/API/maps_datasource.dart';
 import 'package:reality_near/data/models/asset_model.dart';
 import 'package:reality_near/data/repository/assetRepository.dart';
 import 'package:reality_near/generated/l10n.dart';
@@ -68,11 +68,8 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
   }
 
   getDirectionFromPosition(LatLng position) async {
-    var placemarks = await geocod.placemarkFromCoordinates(
-        position.latitude, position.longitude);
-    var placemark = placemarks[0];
     var direction =
-        '${placemark.street}, ${placemark.locality}, ${placemark.administrativeArea}, ${placemark.country}';
+        await MapsRemoteDataSourceImpl().getDirectionFromLatLng(position);
     return direction;
   }
 

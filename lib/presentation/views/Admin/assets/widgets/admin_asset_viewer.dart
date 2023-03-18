@@ -24,7 +24,7 @@ class AdminARSection extends StatefulWidget {
 class _AdminARSectionState extends State<AdminARSection> {
   HttpClient httpClient;
   AssetModel assetAR;
-  bool loadDataAPI = true;
+  bool loadDataAPI = false;
   UnityWidgetController _unityWidgetController;
   bool inLocationRange = false;
 
