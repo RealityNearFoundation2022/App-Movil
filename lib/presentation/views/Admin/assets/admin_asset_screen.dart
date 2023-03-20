@@ -31,19 +31,25 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
   bool loadMarkers = false;
   List<AssetModel> lstAssets = [];
   List<AssetModel> lstAssetsFilter = [];
+  List<AssetModel> lstAssetsSearch = [];
   AssetModel assetSelected;
   bool filterContainerActive = false;
+  bool SearchContainerActive = false;
+  List<Map<String, LatLng>> placesResult = [];
   final MapController _mapController = MapController();
   final TextEditingController _ruleController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
   bool editAddMode = false;
   bool editionMode = false;
   LatLng positionSelected;
+  LatLng positionAnterior;
   Location locSelectedToEdit;
   getAssets() async {
     var x = await AssetRepository().getAllAssets();
     x.sort((a, b) => a.name.compareTo(b.name));
     setState(() {
       lstAssets = x;
+      lstAssetsSearch = x;
     });
     getMarkers();
   }
@@ -116,7 +122,7 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
     });
   }
 
-  updateAssetLocation(Location location) async {
+  updateAssetLocation(Location location, int indexlstCircleMarker) async {
     dialgoResultOperation(
         AssetRemoteDataSourceImpl().updateLocation(assetSelected.id, location),
         () async {
@@ -126,11 +132,6 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
           .indexWhere((element) => element.id == location.id);
 
       assetSelected.locations[indexAssetSelected] = location;
-
-      var indexlstCircleMarker = lstCircleMarkersAssetSelect.indexWhere(
-          (element) =>
-              element.point.latitude == location.position.latitude &&
-              element.point.longitude == location.position.longitude);
 
       lstCircleMarkersAssetSelect[indexlstCircleMarker] = CircleMarker(
         point: LatLng(location.position.latitude, location.position.longitude),
@@ -290,6 +291,42 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
     });
   }
 
+  addMarkerInPosition(LatLng position, double radius) {
+    if (positionAnterior == null) {
+      lstCircleMarkersAssetSelect.add(CircleMarker(
+        point: position,
+        color: greenPrimary.withOpacity(0.4),
+        radius: radius,
+        useRadiusInMeter: true,
+      ));
+    } else {
+      var indexAnterior = lstCircleMarkersAssetSelect
+          .indexWhere((element) => element.point == positionAnterior);
+      lstCircleMarkersAssetSelect[indexAnterior] = CircleMarker(
+        point: position,
+        color: greenPrimary.withOpacity(0.4),
+        radius: radius,
+        useRadiusInMeter: true,
+      );
+    }
+
+    setState(() {
+      positionAnterior = position;
+    });
+  }
+
+  deleteMarkerInPosition(LatLng position) {
+    lstCircleMarkersAssetSelect
+        .removeWhere((element) => element.point == positionAnterior);
+  }
+
+  searchPlace(String value) async {
+    var lstPlaces = await MapsRemoteDataSourceImpl().searchDirection(value);
+    setState(() {
+      placesResult = lstPlaces;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -314,10 +351,15 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                             minZoom: 13,
                             controller: model.mapController,
                             onTap: (tapPosition, point) {
-                              if (editAddMode) {
+                              if (editAddMode || editionMode) {
                                 setState(() {
                                   positionSelected = point;
                                 });
+                                addMarkerInPosition(
+                                    point,
+                                    double.parse(_ruleController.text != ""
+                                        ? _ruleController.text
+                                        : "30"));
                               } else {
                                 getAssetOfSelect(point);
                               }
@@ -365,7 +407,40 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                               //filter
                               children: [
                                 const SizedBox(
-                                  width: 10,
+                                  width: 5,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      SearchContainerActive =
+                                          !SearchContainerActive;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.09,
+                                    height: MediaQuery.of(context).size.width *
+                                        0.09,
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                            color: greenPrimary, width: 1.5),
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                    alignment: Alignment.center,
+                                    child: Center(
+                                      child: Icon(Icons.search,
+                                          color: greenPrimary,
+                                          size: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.06),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 5,
                                 ),
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
@@ -408,7 +483,7 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                                 ),
                                 SizedBox(
                                     width: MediaQuery.of(context).size.width *
-                                        0.65,
+                                        0.57,
                                     height: MediaQuery.of(context).size.height *
                                         0.05,
                                     child: ListView.builder(
@@ -494,18 +569,17 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                         filterContainerActive
                             ? filterDialog()
                             : const SizedBox(),
+                        editAddMode ? bottomAddLocation() : const SizedBox(),
+                        editionMode ? bottomEditLocation() : const SizedBox(),
                         assetSelected != null &&
                                 !filterContainerActive &&
                                 !editAddMode &&
                                 !editionMode
                             ? bottomInfoAsset(assetSelected)
                             : const SizedBox(),
-                        editAddMode && !editionMode && !filterContainerActive
-                            ? bottomAddLocation()
+                        SearchContainerActive
+                            ? bottomSearchDirection()
                             : const SizedBox(),
-                        editAddMode && editionMode && !filterContainerActive
-                            ? bottomEditLocation()
-                            : const SizedBox()
                       ],
                     )
                   : const Center(child: CircularProgressIndicator()));
@@ -513,7 +587,6 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
   }
 
   bottomEditLocation() {
-    _ruleController.text = locSelectedToEdit.rule;
     return DraggableScrollableSheet(
       initialChildSize: 0.5,
       builder: (context, scrollController) {
@@ -556,7 +629,7 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        editAddMode = false;
+                        deleteMarkerInPosition(positionSelected);
                         editionMode = false;
                       });
                     },
@@ -675,7 +748,7 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                 height: 10,
               ),
               TxtForm(
-                placeholder: 'Ingresa la regla',
+                placeholder: 'Ingresa la regla (${locSelectedToEdit.rule})',
                 controller: _ruleController,
                 inputType: InputType.Number,
                 txtColor: txtPrimary,
@@ -689,14 +762,22 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                 label: 'Guardar',
                 onPressed: () {
                   if (_ruleController.text.isNotEmpty) {
+                    var indexMarker = lstCircleMarkersAssetSelect.indexWhere(
+                        (element) =>
+                            element.point.latitude ==
+                                locSelectedToEdit.position.latitude &&
+                            element.point.longitude ==
+                                locSelectedToEdit.position.longitude);
+
                     Location newLocation = Location(
-                        id: null,
+                        id: locSelectedToEdit.id,
                         position: LatLng(positionSelected.latitude,
                             positionSelected.longitude),
                         rule: _ruleController.text);
                     setState(() {
-                      addAssetLocation(newLocation);
+                      updateAssetLocation(newLocation, indexMarker);
                       editAddMode = false;
+                      editionMode = false;
                     });
                   }
                 },
@@ -751,6 +832,7 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
+                        deleteMarkerInPosition(positionSelected);
                         editAddMode = false;
                       });
                     },
@@ -1158,12 +1240,15 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        positionSelected = null;
+                                        setState(() {
+                                          positionSelected = null;
 
-                                        locSelectedToEdit =
-                                            asset.locations[index];
-                                        editionMode = true;
-                                        editAddMode = true;
+                                          locSelectedToEdit =
+                                              asset.locations[index];
+                                          editionMode = true;
+                                          editAddMode = false;
+                                        });
+
                                         //edit
                                       },
                                       icon: const Icon(
@@ -1193,6 +1278,210 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
             ),
           );
         });
+  }
+
+  bottomSearchDirection() {
+    return DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        minChildSize: 0.6,
+        maxChildSize: 0.8,
+        builder: (context, scrollController) {
+          return Container(
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20))),
+              // height: MediaQuery.of(context).size.height * 0.8,
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Buscar dirección',
+                          style: TextStyle(
+                              color: greenPrimary,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              SearchContainerActive = false;
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.close,
+                            color: greenPrimary,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  searchBar(() {
+                    searchPlace(_searchController.text);
+                  }, () {
+                    setState(() {
+                      placesResult = [];
+                    });
+                  }),
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: placesResult.length,
+                        itemBuilder: (context, index) {
+                          Map<String, LatLng> place = placesResult[index];
+                          return directionCard(
+                              place.keys.first, place.values.first);
+                        }),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ));
+        });
+  }
+
+  directionCard(String name, LatLng position) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10, left: 20, right: 20),
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+          color: Colors.grey[200], borderRadius: BorderRadius.circular(20)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            flex: 1,
+            child: IconButton(
+              onPressed: () {
+                setCameraToCurrentPosition(position);
+              },
+              icon: const Icon(
+                Icons.gps_fixed,
+                color: greenPrimary,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.8,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: Text(
+                      name,
+                      style: const TextStyle(
+                          color: greenPrimary,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Lat: ${position.latitude}",
+                        style: const TextStyle(
+                            color: greenPrimary,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Lng: ${position.longitude}",
+                        style: const TextStyle(
+                            color: greenPrimary,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  searchBar(Function search, Function clear) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(20)),
+              child: TextField(
+                controller: _searchController,
+                decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Buscar por nombre',
+                    hintStyle: TextStyle(color: Colors.grey)),
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _searchController.text = '';
+                _searchController.clear();
+                _searchController.selection = TextSelection.fromPosition(
+                    TextPosition(offset: _searchController.text.length));
+                clear();
+              });
+            },
+            icon: const Icon(
+              Icons.close,
+              color: greenPrimary,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                search();
+                _searchController.text = '';
+                _searchController.clear();
+                _searchController.selection = TextSelection.fromPosition(
+                    TextPosition(offset: _searchController.text.length));
+              });
+            },
+            icon: const Icon(
+              Icons.search,
+              color: greenPrimary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  filterAssetPorNombre(String nombre) {
+    var x = lstAssets
+        .where((element) =>
+            element.name.toLowerCase().contains(nombre.toLowerCase()))
+        .toList();
+    return x;
   }
 
   filterDialog() {
@@ -1238,9 +1527,15 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                       ],
                     ),
                   ),
+                  searchBar(() {
+                    lstAssetsSearch =
+                        filterAssetPorNombre(_searchController.text);
+                  }, () {
+                    lstAssetsSearch = lstAssets;
+                  }),
                   Expanded(
                     child: ListView.builder(
-                        itemCount: lstAssets.length,
+                        itemCount: lstAssetsSearch.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
@@ -1262,7 +1557,8 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   color: lstAssetsFilter.any((element) =>
-                                          element.id == lstAssets[index].id)
+                                          element.id ==
+                                          lstAssetsSearch[index].id)
                                       ? greenPrimary
                                       : Colors.white,
                                   border:
@@ -1270,10 +1566,11 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: Center(
                                 child: Text(
-                                  lstAssets[index].name,
+                                  lstAssetsSearch[index].name,
                                   style: TextStyle(
                                       color: lstAssetsFilter.any((element) =>
-                                              element.id == lstAssets[index].id)
+                                              element.id ==
+                                              lstAssetsSearch[index].id)
                                           ? Colors.white
                                           : greenPrimary,
                                       fontSize: 16,

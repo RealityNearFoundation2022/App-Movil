@@ -33,6 +33,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     // compileSdkVersion flutter.compileSdkVersion
+    ndkVersion '21.3.6528147'
     compileSdkVersion 33
     packagingOptions {
         pickFirst '**'
