@@ -70,17 +70,10 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
   _body() {
     return GestureDetector(
         onHorizontalDragStart: (details) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => const ARSection()));
-          // if (details.globalPosition.dy > 200 &&
-          //     details.globalPosition.dx < 150) {
-          //   // print('dx position: ${details.globalPosition.dx}');
-          //   Navigator.of(context).push(
-          //       MaterialPageRoute(builder: (context) => const ARSection()));
-          // } else {
-          //   //open drawer with scaffold key
-          //   _key.currentState.openDrawer();
-          // }
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const ARSection(
+                    scene: 'Vuforia',
+                  )));
         },
         child: Stack(
           children: [
@@ -90,6 +83,39 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SectionCarousel(),
+                  const SizedBox(height: 10),
+                  //button
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ARSection(
+                                scene: "Vuforia Image AR",
+                              )));
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                          color: greenPrimary,
+                          width: 2,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Live AR',
+                          style: GoogleFonts.sourceSansPro(
+                            color: greenPrimary,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 10),
                   noticias(),
                   SizedBox(
@@ -192,7 +218,9 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                       onPressed: () {
                         // navigate to CameraScreen
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const ARSection()));
+                            builder: (context) => const ARSection(
+                                  scene: "Vuforia",
+                                )));
                       },
                     ),
               state is MenuMapaState

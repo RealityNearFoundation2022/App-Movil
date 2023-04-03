@@ -7,13 +7,15 @@ using System;
 
 public class DownloadAssetBundle : MonoBehaviour
 {
-    // public string url = "https://drive.google.com/u/0/uc?id=1L-QRUZDxhXM74csegJi4p7UIl1zp-8N-&export=download";
-    // Start is called before the first frame update
-    // void start()
-    // {
-    //    StartCoroutine(DownloadAssetBundleFromServer());
-    // }
+
     const String API_REALITY_NEAR_IMGs = "https://api.realitynear.org";
+
+    void Start()
+    {
+        Debug.Log("En Vuforia");
+        GetComponent<UnityMessageManager>().SendMessageToFlutter("downloadAssetBundle");
+
+    }
 
     Vector3 StringToVector3(String scale)
     {
@@ -66,11 +68,7 @@ public class DownloadAssetBundle : MonoBehaviour
             GameObject instenceGo = Instantiate(go);
 
             instenceGo.transform.position = Vector3.zero;
-            //sacale object
-            // instenceGo.transform.localScale = new Vector3(10f,10f,10f);
-            // instenceGo.transform.rotation = new Quaternion(0, 180, 180,0);
             instenceGo.transform.eulerAngles = StringToVector3(rotation);
-            // instenceGo.transform.position = new Vector3(0f, 0f, 0.6f);
             instenceGo.transform.localScale = StringToVector3(scale);
             instenceGo.transform.position = StringToVector3(position);
         }

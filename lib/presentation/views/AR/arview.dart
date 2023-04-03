@@ -18,8 +18,9 @@ import 'package:reality_near/presentation/views/mapScreen/map_halfscreen.dart';
 
 class ARSection extends StatefulWidget {
   static String routeName = "/arView";
+  final String scene;
 
-  const ARSection({Key key}) : super(key: key);
+  const ARSection({Key key, this.scene}) : super(key: key);
 
   @override
   State<ARSection> createState() => _ARSectionState();
@@ -34,7 +35,7 @@ class _ARSectionState extends State<ARSection> {
 
   @override
   void dispose() {
-    _unityWidgetController.unload();
+    _unityWidgetController.dispose();
 
     super.dispose();
   }
@@ -108,7 +109,7 @@ class _ARSectionState extends State<ARSection> {
       child: Material(
         child: GestureDetector(
           onHorizontalDragEnd: (details) {
-            _unityWidgetController.unload();
+            _unityWidgetController.dispose();
             Navigator.pop(context);
           },
           child: Stack(
@@ -212,7 +213,7 @@ class _ARSectionState extends State<ARSection> {
                           ),
                           onPressed: () {
                             //end unity
-                            _unityWidgetController.unload();
+                            _unityWidgetController.dispose();
                             Navigator.pushNamed(context, "/home");
                           },
                         ),
@@ -268,6 +269,9 @@ class _ARSectionState extends State<ARSection> {
   }
 
   void onUnityMessage(message) async {
+    if (message.toString() == "downloadAssetBundle") {
+      downloadAssetBundle();
+    }
     // if (message.toString() == "touchAsset") {
     //   setState(() {
     //     showDialog(context: context, builder: (context) => const PlaceDialog());
@@ -275,12 +279,24 @@ class _ARSectionState extends State<ARSection> {
     // }
   }
 
-  void onUnitySceneLoaded(SceneLoaded scene) {}
+  void onUnitySceneLoaded(SceneLoaded scene) {
+    print("Scene loaded: ${scene.buildIndex}");
+    print("Scene loaded: ${scene.name}");
+  }
 
   // Callback that connects the created controller to the unity controller
+  // Callback that connects the created controller to the unity controller
   void _onUnityCreated(controller) {
-    controller.resume();
     _unityWidgetController = controller;
+    selectScene(widget.scene);
+  }
+
+  void selectScene(String sceneName) async {
+    _unityWidgetController.postMessage(
+        'InitialController', 'LoadScene', sceneName);
+  }
+
+  void downloadAssetBundle() async {
     var path = Platform.isAndroid ? assetAR.path : assetAR.path2;
     _unityWidgetController.postMessage(
         "assetAR", "DownloadAssetBundleFromServer", path);

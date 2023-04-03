@@ -27,10 +27,11 @@ class _AdminARSectionState extends State<AdminARSection> {
   bool loadDataAPI = false;
   UnityWidgetController _unityWidgetController;
   bool inLocationRange = false;
+  String scene = "Vuforia";
 
   @override
   void dispose() {
-    _unityWidgetController.unload();
+    _unityWidgetController.dispose();
 
     super.dispose();
   }
@@ -53,7 +54,7 @@ class _AdminARSectionState extends State<AdminARSection> {
       child: Material(
         child: GestureDetector(
           onHorizontalDragEnd: (details) {
-            _unityWidgetController.unload();
+            _unityWidgetController.dispose();
             Navigator.pop(context);
           },
           child: Stack(
@@ -101,7 +102,7 @@ class _AdminARSectionState extends State<AdminARSection> {
                   child: IconButton(
                     iconSize: MediaQuery.of(context).size.height * 0.06,
                     icon: const Icon(
-                      Icons.map_rounded,
+                      Icons.settings,
                       color: greenPrimary,
                     ),
                     onPressed: () {
@@ -157,7 +158,7 @@ class _AdminARSectionState extends State<AdminARSection> {
                           ),
                           onPressed: () {
                             //end unity
-                            _unityWidgetController.unload();
+                            _unityWidgetController.dispose();
                             Navigator.pop(context);
                           },
                         ),
@@ -170,6 +171,17 @@ class _AdminARSectionState extends State<AdminARSection> {
     );
   }
 
+  editAsset(){
+    return ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(30),
+            topLeft: Radius.circular(30),
+          ),
+          child: Container(
+            
+          ),
+          );
+  }
   //Loading Screen
   loading() {
     return Align(
@@ -213,6 +225,9 @@ class _AdminARSectionState extends State<AdminARSection> {
   }
 
   void onUnityMessage(message) async {
+    if (message.toString() == "downloadAssetBundle") {
+      downloadAssetBundle();
+    }
     // if (message.toString() == "touchAsset") {
     //   setState(() {
     //     showDialog(context: context, builder: (context) => const PlaceDialog());
@@ -220,12 +235,22 @@ class _AdminARSectionState extends State<AdminARSection> {
     // }
   }
 
-  void onUnitySceneLoaded(SceneLoaded scene) {}
+  void onUnitySceneLoaded(SceneLoaded scene) {
+    print("Scene loaded: ${scene.name}");
+  }
 
   // Callback that connects the created controller to the unity controller
   void _onUnityCreated(controller) {
-    controller.resume();
     _unityWidgetController = controller;
+    selectScene("Vuforia");
+  }
+
+  void selectScene(String sceneName) async {
+    _unityWidgetController.postMessage(
+        'InitialController', 'LoadScene', sceneName);
+  }
+
+  void downloadAssetBundle() async {
     var path = Platform.isAndroid ? assetAR.path : assetAR.path2;
     _unityWidgetController.postMessage(
         "assetAR", "DownloadAssetBundleFromServer", path);

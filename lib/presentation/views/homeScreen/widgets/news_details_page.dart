@@ -12,6 +12,7 @@ class NewsDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -46,7 +47,7 @@ class NewsDetailPage extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "by ${news.planners ?? 'Reality Near Foundation'}",
+                      news.planners ?? 'Reality Near Foundation',
                       textAlign: TextAlign.start,
                       style: GoogleFonts.sourceSansPro(
                           fontSize: ScreenWH(context).width * 0.04,
@@ -60,6 +61,7 @@ class NewsDetailPage extends StatelessWidget {
             ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(horizontal: 0.0),
               itemCount: news.articles.length,
               itemBuilder: (context, index) {
                 var article = news.articles[index];
@@ -91,20 +93,20 @@ class NewsDetailPage extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Center(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              child: Image.network(
-                API_REALITY_NEAR_IMGs + img,
-                width: ScreenWH(context).width * 0.8,
-                // height: ScreenWH(context).height * 0.4,
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
+          // Center(
+          //   child: ClipRRect(
+          //     borderRadius: const BorderRadius.all(Radius.circular(20)),
+          //     child: Image.network(
+          //       API_REALITY_NEAR_IMGs + img,
+          //       width: ScreenWH(context).width * 0.8,
+          //       // height: ScreenWH(context).height * 0.4,
+          //       fit: BoxFit.contain,
+          //     ),
+          //   ),
+          // ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
         ],
       ),
     );
@@ -112,6 +114,7 @@ class NewsDetailPage extends StatelessWidget {
 
   _footter(BuildContext context) {
     return Container(
+      color: Colors.white,
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(

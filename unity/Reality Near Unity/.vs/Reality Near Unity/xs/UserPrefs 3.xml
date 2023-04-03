@@ -1,0 +1,32 @@
+﻿<Properties StartupConfiguration="{0617D641-B2D9-CCF9-9683-1BB56BBAAAE8}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DownloadAssetBundle.cs">
+    <Files>
+      <File FileName="Assets/Scripts/DownloadAssetBundle.cs" Line="13" Column="17" />
+      <File FileName="Assets/Scripts/touchAsset.cs" Line="21" Column="92" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Reality Near Unity" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Editor" expanded="True" />
+              <Node name="FlutterUnityIntegration" expanded="True">
+                <Node name="Demo" expanded="True" />
+              </Node>
+              <Node name="Scripts" expanded="True">
+                <Node name="DownloadAssetBundle.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="5a7aa650-6fcd-403e-a199-0ac5b1b8c242" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
