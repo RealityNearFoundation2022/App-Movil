@@ -333,8 +333,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     message: '',
                     title: 'Datos editados correctamente',
                   )
-                : const ErrorAlertDialog(
-                    errorMessage: 'Error al editar los datos'),
+                : ErrorAlertDialog(errorMessage: 'Error al editar los datos'),
           ),
         });
   }

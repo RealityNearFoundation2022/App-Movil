@@ -45,6 +45,16 @@ class S {
     );
   }
 
+  /// `Registration failed, username or email already in use`
+  String get registerFail {
+    return Intl.message(
+      'Registration failed, username or email already in use',
+      name: 'registerFail',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Login with wallet`
   String get btnLogWallet {
     return Intl.message(

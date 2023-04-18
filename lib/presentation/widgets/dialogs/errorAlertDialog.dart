@@ -8,7 +8,9 @@ import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 
 class ErrorAlertDialog extends StatelessWidget {
   final String errorMessage;
-  const ErrorAlertDialog({Key key, this.errorMessage}) : super(key: key);
+  Function func_back;
+  ErrorAlertDialog({Key key, this.errorMessage, this.func_back})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +65,7 @@ class ErrorAlertDialog extends StatelessWidget {
                   BlocProvider.of<UserBloc>(context, listen: false)
                       .add(UserLoginAgainEvent());
                   Navigator.of(context).pop();
+                  if (func_back != null) func_back();
                 }, greenPrimary),
               ],
             ),

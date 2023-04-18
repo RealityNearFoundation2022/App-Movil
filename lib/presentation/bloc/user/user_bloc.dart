@@ -5,6 +5,7 @@ import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/domain/usecases/login/emailLoginUser.dart';
 import 'package:reality_near/domain/usecases/register/registerUser.dart';
 import 'package:reality_near/domain/usecases/wallet/walletLogin.dart';
+import 'package:reality_near/generated/l10n.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';
@@ -50,6 +51,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           RegisterUser(event.email, event.password, event.username, event.path);
 
       final result = await registerUser();
+
+      if (result.isLeft()) {
+        emit(UserFailState(
+            result.fold((l) => S.current.registerFail, (r) => null)));
+      }
 
       final EmailLoginUser login = EmailLoginUser(event.email, event.password);
 

@@ -1,6 +1,0 @@
-framework module native_screenshot {
-  umbrella header "native_screenshot-umbrella.h"
-
-  export *
-  module * { export * }
-}

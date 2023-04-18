@@ -1,31 +1,15 @@
 ﻿<Properties StartupConfiguration="{0617D641-B2D9-CCF9-9683-1BB56BBAAAE8}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DownloadAssetBundle.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Screenshot.cs">
     <Files>
+      <File FileName="Assets/Scripts/Screenshot.cs" Line="18" Column="1" />
       <File FileName="Assets/Scripts/DownloadAssetBundle.cs" Line="19" Column="1" />
-      <File FileName="Assets/Scripts/touchAsset.cs" Line="21" Column="85" />
-      <File FileName="Assets/Scripts/SceneMan.cs" Line="12" Column="1" />
+      <File FileName="Assets/Scripts/touchAsset.cs" />
+      <File FileName="Assets/Scripts/SceneMan.cs" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="Reality Near Unity" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="Editor" expanded="True" />
-              <Node name="FlutterUnityIntegration" expanded="True">
-                <Node name="Demo" expanded="True" />
-              </Node>
-              <Node name="Scripts" expanded="True">
-                <Node name="DownloadAssetBundle.cs" selected="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="e543da64-3f97-4900-b714-65af084a4172" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="23c2fe7a-7cce-4064-8cad-edc4506aaec5" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

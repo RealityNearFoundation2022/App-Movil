@@ -130,6 +130,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "proximamente" : MessageLookupByLibrary.simpleMessage("Coming soon"),
     "recientes" : MessageLookupByLibrary.simpleMessage("Recents"),
     "reciveDescrip" : MessageLookupByLibrary.simpleMessage("Send this address to the person who will send your Realities"),
+    "registerFail" : MessageLookupByLibrary.simpleMessage("Registration failed, username or email already in use"),
     "selectAvatar" : MessageLookupByLibrary.simpleMessage("Select your avatar"),
     "unpasoMas" : MessageLookupByLibrary.simpleMessage("One more step")
   };

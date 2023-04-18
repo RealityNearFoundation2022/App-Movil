@@ -85,37 +85,37 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                   const SectionCarousel(),
                   const SizedBox(height: 10),
                   //button
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const ARSection(
-                                scene: "Vuforia Image AR",
-                              )));
-                    },
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                          color: greenPrimary,
-                          width: 2,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Live AR',
-                          style: GoogleFonts.sourceSansPro(
-                            color: greenPrimary,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.of(context).push(MaterialPageRoute(
+                  //         builder: (context) => const ARSection(
+                  //               scene: "Vuforia Image AR",
+                  //             )));
+                  //   },
+                  //   child: Container(
+                  //     width: MediaQuery.of(context).size.width * 0.9,
+                  //     height: MediaQuery.of(context).size.height * 0.06,
+                  //     decoration: BoxDecoration(
+                  //       color: Colors.white,
+                  //       borderRadius: BorderRadius.circular(30),
+                  //       border: Border.all(
+                  //         color: greenPrimary,
+                  //         width: 2,
+                  //       ),
+                  //     ),
+                  //     child: Center(
+                  //       child: Text(
+                  //         'Live AR',
+                  //         style: GoogleFonts.sourceSansPro(
+                  //           color: greenPrimary,
+                  //           fontSize: 20,
+                  //           fontWeight: FontWeight.w600,
+                  //         ),
+                  //         textAlign: TextAlign.center,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(height: 10),
                   noticias(),
                   SizedBox(
