@@ -1,4 +1,6 @@
 // ignore_for_file: constant_identifier_names
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:reality_near/core/framework/globals.dart';
 
 const REGISTER_NEAR_WALLET = "https://wallet.near.org/create";
 const API_REALITY_NEAR = "https://api.realitynear.org/api/v1/";
@@ -13,3 +15,15 @@ const PLAY_STORE_URL =
     "https://play.google.com/store/apps/details?id=org.realitynear.reality_near";
 const MAP_BOX_V2 =
     "sk.eyJ1IjoicmVhbGl0eS1uZWFyLWRldnMiLCJhIjoiY2xkc2NwMDUxMWxuMDNvcXJuNDdxZTU1NCJ9.DqJQ5lX7Wmrva6leP8FaEQ";
+
+//GET PATHS FROM FIRESTORE
+class FirestorePaths {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  getMainPathsFromFirestore() async {
+    var doc = await firestore.collection('app').doc('info').get();
+    doc.data()?.forEach((key, value) {
+      setPreference(key, value);
+    });
+  }
+}

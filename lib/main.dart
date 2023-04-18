@@ -6,6 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/core/helper/url_constants.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
@@ -25,6 +26,8 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {
+    //Traer paths desde firebase
+    // await FirestorePaths().getMainPathsFromFirestore();
     isLoggedIn = await getPreference('userToken') != null;
     await getVersion();
 

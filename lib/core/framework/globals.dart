@@ -8,6 +8,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vector_math/vector_math.dart' as math;
 import 'package:location/location.dart' as loc;
 
@@ -18,6 +19,14 @@ class ScreenWH {
 
   double get width => MediaQuery.of(context).size.width;
   double get height => MediaQuery.of(context).size.height;
+}
+
+//launch URL
+void goToUrl(String url) async {
+  final Uri uri = Uri.parse(url);
+  if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+    throw 'Could not launch $uri';
+  }
 }
 
 String loremIpsum =

@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
+import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/models/news_model.dart';
 import 'package:reality_near/domain/entities/user.dart';
 import 'package:reality_near/domain/usecases/news/get_news.dart';
@@ -16,6 +17,7 @@ import 'package:reality_near/presentation/views/homeScreen/widgets/news_widget.d
 import 'package:reality_near/presentation/views/lateralBar/lateral_drawer.dart';
 import 'package:reality_near/presentation/views/mapScreen/map_halfscreen.dart';
 import 'package:reality_near/presentation/views/userProfile/profile_screen.dart';
+import 'package:reality_near/presentation/widgets/dialogs/update_dialog.dart';
 
 import '../../bloc/menu/menu_bloc.dart';
 
@@ -46,6 +48,27 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
           news =
               value.where((element) => element.planners != 'Banners').toList();
         }));
+  }
+
+  checkUpdate() async {
+    var lastVersion = await getPreference("last_version");
+    var version = await getPreference("current_version");
+    var minVersion = await getPreference("min_version");
+
+    int lastVersionInt = int.parse(lastVersion.toString().replaceAll('.', ''));
+    int versionInt = int.parse(version.toString().replaceAll('.', ''));
+    int minVersionInt = int.parse(minVersion.toString().replaceAll('.', ''));
+
+    if (version != null) {
+      if (lastVersionInt > versionInt) {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: ((context) => UpdateDialog(
+                  requiredUpdate: minVersionInt > versionInt,
+                )));
+      }
+    }
   }
 
   getUserData() async {
@@ -85,37 +108,6 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                   const SectionCarousel(),
                   const SizedBox(height: 10),
                   //button
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     Navigator.of(context).push(MaterialPageRoute(
-                  //         builder: (context) => const ARSection(
-                  //               scene: "Vuforia Image AR",
-                  //             )));
-                  //   },
-                  //   child: Container(
-                  //     width: MediaQuery.of(context).size.width * 0.9,
-                  //     height: MediaQuery.of(context).size.height * 0.06,
-                  //     decoration: BoxDecoration(
-                  //       color: Colors.white,
-                  //       borderRadius: BorderRadius.circular(30),
-                  //       border: Border.all(
-                  //         color: greenPrimary,
-                  //         width: 2,
-                  //       ),
-                  //     ),
-                  //     child: Center(
-                  //       child: Text(
-                  //         'Live AR',
-                  //         style: GoogleFonts.sourceSansPro(
-                  //           color: greenPrimary,
-                  //           fontSize: 20,
-                  //           fontWeight: FontWeight.w600,
-                  //         ),
-                  //         textAlign: TextAlign.center,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                   const SizedBox(height: 10),
                   noticias(),
                   SizedBox(

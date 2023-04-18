@@ -9,6 +9,7 @@ import 'package:reality_near/data/repository/user_repository.dart';
 import 'package:reality_near/domain/entities/user.dart';
 import 'package:reality_near/domain/usecases/user/user_data.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
+import 'package:reality_near/presentation/views/AR/arview.dart';
 import 'package:reality_near/presentation/views/login/no_avatar_screen.dart';
 
 class LateralDrawer extends StatefulWidget {
@@ -204,6 +205,41 @@ class _LateralDrawerState extends State<LateralDrawer> {
                       ),
                     ),
                   ],
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ARSection(
+                            scene: "Vuforia Image AR",
+                          )));
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(
+                      color: greenPrimary,
+                      width: 2,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Live AR',
+                      style: GoogleFonts.sourceSansPro(
+                        color: greenPrimary,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               ),
             ),

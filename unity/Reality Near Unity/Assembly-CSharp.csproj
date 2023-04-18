@@ -59,14 +59,13 @@
     <Compile Include="Assets/FlutterUnityIntegration/Demo/SceneLoader.cs" />
     <Compile Include="Assets/Scripts/SceneMan.cs" />
     <Compile Include="Assets/FlutterUnityIntegration/Demo/GameManager.cs" />
+    <Compile Include="Assets/Scripts/Screenshot.cs" />
     <Compile Include="Assets/FlutterUnityIntegration/UnityMessageManager.cs" />
     <Compile Include="Assets/FlutterUnityIntegration/NativeAPI.cs" />
     <Compile Include="Assets/FlutterUnityIntegration/Demo/Rotate.cs" />
     <Compile Include="Assets/Scripts/DownloadAssetBundle.cs" />
     <Compile Include="Assets/Scripts/touchAsset.cs" />
     <Compile Include="Assets/FlutterUnityIntegration/SingletonMonoBehaviour.cs" />
-    <Compile Include="Assets/Scripts/Screenshot.cs" />
-    <Compile Include="Assets/VuforiaLicense.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets/FlutterUnityIntegration/JsonDotNet/link.xml" />
