@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>71078242057-hs5j8pilc8o7mmi5dg2ch41poiubpqi9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.71078242057-hs5j8pilc8o7mmi5dg2ch41poiubpqi9</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBewFzxqC3e_oI3Xp6J9TnCnfhFvrClNP0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>71078242057</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.realityNear.app09</string>
+	<key>PROJECT_ID</key>
+	<string>reality-near-b0b9b</string>
+	<key>STORAGE_BUCKET</key>
+	<string>reality-near-b0b9b.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:71078242057:ios:6bcf30e8610dda971b95d8</string>
+</dict>
+</plist>
