@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>71078242057-hs5j8pilc8o7mmi5dg2ch41poiubpqi9.apps.googleusercontent.com</string>
+	<string>71078242057-tie668kh8percqtdp5hm2r51p7tib9r4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.71078242057-hs5j8pilc8o7mmi5dg2ch41poiubpqi9</string>
+	<string>com.googleusercontent.apps.71078242057-tie668kh8percqtdp5hm2r51p7tib9r4</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBewFzxqC3e_oI3Xp6J9TnCnfhFvrClNP0</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.realityNear.app09</string>
+	<string>com.realityNear.app</string>
 	<key>PROJECT_ID</key>
 	<string>reality-near-b0b9b</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:71078242057:ios:6bcf30e8610dda971b95d8</string>
+	<string>1:71078242057:ios:71b90579fa2962251b95d8</string>
 </dict>
 </plist>
