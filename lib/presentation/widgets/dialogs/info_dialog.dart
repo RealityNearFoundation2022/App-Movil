@@ -45,6 +45,9 @@ class InfoDialog extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
                 AppButton(
                   onPressed: onPressed,
                   label: 'Continuar',

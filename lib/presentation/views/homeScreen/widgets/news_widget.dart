@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/core/helper/url_constants.dart';
 import 'package:reality_near/data/models/news_model.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/news_details_page.dart';
@@ -11,18 +12,21 @@ class NewsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double width = size.width * 0.9;
-    double height = size.height * 0.2;
+    double width = size.width * 0.95;
+    double height = size.width * 0.95 / 2;
     return Container(
       alignment: Alignment.center,
-      padding: const EdgeInsets.symmetric(vertical: 6),
       height: height,
       width: width,
       child: InkWell(
-        onTap: () {
+        onTap: () async {
+          String html = await getPreference('html');
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => NewsDetailPage(news: news),
+              builder: (context) => NewsDetailPage(
+                news: news,
+                htmlContent: html,
+              ),
             ),
           );
         },
@@ -30,6 +34,11 @@ class NewsWidget extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(20)),
+              // child: Image.asset(
+              //   'assets/imgs/cirecle_test.jpeg',
+              //   fit: BoxFit.cover,
+              //   alignment: Alignment.center,
+              // ),
               child: Image.network(
                 API_REALITY_NEAR_IMGs + news.image,
                 fit: BoxFit.cover,

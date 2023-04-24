@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
@@ -7,7 +8,9 @@ import 'package:reality_near/data/models/news_model.dart';
 
 class NewsDetailPage extends StatelessWidget {
   final NewsModel news;
-  const NewsDetailPage({Key key, this.news}) : super(key: key);
+  final String htmlContent;
+  const NewsDetailPage({Key key, this.news, this.htmlContent})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,53 +24,72 @@ class NewsDetailPage extends StatelessWidget {
             ),
             SizedBox(
               width: ScreenWH(context).width,
-              height: ScreenWH(context).height * 0.6,
+              height: ScreenWH(context).width,
               child: ClipRRect(
+                // child: Image.asset(
+                //   'assets/imgs/cirecle_test.jpeg',
+                //   fit: BoxFit.fill,
+                // ),
                 child: Image.network(
                   API_REALITY_NEAR_IMGs + news.image,
                   fit: BoxFit.fill,
                 ),
               ),
             ),
+            // Padding(
+            //   padding:
+            //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(
+            //         news.title,
+            //         textAlign: TextAlign.left,
+            //         style: GoogleFonts.sourceSansPro(
+            //           color: greenPrimary,
+            //           fontSize: ScreenWH(context).width * 0.07,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //       ),
+            //       Align(
+            //         alignment: Alignment.centerLeft,
+            //         child: Text(
+            //           news.planners ?? 'Reality Near Foundation',
+            //           textAlign: TextAlign.start,
+            //           style: GoogleFonts.sourceSansPro(
+            //               fontSize: ScreenWH(context).width * 0.04,
+            //               fontWeight: FontWeight.bold,
+            //               color: txtPrimary),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    news.title,
-                    textAlign: TextAlign.left,
-                    style: GoogleFonts.sourceSansPro(
-                      color: greenPrimary,
-                      fontSize: ScreenWH(context).width * 0.07,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      news.planners ?? 'Reality Near Foundation',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.sourceSansPro(
-                          fontSize: ScreenWH(context).width * 0.04,
-                          fontWeight: FontWeight.bold,
-                          color: txtPrimary),
-                    ),
-                  ),
-                ],
+              child: Html(
+                data: htmlContent,
+                onLinkTap: (url, _, __, ___) {
+                  goToUrl('$url');
+                },
+                // style: {
+                //   'p': Style(
+                //       fontFamily: 'telefonica_cap_regular',
+                //       fontSize: FontSize(18)),
+                // },
               ),
             ),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(horizontal: 0.0),
-              itemCount: news.articles.length,
-              itemBuilder: (context, index) {
-                var article = news.articles[index];
-                return articleContent(article.data, article.image, context);
-              },
-            ),
+            // ListView.builder(
+            //   physics: const NeverScrollableScrollPhysics(),
+            //   shrinkWrap: true,
+            //   padding: const EdgeInsets.symmetric(horizontal: 0.0),
+            //   itemCount: news.articles.length,
+            //   itemBuilder: (context, index) {
+            //     var article = news.articles[index];
+            //     return articleContent(article.data, article.image, context);
+            //   },
+            // ),
             SizedBox(
               height: ScreenWH(context).height * 0.05,
             ),

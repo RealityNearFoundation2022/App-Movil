@@ -50,7 +50,7 @@ class SectionCarouselState extends State<SectionCarousel> {
         : Container(
             height: MediaQuery.of(context).size.height * 0.3,
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: _isLoading
                 ? LoadingAnimationWidget.dotsTriangle(
                     color: greenPrimary,
@@ -114,30 +114,11 @@ class CarouselCard extends StatelessWidget {
           //Image with opacity
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.3,
-            child: Stack(
-              children: [
-                CachedNetworkImage(
-                  imageUrl: API_REALITY_NEAR_IMGs + article.image,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: double.infinity,
-                ),
-                Container(
-                  color: Colors.black.withOpacity(0.4),
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
-            alignment: Alignment.center,
-            child: Text(
-              article.title,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.sourceSansPro(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 24),
+            child: CachedNetworkImage(
+              imageUrl: API_REALITY_NEAR_IMGs + article.image,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
             ),
           ),
         ],

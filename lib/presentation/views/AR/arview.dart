@@ -18,6 +18,8 @@ import 'package:reality_near/data/models/asset_model.dart';
 import 'package:reality_near/data/repository/assetRepository.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
+import 'package:reality_near/presentation/views/AR/widget/screenshot_dialog.dart';
+import 'package:reality_near/presentation/views/homeScreen/home_screen.dart';
 import 'package:reality_near/presentation/views/mapScreen/map_halfscreen.dart';
 import 'dart:ui' as ui;
 
@@ -42,8 +44,7 @@ class _ARSectionState extends State<ARSection> {
 
   @override
   void dispose() {
-    _unityWidgetController.dispose();
-
+    close();
     super.dispose();
   }
 
@@ -54,6 +55,22 @@ class _ARSectionState extends State<ARSection> {
     });
 
     super.initState();
+  }
+
+  close() async {
+    await _unityWidgetController.pause();
+    await Future.delayed(const Duration(milliseconds: 500));
+    _unityWidgetController.dispose();
+    Navigator.of(context).push(PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 500),
+      pageBuilder: (context, animation, secondaryAnimation) => SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(1.0, 0.0),
+          end: Offset.zero,
+        ).animate(animation),
+        child: const HomeScreenV2(),
+      ),
+    ));
   }
 
   getAssets() async {
@@ -119,8 +136,7 @@ class _ARSectionState extends State<ARSection> {
       child: Material(
         child: GestureDetector(
           onHorizontalDragEnd: (details) {
-            _unityWidgetController.dispose();
-            Navigator.pop(context);
+            close();
           },
           child: Stack(
             children: [
@@ -200,13 +216,22 @@ class _ARSectionState extends State<ARSection> {
                         //Button Cammera
                         child: IconButton(
                           onPressed: () {
+                            setState(() {
+                              _loadScreenshot = true;
+                            });
                             onTakeScreenshot();
                           },
-                          icon: Icon(
-                            FontAwesomeIcons.camera,
-                            color: greenPrimary,
-                            size: MediaQuery.of(context).size.height * 0.04,
-                          ),
+                          icon: _loadScreenshot
+                              ? LoadingAnimationWidget.dotsTriangle(
+                                  color: greenPrimary,
+                                  size: ScreenWH(context).width * 0.05,
+                                )
+                              : Icon(
+                                  FontAwesomeIcons.camera,
+                                  color: greenPrimary,
+                                  size:
+                                      MediaQuery.of(context).size.height * 0.04,
+                                ),
                         ),
                       ),
                 state is MenuMapaState
@@ -222,9 +247,7 @@ class _ARSectionState extends State<ARSection> {
                             color: greenPrimary,
                           ),
                           onPressed: () {
-                            //end unity
-                            _unityWidgetController.dispose();
-                            Navigator.pushNamed(context, "/home");
+                            close();
                           },
                         ),
                       ),
@@ -321,20 +344,23 @@ class _ARSectionState extends State<ARSection> {
       'TakeScreenshot',
       '',
     );
-    setState(() {
-      _loadScreenshot = true;
-    });
 
     // Espera un segundo para asegurarse de que se haya enviado el mensaje antes de intentar obtener los datos de la imagen
     await Future.delayed(const Duration(seconds: 1));
+    _unityWidgetController.pause();
+    setState(() {
+      _loadScreenshot = false;
+    });
   }
 
   Uint8List _unityScreenshot;
   Uint8List _screenshotCompleted;
   bool _loadScreenshot = false;
-  final GlobalKey _globalKey = GlobalKey();
   File file = File('');
   List<XFile> filesToShare = <XFile>[];
+  final GlobalKey _globalKey = GlobalKey();
+  // bool loadSave = false;
+  // bool loadShare = false;
   // //Function to take screenshot and share image
   Future<void> onTakeScreenshot() async {
     // Llama a la función que toma la captura de pantalla
@@ -342,127 +368,32 @@ class _ARSectionState extends State<ARSection> {
 
     await showDialog(
         context: context,
-        builder: (_) => Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            child: FittedBox(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: _loadScreenshot
-                    ? Column(
-                        children: [
-                          //Muestra un circulo de carga y el mensaje de cargando
-                          LoadingAnimationWidget.dotsTriangle(
-                            color: greenPrimary,
-                            size: ScreenWH(context).width * 0.3,
-                          ),
-                          const SizedBox(height: 20),
-                          Text(
-                            S.current.Cargando,
-                            style: GoogleFonts.sourceSansPro(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            textAlign: TextAlign.center,
-                          )
-                        ],
-                      )
-                    : Column(
-                        children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "¿Deseas guardar la imagen?",
-                            style: GoogleFonts.sourceSansPro(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 22,
-                                color: greenPrimary),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          RepaintBoundary(
-                            key: _globalKey,
-                            child: Stack(
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.6,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Image.memory(
-                                    _unityScreenshot,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 0,
-                                  child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.7,
-                                    alignment: Alignment.center,
-                                    child: Image.asset(
-                                      "assets/imgs/Logo_sin_fondo.png",
-                                      width: ScreenWH(context).width * 0.3,
-                                      height: ScreenWH(context).height * 0.08,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.7,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.ios_share,
-                                    color: greenPrimary,
-                                  ),
-                                  onPressed: () async {
-                                    await _capturePng().whenComplete(() =>
-                                        _shareImage(_screenshotCompleted));
-                                  },
-                                ),
-                                // const SizedBox(
-                                //   width: 5,
-                                // ),
-                                button(
-                                    S.current.Confirmar,
-                                    () async => {
-                                          await _capturePng().whenComplete(() =>
-                                              _saveImageToGallery(
-                                                  _screenshotCompleted))
-                                        },
-                                    greenPrimary),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                button(
-                                    S.current.Volver,
-                                    () => {Navigator.pop(context)},
-                                    const Color.fromRGBO(183, 182, 182, 1.0)),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-              ),
-            )));
+        builder: (_) => ScreenshotDialog(
+              globalKey: _globalKey,
+              unityScreenshot: _unityScreenshot,
+              xFunction: () {
+                Navigator.pop(context);
+                _unityWidgetController.resume();
+              },
+              saveFunction: () {
+                _capturePng().then((value) {
+                  _saveImageToGallery(_screenshotCompleted)
+                      .then((value) => {_unityWidgetController.resume()});
+                });
+              },
+              shareFunction: () {
+                _capturePng().then((value) {
+                  _shareImage(_screenshotCompleted)
+                      .then((value) => {_unityWidgetController.resume()});
+                });
+              },
+            ));
   }
 
   Future<void> _saveImageToGallery(Uint8List uint8List) async {
     // Guarda la imagen en la galería y obten el path
-    final String path = await ImageGallerySaver.saveImage(uint8List);
+    var path = await ImageGallerySaver.saveImage(uint8List,
+        isReturnImagePathOfIOS: true, quality: 100);
     Navigator.pop(context);
   }
 

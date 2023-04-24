@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 const REGISTER_NEAR_WALLET = "https://wallet.near.org/create";
 const API_REALITY_NEAR = "https://api.realitynear.org/api/v1/";
@@ -18,9 +19,11 @@ const MAP_BOX_V2 =
 
 //GET PATHS FROM FIRESTORE
 class FirestorePaths {
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-
   getMainPathsFromFirestore() async {
+    await Firebase.initializeApp();
+
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
     var doc = await firestore.collection('app').doc('info').get();
     doc.data()?.forEach((key, value) {
       setPreference(key, value);

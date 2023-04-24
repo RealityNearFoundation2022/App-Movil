@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -41,6 +42,7 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
     super.initState();
     getUserData();
     getNews();
+    checkUpdate();
   }
 
   getNews() async {
@@ -92,11 +94,18 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
 
   _body() {
     return GestureDetector(
+        dragStartBehavior: DragStartBehavior.start,
         onHorizontalDragStart: (details) {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const ARSection(
-                    scene: 'Vuforia',
-                  )));
+          if (details.localPosition.dx <
+                  MediaQuery.of(context).size.width / 2 &&
+              details.localPosition.dy >
+                  MediaQuery.of(context).size.height * 0.25) {
+            gotoAR();
+          } else if (details.localPosition.dy <
+              MediaQuery.of(context).size.height * 0.25) {
+            //Open drawer
+            _key.currentState.openDrawer();
+          }
         },
         child: Stack(
           children: [
@@ -108,7 +117,6 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                   const SectionCarousel(),
                   const SizedBox(height: 10),
                   //button
-                  const SizedBox(height: 10),
                   noticias(),
                   SizedBox(
                       height: MediaQuery.of(context).size.height * 0.12 -
@@ -128,10 +136,11 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
   noticias() {
     Size size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Column(
         children: [
           buildCategory(S.current.Novedades, greenPrimary, size, () {}),
+          const SizedBox(height: 10),
           SizedBox(
             width: size.width,
             // height: size.height * 0.23,
@@ -141,7 +150,12 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
               scrollDirection: Axis.vertical,
               itemCount: news.length,
               itemBuilder: (context, i) {
-                return NewsWidget(news: news[i]);
+                return Column(
+                  children: [
+                    NewsWidget(news: news[i]),
+                    const SizedBox(height: 10),
+                  ],
+                );
               },
             ),
           ),
@@ -185,6 +199,21 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
     );
   }
 
+  gotoAR() {
+    Navigator.of(context).push(PageRouteBuilder(
+      transitionDuration: const Duration(milliseconds: 500),
+      pageBuilder: (context, animation, secondaryAnimation) => SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(-1.0, 0.0),
+          end: Offset.zero,
+        ).animate(animation),
+        child: const ARSection(
+          scene: "Vuforia",
+        ),
+      ),
+    ));
+  }
+
   _bottomBar() {
     return BlocBuilder<MenuBloc, MenuState>(
       builder: (context, state) {
@@ -193,15 +222,27 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
               ? MediaQuery.of(context).size.height * 0.5
               : MediaQuery.of(context).size.height * 0.12,
           width: MediaQuery.of(context).size.width,
-          color: state is MenuMapaState ? Colors.transparent : Colors.white,
-          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 12),
+          padding:
+              const EdgeInsets.only(left: 20, right: 20, bottom: 12, top: 10),
+          decoration: BoxDecoration(
+            color: state is MenuMapaState ? Colors.transparent : Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                spreadRadius: 10,
+                blurRadius: 15,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               state is MenuMapaState
                   ? const SizedBox()
                   : IconButton(
+                      padding: const EdgeInsets.only(top: 10),
                       iconSize: MediaQuery.of(context).size.height * 0.04,
                       icon: const Icon(
                         FontAwesomeIcons.camera,
@@ -209,10 +250,7 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                       ),
                       onPressed: () {
                         // navigate to CameraScreen
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const ARSection(
-                                  scene: "Vuforia",
-                                )));
+                        gotoAR();
                       },
                     ),
               state is MenuMapaState
@@ -247,6 +285,7 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                     ),
               // const MapContainer(),
               IconButton(
+                padding: const EdgeInsets.only(top: 10),
                 iconSize: MediaQuery.of(context).size.height * 0.055,
                 icon: const Icon(
                   Icons.map_rounded,

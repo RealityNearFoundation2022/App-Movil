@@ -27,7 +27,7 @@ void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {
     //Traer paths desde firebase
-    // await FirestorePaths().getMainPathsFromFirestore();
+    await FirestorePaths().getMainPathsFromFirestore();
     isLoggedIn = await getPreference('userToken') != null;
     await getVersion();
 
