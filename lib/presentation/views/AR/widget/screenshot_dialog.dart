@@ -1,10 +1,16 @@
+import "dart:io";
 import "dart:typed_data";
 
 import "package:flutter/material.dart";
+import "package:flutter/rendering.dart";
+import "package:image_gallery_saver/image_gallery_saver.dart";
 import "package:loading_animation_widget/loading_animation_widget.dart";
+import "package:path_provider/path_provider.dart";
 import "package:reality_near/core/framework/colors.dart";
 import "package:reality_near/core/framework/globals.dart";
 import "package:reality_near/presentation/widgets/dialogs/info_dialog.dart";
+import "package:share_plus/share_plus.dart";
+import 'dart:ui' as ui;
 
 class ScreenshotDialog extends StatefulWidget {
   final Uint8List unityScreenshot;
@@ -25,6 +31,48 @@ class ScreenshotDialog extends StatefulWidget {
 
 class _ScreenshotDialogState extends State<ScreenshotDialog> {
   bool loadFunction = false;
+  Uint8List _screenshotCompleted;
+
+  Future<void> _saveImageToGallery(Uint8List uint8List) async {
+    // Guarda la imagen en la galería y obten el path
+    var path = await ImageGallerySaver.saveImage(uint8List,
+        isReturnImagePathOfIOS: true, quality: 100);
+    Navigator.pop(context);
+  }
+
+  Future<void> _capturePng() async {
+    // Captura la imagen del widget
+    ui.Image image = await (widget.globalKey.currentContext.findRenderObject()
+            as RenderRepaintBoundary)
+        .toImage(pixelRatio: 3.0);
+
+    // Convierte la imagen en bytes
+    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    Uint8List uint8list = byteData.buffer.asUint8List();
+    setState(() {
+      _screenshotCompleted = uint8list;
+    });
+  }
+
+  Future<void> _shareImage(Uint8List imageBytes) async {
+    try {
+      Directory tempDir = await getTemporaryDirectory();
+      String fileName =
+          "screenshot_${DateTime.now().millisecondsSinceEpoch}.png";
+      File file = File('${tempDir.path}/$fileName');
+      await file.writeAsBytes(imageBytes);
+
+      //create XFile and add to list
+      // XFile xFile = XFile(file.path);
+      // filesToShare.add(xFile);
+
+      await Share.shareFiles([file.path], text: 'Check out my screenshot!');
+      // await Share.shareXFiles(filesToShare, text: 'Check out my screenshot!');
+    } catch (e) {
+      print('Error sharing image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -131,31 +179,39 @@ class _ScreenshotDialogState extends State<ScreenshotDialog> {
                                     setState(() {
                                       loadFunction = true;
                                     });
-                                    widget.saveFunction();
-                                    setState(() {
-                                      loadFunction = false;
-                                    });
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return InfoDialog(
-                                              title: "¡Guardado!",
-                                              message:
-                                                  "La imagen se ha guardado en tu galería",
-                                              icon: SizedBox(
-                                                  child: Icon(
-                                                Icons
-                                                    .check_circle_outline_rounded,
-                                                color: greenPrimary,
-                                                size: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.15,
-                                              )),
-                                              onPressed: () {
-                                                Navigator.pop(context);
+                                    _capturePng().then((value) {
+                                      _saveImageToGallery(_screenshotCompleted)
+                                          .then((value) => {
+                                                setState(() {
+                                                  loadFunction = false;
+                                                }),
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return InfoDialog(
+                                                          title: "¡Guardado!",
+                                                          message:
+                                                              "La imagen se ha guardado en tu galería",
+                                                          icon: SizedBox(
+                                                              child: Icon(
+                                                            Icons
+                                                                .check_circle_outline_rounded,
+                                                            color: greenPrimary,
+                                                            size: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .height *
+                                                                0.15,
+                                                          )),
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          });
+                                                    }),
+                                                widget.saveFunction()
                                               });
-                                        });
+                                    });
                                   },
                                 ),
                                 IconButton(
@@ -168,9 +224,14 @@ class _ScreenshotDialogState extends State<ScreenshotDialog> {
                                     setState(() {
                                       loadFunction = true;
                                     });
-                                    widget.shareFunction();
-                                    setState(() {
-                                      loadFunction = false;
+                                    _capturePng().then((value) {
+                                      _shareImage(_screenshotCompleted)
+                                          .then((value) => {
+                                                setState(() {
+                                                  loadFunction = false;
+                                                }),
+                                                widget.shareFunction()
+                                              });
                                     });
                                   },
                                 ),

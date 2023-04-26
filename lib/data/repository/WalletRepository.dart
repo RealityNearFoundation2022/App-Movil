@@ -34,6 +34,8 @@ class WalletRepository {
           nearSignInSuccessUrl,
           nearSignInFailUrl);
 
+      var x = connectedAccount;
+
       // var user = await NEARFus
       return const Right('usuario Logeado ');
     } catch (e) {

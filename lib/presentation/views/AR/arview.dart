@@ -60,6 +60,7 @@ class _ARSectionState extends State<ARSection> {
   close() async {
     await _unityWidgetController.pause();
     await Future.delayed(const Duration(milliseconds: 500));
+    _unityWidgetController.unload();
     _unityWidgetController.dispose();
     Navigator.of(context).push(PageRouteBuilder(
       transitionDuration: const Duration(milliseconds: 500),
@@ -354,7 +355,7 @@ class _ARSectionState extends State<ARSection> {
   }
 
   Uint8List _unityScreenshot;
-  Uint8List _screenshotCompleted;
+  // Uint8List _screenshotCompleted;
   bool _loadScreenshot = false;
   File file = File('');
   List<XFile> filesToShare = <XFile>[];
@@ -372,63 +373,67 @@ class _ARSectionState extends State<ARSection> {
               globalKey: _globalKey,
               unityScreenshot: _unityScreenshot,
               xFunction: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
                 _unityWidgetController.resume();
               },
               saveFunction: () {
-                _capturePng().then((value) {
-                  _saveImageToGallery(_screenshotCompleted)
-                      .then((value) => {_unityWidgetController.resume()});
-                });
+                _unityWidgetController.resume();
+
+                // _capturePng().then((value) {
+                //   _saveImageToGallery(_screenshotCompleted)
+                //       .then((value) => {_unityWidgetController.resume()});
+                // });
               },
               shareFunction: () {
-                _capturePng().then((value) {
-                  _shareImage(_screenshotCompleted)
-                      .then((value) => {_unityWidgetController.resume()});
-                });
+                _unityWidgetController.resume();
+
+                // _capturePng().then((value) {
+                //   _shareImage(_screenshotCompleted)
+                //       .then((value) => {_unityWidgetController.resume()});
+                // });
               },
             ));
   }
 
-  Future<void> _saveImageToGallery(Uint8List uint8List) async {
-    // Guarda la imagen en la galería y obten el path
-    var path = await ImageGallerySaver.saveImage(uint8List,
-        isReturnImagePathOfIOS: true, quality: 100);
-    Navigator.pop(context);
-  }
+  // Future<void> _saveImageToGallery(Uint8List uint8List) async {
+  //   // Guarda la imagen en la galería y obten el path
+  //   var path = await ImageGallerySaver.saveImage(uint8List,
+  //       isReturnImagePathOfIOS: true, quality: 100);
+  //   Navigator.pop(context);
+  // }
 
-  Future<void> _capturePng() async {
-    // Captura la imagen del widget
-    ui.Image image = await (_globalKey.currentContext.findRenderObject()
-            as RenderRepaintBoundary)
-        .toImage(pixelRatio: 3.0);
+  // Future<void> _capturePng() async {
+  //   // Captura la imagen del widget
+  //   ui.Image image = await (_globalKey.currentContext.findRenderObject()
+  //           as RenderRepaintBoundary)
+  //       .toImage(pixelRatio: 3.0);
 
-    // Convierte la imagen en bytes
-    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-    Uint8List uint8list = byteData.buffer.asUint8List();
-    setState(() {
-      _screenshotCompleted = uint8list;
-    });
-  }
+  //   // Convierte la imagen en bytes
+  //   ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+  //   Uint8List uint8list = byteData.buffer.asUint8List();
+  //   setState(() {
+  //     _screenshotCompleted = uint8list;
+  //   });
+  // }
 
-  Future<void> _shareImage(Uint8List imageBytes) async {
-    try {
-      Directory tempDir = await getTemporaryDirectory();
-      String fileName =
-          "screenshot_${DateTime.now().millisecondsSinceEpoch}.png";
-      File file = File('${tempDir.path}/$fileName');
-      await file.writeAsBytes(imageBytes);
+  // Future<void> _shareImage(Uint8List imageBytes) async {
+  //   try {
+  //     Directory tempDir = await getTemporaryDirectory();
+  //     String fileName =
+  //         "screenshot_${DateTime.now().millisecondsSinceEpoch}.png";
+  //     File file = File('${tempDir.path}/$fileName');
+  //     await file.writeAsBytes(imageBytes);
 
-      //create XFile and add to list
-      // XFile xFile = XFile(file.path);
-      // filesToShare.add(xFile);
+  //     //create XFile and add to list
+  //     // XFile xFile = XFile(file.path);
+  //     // filesToShare.add(xFile);
 
-      await Share.shareFiles([file.path], text: 'Check out my screenshot!');
-      // await Share.shareXFiles(filesToShare, text: 'Check out my screenshot!');
-    } catch (e) {
-      print('Error sharing image: $e');
-    }
-  }
+  //     await Share.shareFiles([file.path], text: 'Check out my screenshot!');
+  //     // await Share.shareXFiles(filesToShare, text: 'Check out my screenshot!');
+  //   } catch (e) {
+  //     print('Error sharing image: $e');
+  //   }
+  // }
 
   Widget button(String text, Function press, Color color) {
     return TextButton(

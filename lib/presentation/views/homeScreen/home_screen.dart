@@ -101,8 +101,10 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
               details.localPosition.dy >
                   MediaQuery.of(context).size.height * 0.25) {
             gotoAR();
-          } else if (details.localPosition.dy <
-              MediaQuery.of(context).size.height * 0.25) {
+          } else if (details.localPosition.dx <
+                  MediaQuery.of(context).size.width / 3 &&
+              details.localPosition.dy <
+                  MediaQuery.of(context).size.height * 0.25) {
             //Open drawer
             _key.currentState.openDrawer();
           }

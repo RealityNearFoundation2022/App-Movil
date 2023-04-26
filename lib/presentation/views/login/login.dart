@@ -172,7 +172,10 @@ class Login extends StatelessWidget {
                         maxWidth: 200,
                         minHeight: 50,
                         minWidth: 200),
-                    onPressed: () {},
+                    onPressed: () {
+                      BlocProvider.of<UserBloc>(context, listen: false)
+                          .add(UserLoginWalletEvent(context));
+                    },
                     icon: SvgPicture.asset(
                       'assets/icons/near_logo_complete.svg',
                       color: const Color(0xFF555555),
