@@ -45,6 +45,16 @@ class S {
     );
   }
 
+  /// `Successfully saved`
+  String get guardadoCorrectamente {
+    return Intl.message(
+      'Successfully saved',
+      name: 'guardadoCorrectamente',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Registration failed, username or email already in use`
   String get registerFail {
     return Intl.message(

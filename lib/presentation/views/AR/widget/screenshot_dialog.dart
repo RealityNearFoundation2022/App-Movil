@@ -3,11 +3,14 @@ import "dart:typed_data";
 
 import "package:flutter/material.dart";
 import "package:flutter/rendering.dart";
+import "package:flutter/services.dart";
+import "package:google_fonts/google_fonts.dart";
 import "package:image_gallery_saver/image_gallery_saver.dart";
 import "package:loading_animation_widget/loading_animation_widget.dart";
 import "package:path_provider/path_provider.dart";
 import "package:reality_near/core/framework/colors.dart";
 import "package:reality_near/core/framework/globals.dart";
+import "package:reality_near/generated/l10n.dart";
 import "package:reality_near/presentation/widgets/dialogs/info_dialog.dart";
 import "package:share_plus/share_plus.dart";
 import 'dart:ui' as ui;
@@ -32,12 +35,11 @@ class ScreenshotDialog extends StatefulWidget {
 class _ScreenshotDialogState extends State<ScreenshotDialog> {
   bool loadFunction = false;
   Uint8List _screenshotCompleted;
-
+  bool successSave = false;
   Future<void> _saveImageToGallery(Uint8List uint8List) async {
     // Guarda la imagen en la galería y obten el path
     var path = await ImageGallerySaver.saveImage(uint8List,
         isReturnImagePathOfIOS: true, quality: 100);
-    Navigator.pop(context);
   }
 
   Future<void> _capturePng() async {
@@ -46,12 +48,58 @@ class _ScreenshotDialogState extends State<ScreenshotDialog> {
             as RenderRepaintBoundary)
         .toImage(pixelRatio: 3.0);
 
+    // Recorta y escala la imagen
+    ui.Image croppedImage = await cropAndScaleImage(image);
+
     // Convierte la imagen en bytes
-    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    ByteData byteData =
+        await croppedImage.toByteData(format: ui.ImageByteFormat.png);
     Uint8List uint8list = byteData.buffer.asUint8List();
     setState(() {
       _screenshotCompleted = uint8list;
     });
+  }
+
+  // Función para recortar y escalar la imagen
+  Future<ui.Image> cropAndScaleImage(ui.Image image) async {
+    // Obtenemos el tamaño de la imagen original
+    final imageSize = Size(image.width.toDouble(), image.height.toDouble());
+
+    // Definimos el tamaño objetivo de la imagen
+    final targetSize = Size(1080, 1920);
+
+    // Calculamos la proporción de aspecto de la imagen original
+    final aspectRatio = imageSize.width / imageSize.height;
+
+    // Calculamos la proporción de aspecto del tamaño objetivo
+    // final targetAspectRatio = targetSize.width / targetSize.height;
+    final targetAspectRatio = 9 / 16;
+
+    // Calculamos el rectángulo de recorte para la imagen original
+    Rect cropRect;
+    if (aspectRatio > targetAspectRatio) {
+      final height = imageSize.width / targetAspectRatio;
+      cropRect = Rect.fromLTWH(
+          0, (imageSize.height - height) / 2, imageSize.width, height);
+    } else {
+      final width = imageSize.height * targetAspectRatio;
+      cropRect = Rect.fromLTWH(
+          (imageSize.width - width) / 2, 0, width, imageSize.height);
+    }
+
+    // Creamos una nueva imagen recortada y escalada
+    final pictureRecorder = ui.PictureRecorder();
+    final canvas = Canvas(pictureRecorder);
+    final paint = Paint()
+      ..filterQuality = ui.FilterQuality.high
+      ..color = Colors.black; // establecer el color de fondo a negro
+    canvas.drawRect(Offset.zero & targetSize, paint); // dibujar el fondo negro
+    canvas.drawImageRect(image, cropRect, Offset.zero & targetSize, paint);
+    final croppedImage = await pictureRecorder
+        .endRecording()
+        .toImage(targetSize.width.toInt(), targetSize.height.toInt());
+
+    return croppedImage;
   }
 
   Future<void> _shareImage(Uint8List imageBytes) async {
@@ -60,14 +108,9 @@ class _ScreenshotDialogState extends State<ScreenshotDialog> {
       String fileName =
           "screenshot_${DateTime.now().millisecondsSinceEpoch}.png";
       File file = File('${tempDir.path}/$fileName');
-      await file.writeAsBytes(imageBytes);
+      file.writeAsBytesSync(imageBytes);
 
-      //create XFile and add to list
-      // XFile xFile = XFile(file.path);
-      // filesToShare.add(xFile);
-
-      await Share.shareFiles([file.path], text: 'Check out my screenshot!');
-      // await Share.shareXFiles(filesToShare, text: 'Check out my screenshot!');
+      await Share.shareXFiles([XFile(file.path)]);
     } catch (e) {
       print('Error sharing image: $e');
     }
@@ -123,6 +166,7 @@ class _ScreenshotDialogState extends State<ScreenshotDialog> {
                   right: 10,
                   child: GestureDetector(
                     onTap: () {
+                      Navigator.pop(context);
                       widget.xFunction();
                     },
                     child: Container(
@@ -209,11 +253,34 @@ class _ScreenshotDialogState extends State<ScreenshotDialog> {
                                                                 context);
                                                           });
                                                     }),
-                                                widget.saveFunction()
                                               });
                                     });
                                   },
                                 ),
+                                successSave
+                                    ? Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(0.3),
+                                          borderRadius:
+                                              BorderRadius.circular(25),
+                                          border: Border.all(
+                                            color: greenPrimary,
+                                            width: 2,
+                                          ),
+                                        ),
+                                        alignment: Alignment.center,
+                                        width: ScreenWH(context).width * 0.3,
+                                        height: ScreenWH(context).width * 0.15,
+                                        child: Text(
+                                          S.current.guardadoCorrectamente,
+                                          style: GoogleFonts.sourceSansPro(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      )
+                                    : const SizedBox(),
                                 IconButton(
                                   icon: Icon(
                                     Icons.ios_share,
@@ -230,7 +297,6 @@ class _ScreenshotDialogState extends State<ScreenshotDialog> {
                                                 setState(() {
                                                   loadFunction = false;
                                                 }),
-                                                widget.shareFunction()
                                               });
                                     });
                                   },

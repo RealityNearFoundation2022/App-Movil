@@ -124,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "cupones" : MessageLookupByLibrary.simpleMessage("My Coupons"),
     "editar" : MessageLookupByLibrary.simpleMessage("Edit"),
     "failLogin" : MessageLookupByLibrary.simpleMessage("Login failed, please try again"),
+    "guardadoCorrectamente" : MessageLookupByLibrary.simpleMessage("Successfully saved"),
     "luego" : MessageLookupByLibrary.simpleMessage("After"),
     "noTienesUna" : MessageLookupByLibrary.simpleMessage("You don\'t have a wallet yet? "),
     "perfil" : MessageLookupByLibrary.simpleMessage("Profile"),

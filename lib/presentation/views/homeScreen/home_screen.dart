@@ -53,9 +53,9 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
   }
 
   checkUpdate() async {
-    var lastVersion = await getPreference("last_version");
+    var lastVersion = await getPreference("last_version") ?? 0;
     var version = await getPreference("current_version");
-    var minVersion = await getPreference("min_version");
+    var minVersion = await getPreference("min_version") ?? 0;
 
     int lastVersionInt = int.parse(lastVersion.toString().replaceAll('.', ''));
     int versionInt = int.parse(version.toString().replaceAll('.', ''));
@@ -203,7 +203,7 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
 
   gotoAR() {
     Navigator.of(context).push(PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 500),
+      transitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (context, animation, secondaryAnimation) => SlideTransition(
         position: Tween<Offset>(
           begin: const Offset(-1.0, 0.0),

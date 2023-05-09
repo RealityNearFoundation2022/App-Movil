@@ -1,6 +1,7 @@
 {
 
     "unpasoMas": "One more step",
+    "guardadoCorrectamente": "Successfully saved",
     "registerFail": "Registration failed, username or email already in use",
     "btnLogWallet": "Login with wallet",
     "btnLog": "Login",

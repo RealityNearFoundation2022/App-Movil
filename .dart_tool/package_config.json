@@ -813,7 +813,7 @@
     },
     {
       "name": "share_plus",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/share_plus-6.3.2",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/share_plus-6.3.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -1166,7 +1166,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2023-04-25T00:45:15.173970Z",
+  "generated": "2023-05-08T03:05:45.415941Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }

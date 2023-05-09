@@ -116,12 +116,14 @@ getPermissions() async {
   Map<Permission, PermissionStatus> statuses = await [
     Permission.location,
     Permission.camera,
-    Permission.storage
+    Permission.storage,
+    Permission.photos
   ].request();
 
   return (statuses[Permission.location].isGranted &&
           statuses[Permission.camera].isGranted &&
-          statuses[Permission.storage].isGranted)
+          statuses[Permission.storage].isGranted &&
+          statuses[Permission.photos].isGranted)
       ? true
       : false;
 }

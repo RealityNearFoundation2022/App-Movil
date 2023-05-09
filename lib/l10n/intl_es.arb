@@ -1,5 +1,6 @@
 {
     "unpasoMas": "Un paso más",
+    "guardadoCorrectamente": "Guardado Correctamente",
     "registerFail": "Error al registrar, puede que el nombre de usuario y/o correo ya este en uso.",
     "btnLogWallet": "Ingresa con tu wallet",
     "btnLog": "Iniciar sesión",

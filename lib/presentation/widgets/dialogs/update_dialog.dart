@@ -68,11 +68,12 @@ class _UpdateDialogState extends State<UpdateDialog> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset("assets/svg/rocket.svg",
-              width: MediaQuery.of(context).size.width * 0.25,
-              height: MediaQuery.of(context).size.height * 0.25),
+          Image.asset("assets/imgs/MonstruoSaludando.png",
+              fit: BoxFit.cover,
+              width: MediaQuery.of(context).size.width * 0.6,
+              height: MediaQuery.of(context).size.height * 0.3),
           const SizedBox(height: 20),
-          const Text('Nueva versión disponible',
+          const Text('¡Hay una actualización disponible!',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'letra_Telefonica_regular',
@@ -81,11 +82,11 @@ class _UpdateDialogState extends State<UpdateDialog> {
               )),
           const SizedBox(height: 20),
           Text(
-              "Hay disponible una actualización con nuevas funciones y correciones. Por lo general, toma menos de 1 minuto.",
+              "Para disfrutar de la mejor experiencia de Reality Near, es necesario que actualices la aplicación.",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontFamily: 'letra_Telefonica_regular',
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: txtGrey)),
         ],

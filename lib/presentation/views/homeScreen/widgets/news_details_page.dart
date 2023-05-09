@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
@@ -8,9 +7,7 @@ import 'package:reality_near/data/models/news_model.dart';
 
 class NewsDetailPage extends StatelessWidget {
   final NewsModel news;
-  final String htmlContent;
-  const NewsDetailPage({Key key, this.news, this.htmlContent})
-      : super(key: key);
+  const NewsDetailPage({Key key, this.news}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +88,7 @@ class NewsDetailPage extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: ScreenWH(context).height * 0.07,
+              height: ScreenWH(context).height * 0.12,
             ),
           ],
         ),
@@ -137,43 +134,19 @@ class NewsDetailPage extends StatelessWidget {
   _footter(BuildContext context) {
     return Container(
       color: Colors.white,
-      margin: const EdgeInsets.only(bottom: 10),
+      height: MediaQuery.of(context).size.height * 0.12,
+      width: MediaQuery.of(context).size.width,
+      // margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
+            iconSize: MediaQuery.of(context).size.height * 0.055,
             icon:
                 const Icon(Icons.arrow_back_ios, color: greenPrimary, size: 35),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          // ElevatedButton(
-          //   onPressed: () {
-          //     // Respond to button press
-          //   },
-          //   style: ButtonStyle(
-          //     backgroundColor:
-          //     MaterialStateProperty.all<Color>(greenPrimary),
-          //     shape: MaterialStateProperty.all(RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.circular(20.0))),
-          //     padding: MaterialStateProperty.all<EdgeInsets>(
-          //         const EdgeInsets.symmetric(horizontal: 30)),
-          //   ),
-          //   child: Text(
-          //     "!Vamos¡",
-          //     textAlign: TextAlign.center,
-          //     style: GoogleFonts.sourceSansPro(
-          //       color: Colors.white,
-          //       fontSize: 16,
-          //       fontWeight: FontWeight.bold,
-          //     ),
-          //   ),
-          // ),
-          // IconButton(
-          //   icon: const Icon(Icons.share_outlined,
-          //       color: icongrey, size: 35),
-          //   onPressed: () => Navigator.of(context).pop(),
-          // ),
         ],
       ),
     );

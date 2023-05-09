@@ -1,7 +1,10 @@
 ManifestFileVersion: 0
-CRC: 214430715
+CRC: 249182602
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: mit
+      Dependencies: {}
+    Info_1:
+      Name: alien
       Dependencies: {}

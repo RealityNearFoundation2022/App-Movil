@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/helper/url_constants.dart';
 import 'package:reality_near/data/models/news_model.dart';
 import 'package:reality_near/domain/usecases/news/get_news.dart';
+import 'package:reality_near/presentation/views/homeScreen/widgets/news_details_page.dart';
 
 class SectionCarousel extends StatefulWidget {
   const SectionCarousel({Key key}) : super(key: key);
@@ -108,7 +108,13 @@ class CarouselCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => NewsDetailPage(news: article),
+          ),
+        );
+      },
       child: Stack(
         children: [
           //Image with opacity

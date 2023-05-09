@@ -3,15 +3,12 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/models/asset_model.dart';
@@ -21,7 +18,6 @@ import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/AR/widget/screenshot_dialog.dart';
 import 'package:reality_near/presentation/views/homeScreen/home_screen.dart';
 import 'package:reality_near/presentation/views/mapScreen/map_halfscreen.dart';
-import 'dart:ui' as ui;
 
 import 'package:share_plus/share_plus.dart';
 
@@ -59,11 +55,11 @@ class _ARSectionState extends State<ARSection> {
 
   close() async {
     await _unityWidgetController.pause();
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 200));
     _unityWidgetController.unload();
     _unityWidgetController.dispose();
     Navigator.of(context).push(PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 500),
+      transitionDuration: const Duration(milliseconds: 100),
       pageBuilder: (context, animation, secondaryAnimation) => SlideTransition(
         position: Tween<Offset>(
           begin: const Offset(1.0, 0.0),
@@ -181,27 +177,29 @@ class _ARSectionState extends State<ARSection> {
                   width: ScreenWH(context).width * 0.15,
                   height: ScreenWH(context).width * 0.15,
                   margin: const EdgeInsets.only(bottom: 15),
-                  child: IconButton(
-                    iconSize: MediaQuery.of(context).size.height * 0.06,
-                    icon: const Icon(
-                      Icons.map_rounded,
-                      color: greenPrimary,
-                    ),
-                    onPressed: () {
-                      // show modal bottom sheet
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: false,
-                        //border
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(30),
+                  child: widget.scene != "Vuforia"
+                      ? const SizedBox()
+                      : IconButton(
+                          iconSize: MediaQuery.of(context).size.height * 0.06,
+                          icon: const Icon(
+                            Icons.map_rounded,
+                            color: greenPrimary,
                           ),
+                          onPressed: () {
+                            // show modal bottom sheet
+                            showModalBottomSheet(
+                              context: context,
+                              isScrollControlled: false,
+                              //border
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(30),
+                                ),
+                              ),
+                              builder: (context) => const MapBoxScreen(),
+                            );
+                          },
                         ),
-                        builder: (context) => const MapBoxScreen(),
-                      );
-                    },
-                  ),
                 ),
                 state is MenuMapaState
                     ? const SizedBox()
@@ -341,7 +339,7 @@ class _ARSectionState extends State<ARSection> {
   void takeScreenshot() async {
     // Llama a la función de Unity que toma la captura de pantalla
     _unityWidgetController.postMessage(
-      "assetAR",
+      widget.scene == "Vuforia" ? "assetAR" : "InitialController",
       'TakeScreenshot',
       '',
     );
@@ -355,13 +353,10 @@ class _ARSectionState extends State<ARSection> {
   }
 
   Uint8List _unityScreenshot;
-  // Uint8List _screenshotCompleted;
   bool _loadScreenshot = false;
   File file = File('');
   List<XFile> filesToShare = <XFile>[];
   final GlobalKey _globalKey = GlobalKey();
-  // bool loadSave = false;
-  // bool loadShare = false;
   // //Function to take screenshot and share image
   Future<void> onTakeScreenshot() async {
     // Llama a la función que toma la captura de pantalla
@@ -369,71 +364,21 @@ class _ARSectionState extends State<ARSection> {
 
     await showDialog(
         context: context,
+        barrierColor: Colors.black.withOpacity(0.9),
         builder: (_) => ScreenshotDialog(
               globalKey: _globalKey,
               unityScreenshot: _unityScreenshot,
               xFunction: () {
-                // Navigator.pop(context);
                 _unityWidgetController.resume();
               },
               saveFunction: () {
                 _unityWidgetController.resume();
-
-                // _capturePng().then((value) {
-                //   _saveImageToGallery(_screenshotCompleted)
-                //       .then((value) => {_unityWidgetController.resume()});
-                // });
               },
               shareFunction: () {
                 _unityWidgetController.resume();
-
-                // _capturePng().then((value) {
-                //   _shareImage(_screenshotCompleted)
-                //       .then((value) => {_unityWidgetController.resume()});
-                // });
               },
-            ));
+            )).whenComplete(() => _unityWidgetController.resume());
   }
-
-  // Future<void> _saveImageToGallery(Uint8List uint8List) async {
-  //   // Guarda la imagen en la galería y obten el path
-  //   var path = await ImageGallerySaver.saveImage(uint8List,
-  //       isReturnImagePathOfIOS: true, quality: 100);
-  //   Navigator.pop(context);
-  // }
-
-  // Future<void> _capturePng() async {
-  //   // Captura la imagen del widget
-  //   ui.Image image = await (_globalKey.currentContext.findRenderObject()
-  //           as RenderRepaintBoundary)
-  //       .toImage(pixelRatio: 3.0);
-
-  //   // Convierte la imagen en bytes
-  //   ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-  //   Uint8List uint8list = byteData.buffer.asUint8List();
-  //   setState(() {
-  //     _screenshotCompleted = uint8list;
-  //   });
-  // }
-
-  // Future<void> _shareImage(Uint8List imageBytes) async {
-  //   try {
-  //     Directory tempDir = await getTemporaryDirectory();
-  //     String fileName =
-  //         "screenshot_${DateTime.now().millisecondsSinceEpoch}.png";
-  //     File file = File('${tempDir.path}/$fileName');
-  //     await file.writeAsBytes(imageBytes);
-
-  //     //create XFile and add to list
-  //     // XFile xFile = XFile(file.path);
-  //     // filesToShare.add(xFile);
-
-  //     await Share.shareFiles([file.path], text: 'Check out my screenshot!');
-  //     // await Share.shareXFiles(filesToShare, text: 'Check out my screenshot!');
-  //   } catch (e) {
-  //     print('Error sharing image: $e');
-  //   }
-  // }
 
   Widget button(String text, Function press, Color color) {
     return TextButton(

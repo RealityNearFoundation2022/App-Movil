@@ -20,13 +20,9 @@ class NewsWidget extends StatelessWidget {
       width: width,
       child: InkWell(
         onTap: () async {
-          String html = await getPreference('html');
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => NewsDetailPage(
-                news: news,
-                htmlContent: html,
-              ),
+              builder: (context) => NewsDetailPage(news: news),
             ),
           );
         },
