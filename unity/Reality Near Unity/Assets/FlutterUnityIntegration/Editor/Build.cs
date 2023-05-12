@@ -28,48 +28,34 @@ namespace FlutterUnityIntegration.Editor
         private static string _persistentKey = "flutter-unity-widget-pluginMode";
 
         //#region GUI Member Methods
-        [MenuItem("Flutter/Export Android (Debug) %&n", false, 101)]
-        public static void DoBuildAndroidLibraryDebug()
+        [MenuItem("Flutter/Export Android %&n", false, 1)]
+        public static void DoBuildAndroidLibrary()
         {
-            DoBuildAndroid(Path.Combine(APKPath, "unityLibrary"), false, false);
+            DoBuildAndroid(Path.Combine(APKPath, "unityLibrary"), false);
 
             // Copy over resources from the launcher module that are used by the library
             Copy(Path.Combine(APKPath + "/launcher/src/main/res"), Path.Combine(AndroidExportPath, "src/main/res"));
         }
 
-        [MenuItem("Flutter/Export Android (Release) %&m", false, 102)]
-        public static void DoBuildAndroidLibraryRelease()
-        {
-            DoBuildAndroid(Path.Combine(APKPath, "unityLibrary"), false, true);
-
-            // Copy over resources from the launcher module that are used by the library
-            Copy(Path.Combine(APKPath + "/launcher/src/main/res"), Path.Combine(AndroidExportPath, "src/main/res"));
-        }
-
-        [MenuItem("Flutter/Export Android Plugin %&p", false, 103)]
+        [MenuItem("Flutter/Export Android Plugin %&p", false, 5)]
         public static void DoBuildAndroidPlugin()
         {
-            DoBuildAndroid(Path.Combine(APKPath, "unityLibrary"), true, true);
+            DoBuildAndroid(Path.Combine(APKPath, "unityLibrary"), true);
 
             // Copy over resources from the launcher module that are used by the library
             Copy(Path.Combine(APKPath + "/launcher/src/main/res"), Path.Combine(AndroidExportPath, "src/main/res"));
         }
 
-        [MenuItem("Flutter/Export IOS (Debug) %&i", false, 201)]
-        public static void DoBuildIOSDebug()
+        [MenuItem("Flutter/Export IOS %&i", false, 2)]
+        public static void DoBuildIOS()
         {
-            BuildIOS(IOSExportPath, false);
+            BuildIOS(IOSExportPath);
         }
 
-        [MenuItem("Flutter/Export IOS (Release) %&i", false, 202)]
-        public static void DoBuildIOSRelease() {
-            BuildIOS(IOSExportPath, true);
-        }
-
-        [MenuItem("Flutter/Export IOS Plugin %&o", false, 203)]
+        [MenuItem("Flutter/Export IOS Plugin %&o", false, 6)]
         public static void DoBuildIOSPlugin()
         {
-            BuildIOS(IOSExportPluginPath, true);
+            BuildIOS(IOSExportPluginPath);
 
             // Automate so manual steps
             SetupIOSProjectForPlugin();
@@ -79,20 +65,20 @@ namespace FlutterUnityIntegration.Editor
 
         }
 
-        [MenuItem("Flutter/Export Web GL %&w", false, 301)]
+        [MenuItem("Flutter/Export Web GL %&w", false, 3)]
         public static void DoBuildWebGL()
         {
             BuildWebGL(WebExportPath);
         }
 
 
-        [MenuItem("Flutter/Export Windows %&d", false, 401)]
+        [MenuItem("Flutter/Export Windows %&d", false, 4)]
         public static void DoBuildWindowsOS()
         {
             BuildWindowsOS(WindowsExportPath);
         }
 
-        [MenuItem("Flutter/Settings %&S", false, 501)]
+        [MenuItem("Flutter/Settings %&S", false, 7)]
         public static void PluginSettings()
         {
             EditorWindow.GetWindow(typeof(Build));
@@ -148,8 +134,6 @@ namespace FlutterUnityIntegration.Editor
 
             if (report.summary.result != BuildResult.Succeeded)
                 throw new Exception("Build failed");
-
-            Debug.Log("-- Windows Build: SUCCESSFUL --");
         }
 
         private static void BuildWebGL(String path)
@@ -181,11 +165,9 @@ namespace FlutterUnityIntegration.Editor
 
             // Copy(path, WebExportPath);
             ModifyWebGLExport();
-
-            Debug.Log("-- WebGL Build: SUCCESSFUL --");
         }
 
-        private static void DoBuildAndroid(String buildPath, bool isPlugin, bool isReleaseBuild)
+        private static void DoBuildAndroid(String buildPath, bool isPlugin)
         {
             // Switch to Android standalone build.
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android);
@@ -203,17 +185,7 @@ namespace FlutterUnityIntegration.Editor
             playerOptions.scenes = GetEnabledScenes();
             playerOptions.target = BuildTarget.Android;
             playerOptions.locationPathName = APKPath;
-            if (!isReleaseBuild)
-            {
-                playerOptions.options = BuildOptions.AllowDebugging;
-            }
-            #if UNITY_2022_1_OR_NEWER
-                PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.Android, isReleaseBuild ? Il2CppCompilerConfiguration.Release : Il2CppCompilerConfiguration.Debug);
-                PlayerSettings.SetIl2CppCodeGeneration(UnityEditor.Build.NamedBuildTarget.Android, UnityEditor.Build.Il2CppCodeGeneration.OptimizeSize);
-            #elif UNITY_2020_3_OR_NEWER
-                PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.Android, isReleaseBuild ? Il2CppCompilerConfiguration.Release : Il2CppCompilerConfiguration.Debug);
-                EditorUserBuildSettings.il2CppCodeGeneration = UnityEditor.Build.Il2CppCodeGeneration.OptimizeSize;
-            #endif
+            playerOptions.options = BuildOptions.AllowDebugging;
 
             // Switch to Android standalone build.
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android, BuildTarget.Android);
@@ -236,13 +208,6 @@ namespace FlutterUnityIntegration.Editor
             {
                 SetupAndroidProject();
             }
-
-            if (isReleaseBuild) {
-                Debug.Log($"-- Android Release Build: SUCCESSFUL --");
-            } else
-            {
-                Debug.Log($"-- Android Debug Build: SUCCESSFUL --");
-            }
         }
 
         private static void ModifyWebGLExport()
@@ -252,70 +217,44 @@ namespace FlutterUnityIntegration.Editor
             var indexHtmlText = File.ReadAllText(indexFile);
 
             indexHtmlText = indexHtmlText.Replace("<script>", @"
-    <script>
-        var mainUnityInstance;
+            <script>
+              var mainUnityInstance;
 
-        window['handleUnityMessage'] = function (params) {
-        window.parent.postMessage({
-            name: 'onUnityMessage',
-            data: params,
-            }, '*');
-        };
+              window['handleUnityMessage'] = function (params) {
+                window.parent.postMessage({
+                    name: 'onUnityMessage',
+                    data: params,
+                   }, '*');
+              };
 
-        window['handleUnitySceneLoaded'] = function (name, buildIndex, isLoaded, isValid) {
-        window.parent.postMessage({
-            name: 'onUnitySceneLoaded',
-            data: {
-                'name': name,
-                'buildIndex': buildIndex,
-                'isLoaded': isLoaded == 1,
-                'isValid': isValid == 1,
-            }
-            }, '*');
-        };
+              window['handleUnitySceneLoaded'] = function (name, buildIndex, isLoaded, isValid) {
+                window.parent.postMessage({
+                    name: 'onUnitySceneLoaded',
+                    data: {
+                        'name': name,
+                        'buildIndex': buildIndex,
+                        'isLoaded': isLoaded == 1,
+                        'isValid': isValid == 1,
+                    }
+                   }, '*');
+              };
 
-        window.parent.addEventListener('unityFlutterBiding', function (args) {
-            const obj = JSON.parse(args.data);
-            mainUnityInstance.SendMessage(obj.gameObject, obj.methodName, obj.message);
-        });
+              window.parent.addEventListener('unityFlutterBiding', function (args) {
+                const obj = JSON.parse(args.data);
+                mainUnityInstance.SendMessage(obj.gameObject, obj.methodName, obj.message);
+              });
 
-        window.parent.addEventListener('unityFlutterBidingFnCal', function (args) {
-            mainUnityInstance.SendMessage('GameManager', 'HandleWebFnCall', args);
-        });
-        ");
+              window.parent.addEventListener('unityFlutterBidingFnCal', function (args) {
+                mainUnityInstance.SendMessage('GameManager', 'HandleWebFnCall', args);
+              });
+            ");
 
-            indexHtmlText = indexHtmlText.Replace("canvas.style.width = \"960px\";", "canvas.style.width = \"100%\";");
-			indexHtmlText = indexHtmlText.Replace("canvas.style.height = \"600px\";", "canvas.style.height = \"100%\";");
-
-			indexHtmlText = indexHtmlText.Replace("}).then((unityInstance) => {", @"
+            indexHtmlText = indexHtmlText.Replace("}).then((unityInstance) => {", @"
          }).then((unityInstance) => {
            window.parent.postMessage('unityReady', '*');
            mainUnityInstance = unityInstance;
          ");
-			File.WriteAllText(indexFile, indexHtmlText);
-
-			/// Modidy style.css
-			var cssFile = Path.Combine($"{WebExportPath}/TemplateData", "style.css");
-			var fullScreenCss = File.ReadAllText(cssFile);
-			fullScreenCss = @"
-body { padding: 0; margin: 0; overflow: hidden; }
-#unity-container { position: absolute }
-#unity-container.unity-desktop { width: 100%; height: 100% }
-#unity-container.unity-mobile { width: 100%; height: 100% }
-#unity-canvas { background: #231F20 }
-.unity-mobile #unity-canvas { width: 100%; height: 100% }
-#unity-loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none }
-#unity-logo { width: 154px; height: 130px; background: url('unity-logo-dark.png') no-repeat center }
-#unity-progress-bar-empty { width: 141px; height: 18px; margin-top: 10px; background: url('progress-bar-empty-dark.png') no-repeat center }
-#unity-progress-bar-full { width: 0%; height: 18px; margin-top: 10px; background: url('progress-bar-full-dark.png') no-repeat center }
-#unity-footer { display: none }
-.unity-mobile #unity-footer { display: none }
-#unity-webgl-logo { float:left; width: 204px; height: 38px; background: url('webgl-logo.png') no-repeat center }
-#unity-build-title { float: right; margin-right: 10px; line-height: 38px; font-family: arial; font-size: 18px }
-#unity-fullscreen-button { float: right; width: 38px; height: 38px; background: url('fullscreen-button.png') no-repeat center }
-#unity-mobile-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
-            ";
-			File.WriteAllText(cssFile, fullScreenCss);
+            File.WriteAllText(indexFile, indexHtmlText);
         }
 
         private static void ModifyAndroidGradle(bool isPlugin)
@@ -353,11 +292,11 @@ body { padding: 0; margin: 0; overflow: hidden; }
             var proguardFile = Path.Combine(AndroidExportPath, "proguard-unity.txt");
             var proguardText = File.ReadAllText(proguardFile);
             proguardText = proguardText.Replace("-ignorewarnings", "-keep class com.xraph.plugin.** { *; }\n-ignorewarnings");
-            proguardText += "-keep class com.unity3d.plugin.* { *; }";
             File.WriteAllText(proguardFile, proguardText);
+
         }
 
-        private static void BuildIOS(String path, bool isReleaseBuild)
+        private static void BuildIOS(String path)
         {
             // Switch to ios standalone build.
             EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
@@ -365,31 +304,15 @@ body { padding: 0; margin: 0; overflow: hidden; }
             if (Directory.Exists(path))
                 Directory.Delete(path, true);
 
-            #if (UNITY_2021_1_OR_NEWER)
-                EditorUserBuildSettings.iOSXcodeBuildConfig = XcodeBuildConfig.Release;
-            #else
-                EditorUserBuildSettings.iOSBuildConfigType = iOSBuildType.Release;
-            #endif
-
-            #if UNITY_2022_1_OR_NEWER
-                PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.iOS, isReleaseBuild ? Il2CppCompilerConfiguration.Release : Il2CppCompilerConfiguration.Debug);
-                PlayerSettings.SetIl2CppCodeGeneration(UnityEditor.Build.NamedBuildTarget.iOS, UnityEditor.Build.Il2CppCodeGeneration.OptimizeSize);
-            #elif UNITY_2020_3_OR_NEWER
-                PlayerSettings.SetIl2CppCompilerConfiguration(BuildTargetGroup.iOS, isReleaseBuild ? Il2CppCompilerConfiguration.Release : Il2CppCompilerConfiguration.Debug);
-                EditorUserBuildSettings.il2CppCodeGeneration = UnityEditor.Build.Il2CppCodeGeneration.OptimizeSize;
-            #endif
+            EditorUserBuildSettings.iOSXcodeBuildConfig = XcodeBuildConfig.Release;
 
             var playerOptions = new BuildPlayerOptions
             {
                 scenes = GetEnabledScenes(),
                 target = BuildTarget.iOS,
-                locationPathName = path
+                locationPathName = path,
+                options = BuildOptions.AllowDebugging
             };
-
-            if (!isReleaseBuild)
-            {
-                playerOptions.options = BuildOptions.AllowDebugging;
-            }
 
             // build addressable
             ExportAddressables();
@@ -398,12 +321,6 @@ body { padding: 0; margin: 0; overflow: hidden; }
 
             if (report.summary.result != BuildResult.Succeeded)
                 throw new Exception("Build failed");
-
-            if (isReleaseBuild) {
-                Debug.Log("-- iOS Release Build: SUCCESSFUL --");
-            } else {
-                Debug.Log("-- iOS Debug Build: SUCCESSFUL --");
-            }
         }
 
         //#endregion

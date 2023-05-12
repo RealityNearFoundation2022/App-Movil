@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Initial Scene.unity
+    path: Assets/AR/Scenes/Initial Scene.unity
     guid: 5e2095022891741c2a3dbe20b8aea196
   - enabled: 1
-    path: Assets/Scenes/Vuforia.unity
+    path: Assets/AR/Scenes/Vuforia.unity
     guid: ea144c615f0be406296ab814472e6f6c
   - enabled: 1
-    path: Assets/Scenes/Vuforia Image AR.unity
+    path: Assets/AR/Scenes/Vuforia Image AR.unity
     guid: 34ed8618fd93a4b37b651cfa61d4ba47
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: fbab35a97887f91408608bc435a85882, type: 2}
