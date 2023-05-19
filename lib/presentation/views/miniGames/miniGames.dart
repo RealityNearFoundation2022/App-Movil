@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/presentation/views/miniGames/widgets/gamesUnity.dart';
 
 class MiniGames extends StatefulWidget {
   static String routeName = '/miniGames';
@@ -32,10 +33,22 @@ class _MiniGamesState extends State<MiniGames> {
           const SizedBox(
             height: 20,
           ),
-          gameContainer(
-              'Dinasour Game',
-              'Pon a prueba tus conocimientos con esta trivia de cultura general.',
-              'assets/imgs/imgAlfaTest.png')
+          gameContainer('Dinasour Game', 'Pon a tu destreza en este juego.',
+              'assets/imgs/imgAlfaTest.png', () {
+            Navigator.of(context).push(PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 300),
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(-1.0, 0.0),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: const GameUnity(
+                  scene: "DinoGame",
+                ),
+              ),
+            ));
+          })
         ],
       ),
     );
@@ -106,7 +119,7 @@ class _MiniGamesState extends State<MiniGames> {
     );
   }
 
-  gameContainer(String name, String description, String img) {
+  gameContainer(String name, String description, String img, Function onTap) {
     return Card(
         elevation: 5,
         shape: RoundedRectangleBorder(
@@ -211,7 +224,9 @@ class _MiniGamesState extends State<MiniGames> {
                         fixedSize: Size(MediaQuery.of(context).size.width * 0.4,
                             MediaQuery.of(context).size.height * 0.05),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        onTap();
+                      },
                       child: Text(
                         'Jugar',
                         style: GoogleFonts.sourceSansPro(

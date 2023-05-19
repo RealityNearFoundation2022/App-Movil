@@ -39,7 +39,7 @@ public class DinoGameManager : MonoBehaviour
     public void RestartScene()
     {
         gameOverScreen.SetActive(false);
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
     }
 

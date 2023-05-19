@@ -1,15 +1,14 @@
 ﻿<Properties StartupConfiguration="{0617D641-B2D9-CCF9-9683-1BB56BBAAAE8}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Screenshot.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Games/Dino Run/Scripts/Dinosaur.cs">
     <Files>
-      <File FileName="Assets/Scripts/Screenshot.cs" Line="18" Column="1" />
-      <File FileName="Assets/Scripts/DownloadAssetBundle.cs" Line="19" Column="1" />
-      <File FileName="Assets/Scripts/touchAsset.cs" />
-      <File FileName="Assets/Scripts/SceneMan.cs" />
+      <File FileName="Assets/Games/Dino Run/Scripts/Dinosaur.cs" Line="34" Column="40" />
+      <File FileName="Assets/AR/Scripts/touchAsset.cs" />
+      <File FileName="Assets/Games/Dino Run/Scripts/DinoGameManager.cs" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="23c2fe7a-7cce-4064-8cad-edc4506aaec5" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="55f46c6c-2530-4724-aebd-4be1bcf8ef1a" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

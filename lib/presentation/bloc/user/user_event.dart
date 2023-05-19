@@ -36,6 +36,11 @@ class UserLogOutEvent extends UserEvent {
   List<Object> get props => [];
 }
 
+class UserDeleteAccountEvent extends UserEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class UserRegisterEvent extends UserEvent {
   final String email;
   final String password;

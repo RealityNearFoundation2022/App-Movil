@@ -7,8 +7,17 @@ class InfoDialog extends StatelessWidget {
   final String title, message;
   final Function onPressed;
   Widget icon;
-  InfoDialog({Key key, this.title, this.message, this.icon, this.onPressed})
-      : super(key: key);
+  bool closeOption = false;
+  InfoDialog(
+      {Key key,
+      this.title,
+      this.message,
+      this.icon,
+      this.onPressed,
+      this.closeOption})
+      : super(
+          key: key,
+        );
 
   @override
   Widget build(BuildContext context) {
@@ -48,13 +57,35 @@ class InfoDialog extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                AppButton(
-                  onPressed: onPressed,
-                  label: 'Continuar',
-                  // colorDefault: greenPrimary,
-                  textColor: Colors.white,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    AppButton(
+                      onPressed: onPressed,
+                      label: 'Continuar',
+                      // colorDefault: greenPrimary,
+                      textColor: Colors.white,
 
-                  width: MediaQuery.of(context).size.width * 0.5,
+                      width: MediaQuery.of(context).size.width * 0.5,
+                    ),
+                    closeOption ?? false
+                        ? const SizedBox(
+                            width: 15,
+                          )
+                        : const SizedBox(),
+                    closeOption ?? false
+                        ? AppButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            label: 'Cancelar',
+                            colorDefault: Colors.grey,
+                            textColor: Colors.white,
+                            width: MediaQuery.of(context).size.width * 0.5,
+                          )
+                        : const SizedBox(),
+                  ],
                 ),
               ],
             ),

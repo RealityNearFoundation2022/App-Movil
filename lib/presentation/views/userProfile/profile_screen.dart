@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/datasource/API/auth_datasource.dart';
 import 'package:reality_near/data/datasource/API/user_datasource.dart';
 import 'package:reality_near/domain/entities/user.dart';
 import 'package:reality_near/domain/usecases/user/user_data.dart';
 import 'package:reality_near/generated/l10n.dart';
+import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/userProfile/widgets/avatar_select.dart';
 import 'package:reality_near/presentation/widgets/buttons/default_button.dart';
 import 'package:reality_near/presentation/widgets/dialogs/errorAlertDialog.dart';
@@ -303,7 +306,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
             },
             width: MediaQuery.of(context).size.width * 0.6,
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.015),
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => InfoDialog(
+                        onPressed: () {
+                          BlocProvider.of<UserBloc>(context, listen: false)
+                              .add(UserDeleteAccountEvent());
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/firstScreen', (route) => false);
+                        },
+                        icon: SizedBox(
+                            child: Icon(
+                          Icons.no_accounts_rounded,
+                          color: greenPrimary,
+                          size: MediaQuery.of(context).size.height * 0.15,
+                        )),
+                        message: 'Borraras tu cuenta y datos de la aplicación',
+                        title: '¿Deseas eliminar tu cuenta?',
+                        closeOption: true,
+                      ));
+            },
+            child: Text(
+              "Eliminar Cuenta",
+              style: TextStyle(
+                  color: txtGrey.withOpacity(0.6),
+                  fontFamily: 'letra_Telefonica_regular',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500),
+            ),
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         ],
       ),
     );

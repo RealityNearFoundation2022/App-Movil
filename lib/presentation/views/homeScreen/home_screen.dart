@@ -15,7 +15,7 @@ import 'package:reality_near/presentation/views/AR/arview.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/carrousel.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/category.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/news_widget.dart';
-import 'package:reality_near/presentation/views/lateralBar/lateral_drawer.dart';
+import 'package:reality_near/presentation/views/homeScreen/widgets/lateral_drawer.dart';
 import 'package:reality_near/presentation/views/mapScreen/map_halfscreen.dart';
 import 'package:reality_near/presentation/views/userProfile/profile_screen.dart';
 import 'package:reality_near/presentation/widgets/dialogs/update_dialog.dart';
@@ -54,14 +54,14 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
 
   checkUpdate() async {
     var lastVersion = await getPreference("last_version") ?? 0;
-    var version = await getPreference("current_version");
+    var version = await getPreference("current_version") ?? 0;
     var minVersion = await getPreference("min_version") ?? 0;
 
     int lastVersionInt = int.parse(lastVersion.toString().replaceAll('.', ''));
     int versionInt = int.parse(version.toString().replaceAll('.', ''));
     int minVersionInt = int.parse(minVersion.toString().replaceAll('.', ''));
 
-    if (version != null) {
+    if (version != 0) {
       if (lastVersionInt > versionInt) {
         showDialog(
             context: context,

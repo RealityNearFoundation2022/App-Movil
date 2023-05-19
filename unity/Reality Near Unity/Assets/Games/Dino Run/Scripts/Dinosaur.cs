@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Dinosaur : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class Dinosaur : MonoBehaviour
     {
         dinoRb = GetComponent<Rigidbody2D>();
         dinoAnimator = GetComponent<Animator>();
+        Debug.Log("HOLA Dinosaurio");
+        Debug.Log("dinoRb es " + dinoRb.name);
     }
 
     // Update is called once per frame
@@ -24,16 +27,22 @@ public class Dinosaur : MonoBehaviour
     {
         bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, radius, ground);
         dinoAnimator.SetBool("isGrounded", isGrounded);
-
-        //Detecta cuando hay un toque en la pantalla
         if (Input.touchCount > 0)
         {
-            //Hcer un Salto, si esta tocando el piso
-            if (isGrounded) { 
-                dinoRb.AddForce(Vector2.up * upForce);
+            Debug.Log("Toco la pantalla");
+            Debug.Log("isGrounded: "+ isGrounded.ToString());
+            Debug.Log("dinoRb en toque es " + dinoRb.name);
+
+            if (isGrounded)
+            {
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                //Time.timeScale = 1f;
+                dinoRb.AddForce(Vector2.up * 35);
             }
+
         }
     }
+
 
     private void OnDrawGizmos()
     {
@@ -45,7 +54,7 @@ public class Dinosaur : MonoBehaviour
         if(collision.gameObject.CompareTag("obstacle"))
         {
             DinoGameManager.Instance.ShowGameOverScreen();
-            dinoAnimator.SetTrigger("Die");
+            dinoAnimator.SetTrigger("die");
             Time.timeScale = 0f;
         }
     }

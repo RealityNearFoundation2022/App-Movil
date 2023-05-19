@@ -11,6 +11,7 @@ abstract class AuthsRemoteDataSource {
       String email, String password, String username, String path);
 
   Future<bool> loginWithEmail(String email, String password);
+  void deleteAccount();
 }
 
 class AuthsRemoteDataSourceImpl implements AuthsRemoteDataSource {
@@ -65,5 +66,22 @@ class AuthsRemoteDataSourceImpl implements AuthsRemoteDataSource {
 
     response.statusCode == 200 ? {setPreference('userToken', token)} : null;
     return response.statusCode == 200 ? true : false;
+  }
+
+  @override
+  void deleteAccount() async {
+    String url = API_REALITY_NEAR + "users/";
+    String token = await getPreference("userToken");
+
+    var resp = await http.delete(
+      Uri.parse(url),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+    );
+    if (resp.statusCode == 200) {
+      var x = 1;
+    }
   }
 }
