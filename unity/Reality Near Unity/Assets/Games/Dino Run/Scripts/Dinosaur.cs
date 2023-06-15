@@ -18,8 +18,6 @@ public class Dinosaur : MonoBehaviour
     {
         dinoRb = GetComponent<Rigidbody2D>();
         dinoAnimator = GetComponent<Animator>();
-        Debug.Log("HOLA Dinosaurio");
-        Debug.Log("dinoRb es " + dinoRb.name);
     }
 
     // Update is called once per frame
@@ -27,19 +25,9 @@ public class Dinosaur : MonoBehaviour
     {
         bool isGrounded = Physics2D.OverlapCircle(groundCheck.position, radius, ground);
         dinoAnimator.SetBool("isGrounded", isGrounded);
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && isGrounded)
         {
-            Debug.Log("Toco la pantalla");
-            Debug.Log("isGrounded: "+ isGrounded.ToString());
-            Debug.Log("dinoRb en toque es " + dinoRb.name);
-
-            if (isGrounded)
-            {
-                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-                //Time.timeScale = 1f;
-                dinoRb.AddForce(Vector2.up * 35);
-            }
-
+            dinoRb.velocity = Vector2.up * upForce;
         }
     }
 

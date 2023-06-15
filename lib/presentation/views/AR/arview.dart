@@ -363,21 +363,22 @@ class _ARSectionState extends State<ARSection> {
     await takeScreenshot();
 
     await showDialog(
-        context: context,
-        barrierColor: Colors.black.withOpacity(0.9),
-        builder: (_) => ScreenshotDialog(
-              globalKey: _globalKey,
-              unityScreenshot: _unityScreenshot,
-              xFunction: () {
-                _unityWidgetController.resume();
-              },
-              saveFunction: () {
-                _unityWidgetController.resume();
-              },
-              shareFunction: () {
-                _unityWidgetController.resume();
-              },
-            )).whenComplete(() => _unityWidgetController.resume());
+      context: context,
+      barrierColor: Colors.black,
+      builder: (_) => ScreenshotDialog(
+        globalKey: _globalKey,
+        unityScreenshot: _unityScreenshot,
+        xFunction: () {
+          _unityWidgetController.resume();
+        },
+        saveFunction: () {
+          _unityWidgetController.resume();
+        },
+        shareFunction: () {
+          _unityWidgetController.resume();
+        },
+      ),
+    ).whenComplete(() => _unityWidgetController.resume());
   }
 
   Widget button(String text, Function press, Color color) {

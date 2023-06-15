@@ -1,0 +1,13 @@
+ManifestFileVersion: 0
+CRC: 4090330312
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: mit
+      Dependencies: {}
+    Info_1:
+      Name: alien
+      Dependencies: {}
+    Info_2:
+      Name: jagger_botella
+      Dependencies: {}
