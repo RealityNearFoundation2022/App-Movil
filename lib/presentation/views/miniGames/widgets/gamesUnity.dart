@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
@@ -57,13 +55,18 @@ class _GameUnityState extends State<GameUnity> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: UnityWidget(
-          onUnityCreated: _onUnityCreated,
-          onUnityMessage: onUnityMessage,
-          onUnitySceneLoaded: onUnitySceneLoaded,
-          unloadOnDispose: true,
-          enablePlaceholder: false,
-          fullscreen: false),
+      child: Stack(
+        children: [
+          UnityWidget(
+              onUnityCreated: _onUnityCreated,
+              onUnityMessage: onUnityMessage,
+              onUnitySceneLoaded: onUnitySceneLoaded,
+              unloadOnDispose: true,
+              enablePlaceholder: false,
+              fullscreen: false),
+          header(),
+        ],
+      ),
     );
   }
 
@@ -138,13 +141,16 @@ class _GameUnityState extends State<GameUnity> {
       margin: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top + 10),
       width: ScreenWH(context).width,
       height: ScreenWH(context).height * 0.15,
-      child: Center(
-        child: Image.asset(
-          "assets/imgs/Logo_sin_fondo.png",
-          width: ScreenWH(context).width * 0.45,
-          height: ScreenWH(context).height * 0.12,
-        ),
-      ),
+      alignment: Alignment.topLeft,
+      child: IconButton(
+          onPressed: () {
+            close();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_rounded,
+            color: greenPrimary,
+            size: 30,
+          )),
     );
   }
 

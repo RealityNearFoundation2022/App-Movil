@@ -29,27 +29,104 @@ class _MiniGamesState extends State<MiniGames> {
       color: Colors.white,
       child: Column(
         children: [
-          ticketzone(),
+          // ticketzone(),
           const SizedBox(
             height: 20,
           ),
-          gameContainer('Dinasour Game', 'Pon a tu destreza en este juego.',
-              'assets/imgs/imgAlfaTest.png', () {
-            Navigator.of(context).push(PageRouteBuilder(
-              transitionDuration: const Duration(milliseconds: 300),
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  SlideTransition(
-                position: Tween<Offset>(
-                  begin: const Offset(-1.0, 0.0),
-                  end: Offset.zero,
-                ).animate(animation),
-                child: const GameUnity(
-                  scene: "DinoGame",
-                ),
-              ),
-            ));
-          })
+          gameBanner('Dinasour Game', 'image', "DinoGame"),
+          // gameContainer('Dinasour Game', 'Pon a tu destreza en este juego.',
+          //     'assets/imgs/imgAlfaTest.png', () {
+          //   Navigator.of(context).push(PageRouteBuilder(
+          //     transitionDuration: const Duration(milliseconds: 300),
+          //     pageBuilder: (context, animation, secondaryAnimation) =>
+          //         SlideTransition(
+          //       position: Tween<Offset>(
+          //         begin: const Offset(-1.0, 0.0),
+          //         end: Offset.zero,
+          //       ).animate(animation),
+          //       child: const GameUnity(
+          //         scene: "DinoGame",
+          //       ),
+          //     ),
+          //   ));
+          // })
         ],
+      ),
+    );
+  }
+
+  gameBanner(String name, String image, String nameUnity) {
+    Size size = MediaQuery.of(context).size;
+    double width = size.width * 0.95;
+    double height = size.width * 0.95 / 2;
+    return Container(
+      alignment: Alignment.center,
+      height: height,
+      width: width,
+      child: InkWell(
+        onTap: () async {
+          Navigator.of(context).push(PageRouteBuilder(
+            transitionDuration: const Duration(milliseconds: 300),
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(-1.0, 0.0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: GameUnity(
+                scene: nameUnity,
+              ),
+            ),
+          ));
+          ;
+        },
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              // child: Image.asset(
+              //   'assets/imgs/cirecle_test.jpeg',
+              //   fit: BoxFit.cover,
+              //   alignment: Alignment.center,
+              // ),
+              child: Image.network(
+                image,
+                fit: BoxFit.cover,
+                width: width,
+                height: height,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: height,
+                    width: width,
+                    decoration: const BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: height,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  color: Colors.black.withOpacity(0.5),
+                  child: Text(
+                    name,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.sourceSansPro(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                )),
+          ],
+        ),
       ),
     );
   }

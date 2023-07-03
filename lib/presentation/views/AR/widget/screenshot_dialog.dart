@@ -173,84 +173,51 @@ class _ScreenshotDialogState extends State<ScreenshotDialog> {
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         child: Padding(
-            padding: const EdgeInsets.all(0),
-            child: Stack(
-              children: [
-                Container(
-                  width: ScreenWH(context).width,
-                  height: ScreenWH(context).height,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+          padding: const EdgeInsets.all(0),
+          child: Stack(
+            children: [
+              Container(
+                width: ScreenWH(context).width,
+                height: ScreenWH(context).height,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: RepaintBoundary(
+                  key: widget.globalKey,
                   child: Stack(
                     children: [
-                      RepaintBoundary(
-                        key: widget.globalKey,
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: ScreenWH(context).width,
-                              height: ScreenWH(context).height,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                image: DecorationImage(
-                                  image: MemoryImage(widget.unityScreenshot),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 20,
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                alignment: Alignment.center,
-                                child: Image.asset(
-                                  "assets/imgs/Logo_sin_fondo.png",
-                                  width: ScreenWH(context).width * 0.3,
-                                  height: ScreenWH(context).height * 0.1,
-                                ),
-                              ),
-                            ),
-                          ],
+                      Container(
+                        width: ScreenWH(context).width,
+                        height: ScreenWH(context).height,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          image: DecorationImage(
+                            image: MemoryImage(widget.unityScreenshot),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                       Positioned(
-                        top: 10,
-                        right: 10,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                            widget.xFunction();
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.1,
-                            height: MediaQuery.of(context).size.width * 0.1,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 7,
-                                  offset: const Offset(
-                                      0, 3), // changes position of shadow
-                                ),
-                              ],
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            alignment: Alignment.center,
-                            child: const Icon(
-                              Icons.close_rounded,
-                              color: greenPrimary,
-                            ),
+                        top: 20,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          alignment: Alignment.center,
+                          child: Image.asset(
+                            "assets/imgs/Logo_sin_fondo.png",
+                            width: ScreenWH(context).width * 0.3,
+                            height: ScreenWH(context).height * 0.1,
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Expanded(
-                    child: Padding(
+              ),
+              Positioned(
+                bottom: 15, // Alineado en la parte inferior
+                left: 10,
+                right: 10,
+                child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: loadFunction
                       ? Container(
@@ -266,67 +233,46 @@ class _ScreenshotDialogState extends State<ScreenshotDialog> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             //Icons to share and save
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.white.withOpacity(0.3),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 30, vertical: 10),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.save_alt,
-                                    color: greenPrimary,
-                                    size: ScreenWH(context).width * 0.06,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'Guardar',
-                                    style: GoogleFonts.sourceSansPro(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
+                            IconButton(
+                              icon: Icon(
+                                Icons.save_alt,
+                                color: greenPrimary,
+                                size: ScreenWH(context).width * 0.1,
                               ),
                               onPressed: () async {
                                 setState(() {
                                   loadFunction = true;
                                 });
-                                addLogoToImage(widget.unityScreenshot)
-                                    .then((value) {
-                                  _saveImageToGallery(value).then((value) => {
-                                        setState(() {
-                                          loadFunction = false;
-                                        }),
-                                        showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return InfoDialog(
-                                                  title: "¡Guardado!",
-                                                  message:
-                                                      "La imagen se ha guardado en tu galería",
-                                                  icon: SizedBox(
-                                                      child: Icon(
-                                                    Icons
-                                                        .check_circle_outline_rounded,
-                                                    color: greenPrimary,
-                                                    size: MediaQuery.of(context)
-                                                            .size
-                                                            .height *
-                                                        0.15,
-                                                  )),
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  });
+                                _capturePng().then((value) {
+                                  _saveImageToGallery(_screenshotCompleted)
+                                      .then((value) => {
+                                            setState(() {
+                                              loadFunction = false;
                                             }),
-                                      });
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return InfoDialog(
+                                                      title: "¡Guardado!",
+                                                      message:
+                                                          "La imagen se ha guardado en tu galería",
+                                                      icon: SizedBox(
+                                                          child: Icon(
+                                                        Icons
+                                                            .check_circle_outline_rounded,
+                                                        color: greenPrimary,
+                                                        size: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.15,
+                                                      )),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      });
+                                                }),
+                                          });
                                 });
                               },
                             ),
@@ -353,34 +299,11 @@ class _ScreenshotDialogState extends State<ScreenshotDialog> {
                                     ),
                                   )
                                 : const SizedBox(),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.white.withOpacity(0.3),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 30, vertical: 10),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                              ),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.ios_share,
-                                    color: greenPrimary,
-                                    size: ScreenWH(context).width * 0.06,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    'Compartir',
-                                    style: GoogleFonts.sourceSansPro(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
+                            IconButton(
+                              icon: Icon(
+                                Icons.ios_share,
+                                color: greenPrimary,
+                                size: ScreenWH(context).width * 0.1,
                               ),
                               onPressed: () async {
                                 setState(() {
@@ -398,8 +321,41 @@ class _ScreenshotDialogState extends State<ScreenshotDialog> {
                             ),
                           ],
                         ),
-                )),
-              ],
-            )));
+                ),
+              ),
+              Positioned(
+                top: 10,
+                right: 10,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    widget.xFunction();
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                    height: MediaQuery.of(context).size.width * 0.1,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 7,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    alignment: Alignment.center,
+                    child: const Icon(
+                      Icons.close_rounded,
+                      color: greenPrimary,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }
