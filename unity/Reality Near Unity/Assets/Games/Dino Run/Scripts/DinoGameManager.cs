@@ -52,7 +52,7 @@ public class DinoGameManager : MonoBehaviour
 
         timer += Time.deltaTime;
         score = (int)(timer * scorePerSeconds);
-        scoreTxt.text = string.Format("{0:0000000}", score);
+        scoreTxt.text = string.Format("{0:0}", score);
     }
 
     public float GetScrollSpeed()
