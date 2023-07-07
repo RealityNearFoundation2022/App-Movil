@@ -52,7 +52,6 @@
      <Compile Include="Assets/Games/Dino Run/Scripts/Scroll.cs" />
      <Compile Include="Assets/AR/Scripts/touchAsset.cs" />
      <Compile Include="Assets/FlutterUnityIntegration/SingletonMonoBehaviour.cs" />
-     <Compile Include="Assets/VuforiaLicense.cs" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets/FlutterUnityIntegration/JsonDotNet/link.xml" />

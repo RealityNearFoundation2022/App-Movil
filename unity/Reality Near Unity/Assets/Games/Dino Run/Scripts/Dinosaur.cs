@@ -42,7 +42,7 @@ public class Dinosaur : MonoBehaviour
         if(collision.gameObject.CompareTag("obstacle"))
         {
             DinoGameManager.Instance.ShowGameOverScreen();
-            dinoAnimator.SetTrigger("die");
+            dinoAnimator.SetTrigger("Die");
             Time.timeScale = 0f;
         }
     }
