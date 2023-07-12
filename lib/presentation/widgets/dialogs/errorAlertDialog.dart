@@ -65,7 +65,7 @@ class ErrorAlertDialog extends StatelessWidget {
                   BlocProvider.of<UserBloc>(context, listen: false)
                       .add(UserLoginAgainEvent());
                   Navigator.of(context).pop();
-                  if (func_back != null) func_back();
+ func_back();
                 }, greenPrimary),
               ],
             ),
@@ -76,8 +76,7 @@ class ErrorAlertDialog extends StatelessWidget {
   Widget button(String text, Function press, Color color) {
     return TextButton(
       style: TextButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        primary: Colors.white,
+        foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         backgroundColor: color,
         padding: const EdgeInsets.symmetric(horizontal: 30),
       ),

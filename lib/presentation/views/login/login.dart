@@ -52,8 +52,7 @@ class Login extends StatelessWidget {
           UserRepository().getMyData().then((value) => value.fold(
                 // ignore: avoid_print
                 (failure) => print(failure),
-                (success) async => {
-                  success.avatar.isEmpty
+                (success) async => success.avatar.isEmpty
                       ? Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -64,8 +63,7 @@ class Login extends StatelessWidget {
                       : await getPermissions().then((value) {
                           Navigator.pushNamedAndRemoveUntil(
                               context, '/home', ModalRoute.withName('/'));
-                        })
-                },
+                        }),
               ));
           // showDialog(
           //     context: context,

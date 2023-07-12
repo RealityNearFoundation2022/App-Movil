@@ -142,15 +142,20 @@ class _GameUnityState extends State<GameUnity> {
       width: ScreenWH(context).width,
       height: ScreenWH(context).height * 0.15,
       alignment: Alignment.topLeft,
-      child: IconButton(
-          onPressed: () {
-            close();
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_rounded,
-            color: greenPrimary,
-            size: 30,
-          )),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+              onPressed: () {
+                close();
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios_rounded,
+                color: greenPrimary,
+                size: 30,
+              )),
+        ],
+      ),
     );
   }
 

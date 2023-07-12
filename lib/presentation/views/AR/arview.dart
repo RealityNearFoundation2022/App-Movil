@@ -360,7 +360,7 @@ class _ARSectionState extends State<ARSection> {
   // //Function to take screenshot and share image
   Future<void> onTakeScreenshot() async {
     // Llama a la función que toma la captura de pantalla
-    await takeScreenshot();
+    takeScreenshot();
 
     await showDialog(
         context: context,

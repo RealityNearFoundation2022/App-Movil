@@ -16,8 +16,7 @@ class UserData {
     if (!currentUserComplete) {
       await repository.getMyData().then((value) => value.fold(
             (failure) => print(failure),
-            (success) => {
-              success.avatar.isEmpty
+            (success) => success.avatar.isEmpty
                   ? Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -30,8 +29,7 @@ class UserData {
                       setPreference('userId', success.id.toString()),
                       setPreference('usAvatar', success.avatar),
                       setPreference('superUser', success.isSuperuser),
-                    }
-            },
+                    },
           ));
     }
     String _fullName = await getPreference('username');
@@ -50,8 +48,7 @@ class UserData {
   refresh() async {
     await repository.getMyData().then((value) => value.fold(
           (failure) => print(failure),
-          (success) => {
-            success.avatar.isEmpty
+          (success) => success.avatar.isEmpty
                 ? Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -63,8 +60,7 @@ class UserData {
                     setPreference('username', success.fullName),
                     setPreference('userId', success.id.toString()),
                     setPreference('usAvatar', success.avatar),
-                  }
-          },
+                  },
         ));
   }
 }

@@ -1,14 +1,12 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/walletScreen/widgets/transactionDetail.dart';
-import 'package:reality_near/presentation/widgets/forms/searchBar.dart';
 
 class TransferScreen extends StatefulWidget {
-  TransferScreen({Key key}) : super(key: key);
+  const TransferScreen({Key key}) : super(key: key);
   static String routeName = "/transfer";
 
   @override
@@ -230,7 +228,7 @@ class _TransferScreenState extends State<TransferScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Container(
+            SizedBox(
               width: 70,
               child: Stack(
                 children: [

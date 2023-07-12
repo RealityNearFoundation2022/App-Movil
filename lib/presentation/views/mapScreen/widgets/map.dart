@@ -55,25 +55,23 @@ class _MapSectionState extends State<MapSection> {
     return Consumer<LocationProvider>(builder: (consumerContext, model, child) {
       model.ctx = consumerContext;
 
-      if (model.locationPosition != null) {
-        lstMarkers.add(Marker(
-          width: 40.0,
-          height: 40.0,
-          point: LatLng(model.locationPosition.latitude,
-              model.locationPosition.longitude),
-          builder: (context) => const Icon(
-            Icons.navigation_rounded,
-            color: greenPrimary,
-            size: 20,
-          ),
-        ));
-      }
+      lstMarkers.add(Marker(
+        width: 40.0,
+        height: 40.0,
+        point: LatLng(model.locationPosition.latitude,
+            model.locationPosition.longitude),
+        builder: (context) => const Icon(
+          Icons.navigation_rounded,
+          color: greenPrimary,
+          size: 20,
+        ),
+      ));
 
       return ClipRRect(
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(30),
           ),
-          child: (model.locationPosition != null && loadMarkers)
+          child: (loadMarkers)
               ? Stack(
                   children: [
                     FlutterMap(

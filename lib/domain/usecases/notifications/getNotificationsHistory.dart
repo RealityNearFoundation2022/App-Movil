@@ -10,7 +10,7 @@ class GetNotificationsHistory {
 
   Future<Either<Failure, List<NotificationModel>>> call() async {
     List<NotificationModel> lstNotifications = [];
-    var _failed;
+    Failure _failed;
     await _repo.getNotificationsHis().then((value) => value.fold(
           (failure) => _failed = failure,
           (success) => {lstNotifications = success},

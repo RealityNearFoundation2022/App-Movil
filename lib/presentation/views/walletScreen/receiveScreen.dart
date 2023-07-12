@@ -6,10 +6,9 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
-import 'package:sizer/sizer.dart';
 
 class ReceiveScreen extends StatefulWidget {
-  ReceiveScreen({Key key}) : super(key: key);
+  const ReceiveScreen({Key key}) : super(key: key);
   static String routeName = "/receive";
 
   @override

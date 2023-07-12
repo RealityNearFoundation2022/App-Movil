@@ -37,7 +37,7 @@ class _SearchbarState extends State<Searchbar> {
           prefixIcon: const Icon(Icons.search),
           suffixIcon: widget.controller.text.isNotEmpty
               ? GestureDetector(
-                  child: Icon(Icons.close),
+                  child: const Icon(Icons.close),
                   onTap: () {
                     widget.controller.clear();
                     widget.onChanged('');

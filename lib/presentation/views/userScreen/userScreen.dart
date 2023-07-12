@@ -12,7 +12,7 @@ import '../../widgets/forms/textForm.dart';
 class userScreen extends StatefulWidget {
   //Variables
   static String routeName = "/userScreen";
-  userScreen({Key key}) : super(key: key);
+  const userScreen({Key key}) : super(key: key);
 
   @override
   State<userScreen> createState() => _userScreenState();
@@ -47,15 +47,12 @@ class _userScreenState extends State<userScreen> {
 
     UserRepository().getMyData().then((value) => value.fold(
           (failure) => print(failure),
-          (success) => {
-            setState(() {
+          (success) => setState(() {
               user = success;
               avatarSelect[pathAvatarSelected
                   .indexWhere((element) => element == user.avatar)] = true;
               loadingData = false;
-            }),
-          },
-        ));
+            }),));
   }
 
   @override
@@ -156,7 +153,7 @@ class _userScreenState extends State<userScreen> {
                       vertical: 10.0, horizontal: 40),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: greenPrimary,
+                        backgroundColor: greenPrimary,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
                         padding: const EdgeInsets.all(10),

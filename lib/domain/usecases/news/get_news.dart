@@ -10,7 +10,7 @@ class GetNews {
     List<NewsModel> news = [];
     await _newsRepository.getNews().then((value) => value.fold(
           (failure) => print(failure),
-          (success) => {news = success},
+          (success) => news = success,
         ));
 
     return news;

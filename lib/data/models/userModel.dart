@@ -33,14 +33,23 @@ class UserModel extends User {
           path: path
         );
 
+  @override
   final String email;
+  @override
   final bool isActive;
+  @override
   final bool isSuperuser;
+  @override
   final String fullName;
+  @override
   final String path;
+  @override
   final String avatar;
+  @override
   final int id;
+  @override
   final DateTime createdAt;
+  @override
   final DateTime updatedAt;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(

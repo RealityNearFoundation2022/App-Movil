@@ -144,37 +144,37 @@ class _LateralDrawerState extends State<LateralDrawer> {
                 ),
               ),
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 26.0, vertical: 8),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/miniGames');
-                },
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(0),
-                      child: SvgPicture.asset(
-                        "assets/icons/juegos_icon.svg",
-                        height: MediaQuery.of(context).size.height * 0.032,
-                        color: greenPrimary,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        'Juegos',
-                        style: GoogleFonts.sourceSansPro(
-                            fontSize: getResponsiveText(context, 16),
-                            color: txtPrimary,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding:
+            //       const EdgeInsets.symmetric(horizontal: 26.0, vertical: 8),
+            //   child: GestureDetector(
+            //     onTap: () {
+            //       Navigator.pushNamed(context, '/miniGames');
+            //     },
+            //     child: Row(
+            //       children: [
+            //         Padding(
+            //           padding: const EdgeInsets.all(0),
+            //           child: SvgPicture.asset(
+            //             "assets/icons/juegos_icon.svg",
+            //             height: MediaQuery.of(context).size.height * 0.032,
+            //             color: greenPrimary,
+            //           ),
+            //         ),
+            //         Padding(
+            //           padding: const EdgeInsets.only(left: 8.0),
+            //           child: Text(
+            //             'Juegos',
+            //             style: GoogleFonts.sourceSansPro(
+            //                 fontSize: getResponsiveText(context, 16),
+            //                 color: txtPrimary,
+            //                 fontWeight: FontWeight.w400),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),

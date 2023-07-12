@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
-import 'package:reality_near/data/datasource/near/nearFunctions.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 // import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
@@ -140,8 +139,7 @@ class _SyncWalletDialogState extends State<SyncWalletDialog> {
   Widget button(String text, Function press, Color color) {
     return TextButton(
       style: TextButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        primary: Colors.white,
+        foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         backgroundColor: color,
         padding: const EdgeInsets.symmetric(horizontal: 30),
       ),

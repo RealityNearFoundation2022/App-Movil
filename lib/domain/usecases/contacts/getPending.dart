@@ -13,11 +13,9 @@ class GetPendingUseCase {
     List<ContactModel> lstRequest = [];
     await _repo.getPendingContacts().then((value) => value.fold(
           (failure) => print(failure),
-          (success) => {
-            lstRequest = success
+          (success) => lstRequest = success
                 .where((element) => element.ownerId.toString() == userId)
-                .toList()
-          },
+                .toList(),
         ));
     return lstRequest;
   }
@@ -41,7 +39,7 @@ class GetPendingUseCase {
           .getUserById(contact.contactId.toString())
           .then((value) => value.fold(
                 (failure) => print(failure),
-                (success) => {user = success},
+                (success) => user = success,
               ));
       user.infContact = contact;
 

@@ -61,7 +61,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
           ),
           child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.5,
-              child: (model.locationPosition != null && loadMarkers)
+              child: (loadMarkers)
                   ? Stack(
                       children: [
                         FlutterMap(

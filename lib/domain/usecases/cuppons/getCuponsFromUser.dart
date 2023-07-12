@@ -10,9 +10,7 @@ class GetCuponsFromUserUseCase {
     List<AssignCuponModel> lstCupons = [];
     await _repo.ReadCuponFromUser().then((value) => value.fold(
           (failure) => print(failure),
-          (success) => {
-            lstCupons = success.toList()
-      },
+          (success) => lstCupons = success.toList(),
     ));
     return lstCupons;
   }
@@ -31,7 +29,7 @@ class GetCuponsFromUserUseCase {
           .ReadCupon(cuponAssign.couponId.toString())
           .then((value) => value.fold(
             (failure) => print(failure),
-            (success) => {lstCupons.add(success)},
+            (success) => lstCupons.add(success),
       ));
 
       // lstCupons.add(cupon);

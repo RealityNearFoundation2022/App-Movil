@@ -1,7 +1,6 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-import 'package:reality_near/domain/entities/user.dart';
 
 NotificationModel notificationModelFromJson(String str) =>
     NotificationModel.fromJson(json.decode(str));

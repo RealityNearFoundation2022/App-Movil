@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/core/helper/url_constants.dart';
 import 'package:reality_near/data/models/news_model.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/news_details_page.dart';

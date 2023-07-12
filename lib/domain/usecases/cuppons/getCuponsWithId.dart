@@ -10,7 +10,7 @@ class GetCuponsWithIdUseCase {
     CuponModel cupon = CuponModel();
     await _repo.ReadCupon(cuponId).then((value) => value.fold(
           (failure) => print(failure),
-          (success) => {cupon = success},
+          (success) => cupon = success,
         ));
 
     return cupon;

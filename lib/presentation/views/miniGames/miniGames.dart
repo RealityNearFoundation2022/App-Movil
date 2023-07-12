@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/presentation/views/miniGames/widgets/gamesUnity.dart';
+import 'package:reality_near/presentation/views/miniGames/widgets/games_unity.dart';
 
 class MiniGames extends StatefulWidget {
   static String routeName = '/miniGames';
@@ -78,7 +78,6 @@ class _MiniGamesState extends State<MiniGames> {
               ),
             ),
           ));
-          ;
         },
         child: Stack(
           children: [

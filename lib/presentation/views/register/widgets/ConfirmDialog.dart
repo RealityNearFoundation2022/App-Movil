@@ -78,8 +78,7 @@ class _ConfirmUserDialogState extends State<ConfirmUserDialog> {
   Widget button(String text, Function press, Color color) {
     return TextButton(
       style: TextButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        primary: Colors.white,
+        foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         backgroundColor: color,
         padding: const EdgeInsets.symmetric(horizontal: 20),
       ),

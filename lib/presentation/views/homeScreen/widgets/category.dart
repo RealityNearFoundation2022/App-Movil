@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reality_near/generated/l10n.dart';
 
 buildCategory(String name, Color defaultFontColor, Size size, Function onTap) {
   return Row(

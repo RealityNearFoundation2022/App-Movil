@@ -1,5 +1,4 @@
 import "dart:io";
-import "dart:typed_data";
 
 import "package:flutter/material.dart";
 import "package:flutter/rendering.dart";
@@ -115,14 +114,14 @@ class _ScreenshotDialogState extends State<ScreenshotDialog> {
     final imageSize = Size(image.width.toDouble(), image.height.toDouble());
 
     // Definimos el tamaño objetivo de la imagen
-    final targetSize = Size(1080, 1920);
+    const targetSize = Size(1080, 1920);
 
     // Calculamos la proporción de aspecto de la imagen original
     final aspectRatio = imageSize.width / imageSize.height;
 
     // Calculamos la proporción de aspecto del tamaño objetivo
     // final targetAspectRatio = targetSize.width / targetSize.height;
-    final targetAspectRatio = 9 / 16;
+    const targetAspectRatio = 9 / 16;
 
     // Calculamos el rectángulo de recorte para la imagen original
     Rect cropRect;

@@ -49,5 +49,6 @@ class UserRegisterEvent extends UserEvent {
 
   const UserRegisterEvent(this.email, this.password, this.username, this.path);
 
+  @override
   List<Object> get props => [email, password, username];
 }

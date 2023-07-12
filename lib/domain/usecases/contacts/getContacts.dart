@@ -1,4 +1,3 @@
-import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/models/contactModel.dart';
 import 'package:reality_near/data/repository/contactRepository.dart';
 import 'package:reality_near/data/repository/user_repository.dart';
@@ -12,7 +11,7 @@ class GetContactsUseCase {
     List<ContactModel> lstRequest = [];
     await _repo.getContacts().then((value) => value.fold(
           (failure) => print(failure),
-          (success) => {lstRequest = success.toList()},
+          (success) => lstRequest = success.toList(),
         ));
     return lstRequest;
   }
@@ -31,7 +30,7 @@ class GetContactsUseCase {
           .getUserById(contact.contactId.toString())
           .then((value) => value.fold(
                 (failure) => print(failure),
-                (success) => {user = success},
+                (success) => user = success,
               ));
       user.infContact = contact;
 

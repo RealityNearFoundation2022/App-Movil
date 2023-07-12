@@ -5,7 +5,7 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/generated/l10n.dart';
 
 class TransferDetail extends StatefulWidget {
-  TransferDetail({Key key}) : super(key: key);
+  const TransferDetail({Key key}) : super(key: key);
   static String routeName = "/transferDeatil";
 
   @override
