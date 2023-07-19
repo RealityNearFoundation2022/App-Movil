@@ -200,9 +200,9 @@ class _GameUnityState extends State<GameUnity> {
 
   void selectScene(String sceneName) async {
     print('Scene name to load: $sceneName');
-    await Future.delayed(const Duration(milliseconds: 200));
-
     _unityWidgetController.postMessage(
         'InitialController', 'LoadScene', sceneName);
+    await Future.delayed(const Duration(milliseconds: 300));
+    _unityWidgetController.postMessage('GameManager', 'RestartScene', '');
   }
 }
