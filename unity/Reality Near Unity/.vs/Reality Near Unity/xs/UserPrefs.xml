@@ -1,16 +1,39 @@
 ﻿<Properties StartupConfiguration="{0617D641-B2D9-CCF9-9683-1BB56BBAAAE8}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Games/Dino Run/Scripts/Dinosaur.cs">
-    <Files>
-      <File FileName="Assets/Games/Dino Run/Scripts/Dinosaur.cs" Line="34" Column="40" />
-      <File FileName="Assets/AR/Scripts/touchAsset.cs" />
-      <File FileName="Assets/Games/Dino Run/Scripts/DinoGameManager.cs" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="55f46c6c-2530-4724-aebd-4be1bcf8ef1a" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="3d61564b-6316-447c-9c1b-887f86051641" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/AR/Scripts/Screenshot.cs">
+    <Files>
+      <File FileName="Assets/Games/Dino Run/Scripts/Dinosaur.cs" />
+      <File FileName="Assets/AR/Scripts/touchAsset.cs" />
+      <File FileName="Assets/Games/Dino Run/Scripts/DinoGameManager.cs" Line="75" Column="13" />
+      <File FileName="Assets/AR/Scripts/DownloadAssetBundle.cs" Line="15" Column="89" />
+      <File FileName="Assets/AR/Scripts/Screenshot.cs" Line="21" Column="73" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="Reality Near Unity" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="AR" expanded="True">
+                <Node name="Scripts" expanded="True" />
+              </Node>
+              <Node name="FlutterUnityIntegration" expanded="True">
+                <Node name="Editor" expanded="True" />
+              </Node>
+              <Node name="Games" expanded="True">
+                <Node name="Dino Run" expanded="True">
+                  <Node name="Scripts" expanded="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
 </Properties>

@@ -36,9 +36,12 @@ class _GameUnityState extends State<GameUnity> {
   }
 
   close() async {
-    await _unityWidgetController.pause();
+    // await _unityWidgetController.pause();
     await Future.delayed(const Duration(milliseconds: 200));
-    _unityWidgetController.unload();
+    // await _unityWidgetController.unload();
+    selectScene('Initial Scene');
+    await Future.delayed(const Duration(milliseconds: 500));
+
     _unityWidgetController.dispose();
     Navigator.of(context).push(PageRouteBuilder(
       transitionDuration: const Duration(milliseconds: 100),
@@ -62,8 +65,10 @@ class _GameUnityState extends State<GameUnity> {
               onUnityMessage: onUnityMessage,
               onUnitySceneLoaded: onUnitySceneLoaded,
               unloadOnDispose: true,
+              useAndroidViewSurface: false,
+              printSetupLog: false,
               enablePlaceholder: false,
-              fullscreen: false),
+              fullscreen: true),
           header(),
         ],
       ),
@@ -159,7 +164,28 @@ class _GameUnityState extends State<GameUnity> {
     );
   }
 
-  void onUnityMessage(message) async {}
+  void onUnityMessage(message) async {
+    print('Received message from unity: ${message.toString()}');
+    if (message.toString().contains("setHighScore")) {
+      String newHighScore = message.toString().split(' - ')[1];
+      setHighScore(newHighScore);
+    } else if (message.toString() == "getHighScore") {
+      getHighScore();
+    }
+  }
+
+  void setHighScore(String highScore) async {
+    print('set high score recibido: $highScore');
+    await setPreference('DinasourGameHighScore', highScore);
+  }
+
+  void getHighScore() async {
+    String highScore = await getPreference('DinasourGameHighScore')
+        .onError((error, stackTrace) => '');
+    print('get high score enviado: ${highScore ?? ''}');
+    _unityWidgetController.postMessage(
+        "GameManager", "getHighScore", highScore);
+  }
 
   void onUnitySceneLoaded(SceneLoaded scene) {
     print("Scene loaded: ${scene.buildIndex}");
@@ -173,6 +199,9 @@ class _GameUnityState extends State<GameUnity> {
   }
 
   void selectScene(String sceneName) async {
+    print('Scene name to load: $sceneName');
+    await Future.delayed(const Duration(milliseconds: 200));
+
     _unityWidgetController.postMessage(
         'InitialController', 'LoadScene', sceneName);
   }

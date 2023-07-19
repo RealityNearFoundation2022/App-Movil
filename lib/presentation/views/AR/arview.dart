@@ -218,7 +218,8 @@ class _ARSectionState extends State<ARSection> {
                             setState(() {
                               _loadScreenshot = true;
                             });
-                            onTakeScreenshot();
+                            // Llama a la función que toma la captura de pantalla
+                            takeScreenshot();
                           },
                           icon: _loadScreenshot
                               ? LoadingAnimationWidget.dotsTriangle(
@@ -305,12 +306,15 @@ class _ARSectionState extends State<ARSection> {
     if (message.toString() == "downloadAssetBundle") {
       downloadAssetBundle();
     }
-    if (message != "downloadAssetBundle") {
-      String encoded = message;
+    if (message.toString().contains("screenshotIMG")) {
+      String encoded = message.toString().split(' - ')[1];
+      print("Imagen de Unity recibida: $encoded");
       setState(() {
         _unityScreenshot = base64.decode(encoded);
         _loadScreenshot = false;
       });
+
+      onTakeScreenshot();
     }
   }
 
@@ -343,13 +347,6 @@ class _ARSectionState extends State<ARSection> {
       'TakeScreenshot',
       '',
     );
-
-    // Espera un segundo para asegurarse de que se haya enviado el mensaje antes de intentar obtener los datos de la imagen
-    await Future.delayed(const Duration(seconds: 1));
-    _unityWidgetController.pause();
-    setState(() {
-      _loadScreenshot = false;
-    });
   }
 
   Uint8List _unityScreenshot;
@@ -359,8 +356,7 @@ class _ARSectionState extends State<ARSection> {
   final GlobalKey _globalKey = GlobalKey();
   // //Function to take screenshot and share image
   Future<void> onTakeScreenshot() async {
-    // Llama a la función que toma la captura de pantalla
-    takeScreenshot();
+    _unityWidgetController.pause();
 
     await showDialog(
         context: context,

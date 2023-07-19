@@ -86,7 +86,7 @@ setPreference(String key, dynamic value) async {
   }
 }
 
-getPreference(String key) async {
+Future<dynamic> getPreference(String key) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.get(key);
 }

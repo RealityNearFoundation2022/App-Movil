@@ -14,6 +14,21 @@ class MiniGames extends StatefulWidget {
 }
 
 class _MiniGamesState extends State<MiniGames> {
+  String name = '';
+  String img = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getParams();
+  }
+
+  getParams() async {
+    name = await getPreference('title_dino_game');
+    img = await getPreference('img_dino_game');
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +48,7 @@ class _MiniGamesState extends State<MiniGames> {
           const SizedBox(
             height: 20,
           ),
-          gameBanner('Dinasour Game', 'image', "DinoGame"),
+          gameBanner(name ?? '', img ?? '', "DinoGame"),
           // gameContainer('Dinasour Game', 'Pon a tu destreza en este juego.',
           //     'assets/imgs/imgAlfaTest.png', () {
           //   Navigator.of(context).push(PageRouteBuilder(
@@ -119,7 +134,7 @@ class _MiniGamesState extends State<MiniGames> {
                     textAlign: TextAlign.center,
                     style: GoogleFonts.sourceSansPro(
                       color: Colors.white,
-                      fontSize: 18,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

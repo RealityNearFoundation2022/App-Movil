@@ -7,6 +7,8 @@ public class SceneMan : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {
+        Debug.Log("cargando escena "+sceneName);
+
         SceneManager.LoadScene(sceneName);
     }
 

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using FlutterUnityIntegration;
 
 public class DinoGameManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverScreen;
     [SerializeField] private TMP_Text scoreTxt;
+    [SerializeField] private TMP_Text highScoreTxt;
+    [SerializeField] private GameObject highScoreGO;
     [SerializeField] private float initialScrollSpeed;
 
     private int score;
@@ -15,6 +18,12 @@ public class DinoGameManager : MonoBehaviour
     private float scrollSpeed;
 
     public static DinoGameManager Instance { get; private set; }
+
+    void Start()
+    {
+        GetComponent<UnityMessageManager>().SendMessageToFlutter("getHighScore");
+    
+    }
 
     private void Awake()
     {
@@ -60,8 +69,25 @@ public class DinoGameManager : MonoBehaviour
         return scrollSpeed;
     }
 
+    public void getHighScore(string highScore) {
+        Debug.Log("unity recibio: " + highScore);
+        if (highScore != "") {
+            highScoreTxt.text = "High Score: " + highScore;
+            highScoreGO.SetActive(true);
+        }
+    }
+
+    public void setHighScore() {
+        int currentScore = int.Parse(scoreTxt.text);
+        int highScore = int.Parse(highScoreTxt.text.Split(":")[1]);
+        if (currentScore > highScore) {
+            string message = "setHighScore - " + scoreTxt.text;
+            GetComponent<UnityMessageManager>().SendMessageToFlutter(message);            
+        }
+    }
+
     private void UpdateSpeed(){
-        float speedDivider = 10f;
+        float speedDivider = 11f;
         scrollSpeed = initialScrollSpeed + timer/speedDivider;
     }
 }

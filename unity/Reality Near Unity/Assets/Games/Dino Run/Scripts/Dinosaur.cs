@@ -44,6 +44,7 @@ public class Dinosaur : MonoBehaviour
             DinoGameManager.Instance.ShowGameOverScreen();
             dinoAnimator.SetTrigger("Die");
             Time.timeScale = 0f;
+            DinoGameManager.Instance.setHighScore();
         }
     }
 }
