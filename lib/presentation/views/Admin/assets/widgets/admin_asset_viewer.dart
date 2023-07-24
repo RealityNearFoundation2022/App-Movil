@@ -1,17 +1,22 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_unity_widget/flutter_unity_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:native_screenshot/native_screenshot.dart';
+// import 'package:native_screenshot/native_screenshot.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/models/asset_model.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
+import 'package:reality_near/presentation/views/AR/widget/screenshot_dialog.dart';
 import 'package:reality_near/presentation/views/mapScreen/map_halfscreen.dart';
+import 'package:share_plus/share_plus.dart';
 
 class AdminARSection extends StatefulWidget {
   final AssetModel assetAR;
@@ -171,17 +176,16 @@ class _AdminARSectionState extends State<AdminARSection> {
     );
   }
 
-  editAsset(){
+  editAsset() {
     return ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(30),
-            topLeft: Radius.circular(30),
-          ),
-          child: Container(
-            
-          ),
-          );
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(30),
+        topLeft: Radius.circular(30),
+      ),
+      child: Container(),
+    );
   }
+
   //Loading Screen
   loading() {
     return Align(
@@ -225,14 +229,17 @@ class _AdminARSectionState extends State<AdminARSection> {
   }
 
   void onUnityMessage(message) async {
+    print(message.toString());
     if (message.toString() == "downloadAssetBundle") {
       downloadAssetBundle();
     }
-    // if (message.toString() == "touchAsset") {
-    //   setState(() {
-    //     showDialog(context: context, builder: (context) => const PlaceDialog());
-    //   });
-    // }
+    if (message != "downloadAssetBundle") {
+      String encoded = message;
+      setState(() {
+        _unityScreenshot = base64.decode(encoded);
+        _loadScreenshot = false;
+      });
+    }
   }
 
   void onUnitySceneLoaded(SceneLoaded scene) {
@@ -256,78 +263,49 @@ class _AdminARSectionState extends State<AdminARSection> {
         "assetAR", "DownloadAssetBundleFromServer", path);
   }
 
-  // //Function to take screenshot and share image
-  Future<void> onTakeScreenshot() async {
-    String path = await NativeScreenshot.takeScreenshot();
-    File screenShot = File(path);
-    await showDialog(
-        context: context,
-        builder: (_) => Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30.0)),
-            child: FittedBox(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "¿Deseas guardar la imagen?",
-                      style: GoogleFonts.sourceSansPro(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 22,
-                          color: greenPrimary),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      height: MediaQuery.of(context).size.height * 0.6,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Image.file(
-                        screenShot,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.65,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          button(S.current.Confirmar,
-                              () => Navigator.pop(context), greenPrimary),
-                          button(S.current.Volver, () => deleteFile(screenShot),
-                              const Color.fromRGBO(183, 182, 182, 1.0)),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )));
+  void takeScreenshot() async {
+    // Llama a la función de Unity que toma la captura de pantalla
+    _unityWidgetController.postMessage(
+      "assetAR",
+      'TakeScreenshot',
+      '',
+    );
+
+    // Espera un segundo para asegurarse de que se haya enviado el mensaje antes de intentar obtener los datos de la imagen
+    await Future.delayed(const Duration(seconds: 1));
+    _unityWidgetController.pause();
+    setState(() {
+      _loadScreenshot = false;
+    });
   }
 
-  Future<void> deleteFile(File file) async {
-    try {
-      bool fileExists = await file.exists();
+  // //Function to take screenshot and share image
+  Uint8List _unityScreenshot;
+  bool _loadScreenshot = false;
+  File file = File('');
+  List<XFile> filesToShare = <XFile>[];
+  final GlobalKey _globalKey = GlobalKey();
+  // //Function to take screenshot and share image
+  Future<void> onTakeScreenshot() async {
+    // Llama a la función que toma la captura de pantalla
+    await takeScreenshot();
 
-      if (fileExists) {
-        file.deleteSync();
-      } else {
-        print('File does not exist.');
-      }
-
-      Navigator.pop(context);
-    } catch (e) {
-      print(e);
-    }
+    await showDialog(
+        context: context,
+        barrierColor: Colors.black.withOpacity(0.9),
+        builder: (_) => ScreenshotDialog(
+              globalKey: _globalKey,
+              unityScreenshot: _unityScreenshot,
+              xFunction: () {
+                _unityWidgetController.resume();
+              },
+              saveFunction: () {
+                _unityWidgetController.resume();
+              },
+              shareFunction: () {
+                _unityWidgetController.resume();
+              },
+            )).whenComplete(() => _unityWidgetController.resume());
   }
 
   Widget button(String text, Function press, Color color) {

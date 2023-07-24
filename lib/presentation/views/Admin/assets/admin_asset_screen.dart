@@ -338,7 +338,7 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
           return SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: (loadMarkers)
+              child: (model.locationPosition != null && loadMarkers)
                   ? Stack(
                       children: [
                         FlutterMap(
@@ -571,7 +571,10 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
                             : const SizedBox(),
                         editAddMode ? bottomAddLocation() : const SizedBox(),
                         editionMode ? bottomEditLocation() : const SizedBox(),
-                        !filterContainerActive && !editAddMode && !editionMode
+                        assetSelected != null &&
+                                !filterContainerActive &&
+                                !editAddMode &&
+                                !editionMode
                             ? bottomInfoAsset(assetSelected)
                             : const SizedBox(),
                         SearchContainerActive
@@ -1166,8 +1169,7 @@ class _AdminAssetScreenState extends State<AdminAssetScreen> {
 
                                     scrollController.animateTo(
                                       scrollController.position.minScrollExtent,
-                                      duration:
-                                          const Duration(milliseconds: 500),
+                                      duration: Duration(milliseconds: 500),
                                       curve: Curves.easeOut,
                                     );
                                   },

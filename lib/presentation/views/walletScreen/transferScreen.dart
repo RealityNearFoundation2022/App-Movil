@@ -6,7 +6,7 @@ import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/walletScreen/widgets/transactionDetail.dart';
 
 class TransferScreen extends StatefulWidget {
-  const TransferScreen({Key key}) : super(key: key);
+  TransferScreen({Key key}) : super(key: key);
   static String routeName = "/transfer";
 
   @override
@@ -228,7 +228,7 @@ class _TransferScreenState extends State<TransferScreen> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            SizedBox(
+            Container(
               width: 70,
               child: Stack(
                 children: [

@@ -181,7 +181,7 @@ class _GameUnityState extends State<GameUnity> {
 
   void getHighScore() async {
     String highScore = await getPreference('DinasourGameHighScore')
-        .onError((error, stackTrace) => '');
+        .onError((error, stackTrace) => '')??'';
     print('get high score enviado: ${highScore ?? ''}');
     _unityWidgetController.postMessage(
         "GameManager", "getHighScore", highScore);

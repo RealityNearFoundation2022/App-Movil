@@ -54,6 +54,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -70,7 +71,9 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
-
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a","arm64-v8a"
+        }
     }
 
     signingConfigs {
@@ -83,6 +86,8 @@ android {
     }
     buildTypes {
         release {
+            minifyEnabled true // added previously
+            shrinkResources true // add this
             signingConfig signingConfigs.release
         }
         debug {

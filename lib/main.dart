@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,13 +8,14 @@ import 'package:provider/provider.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/core/helper/url_constants.dart';
+import 'package:reality_near/core/providers/location_provider.dart';
+import 'package:reality_near/core/routes.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
-import 'package:reality_near/core/routes.dart';
 import 'package:reality_near/presentation/views/mapScreen/widgets/map.dart';
-import 'package:reality_near/core/providers/location_provider.dart';
-import 'package:showcaseview/showcaseview.dart';
+
+import 'firebase_options.dart';
 
 bool isLoggedIn;
 Future<void> getVersion() async {
@@ -22,8 +24,11 @@ Future<void> getVersion() async {
   });
 }
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {
     //Traer paths desde firebase
@@ -53,40 +58,33 @@ class MyApp extends StatelessWidget {
               child: const MapSection(),
             ),
           ],
-          child: ShowCaseWidget(
-            onFinish: () => setPreference('passInitGuide', 'true'),
-            builder: Builder(
-              builder: (context) {
-                return MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  title: 'Reality Near',
-                  //Tema Principal, se usa cuando no está activo el modo oscuro
-                  theme: ThemeData(
-                    //Se indica que el tema tiene un brillo luminoso/claro
-                    brightness: Brightness.light,
-                    primarySwatch: Palette.kgreenNR,
-                  ),
-                  //Tema Oscuro, se usa cuando se activa el modo oscuro
-                  // darkTheme: ThemeData(
-                  //   //Se indica que el tema tiene un brillo oscuro
-                  //   brightness: Brightness.dark,
-                  //   scaffoldBackgroundColor: Colors.black,
-                  //   backgroundColor: Colors.black,
-                  //   primarySwatch: Palette.kgreenNR,
-                  // ),
-                  localizationsDelegates: const [
-                    S.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: S.delegate.supportedLocales,
-                  initialRoute: isLoggedIn ? '/home' : '/firstScreen',
-                  // initialRoute:"/qrViewScreen",
-                  routes: routes,
-                );
-              },
+          child:  MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Reality Near',
+            //Tema Principal, se usa cuando no está activo el modo oscuro
+            theme: ThemeData(
+              //Se indica que el tema tiene un brillo luminoso/claro
+              brightness: Brightness.light,
+              primarySwatch: Palette.kgreenNR,
             ),
+            //Tema Oscuro, se usa cuando se activa el modo oscuro
+            // darkTheme: ThemeData(
+            //   //Se indica que el tema tiene un brillo oscuro
+            //   brightness: Brightness.dark,
+            //   scaffoldBackgroundColor: Colors.black,
+            //   backgroundColor: Colors.black,
+            //   primarySwatch: Palette.kgreenNR,
+            // ),
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            initialRoute: isLoggedIn ? '/home' : '/firstScreen',
+            // initialRoute:"/qrViewScreen",
+            routes: routes,
           )),
     );
   }

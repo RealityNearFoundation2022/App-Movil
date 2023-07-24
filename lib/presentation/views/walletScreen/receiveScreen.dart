@@ -1,4 +1,4 @@
-import 'package:dotted_border/dotted_border.dart';
+// import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +8,7 @@ import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
 
 class ReceiveScreen extends StatefulWidget {
-  const ReceiveScreen({Key key}) : super(key: key);
+  ReceiveScreen({Key key}) : super(key: key);
   static String routeName = "/receive";
 
   @override
@@ -92,23 +92,35 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(height: 20),
-                    DottedBorder(
-                        borderType: BorderType.RRect,
-                        color: txtPrimary,
-                        dashPattern: const [12],
-                        strokeWidth: 2,
-                        child: SizedBox(
-                          height: 80,
-                          child: Center(
-                            child: Text(
-                              _walletAddress,
-                              style: GoogleFonts.sourceSansPro(
-                                  fontSize: 24,
-                                  color: txtPrimary,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                          ),
-                        )),
+                    SizedBox(
+                      height: 80,
+                      child: Center(
+                        child: Text(
+                          _walletAddress,
+                          style: GoogleFonts.sourceSansPro(
+                              fontSize: 24,
+                              color: txtPrimary,
+                              fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ),
+                    // DottedBorder(
+                    //     borderType: BorderType.RRect,
+                    //     color: txtPrimary,
+                    //     dashPattern: const [12],
+                    //     strokeWidth: 2,
+                    //     child: SizedBox(
+                    //       height: 80,
+                    //       child: Center(
+                    //         child: Text(
+                    //           _walletAddress,
+                    //           style: GoogleFonts.sourceSansPro(
+                    //               fontSize: 24,
+                    //               color: txtPrimary,
+                    //               fontWeight: FontWeight.w700),
+                    //         ),
+                    //       ),
+                    //     )),
                     const SizedBox(height: 20),
                     Text(
                       S.current.reciveDescrip,

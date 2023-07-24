@@ -12,7 +12,9 @@ public class DownloadAssetBundle : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("En Vuforia");
         GetComponent<UnityMessageManager>().SendMessageToFlutter("downloadAssetBundle");
+
     }
 
     Vector3 StringToVector3(String scale)

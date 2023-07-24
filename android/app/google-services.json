@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "71078242057",
+    "project_id": "reality-near-b0b9b",
+    "storage_bucket": "reality-near-b0b9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71078242057:android:bd7d9290db5a9be61b95d8",
+        "android_client_info": {
+          "package_name": "org.realitynear.reality_near"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "71078242057-1tp9rdfasnddqc0i00d2pni77bjdto68.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.realitynear.reality_near",
+            "certificate_hash": "894d024941fba18c96a8ba20a6a5cbb594d9f2ff"
+          }
+        },
+        {
+          "client_id": "71078242057-9oj2sbdn0qnqbv7a08p8ccaej054p8rg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt82d4Azs4OaaLja7KG3m-auoH4zKCBZk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "71078242057-9oj2sbdn0qnqbv7a08p8ccaej054p8rg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "71078242057-hs5j8pilc8o7mmi5dg2ch41poiubpqi9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.realityNear.app09"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
