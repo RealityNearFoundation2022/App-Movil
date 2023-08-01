@@ -3,29 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/helper/url_constants.dart';
-import 'package:reality_near/data/models/news_model.dart';
-import 'package:reality_near/domain/usecases/news/get_news.dart';
+import 'package:reality_near/data/models/fb_news_model.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/news_details_page.dart';
 
 class SectionCarousel extends StatefulWidget {
-  const SectionCarousel({Key key}) : super(key: key);
+  // final List<NewsModel> newsCarrousel;
+  final List<fsNewsModel> newsCarrousel;
+
+  const SectionCarousel({Key key, this.newsCarrousel}) : super(key: key);
 
   @override
   State<SectionCarousel> createState() => SectionCarouselState();
 }
 
 class SectionCarouselState extends State<SectionCarousel> {
-  bool _isLoading = true;
-  List<NewsModel> lstCarrousel = [];
-
-  _getCarrousel() async {
-    await GetNews().call().then((value) {
-      lstCarrousel =
-          value.where((element) => element.planners == 'Banners').toList();
-      _isLoading = false;
-    });
-  }
-
   PageController _pageController;
   int _position = 0;
 
@@ -36,55 +27,47 @@ class SectionCarouselState extends State<SectionCarousel> {
       initialPage: 0,
       viewportFraction: 0.8,
     );
-    _getCarrousel().then((result) async {
-      if (mounted) {
-        setState(() {});
-      }
-    });
+    //ordenar lista
+    widget.newsCarrousel.sort((a, b) => a.order.compareTo(b.order));
   }
 
   @override
   Widget build(BuildContext context) {
-    return lstCarrousel.isEmpty && !_isLoading
+    return widget.newsCarrousel.isEmpty
         ? const SizedBox()
         : Container(
             height: MediaQuery.of(context).size.height * 0.3,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: _isLoading
-                ? LoadingAnimationWidget.dotsTriangle(
-                    color: greenPrimary,
-                    size: MediaQuery.of(context).size.height * 0.15,
-                  )
-                : ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    child: Stack(
-                      children: [
-                        PageView.builder(
-                          itemCount: lstCarrousel.length,
-                          onPageChanged: (int index) {
-                            setState(() {
-                              _position = index;
-                            });
-                          },
-                          itemBuilder: (BuildContext context, int index) {
-                            return imageSlider(index);
-                          },
-                        ),
-                        Container(
-                            alignment: Alignment.bottomCenter,
-                            margin: const EdgeInsets.only(bottom: 25),
-                            child: AnimatedPageIndicatorFb1(
-                              currentPage: _position,
-                              numPages: lstCarrousel.length,
-                              gradient: const LinearGradient(
-                                  colors: [greenPrimary, greenPrimary]),
-                              activeGradient: const LinearGradient(
-                                  colors: [greenPrimary, greenPrimary]),
-                            )),
-                      ],
-                    ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              child: Stack(
+                children: [
+                  PageView.builder(
+                    itemCount: widget.newsCarrousel.length,
+                    onPageChanged: (int index) {
+                      setState(() {
+                        _position = index;
+                      });
+                    },
+                    itemBuilder: (BuildContext context, int index) {
+                      return imageSlider(index);
+                    },
                   ),
+                  Container(
+                      alignment: Alignment.bottomCenter,
+                      margin: const EdgeInsets.only(bottom: 25),
+                      child: AnimatedPageIndicatorFb1(
+                        currentPage: _position,
+                        numPages: widget.newsCarrousel.length,
+                        gradient: const LinearGradient(
+                            colors: [greenPrimary, greenPrimary]),
+                        activeGradient: const LinearGradient(
+                            colors: [greenPrimary, greenPrimary]),
+                      )),
+                ],
+              ),
+            ),
           );
   }
 
@@ -96,13 +79,14 @@ class SectionCarouselState extends State<SectionCarousel> {
           child: widget,
         );
       },
-      child: CarouselCard(article: lstCarrousel[position]),
+      child: CarouselCard(article: widget.newsCarrousel[position]),
     );
   }
 }
 
 class CarouselCard extends StatelessWidget {
-  final NewsModel article;
+  // final NewsModel article;
+  final fsNewsModel article;
   // ignore: prefer_typing_uninitialized_variables
   const CarouselCard({Key key, this.article}) : super(key: key);
   @override
@@ -121,7 +105,8 @@ class CarouselCard extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.3,
             child: CachedNetworkImage(
-              imageUrl: API_REALITY_NEAR_IMGs + article.image,
+              // imageUrl: API_REALITY_NEAR_IMGs + article.img,
+              imageUrl: article.img,
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,

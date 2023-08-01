@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/presentation/views/miniGames/wheelGame/wheelGame.dart';
 import 'package:reality_near/presentation/views/miniGames/widgets/games_unity.dart';
 
 class MiniGames extends StatefulWidget {
@@ -49,6 +50,10 @@ class _MiniGamesState extends State<MiniGames> {
             height: 20,
           ),
           gameBanner(name ?? '', img ?? '', "DinoGame"),
+          const SizedBox(
+            height: 20,
+          ),
+          gameBanner("Preguntas", img ?? '', "Preguntas"),
           // gameContainer('Dinasour Game', 'Pon a tu destreza en este juego.',
           //     'assets/imgs/imgAlfaTest.png', () {
           //   Navigator.of(context).push(PageRouteBuilder(
@@ -88,9 +93,11 @@ class _MiniGamesState extends State<MiniGames> {
                 begin: const Offset(-1.0, 0.0),
                 end: Offset.zero,
               ).animate(animation),
-              child: GameUnity(
-                scene: nameUnity,
-              ),
+              child: name == "Preguntas"
+                  ? const TriviaGame()
+                  : GameUnity(
+                      scene: nameUnity,
+                    ),
             ),
           ));
         },

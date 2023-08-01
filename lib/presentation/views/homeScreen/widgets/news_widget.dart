@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reality_near/core/helper/url_constants.dart';
-import 'package:reality_near/data/models/news_model.dart';
+import 'package:reality_near/data/models/fb_news_model.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/news_details_page.dart';
 
 class NewsWidget extends StatelessWidget {
-  final NewsModel news;
+  // final NewsModel news;
+  final fsNewsModel news;
   const NewsWidget({Key key, this.news}) : super(key: key);
 
   @override
@@ -29,13 +29,9 @@ class NewsWidget extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(20)),
-              // child: Image.asset(
-              //   'assets/imgs/cirecle_test.jpeg',
-              //   fit: BoxFit.cover,
-              //   alignment: Alignment.center,
-              // ),
               child: Image.network(
-                API_REALITY_NEAR_IMGs + news.image,
+                // API_REALITY_NEAR_IMGs + news.img,
+                news.img,
                 fit: BoxFit.cover,
                 width: width,
                 height: height,

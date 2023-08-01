@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
               child: const MapSection(),
             ),
           ],
-          child:  MaterialApp(
+          child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Reality Near',
             //Tema Principal, se usa cuando no está activo el modo oscuro
@@ -83,7 +83,6 @@ class MyApp extends StatelessWidget {
             ],
             supportedLocales: S.delegate.supportedLocales,
             initialRoute: isLoggedIn ? '/home' : '/firstScreen',
-            // initialRoute:"/qrViewScreen",
             routes: routes,
           )),
     );

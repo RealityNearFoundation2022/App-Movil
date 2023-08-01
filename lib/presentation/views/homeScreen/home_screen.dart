@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/datasource/firebase/fs_news_service.dart';
+import 'package:reality_near/data/models/fb_news_model.dart';
 import 'package:reality_near/data/models/news_model.dart';
 import 'package:reality_near/domain/entities/user.dart';
 import 'package:reality_near/domain/usecases/news/get_news.dart';
@@ -31,7 +33,9 @@ class HomeScreenV2 extends StatefulWidget {
 }
 
 class _HomeScreenV2State extends State<HomeScreenV2> {
-  List<NewsModel> news = [];
+  // List<NewsModel> news = [];
+  List<fsNewsModel> news = [];
+  List<fsNewsModel> carrousselNews = [];
   User user;
   bool load_user = true;
   //Scaffold key
@@ -39,16 +43,22 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
 
   @override
   void initState() {
-    super.initState();
     getUserData();
     getNews();
     checkUpdate();
+    super.initState();
   }
 
+  // getNews() async {
+  //   await GetNews().call().then((value) => setState(() {
+  //         news =
+  //             value.where((element) => element.planners != 'Banners').toList();
+  //       }));
+  // }
   getNews() async {
-    await GetNews().call().then((value) => setState(() {
-          news =
-              value.where((element) => element.planners != 'Banners').toList();
+    await FsNewsService().getNews().then((value) => setState(() {
+          carrousselNews = value.where((element) => element.pinned).toList();
+          news = value;
         }));
   }
 
@@ -116,7 +126,7 @@ class _HomeScreenV2State extends State<HomeScreenV2> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SectionCarousel(),
+                  SectionCarousel(newsCarrousel: carrousselNews),
                   const SizedBox(height: 10),
                   //button
                   noticias(),
