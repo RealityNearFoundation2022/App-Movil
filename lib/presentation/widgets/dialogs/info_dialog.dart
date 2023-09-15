@@ -4,7 +4,7 @@ import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/presentation/widgets/buttons/default_button.dart';
 
 class InfoDialog extends StatelessWidget {
-  final String title, message;
+  final String title, message, image;
   final Function onPressed;
   Widget icon;
   bool closeOption = false;
@@ -14,6 +14,7 @@ class InfoDialog extends StatelessWidget {
       this.message,
       this.icon,
       this.onPressed,
+      this.image,
       this.closeOption})
       : super(
           key: key,
@@ -40,6 +41,16 @@ class InfoDialog extends StatelessWidget {
                       fontSize: 20,
                       color: txtPrimary),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
+                image != null
+                    ? Image.network(
+                        image,
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                      )
+                    : Container(),
                 const SizedBox(
                   height: 10,
                 ),

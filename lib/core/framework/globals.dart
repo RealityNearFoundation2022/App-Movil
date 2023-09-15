@@ -88,7 +88,12 @@ setPreference(String key, dynamic value) async {
 
 Future<dynamic> getPreference(String key) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.get(key);
+  //validate null
+  if (prefs.containsKey(key)) {
+    return prefs.get(key);
+  } else {
+    return null;
+  }
 }
 
 deletesetPreference(String key) async {

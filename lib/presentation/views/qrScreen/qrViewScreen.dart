@@ -22,10 +22,23 @@ class _QrScreenState extends State<QrViewScreen> {
   CuponModel cupon = CuponModel();
 
   _getInfoCupon(String cuponId) async {
-    await GetCuponsWithIdUseCase(cuponId).call().then((value) => setState(() {
-          cupon = value;
-          _loadingInfoCupon = false;
-        }));
+    // await GetCuponsWithIdUseCase(cuponId).call().then((value) => setState(() {
+    //       cupon = value;
+    //       _loadingInfoCupon = false;
+    //     }));
+    //await 3 seconds
+    await Future.delayed(const Duration(seconds: 3)).then((value) {
+      setState(() {
+        cupon = CuponModel(
+          id: 1,
+          title: 'Cupón de prueba',
+          description: loremIpsum.substring(0, 100),
+          terms: loremIpsum.substring(30, 120),
+          expiration: DateTime.now().add(const Duration(days: 30)),
+        );
+        _loadingInfoCupon = false;
+      });
+    });
   }
 
   @override
@@ -54,7 +67,7 @@ class _QrScreenState extends State<QrViewScreen> {
           iconTheme: const IconThemeData(color: greenPrimary, size: 35),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.pushNamed(context, "/home"),
           ),
         ),
         body: _loadingInfoCupon ? loadScreen() : _body());

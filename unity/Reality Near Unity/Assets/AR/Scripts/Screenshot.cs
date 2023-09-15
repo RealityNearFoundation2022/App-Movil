@@ -20,6 +20,6 @@ public class Screenshot : MonoBehaviour
         Destroy(tex);
 
         // Envía la cadena codificada en Base64 al widget de Flutter
-        UnityMessageManager.Instance.SendMessageToFlutter(encoded);
+        UnityMessageManager.Instance.SendMessageToFlutter("screenshotIMG - "+encoded);
     }
 }

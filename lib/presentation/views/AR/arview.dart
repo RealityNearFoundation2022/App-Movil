@@ -18,6 +18,8 @@ import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/views/AR/widget/screenshot_dialog.dart';
 import 'package:reality_near/presentation/views/homeScreen/home_screen.dart';
 import 'package:reality_near/presentation/views/mapScreen/map_halfscreen.dart';
+import 'package:reality_near/presentation/views/qrScreen/qrViewScreen.dart';
+import 'package:reality_near/presentation/widgets/dialogs/info_dialog.dart';
 
 import 'package:share_plus/share_plus.dart';
 
@@ -131,27 +133,22 @@ class _ARSectionState extends State<ARSection> {
         return false;
       },
       child: Material(
-        child: GestureDetector(
-          onHorizontalDragEnd: (details) {
-            close();
-          },
-          child: Stack(
-            children: [
-              loadDataAPI
-                  ? loading()
-                  : UnityWidget(
-                      onUnityCreated: _onUnityCreated,
-                      onUnityMessage: onUnityMessage,
-                      onUnitySceneLoaded: onUnitySceneLoaded,
-                      unloadOnDispose: true,
-                      useAndroidViewSurface: false,
-                      printSetupLog: false,
-                      enablePlaceholder: false,
-                      fullscreen: true),
-              header(),
-              _bottomBar()
-            ],
-          ),
+        child: Stack(
+          children: [
+            loadDataAPI
+                ? loading()
+                : UnityWidget(
+                    onUnityCreated: _onUnityCreated,
+                    onUnityMessage: onUnityMessage,
+                    onUnitySceneLoaded: onUnitySceneLoaded,
+                    unloadOnDispose: true,
+                    useAndroidViewSurface: false,
+                    printSetupLog: false,
+                    enablePlaceholder: false,
+                    fullscreen: true),
+            header(),
+            _bottomBar()
+          ],
         ),
       ),
     );
@@ -302,11 +299,10 @@ class _ARSectionState extends State<ARSection> {
   }
 
   void onUnityMessage(message) async {
-    print(message.toString());
+    print('Mensaje de Unity: $message');
     if (message.toString() == "downloadAssetBundle") {
       downloadAssetBundle();
-    }
-    if (message.toString().contains("screenshotIMG")) {
+    } else if (message.toString().contains("screenshotIMG")) {
       String encoded = message.toString().split(' - ')[1];
       print("Imagen de Unity recibida: $encoded");
       setState(() {
@@ -315,7 +311,47 @@ class _ARSectionState extends State<ARSection> {
       });
 
       onTakeScreenshot();
+    } else if (message.toString().contains("touchAsset")) {
+      touchAsset();
     }
+  }
+
+  touchAsset() async {
+    getPreference('touchAsset').then((value) {
+      print('el valor de touchAsset es: $value');
+      value = value ?? 0;
+      // if (value < 4) {
+      value++;
+      setPreference('touchAsset', value);
+      _unityWidgetController.pause();
+      showDialog(
+          context: context,
+          builder: (context) => InfoDialog(
+                title: 'Capturaste un asset',
+                message:
+                    '!Felicidades¡, has capturado un asset, sigue buscandolos y obtendras una recompensa. Llevas $value/${value < 3 ? (value % 3) * 2 : 3} assets capturados',
+                closeOption: false,
+                icon: const Icon(
+                  Icons.catching_pokemon_rounded,
+                  color: greenPrimary,
+                ),
+                image: 'https://i.imgur.com/2nCt3Sbl.png',
+                onPressed: () {
+                  if (value % 3 == 0) {
+                    Navigator.of(context).pushNamed(
+                      QrViewScreen.routeName,
+                      arguments: {
+                        'cuponId': '1',
+                      },
+                    );
+                  } else {
+                    Navigator.of(context).pop();
+                    _unityWidgetController.resume();
+                  }
+                },
+              ));
+      // }
+    });
   }
 
   void onUnitySceneLoaded(SceneLoaded scene) {

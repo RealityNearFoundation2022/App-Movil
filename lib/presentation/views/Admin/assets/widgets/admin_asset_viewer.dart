@@ -232,13 +232,15 @@ class _AdminARSectionState extends State<AdminARSection> {
     print(message.toString());
     if (message.toString() == "downloadAssetBundle") {
       downloadAssetBundle();
-    }
-    if (message != "downloadAssetBundle") {
-      String encoded = message;
+    } else if (message.toString().contains("screenshotIMG")) {
+      String encoded = message.toString().split(' - ')[1];
+      print("Imagen de Unity recibida: $encoded");
       setState(() {
         _unityScreenshot = base64.decode(encoded);
         _loadScreenshot = false;
       });
+
+      onTakeScreenshot();
     }
   }
 
@@ -288,7 +290,7 @@ class _AdminARSectionState extends State<AdminARSection> {
   // //Function to take screenshot and share image
   Future<void> onTakeScreenshot() async {
     // Llama a la función que toma la captura de pantalla
-    await takeScreenshot();
+    takeScreenshot();
 
     await showDialog(
         context: context,

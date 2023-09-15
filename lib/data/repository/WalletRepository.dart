@@ -17,14 +17,12 @@ class WalletRepository {
         print(KeyStore.publicKeyToString(fullAccessKeyPair.publicKey));
       }
 
-      String walletURL = 'https://wallet.testnet.near.org/login/?';
+      String walletURL = 'https://app.mynearwallet.com/login/?';
       String contractId = 'token.guxal.testnet';
       String appTitle = 'Reality Near';
       String accountId = userAccount;
-      String nearSignInSuccessUrl =
-          'https://near-transaction-serializer.herokuapp.com/success';
-      String nearSignInFailUrl =
-          'https://near-transaction-serializer.herokuapp.com/failure';
+      String nearSignInSuccessUrl = 'https://www.youtube.com';
+      String nearSignInFailUrl = 'https://www.netflix.com/browse';
 
       connectedAccount = await NEARFunctions.loginWithFullAccess(
           walletURL,
