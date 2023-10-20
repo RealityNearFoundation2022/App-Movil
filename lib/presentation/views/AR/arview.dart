@@ -11,6 +11,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/datasource/firebase/firebase_analytics_service.dart';
 import 'package:reality_near/data/models/asset_model.dart';
 import 'package:reality_near/data/repository/assetRepository.dart';
 import 'package:reality_near/generated/l10n.dart';
@@ -111,6 +112,11 @@ class _ARSectionState extends State<ARSection> {
 
     assetAR = mostCloseAsset ?? randomElementFromList(lstDefault);
     print("el asset mas cercano es: ${assetAR.name} esta a $distance mts");
+    //Send to Analytics
+    FirebaseAnalyticsService().logEvent(
+      'asset_view',
+      {'name': assetAR.name},
+    );
     setState(() {
       loadDataAPI = false;
     });
@@ -338,6 +344,13 @@ class _ARSectionState extends State<ARSection> {
                 image: 'https://i.imgur.com/2nCt3Sbl.png',
                 onPressed: () {
                   if (value % 3 == 0) {
+                    FirebaseAnalyticsService().logEvent(
+                      'get_cupon',
+                      {
+                        'cupon_id': '1',
+                        'cupon_name': "Cupón de prueba",
+                      },
+                    );
                     Navigator.of(context).pushNamed(
                       QrViewScreen.routeName,
                       arguments: {

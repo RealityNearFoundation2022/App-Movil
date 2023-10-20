@@ -350,12 +350,12 @@ namespace Unity.VisualScripting
 
         public static string CSharpName(this Namespace @namespace, bool full = true)
         {
-            return @namespace.IsGlobal ? "(global)" : (full ? @namespace.FullName : @namespace.Name);
+            return @namespace.IsGlobal ? "(global)" : (full ? @namespace.username : @namespace.Name);
         }
 
         public static string HumanName(this Namespace @namespace, bool full = true)
         {
-            return @namespace.IsGlobal ? "(Global Namespace)" : (full ? @namespace.FullName.Replace(".", "/").Prettify() : @namespace.Name.Prettify());
+            return @namespace.IsGlobal ? "(Global Namespace)" : (full ? @namespace.username.Replace(".", "/").Prettify() : @namespace.Name.Prettify());
         }
 
         public static string ToSummaryString(this Exception ex)

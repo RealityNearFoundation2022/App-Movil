@@ -22160,7 +22160,7 @@ IL_0041:
 		}
 	}
 	{
-		// Debug.LogWarning($"No active {typeof(XRInputSubsystem).FullName} is available. Please ensure that a " +
+		// Debug.LogWarning($"No active {typeof(XRInputSubsystem).username} is available. Please ensure that a " +
 		//     "valid loader configuration exists in the XR project settings.");
 		RuntimeTypeHandle_t332A452B8B6179E4469B69525D0FE82A88030F7B L_13 = { reinterpret_cast<intptr_t> (XRInputSubsystem_tFECE6683FCAEBF05BAD05E5D612690095D8BAD34_0_0_0_var) };
 		il2cpp_codegen_runtime_class_init_inline(Type_t_il2cpp_TypeInfo_var);
@@ -24574,7 +24574,7 @@ IL_0041:
 		}
 	}
 	{
-		// Debug.LogWarning($"No active {typeof(XRMeshSubsystem).FullName} is available. Please ensure that a valid loader configuration exists in the XR project settings and that meshing is supported.");
+		// Debug.LogWarning($"No active {typeof(XRMeshSubsystem).username} is available. Please ensure that a valid loader configuration exists in the XR project settings and that meshing is supported.");
 		RuntimeTypeHandle_t332A452B8B6179E4469B69525D0FE82A88030F7B L_13 = { reinterpret_cast<intptr_t> (XRMeshSubsystem_tDDC31EC10D4F0517542F9EB296428A0F7EC2C3B2_0_0_0_var) };
 		il2cpp_codegen_runtime_class_init_inline(Type_t_il2cpp_TypeInfo_var);
 		Type_t* L_14;

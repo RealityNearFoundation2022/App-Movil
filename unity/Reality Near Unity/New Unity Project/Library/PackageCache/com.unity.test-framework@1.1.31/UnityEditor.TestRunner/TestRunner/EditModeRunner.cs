@@ -310,7 +310,7 @@ namespace UnityEditor.TestTools.TestRunner
 
         private void OnRestoringTest()
         {
-            var item = m_ExecutedTests.Find(t => t.fullName == UnityTestExecutionContext.CurrentContext.CurrentTest.FullName);
+            var item = m_ExecutedTests.Find(t => t.username == UnityTestExecutionContext.CurrentContext.CurrentTest.username);
             if (item != null)
             {
                 item.RestoreTestResult(UnityTestExecutionContext.CurrentContext.CurrentResult);

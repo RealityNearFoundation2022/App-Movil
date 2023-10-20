@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/datasource/firebase/firebase_analytics_service.dart';
 import 'package:reality_near/data/repository/user_repository.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
@@ -53,26 +54,33 @@ class Login extends StatelessWidget {
                 // ignore: avoid_print
                 (failure) => print(failure),
                 (success) async => success.avatar.isEmpty
-                      ? Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => NoAvatarScreen(
-                                    user: success,
-                                  )),
-                        )
-                      : await getPermissions().then((value) {
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NoAvatarScreen(
+                                  user: success,
+                                )),
+                      )
+                    : await getPermissions().then((value) {
+                        if (value) {
+                          //set user properties location to analytics
+                          FirebaseAnalyticsService().setUserProperties();
                           Navigator.pushNamedAndRemoveUntil(
                               context, '/home', ModalRoute.withName('/'));
-                        }),
+                        } else {
+                          // show dialog when permissions are not granted
+                          showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (dialogContext) {
+                                return ErrorAlertDialog(
+                                  errorMessage:
+                                      'No se han otorgado permisos para el funcionamiento de la aplicación',
+                                );
+                              });
+                        }
+                      }),
               ));
-          // showDialog(
-          //     context: context,
-          //     builder: (context) => SyncWalletDialog(
-          //           onLogin: () {
-          //             Navigator.pushNamedAndRemoveUntil(
-          //                 context, '/home', ModalRoute.withName('/'));
-          //           },
-          //         ));
         } else if (state is UserFailState) {
           //Show dialog when Login failed
           showDialog(

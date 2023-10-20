@@ -53,7 +53,7 @@ namespace Unity.VisualScripting
 
         protected override string FavoriteKey()
         {
-            return $"{structType.FullName}@create";
+            return $"{structType.username}@create";
         }
 
         public override void Deserialize(UnitOptionRow row)

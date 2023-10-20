@@ -32,7 +32,7 @@ namespace UnityEngine.TestRunner.TestLaunchers
         {
             testId = result.Test.Id;
             name = result.Name;
-            fullName = result.FullName;
+            fullName = result.username;
             resultState = result.ResultState.ToString();
             testStatus = result.ResultState.Status;
             duration = result.Duration;

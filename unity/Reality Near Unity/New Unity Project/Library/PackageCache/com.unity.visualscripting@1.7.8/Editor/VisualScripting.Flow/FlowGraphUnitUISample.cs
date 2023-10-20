@@ -31,7 +31,7 @@ public class FlowGraphUnitUISample : RuntimeFlowGraph
             try
             {
                 string name = unitType.Assembly.GetName().Name;
-                string space = unitType.FullName;
+                string space = unitType.username;
 
                 var unit = Activator.CreateInstance(name, space);
 

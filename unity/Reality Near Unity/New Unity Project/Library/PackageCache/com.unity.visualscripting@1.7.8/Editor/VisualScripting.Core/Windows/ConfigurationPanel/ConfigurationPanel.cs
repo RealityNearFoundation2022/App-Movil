@@ -70,27 +70,27 @@ namespace Unity.VisualScripting
 
                 if (PreferencesWindow_ShowPreferencesWindow == null)
                 {
-                    throw new MissingMemberException(PreferencesWindowType.FullName, "ShowPreferencesWindow");
+                    throw new MissingMemberException(PreferencesWindowType.username, "ShowPreferencesWindow");
                 }
 
                 if (PreferencesWindow_selectedSectionIndex == null)
                 {
-                    throw new MissingMemberException(PreferencesWindowType.FullName, "selectedSectionIndex");
+                    throw new MissingMemberException(PreferencesWindowType.username, "selectedSectionIndex");
                 }
 
                 if (PreferencesWindow_m_Sections == null)
                 {
-                    throw new MissingMemberException(PreferencesWindowType.FullName, "m_Sections");
+                    throw new MissingMemberException(PreferencesWindowType.username, "m_Sections");
                 }
 
                 if (PreferencesWindow_m_RefreshCustomPreferences == null)
                 {
-                    throw new MissingMemberException(PreferencesWindowType.FullName, "m_RefreshCustomPreferences");
+                    throw new MissingMemberException(PreferencesWindowType.username, "m_RefreshCustomPreferences");
                 }
 
                 if (PreferencesWindow_AddCustomSections == null)
                 {
-                    throw new MissingMemberException(PreferencesWindowType.FullName, "AddCustomSections");
+                    throw new MissingMemberException(PreferencesWindowType.username, "AddCustomSections");
                 }
 
                 PreferencesWindow_SectionType = typeof(EditorWindow).Assembly.GetType("UnityEditor.PreferencesWindow+Section", true);
@@ -98,12 +98,12 @@ namespace Unity.VisualScripting
 
                 if (PreferencesWindow_Section_content == null)
                 {
-                    throw new MissingMemberException(PreferencesWindow_SectionType.FullName, "content");
+                    throw new MissingMemberException(PreferencesWindow_SectionType.username, "content");
                 }
 
                 if (PreferencesWindow_s_ScrollPosition == null)
                 {
-                    throw new MissingMemberException(PreferencesWindowType.FullName, "s_ScrollPosition");
+                    throw new MissingMemberException(PreferencesWindowType.username, "s_ScrollPosition");
                 }
 
                 internalHooksAvailable = true;
@@ -154,27 +154,27 @@ namespace Unity.VisualScripting
 
                     if (PreferencesWindow_ShowPreferencesWindow == null)
                     {
-                        throw new MissingMemberException(PreferencesWindowType.FullName, "ShowPreferencesWindow");
+                        throw new MissingMemberException(PreferencesWindowType.username, "ShowPreferencesWindow");
                     }
 
                     if (PreferencesWindow_selectedSectionIndex == null)
                     {
-                        throw new MissingMemberException(PreferencesWindowType.FullName, "selectedSectionIndex");
+                        throw new MissingMemberException(PreferencesWindowType.username, "selectedSectionIndex");
                     }
 
                     if (PreferencesWindow_m_Sections == null)
                     {
-                        throw new MissingMemberException(PreferencesWindowType.FullName, "m_Sections");
+                        throw new MissingMemberException(PreferencesWindowType.username, "m_Sections");
                     }
 
                     if (PreferencesWindow_m_RefreshCustomPreferences == null)
                     {
-                        throw new MissingMemberException(PreferencesWindowType.FullName, "m_RefreshCustomPreferences");
+                        throw new MissingMemberException(PreferencesWindowType.username, "m_RefreshCustomPreferences");
                     }
 
                     if (PreferencesWindow_AddCustomSections == null)
                     {
-                        throw new MissingMemberException(PreferencesWindowType.FullName, "AddCustomSections");
+                        throw new MissingMemberException(PreferencesWindowType.username, "AddCustomSections");
                     }
 
                     PreferencesWindow_SectionType = typeof(EditorWindow).Assembly.GetType("UnityEditor.PreferencesWindow+Section", true);
@@ -182,7 +182,7 @@ namespace Unity.VisualScripting
 
                     if (PreferencesWindow_Section_content == null)
                     {
-                        throw new MissingMemberException(PreferencesWindow_SectionType.FullName, "content");
+                        throw new MissingMemberException(PreferencesWindow_SectionType.username, "content");
                     }
                 }
 

@@ -140,8 +140,8 @@ namespace UnityEditor.TestTools.TestRunner.GUI
             {
                 if (!result.IsSuite && CategoryMatches(result.Categories))
                 {
-                    if (IDMatchesAssembly(result.Id) && NameMatches(result.FullName) &&
-                        NameMatchesExactly(result.FullName))
+                    if (IDMatchesAssembly(result.Id) && NameMatches(result.username) &&
+                        NameMatchesExactly(result.username))
                     {
                         result.Clear();
                         ClearAncestors(newResultList, result.ParentId);

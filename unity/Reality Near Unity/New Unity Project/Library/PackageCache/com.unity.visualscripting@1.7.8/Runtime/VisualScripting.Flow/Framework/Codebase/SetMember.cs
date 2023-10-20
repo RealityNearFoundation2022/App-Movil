@@ -125,7 +125,7 @@ namespace Unity.VisualScripting
         {
             var aid = new AnalyticsIdentifier
             {
-                Identifier = $"{member.targetType.FullName}.{member.name}(Set)",
+                Identifier = $"{member.targetType.username}.{member.name}(Set)",
                 Namespace = member.targetType.Namespace,
             };
             aid.Hashcode = aid.Identifier.GetHashCode();

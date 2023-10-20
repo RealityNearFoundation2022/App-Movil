@@ -63,7 +63,7 @@ namespace UnityEditor.TestTools.TestRunner
         {
             if (m_CurrentTest != null)
             {
-                m_LastCountedTestName = m_CurrentTest.FullName;
+                m_LastCountedTestName = m_CurrentTest.username;
                 m_RunRestarted = true;
             }
         }
@@ -151,7 +151,7 @@ namespace UnityEditor.TestTools.TestRunner
 
             if (m_RunRestarted)
             {
-                if (test.FullName == m_LastCountedTestName)
+                if (test.username == m_LastCountedTestName)
                     m_RunRestarted = false;
             }
         }
@@ -160,7 +160,7 @@ namespace UnityEditor.TestTools.TestRunner
         {
             if (result.Test is TestMethod)
             {
-                m_PendingTests.Remove(result.Test.FullName);
+                m_PendingTests.Remove(result.Test.username);
             }
         }
 
@@ -176,7 +176,7 @@ namespace UnityEditor.TestTools.TestRunner
                 }
                 else
                 {
-                    expectedTests.Add(test.FullName);
+                    expectedTests.Add(test.username);
                 }
             }
 

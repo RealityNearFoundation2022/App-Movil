@@ -119,55 +119,55 @@ namespace Unity.VisualScripting
 
                 if (WebView_InitWebView == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "InitWebView");
+                    throw new MissingMemberException(WebViewType.username, "InitWebView");
                 }
                 if (WebView_LoadUrl == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "LoadURL");
+                    throw new MissingMemberException(WebViewType.username, "LoadURL");
                 }
                 if (WebView_LoadFile == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "LoadFile");
+                    throw new MissingMemberException(WebViewType.username, "LoadFile");
                 }
                 if (WebView_SetHostView == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "SetHostView");
+                    throw new MissingMemberException(WebViewType.username, "SetHostView");
                 }
                 if (WebView_SetSizeAndPosition == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "SetSizeAndPosition");
+                    throw new MissingMemberException(WebViewType.username, "SetSizeAndPosition");
                 }
                 if (WebView_SetFocus == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "SetFocus");
+                    throw new MissingMemberException(WebViewType.username, "SetFocus");
                 }
                 if (WebView_SetApplicationFocus == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "SetApplicationFocus");
+                    throw new MissingMemberException(WebViewType.username, "SetApplicationFocus");
                 }
                 if (WebView_Show == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "Show");
+                    throw new MissingMemberException(WebViewType.username, "Show");
                 }
                 if (WebView_Hide == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "Hide");
+                    throw new MissingMemberException(WebViewType.username, "Hide");
                 }
                 if (WebView_Back == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "Back");
+                    throw new MissingMemberException(WebViewType.username, "Back");
                 }
                 if (WebView_Forward == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "Forward");
+                    throw new MissingMemberException(WebViewType.username, "Forward");
                 }
                 if (WebView_Reload == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "Reload");
+                    throw new MissingMemberException(WebViewType.username, "Reload");
                 }
                 if (WebView_IntPtrIsNull == null)
                 {
-                    throw new MissingMemberException(WebViewType.FullName, "IntPtrIsNull");
+                    throw new MissingMemberException(WebViewType.username, "IntPtrIsNull");
                 }
 
                 EditorWindow_m_Parent = typeof(EditorWindow).GetField("m_Parent", BindingFlags.Instance | BindingFlags.NonPublic);

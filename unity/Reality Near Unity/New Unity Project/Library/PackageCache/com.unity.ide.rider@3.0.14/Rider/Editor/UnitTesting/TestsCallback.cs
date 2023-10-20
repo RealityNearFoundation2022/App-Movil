@@ -63,9 +63,9 @@ namespace Packages.Rider.Editor.UnitTesting
           // not include parameters of parent testfixture (name of the without parameters is used instead).
           // This leads to 'Test with {id} id is already running' message.
           if (node.TypeInfo == null) 
-            return $"{node.Parent.FullName}.{node.Name}";
+            return $"{node.Parent.username}.{node.Name}";
 
-          return node.FullName;
+          return node.username;
         }
 
         private static NUnit.Framework.Interfaces.TestStatus ParseTestStatus(TestStatus testStatus)

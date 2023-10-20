@@ -12,7 +12,7 @@ namespace UnityEngine.TestTools
 
         public override TestResult Execute(ITestExecutionContext context)
         {
-            using (new ProfilerMarker(Test.FullName).Auto())
+            using (new ProfilerMarker(Test.username).Auto())
                 return base.Execute(context);
         }
     }

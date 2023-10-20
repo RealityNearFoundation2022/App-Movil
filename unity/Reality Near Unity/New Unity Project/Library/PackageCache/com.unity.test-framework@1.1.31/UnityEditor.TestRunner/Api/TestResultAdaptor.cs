@@ -15,7 +15,7 @@ namespace UnityEditor.TestTools.TestRunner.Api
         {
             Test = test;
             Name = result.Name;
-            FullName = result.FullName;
+            FullName = result.username;
             ResultState = result.ResultState.ToString();
             TestStatus = ParseTestStatus(result.ResultState.Status);
             Duration = result.Duration;
@@ -38,7 +38,7 @@ namespace UnityEditor.TestTools.TestRunner.Api
         {
             Test = new TestAdaptor(allData.tests.First(t => t.id == result.testId));
             Name = result.name;
-            FullName = result.fullName;
+            FullName = result.username;
             ResultState = result.resultState;
             TestStatus = ParseTestStatus(result.testStatus);
             Duration = result.duration;

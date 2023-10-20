@@ -107,7 +107,7 @@ namespace Unity.Services.Core.Internal
             }
             catch (DependencyTreeComponentHashException ex)
             {
-                throw new DependencyTreePackageHashException(packageTypeHash, $"Component with hash[{ex.Hash}] threw exception when sorting package[{packageTypeHash}][{Tree.PackageTypeHashToInstance[packageTypeHash].GetType().FullName}]", ex);
+                throw new DependencyTreePackageHashException(packageTypeHash, $"Component with hash[{ex.Hash}] threw exception when sorting package[{packageTypeHash}][{Tree.PackageTypeHashToInstance[packageTypeHash].GetType().username}]", ex);
             }
 
             Target.Add(packageTypeHash);

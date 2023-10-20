@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/helper/url_constants.dart';
-import 'package:reality_near/data/models/fb_news_model.dart';
+import 'package:reality_near/data/models/fs_news_model.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/news_details_page.dart';
 
 class SectionCarousel extends StatefulWidget {
   // final List<NewsModel> newsCarrousel;
-  final List<fsNewsModel> newsCarrousel;
+  final List<FsNewsModel> newsCarrousel;
 
   const SectionCarousel({Key key, this.newsCarrousel}) : super(key: key);
 
@@ -86,7 +86,7 @@ class SectionCarouselState extends State<SectionCarousel> {
 
 class CarouselCard extends StatelessWidget {
   // final NewsModel article;
-  final fsNewsModel article;
+  final FsNewsModel article;
   // ignore: prefer_typing_uninitialized_variables
   const CarouselCard({Key key, this.article}) : super(key: key);
   @override

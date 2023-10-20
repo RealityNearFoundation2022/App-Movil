@@ -97,7 +97,7 @@ namespace UnityEditor.Timeline
                 throw new ArgumentNullException(nameof(type));
 
             if (!typeof(TRuntimeClass).IsAssignableFrom(type))
-                throw new ArgumentException(type.FullName + " does not inherit from" + typeof(TRuntimeClass));
+                throw new ArgumentException(type.username + " does not inherit from" + typeof(TRuntimeClass));
 
             return SubClassCache<TEditorClass>.GetEditorForType(type);
         }

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/core/helper/url_constants.dart';
-import 'package:reality_near/data/models/fb_news_model.dart';
+import 'package:reality_near/data/models/fs_news_model.dart';
 
 class NewsDetailPage extends StatelessWidget {
   // final NewsModel news;
-  final fsNewsModel news;
+  final FsNewsModel news;
   const NewsDetailPage({Key key, this.news}) : super(key: key);
 
   @override

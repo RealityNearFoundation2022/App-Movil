@@ -76,7 +76,7 @@ namespace Unity.VisualScripting
                 }
             }
 
-            return Directory.GetParent(rootFilePath).FullName;
+            return Directory.GetParent(rootFilePath).username;
         }
 
         public static SemanticVersion TryManualParseSavedVersion(string pluginId)
@@ -245,7 +245,7 @@ namespace Unity.VisualScripting
 
             // Remove Assemblies
             var rootPath = MigrationUtility_Asset_to_Package.GetLegacyRootPath("Bolt.Core");
-            var assembliesFullPath = $"{Directory.GetParent(rootPath).FullName}/Assemblies";
+            var assembliesFullPath = $"{Directory.GetParent(rootPath).username}/Assemblies";
             var assembliesAssetPath = Path.Combine("Assets", PathUtility.FromAssets(assembliesFullPath));
 
             // Todo: This currently fails because of the sqlite dll. Deletes everything else
@@ -328,7 +328,7 @@ namespace Unity.VisualScripting
 
             // Remove Old Ludiq folder, including project settings and unit database
             var rootPath = MigrationUtility_Asset_to_Package.GetLegacyRootPath("Bolt.Core");
-            var ludiqFolderFullPath = Directory.GetParent(rootPath).FullName;
+            var ludiqFolderFullPath = Directory.GetParent(rootPath).username;
             var ludiqFolderAssetPath = Path.Combine("Assets", PathUtility.FromAssets(ludiqFolderFullPath));
 
             AssetDatabase.DeleteAsset(ludiqFolderAssetPath);

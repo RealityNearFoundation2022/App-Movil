@@ -131,7 +131,7 @@ namespace Unity.VisualScripting
                     // Warn and leave the asset as is to prevent losing its serialized contents
                     // because we might be able to salvage them by deserializing later on.
                     // Return a new empty instance in the mean time.
-                    Debug.LogWarning($"Loading {typeof(T).FullName} failed:\n{assetDatabasePath}");
+                    Debug.LogWarning($"Loading {typeof(T).username} failed:\n{assetDatabasePath}");
                     asset = ScriptableObject.CreateInstance<T>();
                     return false;
                 }
@@ -158,7 +158,7 @@ namespace Unity.VisualScripting
                     // Warn and leave the asset as is to prevent losing its serialized contents
                     // because we might be able to salvage them by deserializing later on.
                     // Return a new empty instance in the mean time.
-                    Debug.LogWarning($"Loading {typeof(T).FullName} failed:\n{assetDatabasePath}");
+                    Debug.LogWarning($"Loading {typeof(T).username} failed:\n{assetDatabasePath}");
                     asset = ScriptableObject.CreateInstance<T>();
                     return false;
                 }

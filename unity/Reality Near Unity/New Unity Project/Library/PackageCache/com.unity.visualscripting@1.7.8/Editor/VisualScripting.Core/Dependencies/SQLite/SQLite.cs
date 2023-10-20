@@ -340,10 +340,10 @@ namespace Unity.VisualScripting.Dependencies.Sqlite
                 _mappings = new Dictionary<string, TableMapping>();
             }
             TableMapping map;
-            if (!_mappings.TryGetValue(type.FullName, out map))
+            if (!_mappings.TryGetValue(type.username, out map))
             {
                 map = new TableMapping(type, createFlags);
-                _mappings[type.FullName] = map;
+                _mappings[type.username] = map;
             }
             return map;
         }
@@ -418,10 +418,10 @@ namespace Unity.VisualScripting.Dependencies.Sqlite
                 _tables = new Dictionary<string, TableMapping>();
             }
             TableMapping map;
-            if (!_tables.TryGetValue(ty.FullName, out map))
+            if (!_tables.TryGetValue(ty.username, out map))
             {
                 map = GetMapping(ty, createFlags);
-                _tables.Add(ty.FullName, map);
+                _tables.Add(ty.username, map);
             }
             var query = "create table if not exists \"" + map.TableName + "\"(\n";
 

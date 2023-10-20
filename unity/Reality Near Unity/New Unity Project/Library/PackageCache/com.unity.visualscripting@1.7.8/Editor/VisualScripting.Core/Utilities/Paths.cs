@@ -39,7 +39,7 @@ namespace Unity.VisualScripting
 
         public static string editorContents { get; }
 
-        public static string project => Directory.GetParent(assets).FullName;
+        public static string project => Directory.GetParent(assets).username;
 
         public static string projectName => Path.GetFileName(project.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar));
 

@@ -6,7 +6,7 @@ import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/generated/l10n.dart';
 
 import '../../../data/repository/user_repository.dart';
-import '../../../domain/entities/user.dart';
+import '../../../data/models/user_model.dart';
 import '../../widgets/forms/textForm.dart';
 
 class userScreen extends StatefulWidget {
@@ -25,7 +25,7 @@ class _userScreenState extends State<userScreen> {
   final TextEditingController _emailController = TextEditingController();
 
   List<bool> avatarSelect = [false, false, false];
-  User user = User();
+  UserModel user = UserModel();
   String pathSelectedAvatar = "";
   bool loadingData = true;
   // bool loadSaveData = false;
@@ -48,18 +48,19 @@ class _userScreenState extends State<userScreen> {
     UserRepository().getMyData().then((value) => value.fold(
           (failure) => print(failure),
           (success) => setState(() {
-              user = success;
-              avatarSelect[pathAvatarSelected
-                  .indexWhere((element) => element == user.avatar)] = true;
-              loadingData = false;
-            }),));
+            user = success;
+            avatarSelect[pathAvatarSelected
+                .indexWhere((element) => element == user.avatar)] = true;
+            loadingData = false;
+          }),
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
 //text-Form-Password
     TxtForm _txtFormUserName = TxtForm(
-      placeholder: user.fullName,
+      placeholder: user.username,
       controller: _userNameController,
       inputType: InputType.Default,
       txtColor: txtPrimary,
@@ -166,7 +167,7 @@ class _userScreenState extends State<userScreen> {
                             color: Colors.white),
                       ),
                       onPressed: () {
-                        // _userNameController.text = _userNameController.text.isEmpty ? user.fullName : _userNameController.text;
+                        // _userNameController.text = _userNameController.text.isEmpty ? user.username : _userNameController.text;
                         //   showDialog(
                         //       context: context,
                         //       builder: (context) {

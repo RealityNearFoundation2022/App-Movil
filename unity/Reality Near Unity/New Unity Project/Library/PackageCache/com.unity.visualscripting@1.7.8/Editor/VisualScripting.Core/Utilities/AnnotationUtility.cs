@@ -18,17 +18,17 @@ namespace Unity.VisualScripting
 
                 if (AnnotationUtility_GetAnnotations == null)
                 {
-                    throw new MissingMemberException(AnnotationUtilityType.FullName, "GetAnnotations");
+                    throw new MissingMemberException(AnnotationUtilityType.username, "GetAnnotations");
                 }
 
                 if (AnnotationUtility_SetGizmoEnabled == null)
                 {
-                    throw new MissingMemberException(AnnotationUtilityType.FullName, "SetGizmoEnabled");
+                    throw new MissingMemberException(AnnotationUtilityType.username, "SetGizmoEnabled");
                 }
 
                 if (AnnotationUtility_SetIconEnabled == null)
                 {
-                    throw new MissingMemberException(AnnotationUtilityType.FullName, "SetIconEnabled");
+                    throw new MissingMemberException(AnnotationUtilityType.username, "SetIconEnabled");
                 }
 
                 AnnotationType = Assembly.GetAssembly(typeof(UnityEditor.Editor)).GetType("UnityEditor.Annotation", true);
@@ -39,22 +39,22 @@ namespace Unity.VisualScripting
 
                 if (Annotation_classID == null)
                 {
-                    throw new MissingMemberException(AnnotationType.FullName, "classID");
+                    throw new MissingMemberException(AnnotationType.username, "classID");
                 }
 
                 if (Annotation_scriptClass == null)
                 {
-                    throw new MissingMemberException(AnnotationType.FullName, "scriptClass");
+                    throw new MissingMemberException(AnnotationType.username, "scriptClass");
                 }
 
                 if (Annotation_iconEnabled == null)
                 {
-                    throw new MissingMemberException(AnnotationType.FullName, "iconEnabled");
+                    throw new MissingMemberException(AnnotationType.username, "iconEnabled");
                 }
 
                 if (Annotation_gizmoEnabled == null)
                 {
-                    throw new MissingMemberException(AnnotationType.FullName, "gizmoEnabled");
+                    throw new MissingMemberException(AnnotationType.username, "gizmoEnabled");
                 }
 
                 unityAnnotations = new Dictionary<int, Annotation>();

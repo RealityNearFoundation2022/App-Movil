@@ -317,7 +317,7 @@ namespace Unity.VisualScripting
 
             if (field == null)
             {
-                throw new MissingMemberException(type.FullName, name);
+                throw new MissingMemberException(type.username, name);
             }
 
             return field;

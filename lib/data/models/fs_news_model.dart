@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class fsNewsModel {
+class FsNewsModel {
   String
       id; // Identificador único del documento (Firestore asigna automáticamente)
   String content;
@@ -10,7 +10,7 @@ class fsNewsModel {
   String title;
 
   // Constructor
-  fsNewsModel({
+  FsNewsModel({
     this.id,
     this.content,
     this.img,
@@ -20,9 +20,9 @@ class fsNewsModel {
   });
 
   // Método para crear una instancia del modelo de datos a partir de un DocumentSnapshot
-  factory fsNewsModel.fromSnapshot(DocumentSnapshot snapshot) {
+  factory FsNewsModel.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data();
-    return fsNewsModel(
+    return FsNewsModel(
       id: snapshot.id,
       content: data['Content'] ?? '',
       img: data['Img'] ?? '',

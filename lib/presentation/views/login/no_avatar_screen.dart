@@ -4,13 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/repository/user_repository.dart';
-import 'package:reality_near/domain/entities/user.dart';
+import 'package:reality_near/data/models/user_model.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/widgets/others/snackBar.dart';
 
 class NoAvatarScreen extends StatefulWidget {
-  User user;
+  UserModel user;
   NoAvatarScreen({Key key, this.user}) : super(key: key);
 
   @override
@@ -83,7 +83,7 @@ class _NoAvatarScreenState extends State<NoAvatarScreen> {
                   const SizedBox(height: 15),
                   Text.rich(
                     TextSpan(
-                      text: "${S.current.Bienvenido} ${widget.user.fullName}, ",
+                      text: "${S.current.Bienvenido} ${widget.user.username}, ",
                       style: GoogleFonts.sourceSansPro(
                           fontSize: 24,
                           fontWeight: FontWeight.w800,
@@ -124,7 +124,7 @@ class _NoAvatarScreenState extends State<NoAvatarScreen> {
                     showSnackBar(context, S.current.DatosIncompletos, true);
                   } else {
                     await UserRepository()
-                        .editUser(pathSelectedAvatar, widget.user.fullName,
+                        .editUser(pathSelectedAvatar, widget.user.username,
                             widget.user.email)
                         .then((value) async => {
                               await getPermissions().then((value) {

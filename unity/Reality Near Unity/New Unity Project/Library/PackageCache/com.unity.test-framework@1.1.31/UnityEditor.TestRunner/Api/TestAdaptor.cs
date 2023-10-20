@@ -22,7 +22,7 @@ namespace UnityEditor.TestTools.TestRunner.Api
             {
                 childIndex = (int)test.Properties["childIndex"][0];
             }
-            FullName = childIndex != -1 ? GetIndexedTestCaseName(test.FullName, childIndex) : test.FullName;
+            FullName = childIndex != -1 ? GetIndexedTestCaseName(test.username, childIndex) : test.username;
             TestCaseCount = test.TestCaseCount;
             HasChildren = test.HasChildren;
             IsSuite = test.IsSuite;
@@ -72,7 +72,7 @@ namespace UnityEditor.TestTools.TestRunner.Api
         {
             Id = test.id;
             Name = test.name;
-            FullName = test.ChildIndex != -1 ? GetIndexedTestCaseName(test.fullName, test.ChildIndex) : test.fullName;
+            FullName = test.ChildIndex != -1 ? GetIndexedTestCaseName(test.username, test.ChildIndex) : test.username;
             TestCaseCount = test.testCaseCount;
             HasChildren = test.hasChildren;
             IsSuite = test.isSuite;

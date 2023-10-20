@@ -145,7 +145,7 @@ namespace UnityEditor.TestTools.TestRunner.Api.Analytics
                     yield return attribute;
                 }
 
-                var typeKey = node.Method.TypeInfo.FullName;
+                var typeKey = node.Method.TypeInfo.username;
                 if (typesAnalyzed.ContainsKey(typeKey))
                 {
                     yield break;

@@ -80,11 +80,11 @@ namespace Unity.VisualScripting
                         }
                         else if (UnityThread.allowsAPI)
                         {
-                            writer.WriteLine($"{index}: {objectReference.GetType().FullName} [{objectReference.GetHashCode()}] \"{objectReference.name}\"");
+                            writer.WriteLine($"{index}: {objectReference.GetType().username} [{objectReference.GetHashCode()}] \"{objectReference.name}\"");
                         }
                         else
                         {
-                            writer.WriteLine($"{index}: {objectReference.GetType().FullName} [{objectReference.GetHashCode()}]");
+                            writer.WriteLine($"{index}: {objectReference.GetType().username} [{objectReference.GetHashCode()}]");
                         }
 
                         index++;

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:reality_near/core/errors/failure.dart';
+import 'package:reality_near/data/models/user_model.dart';
 import 'package:reality_near/data/repository/user_repository.dart';
-import 'package:reality_near/domain/entities/user.dart';
 
 class RegisterUser {
   UserRepository userRepository = UserRepository();
@@ -11,7 +11,7 @@ class RegisterUser {
   final String path;
   RegisterUser(this.email, this.password, this.username, this.path);
 
-  Future<Either<Failure, User>> call() async {
+  Future<Either<Failure, UserModel>> call() async {
     return await userRepository.registerNewUser(
         email, password, username, path);
   }

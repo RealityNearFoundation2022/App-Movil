@@ -7,8 +7,8 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/data/datasource/firebase/fs_news_service.dart';
-import 'package:reality_near/data/models/fb_news_model.dart';
-import 'package:reality_near/domain/entities/user.dart';
+import 'package:reality_near/data/models/fs_news_model.dart';
+import 'package:reality_near/data/models/user_model.dart';
 import 'package:reality_near/domain/usecases/user/user_data.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/views/AR/arview.dart';
@@ -32,9 +32,9 @@ class HomeScreenV2 extends StatefulWidget {
 
 class _HomeScreenV2State extends State<HomeScreenV2> {
   // List<NewsModel> news = [];
-  List<fsNewsModel> news = [];
-  List<fsNewsModel> carrousselNews = [];
-  User user;
+  List<FsNewsModel> news = [];
+  List<FsNewsModel> carrousselNews = [];
+  UserModel user;
   bool load_user = true;
   //Scaffold key
   final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key

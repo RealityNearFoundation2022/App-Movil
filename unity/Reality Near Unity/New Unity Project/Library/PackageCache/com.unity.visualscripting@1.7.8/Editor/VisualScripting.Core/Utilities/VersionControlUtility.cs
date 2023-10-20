@@ -44,7 +44,7 @@ namespace Unity.VisualScripting
 
                                     if (method == null)
                                     {
-                                        throw new MissingMemberException(provider.FullName, "Checkout");
+                                        throw new MissingMemberException(provider.username, "Checkout");
                                     }
 
                                     method.InvokeOptimized(null, PathUtility.FromProject(path), CheckoutMode.Both, null);
@@ -62,7 +62,7 @@ namespace Unity.VisualScripting
 
                                     if (method == null)
                                     {
-                                        throw new MissingMemberException(provider.FullName, "Checkout");
+                                        throw new MissingMemberException(provider.username, "Checkout");
                                     }
 
                                     method.InvokeOptimized(null, PathUtility.FromProject(path), CheckoutMode.Both);

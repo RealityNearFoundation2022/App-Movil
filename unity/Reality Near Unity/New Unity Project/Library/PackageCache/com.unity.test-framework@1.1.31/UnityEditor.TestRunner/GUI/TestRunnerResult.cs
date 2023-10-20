@@ -38,7 +38,7 @@ namespace UnityEditor.TestTools.TestRunner.GUI
             id = test.Id;
             uniqueId = test.UniqueName;
 
-            fullName = test.FullName;
+            fullName = test.username;
             name = test.Name;
             description = test.Description;
             isSuite = test.IsSuite;

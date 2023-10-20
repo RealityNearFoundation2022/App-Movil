@@ -4,7 +4,7 @@ using NUnit.Framework.Interfaces;
 
 namespace UnityEngine.TestRunner.NUnitExtensions.Filters
 {
-    internal class FullNameFilter : NUnit.Framework.Internal.Filters.FullNameFilter
+    internal class FullNameFilter : NUnit.Framework.Internal.Filters.usernameFilter
     {
         public FullNameFilter(string expectedValue) : base(expectedValue)
         {

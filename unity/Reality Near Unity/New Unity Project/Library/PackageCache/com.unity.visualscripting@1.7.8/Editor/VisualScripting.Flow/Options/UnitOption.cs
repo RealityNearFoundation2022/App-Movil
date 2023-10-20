@@ -166,7 +166,7 @@ namespace Unity.VisualScripting
             row.unitType = Codebase.SerializeType(unitType);
             row.unit = unit.Serialize().json;
 
-            row.category = category?.fullName;
+            row.category = category?.username;
             row.labelHuman = labelHuman;
             row.labelProgrammer = labelProgrammer;
             row.order = order;
@@ -336,7 +336,7 @@ namespace Unity.VisualScripting
 
         protected virtual string FavoriteKey()
         {
-            return unit.GetType().FullName;
+            return unit.GetType().username;
         }
 
         #endregion
@@ -350,7 +350,7 @@ namespace Unity.VisualScripting
 
             if (category != null)
             {
-                label += $" <color=#{ColorPalette.unityForegroundDim.ToHexString()}>(in {category.fullName})</color>";
+                label += $" <color=#{ColorPalette.unityForegroundDim.ToHexString()}>(in {category.username})</color>";
             }
 
             return label;

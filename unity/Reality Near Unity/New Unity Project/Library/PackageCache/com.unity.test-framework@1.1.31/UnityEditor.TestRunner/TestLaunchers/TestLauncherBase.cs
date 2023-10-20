@@ -59,7 +59,7 @@ namespace UnityEditor.TestTools.TestRunner
                 {
                     var targetClass = (T)Activator.CreateInstance(targetClassType);
 
-                    Debug.LogFormat(logString, targetClassType.FullName);
+                    Debug.LogFormat(logString, targetClassType.username);
 
                     using (var logScope = new LogScope())
                     {

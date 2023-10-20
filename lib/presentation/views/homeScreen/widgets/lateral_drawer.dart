@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/domain/entities/user.dart';
+import 'package:reality_near/data/models/user_model.dart';
 import 'package:reality_near/domain/usecases/user/user_data.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
 import 'package:reality_near/presentation/views/AR/arview.dart';
@@ -20,7 +20,7 @@ class LateralDrawer extends StatefulWidget {
 class _LateralDrawerState extends State<LateralDrawer> {
   //List of Map<String, String> with the menu options
 
-  User user;
+  UserModel user;
   bool loading = true;
   bool isAdmin = false;
 
@@ -69,7 +69,7 @@ class _LateralDrawerState extends State<LateralDrawer> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               alignment: Alignment.centerLeft,
               child: Text(
-                loading ? 'Cargando...' : user.fullName,
+                loading ? 'Cargando...' : user.username,
                 style: GoogleFonts.sourceSansPro(
                     fontSize: getResponsiveText(context, 22),
                     color: txtPrimary,

@@ -4,8 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/data/datasource/API/user_datasource.dart';
-import 'package:reality_near/domain/entities/user.dart';
+import 'package:reality_near/data/models/user_model.dart';
 import 'package:reality_near/domain/usecases/user/user_data.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
@@ -24,7 +23,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  User user = User();
+  UserModel user = UserModel();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
 
@@ -110,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           alignment: Alignment.center,
           child: Text(
-            user.fullName,
+            user.username,
             style: GoogleFonts.sourceSansPro(
                 fontSize: getResponsiveText(context, 24),
                 color: txtPrimary,
@@ -251,7 +250,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   editData() {
     //text-Form-Password
     TxtForm _txtFormUserName = TxtForm(
-      placeholder: user.fullName ?? 'Ingresa tu nombre',
+      placeholder: user.username ?? 'Ingresa tu nombre',
       controller: _userNameController,
       inputType: InputType.Default,
       txtColor: txtPrimary,
@@ -295,12 +294,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             onPressed: () {
               final username = _userNameController.text.isNotEmpty
                   ? _userNameController.text
-                  : user.fullName;
+                  : user.username;
               final email = _emailController.text.isNotEmpty
                   ? _emailController.text
                   : user.email;
               final avatar = const AvatarSelect().getAvatar() ?? user.avatar;
-              editUserData(avatar, username, email);
+              // editUserData(avatar, username, email);
             },
             width: MediaQuery.of(context).size.width * 0.6,
           ),
@@ -342,34 +341,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  editUserData(String avatar, String username, String email) {
-    UserRemoteDataSourceImpl service = UserRemoteDataSourceImpl();
-    service.editUserData(avatar, username, email).then((value) => {
-          if (value)
-            {
-              UserData(context).refresh(),
-            },
-          //see dialog to confirm or not
-          showDialog(
-            context: context,
-            builder: (context) => value
-                ? InfoDialog(
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/home");
-                    },
-                    icon: SizedBox(
-                        child: Icon(
-                      Icons.check_circle_outline_rounded,
-                      color: greenPrimary,
-                      size: MediaQuery.of(context).size.height * 0.25,
-                    )),
-                    message: '',
-                    title: 'Datos editados correctamente',
-                  )
-                : ErrorAlertDialog(errorMessage: 'Error al editar los datos'),
-          ),
-        });
-  }
+  // editUserData(String avatar, String username, String email) {
+  //   UserRemoteDataSourceImpl service = UserRemoteDataSourceImpl();
+  //   service.editUserData(avatar, username, email).then((value) => {
+  //         if (value)
+  //           {
+  //             UserData(context).refresh(),
+  //           },
+  //         //see dialog to confirm or not
+  //         showDialog(
+  //           context: context,
+  //           builder: (context) => value
+  //               ? InfoDialog(
+  //                   onPressed: () {
+  //                     Navigator.pushNamed(context, "/home");
+  //                   },
+  //                   icon: SizedBox(
+  //                       child: Icon(
+  //                     Icons.check_circle_outline_rounded,
+  //                     color: greenPrimary,
+  //                     size: MediaQuery.of(context).size.height * 0.25,
+  //                   )),
+  //                   message: '',
+  //                   title: 'Datos editados correctamente',
+  //                 )
+  //               : ErrorAlertDialog(errorMessage: 'Error al editar los datos'),
+  //         ),
+  //       });
+  // }
 
   loadScreen() {
     return Align(

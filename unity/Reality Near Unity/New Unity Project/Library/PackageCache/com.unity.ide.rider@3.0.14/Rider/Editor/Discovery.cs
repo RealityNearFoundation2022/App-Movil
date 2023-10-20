@@ -134,7 +134,7 @@ namespace Packages.Rider.Editor
 
         if (shortcut.Exists)
         {
-          var lines = File.ReadAllLines(shortcut.FullName);
+          var lines = File.ReadAllLines(shortcut.username);
           foreach (var line in lines)
           {
             if (!line.StartsWith("Exec=\""))
@@ -166,7 +166,7 @@ namespace Packages.Rider.Editor
       if (folder.Exists)
       {
         installInfos.AddRange(folder.GetDirectories("*Rider*.app")
-          .Select(a => new RiderInfo(a.FullName, false))
+          .Select(a => new RiderInfo(a.username, false))
           .ToList());
       }
 
@@ -258,7 +258,7 @@ namespace Packages.Rider.Editor
       var buildVersionFile = new FileInfo(Path.Combine(dir, "product-info.json"));
       if (!buildVersionFile.Exists) 
         return null;
-      var json = File.ReadAllText(buildVersionFile.FullName);
+      var json = File.ReadAllText(buildVersionFile.username);
       return ProductInfo.GetProductInfo(json);
     }
     
@@ -267,7 +267,7 @@ namespace Packages.Rider.Editor
       var file = new FileInfo(Path.Combine(path, GetRelativePathToBuildTxt()));
       if (!file.Exists) 
         return null;
-      var text = File.ReadAllText(file.FullName);
+      var text = File.ReadAllText(file.username);
       var index = text.IndexOf("-", StringComparison.Ordinal) + 1; // RD-191.7141.355
       if (index <= 0) 
         return null;
@@ -394,8 +394,8 @@ namespace Packages.Rider.Editor
         return new string[0];
 
       if (!isMac)
-        return new[] {Path.Combine(folder.FullName, searchPattern)}.Where(File.Exists).ToArray();
-      return folder.GetDirectories(searchPattern).Select(f => f.FullName)
+        return new[] {Path.Combine(folder.username, searchPattern)}.Where(File.Exists).ToArray();
+      return folder.GetDirectories(searchPattern).Select(f => f.username)
         .Where(Directory.Exists).ToArray();
     }
 
@@ -549,7 +549,7 @@ namespace Packages.Rider.Editor
           BuildNumber = GetBuildNumber(path);
           ProductInfo = GetBuildVersion(path);
         }
-        Path = new FileInfo(path).FullName; // normalize separators
+        Path = new FileInfo(path).username; // normalize separators
         var presentation = $"Rider {BuildNumber}";
 
         if (ProductInfo != null && !string.IsNullOrEmpty(ProductInfo.version))

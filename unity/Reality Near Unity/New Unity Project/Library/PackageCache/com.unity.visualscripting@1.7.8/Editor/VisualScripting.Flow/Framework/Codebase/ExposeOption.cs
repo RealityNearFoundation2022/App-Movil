@@ -16,7 +16,7 @@ namespace Unity.VisualScripting
 
         protected override string FavoriteKey()
         {
-            return $"{exposedType.FullName}@expose";
+            return $"{exposedType.username}@expose";
         }
 
         protected override string Label(bool human)

@@ -22,7 +22,7 @@ namespace Unity.PlasticSCM.Editor.Configuration
         static string GetPlasticLogDirectoryPath(string logConfigPath)
         {
             return Path.Combine(
-                Directory.GetParent(logConfigPath).FullName,
+                Directory.GetParent(logConfigPath).username,
                 LOGS_DIRECTORY);
         }
 

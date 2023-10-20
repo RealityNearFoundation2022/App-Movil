@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:reality_near/data/models/fb_news_model.dart';
+import 'package:reality_near/data/models/fs_news_model.dart';
 import 'package:reality_near/presentation/views/homeScreen/widgets/news_details_page.dart';
 
 class NewsWidget extends StatelessWidget {
   // final NewsModel news;
-  final fsNewsModel news;
+  final FsNewsModel news;
   const NewsWidget({Key key, this.news}) : super(key: key);
 
   @override

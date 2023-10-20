@@ -788,7 +788,7 @@ namespace UnityEngine.Timeline
             if (!notificationsPlayable.IsValid() && !mixerPlayable.IsValid())
             {
                 Debug.LogErrorFormat("Track {0} of type {1} has no notifications and returns an invalid mixer Playable", name,
-                    GetType().FullName);
+                    GetType().username);
 
                 return Playable.Create(graph);
             }

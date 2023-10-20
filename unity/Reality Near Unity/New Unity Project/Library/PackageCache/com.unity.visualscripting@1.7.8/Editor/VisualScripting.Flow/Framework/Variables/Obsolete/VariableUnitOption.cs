@@ -17,7 +17,7 @@ namespace Unity.VisualScripting
 
         protected override string FavoriteKey()
         {
-            return $"{unit.GetType().FullName}${unit.defaultName}";
+            return $"{unit.GetType().username}${unit.defaultName}";
         }
 
         private string DimmedKind()

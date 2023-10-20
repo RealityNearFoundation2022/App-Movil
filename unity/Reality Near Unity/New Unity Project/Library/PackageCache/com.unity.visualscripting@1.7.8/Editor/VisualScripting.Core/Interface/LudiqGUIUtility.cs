@@ -32,64 +32,64 @@ namespace Unity.VisualScripting
 
                 if (GUIClip_Unclip_Vector2 == null)
                 {
-                    throw new MissingMemberException(GUIClipType.FullName, "Unclip");
+                    throw new MissingMemberException(GUIClipType.username, "Unclip");
                 }
 
                 if (GUIClip_Unclip_Rect == null)
                 {
-                    throw new MissingMemberException(GUIClipType.FullName, "Unclip");
+                    throw new MissingMemberException(GUIClipType.username, "Unclip");
                 }
 
                 if (GUIClip_Clip_Vector2 == null)
                 {
-                    throw new MissingMemberException(GUIClipType.FullName, "Clip");
+                    throw new MissingMemberException(GUIClipType.username, "Clip");
                 }
 
                 if (GUIClip_Clip_Rect == null)
                 {
-                    throw new MissingMemberException(GUIClipType.FullName, "Clip");
+                    throw new MissingMemberException(GUIClipType.username, "Clip");
                 }
 
                 if (GUIClip_topmostRect == null)
                 {
-                    throw new MissingMemberException(GUIClipType.FullName, "topmostRect");
+                    throw new MissingMemberException(GUIClipType.username, "topmostRect");
                 }
 
                 if (GUIClip_visibleRect == null)
                 {
-                    throw new MissingMemberException(GUIClipType.FullName, "visibleRect");
+                    throw new MissingMemberException(GUIClipType.username, "visibleRect");
                 }
 
                 if (GUIClip_GetTopRect == null)
                 {
-                    throw new MissingMemberException(GUIClipType.FullName, "GetTopRect");
+                    throw new MissingMemberException(GUIClipType.username, "GetTopRect");
                 }
 
                 if (GUIClip_GetMatrix == null)
                 {
-                    throw new MissingMemberException(GUIClipType.FullName, "GetMatrix");
+                    throw new MissingMemberException(GUIClipType.username, "GetMatrix");
                 }
 
                 if (GUIClip_SetMatrix == null)
                 {
-                    throw new MissingMemberException(GUIClipType.FullName, "SetMatrix");
+                    throw new MissingMemberException(GUIClipType.username, "SetMatrix");
                 }
 
                 if (GUIClip_enabled == null)
                 {
-                    throw new MissingMemberException(GUIClipType.FullName, "enabled");
+                    throw new MissingMemberException(GUIClipType.username, "enabled");
                 }
 
                 if (GUIClip_GetCount == null)
                 {
-                    throw new MissingMemberException(GUIClipType.FullName, "Internal_GetCount");
+                    throw new MissingMemberException(GUIClipType.username, "Internal_GetCount");
                 }
 
                 GUIStyle_CalcSizeWithConstraints = typeof(GUIStyle).GetMethod("CalcSizeWithConstraints", BindingFlags.Instance | BindingFlags.NonPublic);
 
                 if (GUIStyle_CalcSizeWithConstraints == null)
                 {
-                    throw new MissingMemberException(typeof(GUIStyle).FullName, "CalcSizeWithConstraints");
+                    throw new MissingMemberException(typeof(GUIStyle).username, "CalcSizeWithConstraints");
                 }
 
                 EditorGUIUtility_GetHelpIcon = typeof(EditorGUIUtility).GetMethod("GetHelpIcon", BindingFlags.Static | BindingFlags.NonPublic);
@@ -99,22 +99,22 @@ namespace Unity.VisualScripting
 
                 if (EditorGUIUtility_GetHelpIcon == null)
                 {
-                    throw new MissingMemberException(typeof(EditorGUIUtility).FullName, "GetHelpIcon");
+                    throw new MissingMemberException(typeof(EditorGUIUtility).username, "GetHelpIcon");
                 }
 
                 if (EditorGUIUtility_GetBoldDefaultFont == null)
                 {
-                    throw new MissingMemberException(typeof(EditorGUIUtility).FullName, "GetBoldDefaultFont");
+                    throw new MissingMemberException(typeof(EditorGUIUtility).username, "GetBoldDefaultFont");
                 }
 
                 if (EditorGUIUtility_SetBoldDefaultFont == null)
                 {
-                    throw new MissingMemberException(typeof(EditorGUIUtility).FullName, "SetBoldDefaultFont");
+                    throw new MissingMemberException(typeof(EditorGUIUtility).username, "SetBoldDefaultFont");
                 }
 
                 if (EditorGUIUtility_s_LastControlID == null)
                 {
-                    throw new MissingMemberException(typeof(EditorGUIUtility).FullName, "s_LastControlID");
+                    throw new MissingMemberException(typeof(EditorGUIUtility).username, "s_LastControlID");
                 }
 
                 InspectorWindowType = Assembly.GetAssembly(typeof(Editor)).GetType("UnityEditor.InspectorWindow", true);

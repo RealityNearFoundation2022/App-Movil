@@ -10,6 +10,7 @@ import 'package:reality_near/core/framework/globals.dart';
 import 'package:reality_near/core/helper/url_constants.dart';
 import 'package:reality_near/core/providers/location_provider.dart';
 import 'package:reality_near/core/routes.dart';
+import 'package:reality_near/data/datasource/firebase/firebase_analytics_service.dart';
 import 'package:reality_near/generated/l10n.dart';
 import 'package:reality_near/presentation/bloc/menu/menu_bloc.dart';
 import 'package:reality_near/presentation/bloc/user/user_bloc.dart';
@@ -29,11 +30,15 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  //Init Analitycs
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {
     //Traer paths desde firebase
     await FirestorePaths().getMainPathsFromFirestore();
-    isLoggedIn = await getPreference('userToken') != null;
+    await FirebaseAnalyticsService().initialize();
+
+    isLoggedIn = await getPreference('user') != null;
+
     await getVersion();
 
     runApp(const MyApp());

@@ -3,13 +3,13 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-61.0.0",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-50.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "_flutterfire_internals",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/_flutterfire_internals-1.3.4",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/_flutterfire_internals-1.3.9",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -21,21 +21,21 @@
     },
     {
       "name": "analyzer",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/analyzer-5.13.0",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/analyzer-5.2.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.17"
     },
     {
       "name": "archive",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/archive-3.3.7",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/archive-3.3.9",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "args",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/args-2.4.2",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/args-2.4.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.18"
     },
     {
       "name": "async",
@@ -45,7 +45,7 @@
     },
     {
       "name": "base_x",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/base_x-2.0.0",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/base_x-2.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -63,13 +63,13 @@
     },
     {
       "name": "borsh",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/borsh-0.3.1+2",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/borsh-0.3.1+3",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
     {
       "name": "borsh_annotation",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/borsh_annotation-0.3.1+3",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/borsh_annotation-0.3.1+4",
       "packageUri": "lib/",
       "languageVersion": "2.13"
     },
@@ -99,9 +99,9 @@
     },
     {
       "name": "build_resolvers",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/build_resolvers-2.2.1",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/build_resolvers-2.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.18"
     },
     {
       "name": "build_runner",
@@ -111,7 +111,7 @@
     },
     {
       "name": "build_runner_core",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/build_runner_core-7.2.7+1",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/build_runner_core-7.2.7",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -123,7 +123,7 @@
     },
     {
       "name": "built_value",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/built_value-8.6.1",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/built_value-8.6.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -153,9 +153,9 @@
     },
     {
       "name": "checked_yaml",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/checked_yaml-2.0.3",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/checked_yaml-2.0.2",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.18"
     },
     {
       "name": "clock",
@@ -165,27 +165,27 @@
     },
     {
       "name": "cloud_firestore",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/cloud_firestore-4.8.3",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/cloud_firestore-4.11.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "cloud_firestore_platform_interface",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/cloud_firestore_platform_interface-5.15.3",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/cloud_firestore_platform_interface-6.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "cloud_firestore_web",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/cloud_firestore_web-3.6.3",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/cloud_firestore_web-3.8.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "code_builder",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/code_builder-4.5.0",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/code_builder-4.4.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.17"
     },
     {
       "name": "collection",
@@ -207,15 +207,15 @@
     },
     {
       "name": "crypto",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/crypto-3.0.3",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/crypto-3.0.2",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.14"
     },
     {
       "name": "csslib",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/csslib-0.17.3",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/csslib-0.17.2",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.12"
     },
     {
       "name": "cupertino_icons",
@@ -225,9 +225,9 @@
     },
     {
       "name": "dart_style",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/dart_style-2.3.2",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/dart_style-2.2.5",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.17"
     },
     {
       "name": "dartz",
@@ -266,32 +266,68 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "firebase_analytics",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/firebase_analytics-10.6.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "firebase_analytics_platform_interface",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/firebase_analytics_platform_interface-3.7.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "firebase_analytics_web",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/firebase_analytics_web-0.5.5+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "firebase_auth",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/firebase_auth-4.11.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "firebase_auth_platform_interface",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/firebase_auth_platform_interface-7.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "firebase_auth_web",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/firebase_auth_web-5.8.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "firebase_core",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/firebase_core-2.15.0",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/firebase_core-2.19.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "firebase_core_platform_interface",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/firebase_core_platform_interface-4.8.0",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/firebase_core_platform_interface-5.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "firebase_core_web",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/firebase_core_web-2.6.0",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/firebase_core_web-2.8.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "fixnum",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/fixnum-1.1.0",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/fixnum-1.0.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter",
-      "rootUri": "file:///Users/eduardoperaltasaravia/dev/flutter/packages/flutter",
+      "rootUri": "file:///Users/eduardoperaltasaravia/develop/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -345,7 +381,7 @@
     },
     {
       "name": "flutter_localizations",
-      "rootUri": "file:///Users/eduardoperaltasaravia/dev/flutter/packages/flutter_localizations",
+      "rootUri": "file:///Users/eduardoperaltasaravia/develop/flutter/packages/flutter_localizations",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -375,7 +411,7 @@
     },
     {
       "name": "flutter_test",
-      "rootUri": "file:///Users/eduardoperaltasaravia/dev/flutter/packages/flutter_test",
+      "rootUri": "file:///Users/eduardoperaltasaravia/develop/flutter/packages/flutter_test",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -387,7 +423,7 @@
     },
     {
       "name": "flutter_web_plugins",
-      "rootUri": "file:///Users/eduardoperaltasaravia/dev/flutter/packages/flutter_web_plugins",
+      "rootUri": "file:///Users/eduardoperaltasaravia/develop/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
@@ -405,9 +441,9 @@
     },
     {
       "name": "glob",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/glob-2.1.2",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/glob-2.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.15"
     },
     {
       "name": "google_fonts",
@@ -423,15 +459,15 @@
     },
     {
       "name": "html",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/html-0.15.4",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/html-0.15.3",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.17"
     },
     {
       "name": "http",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/http-0.13.6",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/http-0.13.5",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.14"
     },
     {
       "name": "http_multi_server",
@@ -477,9 +513,9 @@
     },
     {
       "name": "json_annotation",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/json_annotation-4.8.1",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/json_annotation-4.8.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.18"
     },
     {
       "name": "latlong2",
@@ -537,9 +573,9 @@
     },
     {
       "name": "logging",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/logging-1.2.0",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/logging-1.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.18"
     },
     {
       "name": "matcher",
@@ -651,37 +687,37 @@
     },
     {
       "name": "path_provider",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/path_provider-2.0.15",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/path_provider-2.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "path_provider_android",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/path_provider_android-2.0.27",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/path_provider_android-2.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "path_provider_foundation",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.4",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "path_provider_linux",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.11",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "path_provider_platform_interface",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.0.6",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "path_provider_windows",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.7",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -693,7 +729,7 @@
     },
     {
       "name": "permission_handler_platform_interface",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/permission_handler_platform_interface-3.11.3",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/permission_handler_platform_interface-3.11.5",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
@@ -705,9 +741,9 @@
     },
     {
       "name": "platform",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/platform-3.1.0",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/platform-3.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "plugin_platform_interface",
@@ -807,9 +843,9 @@
     },
     {
       "name": "share_plus_platform_interface",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/share_plus_platform_interface-3.2.1",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/share_plus_platform_interface-3.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "shared_preferences",
@@ -825,7 +861,7 @@
     },
     {
       "name": "shared_preferences_foundation",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.3.2",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.3.3",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -873,7 +909,7 @@
     },
     {
       "name": "sky_engine",
-      "rootUri": "file:///Users/eduardoperaltasaravia/dev/flutter/bin/cache/pkg/sky_engine",
+      "rootUri": "file:///Users/eduardoperaltasaravia/develop/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -885,9 +921,9 @@
     },
     {
       "name": "source_helper",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/source_helper-1.3.4",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/source_helper-1.3.3",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.17"
     },
     {
       "name": "source_span",
@@ -987,7 +1023,7 @@
     },
     {
       "name": "url_launcher_android",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.37",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/url_launcher_android-6.0.38",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -1125,21 +1161,21 @@
     },
     {
       "name": "xdg_directories",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/xdg_directories-1.0.1",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/xdg_directories-1.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "xml",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/xml-6.2.2",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/xml-6.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.18"
+      "languageVersion": "2.17"
     },
     {
       "name": "yaml",
-      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/yaml-3.1.2",
+      "rootUri": "file:///Users/eduardoperaltasaravia/.pub-cache/hosted/pub.dev/yaml-3.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "2.12"
     },
     {
       "name": "reality_near",
@@ -1148,7 +1184,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2023-08-16T03:28:07.415599Z",
+  "generated": "2023-10-20T18:01:33.415593Z",
   "generator": "pub",
-  "generatorVersion": "2.19.5"
+  "generatorVersion": "2.19.6"
 }

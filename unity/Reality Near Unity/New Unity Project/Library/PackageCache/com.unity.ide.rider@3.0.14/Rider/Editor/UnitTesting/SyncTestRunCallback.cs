@@ -40,9 +40,9 @@ namespace Packages.Rider.Editor.UnitTesting
       var typeName = node.GetType().Name;
       if (typeName == "ParameterizedMethod" ||
           typeName == "GenericMethod") 
-        return $"{node.Parent.FullName}.{node.Name}";
+        return $"{node.Parent.username}.{node.Name}";
       
-      return node.FullName;
+      return node.username;
     }
   }
 }

@@ -633,7 +633,7 @@ namespace Unity.VisualScripting
             }
             catch (NotSupportedException e)
             {
-                throw new InvalidOperationException($"An error occured when trying to reflect the member '{name}' of the type '{targetType.FullName}' in a '{GetType().Name}' unit. Supported member types: {SupportedMemberTypes}, supported binding flags: {SupportedBindingFlags}", e);
+                throw new InvalidOperationException($"An error occured when trying to reflect the member '{name}' of the type '{targetType.username}' in a '{GetType().Name}' unit. Supported member types: {SupportedMemberTypes}, supported binding flags: {SupportedBindingFlags}", e);
             }
 
             if (candidates.Length == 0) // Not found, check if it might have been renamed
@@ -652,7 +652,7 @@ namespace Unity.VisualScripting
                     }
                     catch (NotSupportedException e)
                     {
-                        throw new InvalidOperationException($"An error occured when trying to reflect the renamed member '{name}' of the type '{targetType.FullName}' in a '{GetType().Name}' unit. Supported member types: {SupportedMemberTypes}, supported binding flags: {SupportedBindingFlags}", e);
+                        throw new InvalidOperationException($"An error occured when trying to reflect the renamed member '{name}' of the type '{targetType.username}' in a '{GetType().Name}' unit. Supported member types: {SupportedMemberTypes}, supported binding flags: {SupportedBindingFlags}", e);
                     }
                 }
             }
@@ -1190,7 +1190,7 @@ namespace Unity.VisualScripting
 
         public string ToUniqueString()
         {
-            var s = targetType.FullName + "." + this.name;
+            var s = targetType.username + "." + this.name;
 
             if (parameterTypes != null)
             {
@@ -1198,7 +1198,7 @@ namespace Unity.VisualScripting
 
                 foreach (var parameterType in parameterTypes)
                 {
-                    s += parameterType.FullName;
+                    s += parameterType.username;
                 }
 
                 s += ")";

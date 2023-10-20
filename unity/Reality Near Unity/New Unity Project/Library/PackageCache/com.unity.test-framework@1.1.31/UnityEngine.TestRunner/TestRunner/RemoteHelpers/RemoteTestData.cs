@@ -32,7 +32,7 @@ namespace UnityEngine.TestRunner.TestLaunchers
         {
             id = test.Id;
             name = test.Name;
-            fullName = test.FullName;
+            fullName = test.username;
             testCaseCount = test.TestCaseCount;
             ChildIndex = -1;
             if (test.Properties["childIndex"].Count > 0)

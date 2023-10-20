@@ -65,7 +65,7 @@ namespace Microsoft.Unity.VisualStudio.Editor
 		bool m_ShouldGenerateAll;
 		IVisualStudioInstallation m_CurrentInstallation;
 
-		public ProjectGeneration() : this(Directory.GetParent(Application.dataPath).FullName)
+		public ProjectGeneration() : this(Directory.GetParent(Application.dataPath).username)
 		{
 		}
 

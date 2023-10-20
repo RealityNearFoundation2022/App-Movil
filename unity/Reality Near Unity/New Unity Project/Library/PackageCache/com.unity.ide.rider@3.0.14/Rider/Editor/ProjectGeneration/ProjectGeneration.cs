@@ -75,7 +75,7 @@ namespace Packages.Rider.Editor.ProjectGeneration
     IAssemblyNameProvider IGenerator.AssemblyNameProvider => m_AssemblyNameProvider;
 
     public ProjectGeneration()
-      : this(Directory.GetParent(Application.dataPath).FullName) { }
+      : this(Directory.GetParent(Application.dataPath).username) { }
 
     public ProjectGeneration(string tempDirectory)
       : this(tempDirectory, new AssemblyNameProvider(), new FileIOProvider(), new GUIDProvider()) { }

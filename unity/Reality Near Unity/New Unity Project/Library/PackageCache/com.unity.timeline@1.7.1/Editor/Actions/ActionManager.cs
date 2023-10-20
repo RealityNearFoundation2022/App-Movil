@@ -277,7 +277,7 @@ namespace UnityEditor.Timeline.Actions
 
                 if (typeCollection[i].GetConstructor(Type.EmptyTypes) == null)
                 {
-                    Debug.LogWarning($"{typeCollection[i].FullName} requires a default constructor to be automatically instantiated by Timeline");
+                    Debug.LogWarning($"{typeCollection[i].username} requires a default constructor to be automatically instantiated by Timeline");
                     continue;
                 }
 

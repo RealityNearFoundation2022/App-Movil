@@ -38,7 +38,7 @@ namespace UnityEngine.TestRunner.NUnitExtensions.Runner
                 if (command == null)
                 {
                     var message = String.Format("IWrapTestMethod implementation '{0}' returned null as command.",
-                        wrapper.GetType().FullName);
+                        wrapper.GetType().username);
                     return new FailCommand(test, ResultState.Failure, message);
                 }
 
@@ -51,7 +51,7 @@ namespace UnityEngine.TestRunner.NUnitExtensions.Runner
                     }
                     
                     var message = String.Format("'{0}' is not supported on {1} as it does not handle returning IEnumerator.",
-                        wrapper.GetType().FullName,
+                        wrapper.GetType().username,
                         GetTestBuilderName(test));
                     return new FailCommand(test, ResultState.Failure, message);
                 }
@@ -71,7 +71,7 @@ namespace UnityEngine.TestRunner.NUnitExtensions.Runner
                 if (command == null)
                 {
                     var message = String.Format("IWrapSetUpTearDown implementation '{0}' returned null as command.",
-                        wrapper.GetType().FullName);
+                        wrapper.GetType().username);
                     return new FailCommand(test, ResultState.Failure, message);
                 }
                 
@@ -84,7 +84,7 @@ namespace UnityEngine.TestRunner.NUnitExtensions.Runner
                     }
                     
                     var message = String.Format("'{0}' is not supported on {1} as it does not handle returning IEnumerator.",
-                        wrapper.GetType().FullName,
+                        wrapper.GetType().username,
                         GetTestBuilderName(test));
                     return new FailCommand(test, ResultState.Failure, message);
                 }

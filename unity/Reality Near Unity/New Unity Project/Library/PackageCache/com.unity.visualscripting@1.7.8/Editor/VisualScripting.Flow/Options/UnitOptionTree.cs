@@ -558,42 +558,42 @@ namespace Unity.VisualScripting
                         yield return eventChild;
                     }
                 }
-                else if (category.fullName == "Codebase")
+                else if (category.username == "Codebase")
                 {
                     foreach (var codebaseChild in CodebaseChildren())
                     {
                         yield return codebaseChild;
                     }
                 }
-                else if (category.fullName == "Variables")
+                else if (category.username == "Variables")
                 {
                     foreach (var variableChild in VariablesChildren())
                     {
                         yield return variableChild;
                     }
                 }
-                else if (category.fullName == "Math")
+                else if (category.username == "Math")
                 {
                     foreach (var mathChild in MathChildren())
                     {
                         yield return mathChild;
                     }
                 }
-                else if (category.fullName == "Time")
+                else if (category.username == "Time")
                 {
                     foreach (var timeChild in TimeChildren())
                     {
                         yield return timeChild;
                     }
                 }
-                else if (category.fullName == "Nesting")
+                else if (category.username == "Nesting")
                 {
                     foreach (var nestingChild in NestingChildren())
                     {
                         yield return nestingChild;
                     }
                 }
-                else if (category.fullName == "Graphs")
+                else if (category.username == "Graphs")
                 {
                     foreach (var macroChild in MacroChildren())
                     {

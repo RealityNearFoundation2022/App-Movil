@@ -147,7 +147,7 @@ namespace Unity.VisualScripting.FullSerializer
             {
 #if !UNITY_EDITOR && (UNITY_WEBPLAYER || UNITY_WP8 || UNITY_METRO)
                 throw new InvalidOperationException("The selected Unity platform requires " +
-                    ReflectedType.FullName + " to have a default constructor. Please add one.");
+                    ReflectedType.username + " to have a default constructor. Please add one.");
 #else
                 return System.Runtime.Serialization.FormatterServices.GetSafeUninitializedObject(ReflectedType);
 #endif

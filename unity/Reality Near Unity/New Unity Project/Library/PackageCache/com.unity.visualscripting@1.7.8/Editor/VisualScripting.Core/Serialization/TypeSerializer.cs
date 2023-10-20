@@ -39,7 +39,7 @@ namespace Unity.VisualScripting
                             var movedFromAttribute = (MovedFromAttribute)attribute;
                             movedFromAttribute.GetData(out _, out var nameSpace, out var assembly, out var className);
 
-                            var currentClassName = GetFullNameNoNamespace(t.FullName, t.Namespace);
+                            var currentClassName = GetFullNameNoNamespace(t.username, t.Namespace);
                             var currentNamespace = t.Namespace;
                             var currentAssembly = t.Assembly.GetName().Name;
 

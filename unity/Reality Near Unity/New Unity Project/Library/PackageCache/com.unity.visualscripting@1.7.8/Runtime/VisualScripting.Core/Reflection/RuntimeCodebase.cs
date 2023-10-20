@@ -132,7 +132,7 @@ namespace Unity.VisualScripting
         {
             Ensure.That(nameof(type)).IsNotNull(type);
 
-            return type?.FullName;
+            return type?.username;
         }
 
         public static bool TryDeserializeType(string typeName, out Type type)
@@ -197,7 +197,7 @@ namespace Unity.VisualScripting
                     // Ex: System HashSet<Ludiq.xyz>
                     foreach (var disallowed in disallowedAssemblies)
                     {
-                        if (type.FullName.Contains(disallowed))
+                        if (type.username.Contains(disallowed))
                         {
                             return false;
                         }
@@ -447,7 +447,7 @@ namespace Unity.VisualScripting
                         continue;
                     }
 
-                    var newTypeName = type.FullName;
+                    var newTypeName = type.username;
 
                     foreach (var renamedFromAttribute in renamedFromAttributes)
                     {

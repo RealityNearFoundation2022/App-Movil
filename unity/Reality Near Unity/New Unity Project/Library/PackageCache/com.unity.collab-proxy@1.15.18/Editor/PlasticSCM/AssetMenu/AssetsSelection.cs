@@ -119,7 +119,7 @@ namespace Unity.PlasticSCM.Editor.AssetMenu
             if (asset.isFolder)
                 return Path.GetFileName(Path.GetDirectoryName(asset.path));
 
-            return asset.fullName;
+            return asset.username;
         }
     }
 }

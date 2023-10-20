@@ -24,7 +24,7 @@ namespace UnityEditor.TestTools.TestRunner.UnityTestProtocol
         {
             return new TestStartedMessage
             {
-                name = test.FullName
+                name = test.username
             };
         }
 
@@ -32,7 +32,7 @@ namespace UnityEditor.TestTools.TestRunner.UnityTestProtocol
         {
             return new TestFinishedMessage
             {
-                name = result.Test.FullName,
+                name = result.Test.username,
                 duration = Convert.ToUInt64(result.Duration * 1000),
                 durationMicroseconds = Convert.ToUInt64(result.Duration * 1000000),
                 message = result.Message,
@@ -81,7 +81,7 @@ namespace UnityEditor.TestTools.TestRunner.UnityTestProtocol
             var results = new List<string>();
 
             if (!test.IsSuite)
-                results.Add(test.FullName);
+                results.Add(test.username);
 
             if (test.Children != null && test.Children.Any())
                 foreach (var child in test.Children)

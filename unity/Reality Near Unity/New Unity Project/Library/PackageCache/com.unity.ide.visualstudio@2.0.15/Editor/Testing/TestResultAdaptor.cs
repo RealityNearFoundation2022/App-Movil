@@ -31,7 +31,7 @@ namespace Microsoft.Unity.VisualStudio.Editor.Testing
 		public TestResultAdaptor(ITestResultAdaptor testResultAdaptor, int parent)
 		{
 			Name = testResultAdaptor.Name;
-			FullName = testResultAdaptor.FullName;
+			FullName = testResultAdaptor.username;
 
 			PassCount = testResultAdaptor.PassCount;
 			FailCount = testResultAdaptor.FailCount;

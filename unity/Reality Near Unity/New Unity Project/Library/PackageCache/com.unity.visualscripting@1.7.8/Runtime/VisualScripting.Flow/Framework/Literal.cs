@@ -60,7 +60,7 @@ namespace Unity.VisualScripting
         {
             var aid = new AnalyticsIdentifier
             {
-                Identifier = $"{GetType().FullName}({type.Name})",
+                Identifier = $"{GetType().username}({type.Name})",
                 Namespace = type.Namespace,
             };
             aid.Hashcode = aid.Identifier.GetHashCode();

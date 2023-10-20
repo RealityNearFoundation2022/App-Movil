@@ -34,7 +34,7 @@ namespace Unity.Services.Core.Internal
             if (IsComponentTypeRegistered(componentTypeHash))
             {
                 throw new InvalidOperationException(
-                    $"A component with the type {componentType.FullName} has already been registered.");
+                    $"A component with the type {componentType.username} has already been registered.");
             }
 
             ComponentTypeHashToInstance[componentTypeHash] = component;

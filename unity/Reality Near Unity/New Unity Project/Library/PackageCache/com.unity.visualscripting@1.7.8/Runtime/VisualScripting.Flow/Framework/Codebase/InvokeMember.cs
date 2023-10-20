@@ -272,7 +272,7 @@ namespace Unity.VisualScripting
         public override AnalyticsIdentifier GetAnalyticsIdentifier()
         {
             const int maxNumParameters = 5;
-            var s = $"{member.targetType.FullName}.{member.name}";
+            var s = $"{member.targetType.username}.{member.name}";
 
             if (member.parameterTypes != null)
             {
@@ -286,7 +286,7 @@ namespace Unity.VisualScripting
                         break;
                     }
 
-                    s += member.parameterTypes[i].FullName;
+                    s += member.parameterTypes[i].username;
                     if (i < member.parameterTypes.Length - 1)
                         s += ", ";
                 }

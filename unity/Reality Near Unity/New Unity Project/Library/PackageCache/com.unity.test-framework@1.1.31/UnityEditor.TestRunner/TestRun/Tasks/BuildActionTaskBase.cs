@@ -50,7 +50,7 @@ namespace UnityEditor.TestTools.TestRunner.TestRun.Tasks
                 {
                     var targetClass = (T) createInstance(targetClassType);
 
-                    logAction($"Executing {typeName} for: {targetClassType.FullName}.");
+                    logAction($"Executing {typeName} for: {targetClassType.username}.");
 
                     using (var logScope = logScopeProvider())
                     {

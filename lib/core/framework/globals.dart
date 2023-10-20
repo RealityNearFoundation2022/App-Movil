@@ -116,21 +116,20 @@ String convertDateTimeToString(DateTime dateTime) {
   return "${dateTime.day}/${dateTime.month}/${dateTime.year}";
 }
 
-getPermissions() async {
-  // You can request multiple permissions at once.
+Future<bool> getPermissions() async {
+  // Solicita permisos en el orden que desees.
   Map<Permission, PermissionStatus> statuses = await [
-    Permission.location,
     Permission.camera,
     Permission.storage,
-    Permission.photos
+    Permission.photos,
+    Permission.location,
   ].request();
 
-  return (statuses[Permission.location].isGranted &&
-          statuses[Permission.camera].isGranted &&
-          statuses[Permission.storage].isGranted &&
-          statuses[Permission.photos].isGranted)
-      ? true
-      : false;
+  // Verifica si los permisos necesarios se han otorgado.
+  return (statuses[Permission.camera].isGranted &&
+      statuses[Permission.storage].isGranted &&
+      statuses[Permission.photos].isGranted &&
+      statuses[Permission.location].isGranted);
 }
 
 double calculateDistanceMts(LatLng pos1, LatLng pos2) {

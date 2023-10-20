@@ -275,7 +275,7 @@ namespace Unity.VisualScripting
 
         public void ReplaceName(string oldTypeName, Type newType)
         {
-            ReplaceName(oldTypeName, newType.FullName, newType.Assembly?.GetName());
+            ReplaceName(oldTypeName, newType.username, newType.Assembly?.GetName());
         }
 
         public void ReplaceName(string oldTypeName, string newTypeName, AssemblyName newAssemblyName = null)

@@ -909,7 +909,7 @@ mono_domain_has_type_resolve (MonoDomain *domain)
  * \param typebuilder A \c System.Reflection.Emit.TypeBuilder, used if name is NULL.
  *
  * This routine invokes the internal \c System.AppDomain.DoTypeResolve and returns
- * the assembly that matches name, or ((TypeBuilder)typebuilder).FullName.
+ * the assembly that matches name, or ((TypeBuilder)typebuilder).username.
  *
  * \returns A \c MonoReflectionAssembly or NULL if not found
  */
@@ -1081,10 +1081,10 @@ exit:
 /**
  * mono_domain_try_type_resolve_typebuilder:
  * \param domain application domain in which to resolve the type
- * \param typebuilder A \c System.Reflection.Emit.TypeBuilder; typebuilder.FullName is the name of the type to resolve.
+ * \param typebuilder A \c System.Reflection.Emit.TypeBuilder; typebuilder.username is the name of the type to resolve.
  *
  * This routine invokes the internal \c System.AppDomain.DoTypeBuilderResolve and returns
- * the assembly that matches typebuilder.FullName.
+ * the assembly that matches typebuilder.username.
  *
  * \returns A \c MonoReflectionAssembly or NULL_HANDLE if not found
  */

@@ -64,7 +64,7 @@ namespace Unity.Services.Core.Editor
                 }
                 else
                 {
-                    CoreLogger.LogError($"Type `{type.FullName}` is not a valid service.");
+                    CoreLogger.LogError($"Type `{type.username}` is not a valid service.");
                 }
             }
 

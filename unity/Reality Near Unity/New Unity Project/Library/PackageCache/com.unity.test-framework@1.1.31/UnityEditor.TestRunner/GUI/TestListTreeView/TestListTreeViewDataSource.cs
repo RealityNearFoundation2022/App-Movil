@@ -83,7 +83,7 @@ namespace UnityEditor.TestTools.TestRunner.GUI
             var testItem = item as TestTreeViewItem;
             if (!testItem.IsGroupNode)
             {
-                if (testItem.FullName.ToLower().Contains(search))
+                if (testItem.username.ToLower().Contains(search))
                 {
                     searchResult.Add(item);
                 }

@@ -105,7 +105,7 @@ namespace UnityEditor.Timeline
             {
                 ret.Add(new track_asset_stats
                 {
-                    track_type = track.GetType().FullName,
+                    track_type = track.GetType().username,
                     clip_count = track.GetClips().Count(),
                     marker_count = track.GetMarkers().Count()
                 }

@@ -1,30 +1,29 @@
 import 'package:dartz/dartz.dart';
 import 'package:reality_near/core/errors/exceptions.dart';
 import 'package:reality_near/core/errors/failure.dart';
-import 'package:reality_near/data/datasource/API/auth_datasource.dart';
-import 'package:reality_near/data/datasource/API/user_datasource.dart';
-import 'package:reality_near/domain/entities/user.dart';
+import 'package:reality_near/core/framework/globals.dart';
+import 'package:reality_near/data/datasource/firebase/fs_auth_service.dart';
+import 'package:reality_near/data/datasource/firebase/fs_users_service.dart';
+import 'package:reality_near/data/models/user_model.dart';
 
 class UserRepository {
-  final AuthsRemoteDataSourceImpl authsRemoteDataSourceImpl =
-      AuthsRemoteDataSourceImpl();
-
-  final UserRemoteDataSourceImpl userRemoteDataSource =
-      UserRemoteDataSourceImpl();
-
+  FsAuthService authService = FsAuthService();
+  FsUsersService usersService = FsUsersService();
   Future<void> editUser(String avatar, String username, String email) async {
-    await userRemoteDataSource.editUserData(avatar, username, email);
+    // await userRemoteDataSource.editUserData(avatar, username, email);
   }
 
-  Future<Either<Failure, User>> registerNewUser(
+  Future<Either<Failure, UserModel>> registerNewUser(
       String email, String password, String username, String path) async {
     try {
-      final user = await authsRemoteDataSourceImpl.registerNewUserWithEmail(
-          email, password, username, path);
+      var authUser =
+          await authService.createUserWithEmailAndPassword(email, password);
+      var user = await usersService.createUser(
+          authUser.user.uid, email, username, path);
       return Right(user);
-    } on ServerException {
-      return const Left(ServerFailure(
-        message: "Server Failure",
+    } on Exception catch (e) {
+      return Left(ServerFailure(
+        message: e.toString(),
       ));
     }
   }
@@ -33,22 +32,20 @@ class UserRepository {
       String email, String password) async {
     try {
       final isLoggedIn =
-          await authsRemoteDataSourceImpl.loginWithEmail(email, password);
-      return isLoggedIn
-          ? const Right(true)
-          : const Left(ServerFailure(
-              message: "Server Failure",
-            ));
-    } on ServerException {
-      return const Left(ServerFailure(
-        message: "Server Failure",
+          await authService.signInWithEmailAndPassword(email, password);
+      return Right(isLoggedIn != null);
+    } on Exception catch (e) {
+      return Left(ServerFailure(
+        message: e.toString(),
       ));
     }
   }
 
-  Future<Either<Failure, User>> getMyData() async {
+  Future<Either<Failure, UserModel>> getMyData() async {
     try {
-      final user = await userRemoteDataSource.getMyData();
+      final userPreference = await getPreference('user');
+      final userModel = UserModel().userModelFromJson(userPreference);
+      final user = await usersService.getUser(userModel);
       return Right(user);
     } on ServerException {
       return const Left(ServerFailure(
@@ -57,25 +54,25 @@ class UserRepository {
     }
   }
 
-  Future<Either<Failure, List<User>>> getUsers() async {
-    try {
-      final users = await userRemoteDataSource.getUsers();
-      return Right(users);
-    } on ServerException {
-      return const Left(ServerFailure(
-        message: "Server Failure",
-      ));
-    }
-  }
+  // Future<Either<Failure, List<User>>> getUsers() async {
+  //   try {
+  //     final users = await userRemoteDataSource.getUsers();
+  //     return Right(users);
+  //   } on ServerException {
+  //     return const Left(ServerFailure(
+  //       message: "Server Failure",
+  //     ));
+  //   }
+  // }
 
-  Future<Either<Failure, User>> getUserById(String userId) async {
-    try {
-      final user = await userRemoteDataSource.getUserById(userId);
-      return Right(user);
-    } on ServerException {
-      return const Left(ServerFailure(
-        message: "Server Failure",
-      ));
-    }
-  }
+  // Future<Either<Failure, User>> getUserById(String userId) async {
+  //   try {
+  //     final user = await userRemoteDataSource.getUserById(userId);
+  //     return Right(user);
+  //   } on ServerException {
+  //     return const Left(ServerFailure(
+  //       message: "Server Failure",
+  //     ));
+  //   }
+  // }
 }

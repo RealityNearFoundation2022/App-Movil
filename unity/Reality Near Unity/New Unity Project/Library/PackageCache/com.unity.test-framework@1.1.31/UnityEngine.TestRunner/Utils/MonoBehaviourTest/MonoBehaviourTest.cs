@@ -42,7 +42,7 @@ namespace UnityEngine.TestTools
         /// </example>
         public MonoBehaviourTest(bool dontDestroyOnLoad = true)
         {
-            var go = new GameObject("MonoBehaviourTest: " + typeof(T).FullName);
+            var go = new GameObject("MonoBehaviourTest: " + typeof(T).username);
             component = go.AddComponent<T>();
             if (dontDestroyOnLoad)
             {

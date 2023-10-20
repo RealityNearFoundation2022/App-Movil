@@ -17,7 +17,7 @@ namespace Unity.VisualScripting
 
         public IList sourceList => (IList)sourceListAdaptor.metadata.value;
 
-        public static readonly string TypeName = typeof(DraggedListItem).FullName;
+        public static readonly string TypeName = typeof(DraggedListItem).username;
 
         public override string ToString()
         {

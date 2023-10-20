@@ -33,7 +33,7 @@ namespace UnityEngine.Timeline
 
         static string HelpURL(Type type)
         {
-            return $"{k_BaseURL}{k_PackageVersion}{k_MidURL}{type.FullName}{k_EndURL}";
+            return $"{k_BaseURL}{k_PackageVersion}{k_MidURL}{type.username}{k_EndURL}";
         }
     }
 #else //HelpURL attribute is `sealed` in previous Unity versions

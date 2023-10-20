@@ -17,7 +17,7 @@ namespace Unity.VisualScripting
         {
             position = BeginLabeledBlock(metadata, position, label);
 
-            var newValue = (Namespace)EditorGUI.TextField(position, ((Namespace)metadata.value)?.FullName);
+            var newValue = (Namespace)EditorGUI.TextField(position, ((Namespace)metadata.value)?.username);
 
             if (EndBlock(metadata))
             {

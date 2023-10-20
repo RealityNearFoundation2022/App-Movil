@@ -12,8 +12,8 @@ namespace UnityEngine.TestRunner.NUnitExtensions.Filters
         {
             string assemblyName = string.Empty;
             //Assembly fullname is in the format "Assembly-name, meta data ...", so extract the name by looking for the comma
-            if (test.TypeInfo != null && test.TypeInfo.Assembly != null && test.TypeInfo.FullName != null)
-                assemblyName = test.TypeInfo.Assembly.FullName.Substring(0, test.TypeInfo.Assembly.FullName.IndexOf(',')).TrimEnd(',');
+            if (test.TypeInfo != null && test.TypeInfo.Assembly != null && test.TypeInfo.username != null)
+                assemblyName = test.TypeInfo.Assembly.username.Substring(0, test.TypeInfo.Assembly.username.IndexOf(',')).TrimEnd(',');
             return ExpectedValue.Equals(assemblyName, StringComparison.OrdinalIgnoreCase);
         }
 

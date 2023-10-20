@@ -107,7 +107,7 @@ namespace UnityEditor.TestTools.TestRunner.GUI
                             continue;
                         if (result.resultStatus == TestRunnerResult.ResultStatus.Failed ||
                             result.resultStatus == TestRunnerResult.ResultStatus.Inconclusive)
-                            failedTestnames.Add(result.fullName);
+                            failedTestnames.Add(result.username);
                     }
                     RunTests(new UITestRunnerFilter() {testNames = failedTestnames.ToArray(), categoryNames = m_TestRunnerUIFilter.CategoryFilter});
                     GUIUtility.ExitGUI();
@@ -430,7 +430,7 @@ namespace UnityEditor.TestTools.TestRunner.GUI
                 if (line is TestTreeViewItem)
                 {
                     var testLine = line as TestTreeViewItem;
-                    if (testLine.IsGroupNode && !testLine.FullName.Contains("+")) 
+                    if (testLine.IsGroupNode && !testLine.username.Contains("+")) 
                     {
                         if (testLine.parent != null && testLine.parent.displayName == "Invisible Root Item")
                         {
@@ -438,13 +438,13 @@ namespace UnityEditor.TestTools.TestRunner.GUI
                             return new[] {new UITestRunnerFilter()};
                         }
 
-                        if (testLine.FullName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
+                        if (testLine.username.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
                         {
-                            assembliesToRun.Add(UITestRunnerFilter.AssemblyNameFromPath(testLine.FullName));
+                            assembliesToRun.Add(UITestRunnerFilter.AssemblyNameFromPath(testLine.username));
                         }
                         else
                         {
-                            namesToRun.Add($"^{Regex.Escape(testLine.FullName)}$");
+                            namesToRun.Add($"^{Regex.Escape(testLine.username)}$");
                             var assembly = UITestRunnerFilter.AssemblyNameFromPath(testLine.GetAssemblyName());
                             if (!string.IsNullOrEmpty(assembly) && !assembliesForNamesToRun.Contains(assembly))
                             {
@@ -454,7 +454,7 @@ namespace UnityEditor.TestTools.TestRunner.GUI
                     }
                     else
                     {
-                        exactNamesToRun.Add(testLine.FullName);
+                        exactNamesToRun.Add(testLine.username);
                     }
                 }
             }

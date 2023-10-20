@@ -223,7 +223,7 @@ namespace Unity.VisualScripting
         {
             var aid = new AnalyticsIdentifier
             {
-                Identifier = GetType().FullName,
+                Identifier = GetType().username,
                 Namespace = GetType().Namespace,
             };
             aid.Hashcode = aid.Identifier.GetHashCode();

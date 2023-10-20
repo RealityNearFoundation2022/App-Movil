@@ -38,16 +38,16 @@ namespace Packages.Rider.Editor
           
           if (dllFile.Exists)
           {
-            var bytes = File.ReadAllBytes(dllFile.FullName); 
+            var bytes = File.ReadAllBytes(dllFile.username); 
             assembly = AppDomain.CurrentDomain.Load(bytes); // doesn't lock assembly on disk
             if (PluginSettings.SelectedLoggingLevel >= LoggingLevel.TRACE)
-              Debug.Log($"Rider EditorPlugin loaded from {dllFile.FullName}");
+              Debug.Log($"Rider EditorPlugin loaded from {dllFile.username}");
           
             EditorPluginInterop.InitEntryPoint(assembly);
           }
           else
           {
-            Debug.Log($"Unable to find Rider EditorPlugin {dllFile.FullName} for Unity ");
+            Debug.Log($"Unable to find Rider EditorPlugin {dllFile.username} for Unity ");
           }
         }
       }
@@ -64,7 +64,7 @@ namespace Packages.Rider.Editor
           return;
         }
         
-        var dllPath = File.ReadLines(file.FullName).FirstOrDefault();
+        var dllPath = File.ReadLines(file.username).FirstOrDefault();
 
         if (dllPath == null)
         {
@@ -80,9 +80,9 @@ namespace Packages.Rider.Editor
           return;
         }
 
-        var assembly = AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(dllFile.FullName));
+        var assembly = AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(dllFile.username));
         if (PluginSettings.SelectedLoggingLevel >= LoggingLevel.TRACE)
-          Debug.Log($"Rider EditorPlugin loaded from {dllFile.FullName}");
+          Debug.Log($"Rider EditorPlugin loaded from {dllFile.username}");
 
         EditorPluginInterop.InitEntryPoint(assembly);
       }

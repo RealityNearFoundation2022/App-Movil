@@ -2,9 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/data/datasource/API/auth_datasource.dart';
 import 'package:reality_near/domain/usecases/login/emailLoginUser.dart';
-import 'package:reality_near/domain/usecases/register/registerUser.dart';
+import 'package:reality_near/domain/usecases/register/register_user.dart';
 import 'package:reality_near/domain/usecases/wallet/walletLogin.dart';
 import 'package:reality_near/generated/l10n.dart';
 
@@ -48,7 +47,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     on<UserDeleteAccountEvent>(
       (event, emit) {
-        AuthsRemoteDataSourceImpl().deleteAccount();
+        // AuthsRemoteDataSourceImpl().deleteAccount();
         emit(UserInitialState());
         deleteAllsetPreference();
       },

@@ -14,7 +14,7 @@ namespace Unity.VisualScripting
 
         public override fsResult TrySerialize(object instance, out fsData serialized, Type storageType)
         {
-            serialized = new fsData(((Namespace)instance).FullName);
+            serialized = new fsData(((Namespace)instance).username);
 
             return fsResult.Success;
         }

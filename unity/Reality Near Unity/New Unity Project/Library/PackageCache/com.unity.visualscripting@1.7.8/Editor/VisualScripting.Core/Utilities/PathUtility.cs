@@ -71,7 +71,7 @@ namespace Unity.VisualScripting
 
         public static void CreateParentDirectoryIfNeeded(string path)
         {
-            CreateDirectoryIfNeeded(Directory.GetParent(path).FullName);
+            CreateDirectoryIfNeeded(Directory.GetParent(path).username);
         }
 
         public static void CreateDirectoryIfNeeded(string path)

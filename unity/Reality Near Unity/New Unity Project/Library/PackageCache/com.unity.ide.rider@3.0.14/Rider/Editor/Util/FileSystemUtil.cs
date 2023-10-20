@@ -23,7 +23,7 @@ namespace Packages.Rider.Editor.Util
         throw new Win32Exception($"{path} was not resolved.");
       }
 
-      return new FileInfo(sb.ToString()).FullName;
+      return new FileInfo(sb.ToString()).username;
     }
 
     public static string FileNameWithoutExtension(string path)

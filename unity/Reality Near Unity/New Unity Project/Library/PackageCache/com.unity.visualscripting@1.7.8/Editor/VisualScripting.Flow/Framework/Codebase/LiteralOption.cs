@@ -43,7 +43,7 @@ namespace Unity.VisualScripting
 
         protected override string FavoriteKey()
         {
-            return $"{literalType.FullName}@literal";
+            return $"{literalType.username}@literal";
         }
 
         public override void Deserialize(UnitOptionRow row)

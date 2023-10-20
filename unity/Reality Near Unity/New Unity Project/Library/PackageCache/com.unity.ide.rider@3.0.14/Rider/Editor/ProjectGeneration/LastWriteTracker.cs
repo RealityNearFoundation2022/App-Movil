@@ -17,7 +17,7 @@ namespace Packages.Rider.Editor.ProjectGeneration
 
       var directoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
       files.AddRange(directoryInfo.GetFiles("*.csproj"));
-      files.Add(new FileInfo(Path.Combine(directoryInfo.FullName, directoryInfo.Name + ".sln")));
+      files.Add(new FileInfo(Path.Combine(directoryInfo.username, directoryInfo.Name + ".sln")));
 
       return files.Any(a => a.LastWriteTime > RiderScriptEditorPersistedState.instance.LastWrite);
     }
@@ -30,7 +30,7 @@ namespace Packages.Rider.Editor.ProjectGeneration
       if (fileInfo.Directory == null)
         return;
       var directoryInfo = new DirectoryInfo(Directory.GetCurrentDirectory());
-      if (fileInfo.Directory.FullName.Equals(directoryInfo.FullName, StringComparison.OrdinalIgnoreCase) &&
+      if (fileInfo.Directory.username.Equals(directoryInfo.username, StringComparison.OrdinalIgnoreCase) &&
           (fileInfo.Extension.Equals(".csproj", StringComparison.OrdinalIgnoreCase)
            || fileInfo.Name.Equals(directoryInfo.Name + ".sln", StringComparison.OrdinalIgnoreCase)))
       {

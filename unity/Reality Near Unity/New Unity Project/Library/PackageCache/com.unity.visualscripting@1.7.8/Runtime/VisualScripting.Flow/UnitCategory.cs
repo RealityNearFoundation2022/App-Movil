@@ -14,7 +14,7 @@ namespace Unity.VisualScripting
 
             fullName = fullName.Replace('\\', '/');
 
-            this.fullName = fullName;
+            this.username = fullName;
 
             var parts = fullName.Split('/');
 
@@ -64,7 +64,7 @@ namespace Unity.VisualScripting
 
         public override bool Equals(object obj)
         {
-            return obj is UnitCategory && ((UnitCategory)obj).fullName == fullName;
+            return obj is UnitCategory && ((UnitCategory)obj).username == fullName;
         }
 
         public override int GetHashCode()

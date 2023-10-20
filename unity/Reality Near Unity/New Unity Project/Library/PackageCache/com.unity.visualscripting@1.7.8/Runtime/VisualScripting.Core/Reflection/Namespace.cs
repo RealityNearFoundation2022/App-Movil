@@ -117,7 +117,7 @@ namespace Unity.VisualScripting
                 return false;
             }
 
-            return FullName == other.FullName;
+            return FullName == other.username;
         }
 
         public static implicit operator Namespace(string fullName)
@@ -127,7 +127,7 @@ namespace Unity.VisualScripting
 
         public static implicit operator string(Namespace @namespace)
         {
-            return @namespace.FullName;
+            return @namespace.username;
         }
 
         public static bool operator ==(Namespace a, Namespace b)
@@ -154,7 +154,7 @@ namespace Unity.VisualScripting
         {
             protected override string GetKeyForItem(Namespace item)
             {
-                return item.FullName;
+                return item.username;
             }
 
             public new bool TryGetValue(string key, out Namespace value)

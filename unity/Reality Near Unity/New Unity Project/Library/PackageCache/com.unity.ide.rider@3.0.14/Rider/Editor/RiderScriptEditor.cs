@@ -364,7 +364,7 @@ namespace Packages.Rider.Editor
 
     static string GetBaseUnityDeveloperFolder()
     {
-      return Directory.GetParent(EditorApplication.applicationPath).Parent.Parent.FullName;
+      return Directory.GetParent(EditorApplication.applicationPath).Parent.Parent.username;
     }
 
     public bool TryGetInstallationForPath(string editorPath, out CodeEditor.Installation installation)

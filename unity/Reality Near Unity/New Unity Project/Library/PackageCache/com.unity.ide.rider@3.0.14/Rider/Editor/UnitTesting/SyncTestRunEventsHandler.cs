@@ -96,7 +96,7 @@ namespace Packages.Rider.Editor.UnitTesting
         var type = assembly.GetType(m_HandlerTypeName);
         if (type == null)
         {
-          Debug.LogError($"Rider Test Runner: type '{m_HandlerTypeName}' not found in assembly '{assembly.FullName}'");
+          Debug.LogError($"Rider Test Runner: type '{m_HandlerTypeName}' not found in assembly '{assembly.username}'");
           return;
         }
         

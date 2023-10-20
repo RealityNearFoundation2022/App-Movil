@@ -27,9 +27,9 @@ namespace Microsoft.Unity.VisualStudio.Editor.Testing
 		{
 			Id = testAdaptor.Id;
 			Name = testAdaptor.Name;
-			FullName = testAdaptor.FullName;
+			FullName = testAdaptor.username;
 
-			Type = testAdaptor.TypeInfo?.FullName;
+			Type = testAdaptor.TypeInfo?.username;
 			Method = testAdaptor.Method?.Name;
 			Assembly = testAdaptor.TypeInfo?.Assembly?.Location;
 

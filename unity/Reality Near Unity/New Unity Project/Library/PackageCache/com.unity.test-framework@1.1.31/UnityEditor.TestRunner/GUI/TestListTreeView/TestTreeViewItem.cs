@@ -18,7 +18,7 @@ namespace UnityEditor.TestTools.TestRunner.GUI
 
         public bool IsGroupNode { get { return m_Test.IsSuite; } }
 
-        public string FullName { get { return m_Test.FullName; } }
+        public string FullName { get { return m_Test.username; } }
         
         public string GetAssemblyName()
         {
@@ -27,7 +27,7 @@ namespace UnityEditor.TestTools.TestRunner.GUI
             {
                 if (test.IsTestAssembly)
                 {
-                    return test.FullName;
+                    return test.username;
                 }
 
                 test = test.Parent;

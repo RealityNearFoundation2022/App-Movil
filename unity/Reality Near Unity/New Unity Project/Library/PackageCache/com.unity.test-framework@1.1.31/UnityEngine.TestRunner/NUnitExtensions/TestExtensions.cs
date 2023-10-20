@@ -46,15 +46,15 @@ namespace UnityEngine.TestRunner.NUnitExtensions
             {
                 var child = test.Tests[i];
                 int count;
-                if (duplicates.TryGetValue(child.FullName, out count))
+                if (duplicates.TryGetValue(child.username, out count))
                 {
                     count++;
                     child.Properties.Add("childIndex", count);
-                    duplicates[child.FullName] = count;
+                    duplicates[child.username] = count;
                 }
                 else
                 {
-                    duplicates.Add(child.FullName, 1);
+                    duplicates.Add(child.username, 1);
                 }
                 ParseForNameDuplicates(child);
             }
@@ -116,7 +116,7 @@ namespace UnityEngine.TestRunner.NUnitExtensions
                 return $"[{test.Name}]";
             }
             
-            return string.Format("[{0}][{1}]", assemblyId, test.FullName);
+            return string.Format("[{0}][{1}]", assemblyId, test.username);
         }
         
         public static string GetFullNameWithoutDllPath(this ITest test)
@@ -131,7 +131,7 @@ namespace UnityEngine.TestRunner.NUnitExtensions
                 return test.Name;
             }
 
-            return test.FullName;
+            return test.username;
         }
 
         private static bool IsAssembly(this ITest test)
@@ -158,7 +158,7 @@ namespace UnityEngine.TestRunner.NUnitExtensions
         public static string GetParentFullName(this ITest test)
         {
             if (test.Parent != null)
-                return test.Parent.FullName;
+                return test.Parent.username;
 
             return null;
         }

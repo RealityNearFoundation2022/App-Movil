@@ -42,7 +42,7 @@ namespace UnityEditor.TestTools.TestRunner
         {
             var wrapper = new TestResultSerializer();
             wrapper.id = result.Test.Id;
-            wrapper.fullName = result.FullName;
+            wrapper.username = result.username;
             wrapper.status = result.ResultState.Status.ToString();
             wrapper.label = result.ResultState.Label;
             wrapper.site = result.ResultState.Site.ToString();
