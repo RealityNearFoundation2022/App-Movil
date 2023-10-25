@@ -28,7 +28,7 @@ class _MapBoxScreenState extends State<MapBoxScreen> {
           point:
               LatLng(location.position.latitude, location.position.longitude),
           color: greenPrimary.withOpacity(0.3),
-          radius: double.parse(location.rule),
+          radius: location.rule,
           useRadiusInMeter: true,
         ));
       }

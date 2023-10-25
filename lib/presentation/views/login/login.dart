@@ -62,23 +62,27 @@ class Login extends StatelessWidget {
                                 )),
                       )
                     : await getPermissions().then((value) {
-                        if (value) {
-                          //set user properties location to analytics
-                          FirebaseAnalyticsService().setUserProperties();
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, '/home', ModalRoute.withName('/'));
-                        } else {
-                          // show dialog when permissions are not granted
-                          showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (dialogContext) {
-                                return ErrorAlertDialog(
-                                  errorMessage:
-                                      'No se han otorgado permisos para el funcionamiento de la aplicación',
-                                );
-                              });
-                        }
+                        // if (value) {
+                        //set user properties location to analytics
+                        FirebaseAnalyticsService().setUserProperties();
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/home', ModalRoute.withName('/'));
+                        // } else {
+                        //   // show dialog when permissions are not granted
+                        //   showDialog(
+                        //       barrierDismissible: false,
+                        //       context: context,
+                        //       builder: (dialogContext) {
+                        //         return ErrorAlertDialog(
+                        //           errorMessage:
+                        //               'No se han otorgado permisos para el funcionamiento de la aplicación',
+                        //           func_back: () {
+                        //             Navigator.of(context).pop();
+                        //             Navigator.of(context).pop();
+                        //           },
+                        //         );
+                        //       });
+                        // }
                       }),
               ));
         } else if (state is UserFailState) {

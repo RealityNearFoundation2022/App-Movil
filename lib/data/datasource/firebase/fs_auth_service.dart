@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:reality_near/core/framework/globals.dart';
 
 class FsAuthService {
   //Create User with Email and Password
@@ -25,6 +26,7 @@ class FsAuthService {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      setPreference('uid', userCredential.user.uid);
       return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

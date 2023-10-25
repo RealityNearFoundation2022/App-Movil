@@ -1,15 +1,15 @@
-import 'package:reality_near/data/datasource/API/asset_datadource.dart';
+import 'package:reality_near/data/datasource/firebase/fs_asset_service.dart';
 
 import '../models/asset_model.dart';
 
 class AssetRepository {
-  final AssetRemoteDataSourceImpl _repo = AssetRemoteDataSourceImpl();
+  final FsAssetService _service = AssetRemoteDataSourceImpl();
 
   Future<AssetModel> getAsset(String id) async {
-    return await _repo.getAsset(id);
+    return await _service.getAsset(id);
   }
 
   Future<List<AssetModel>> getAllAssets() async {
-    return await _repo.getAllAssets();
+    return await _service.getAllAssets();
   }
 }

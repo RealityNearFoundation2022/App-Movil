@@ -116,7 +116,7 @@ class CuponDetail extends StatelessWidget {
   }
 
   _qrGenerator(BuildContext context) {
-    return QrImage(
+    return QrImageView(
       data: 'example',
       foregroundColor: Colors.white,
       version: QrVersions.auto,

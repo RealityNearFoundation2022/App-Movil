@@ -11,7 +11,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:reality_near/core/framework/colors.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/data/datasource/firebase/firebase_analytics_service.dart';
 import 'package:reality_near/data/models/asset_model.dart';
 import 'package:reality_near/data/repository/assetRepository.dart';
 import 'package:reality_near/generated/l10n.dart';
@@ -95,7 +94,7 @@ class _ARSectionState extends State<ARSection> {
     userLocation = LatLng(currentLocation.latitude, currentLocation.longitude);
     for (var item in lstNoDefault) {
       for (var location in item.locations) {
-        double range = double.parse(location.rule);
+        double range = location.rule;
         double distanceTemp =
             calculateDistanceMts(userLocation, location.position);
         if (distance == 0) {
@@ -112,11 +111,6 @@ class _ARSectionState extends State<ARSection> {
 
     assetAR = mostCloseAsset ?? randomElementFromList(lstDefault);
     print("el asset mas cercano es: ${assetAR.name} esta a $distance mts");
-    //Send to Analytics
-    FirebaseAnalyticsService().logEvent(
-      'asset_view',
-      {'name': assetAR.name},
-    );
     setState(() {
       loadDataAPI = false;
     });
@@ -147,7 +141,6 @@ class _ARSectionState extends State<ARSection> {
                     onUnityCreated: _onUnityCreated,
                     onUnityMessage: onUnityMessage,
                     onUnitySceneLoaded: onUnitySceneLoaded,
-                    unloadOnDispose: true,
                     useAndroidViewSurface: false,
                     printSetupLog: false,
                     enablePlaceholder: false,
@@ -317,54 +310,36 @@ class _ARSectionState extends State<ARSection> {
       });
 
       onTakeScreenshot();
-    } else if (message.toString().contains("touchAsset")) {
+    } else if (message.toString().contains("touchAsset") &&
+        assetAR.cupons.isNotEmpty) {
       touchAsset();
     }
   }
 
   touchAsset() async {
-    getPreference('touchAsset').then((value) {
-      print('el valor de touchAsset es: $value');
-      value = value ?? 0;
-      // if (value < 4) {
-      value++;
-      setPreference('touchAsset', value);
-      _unityWidgetController.pause();
-      showDialog(
-          context: context,
-          builder: (context) => InfoDialog(
-                title: 'Capturaste un asset',
-                message:
-                    '!Felicidades¡, has capturado un asset, sigue buscandolos y obtendras una recompensa. Llevas $value/${value < 3 ? (value % 3) * 2 : 3} assets capturados',
-                closeOption: false,
-                icon: const Icon(
-                  Icons.catching_pokemon_rounded,
-                  color: greenPrimary,
-                ),
-                image: 'https://i.imgur.com/2nCt3Sbl.png',
-                onPressed: () {
-                  if (value % 3 == 0) {
-                    FirebaseAnalyticsService().logEvent(
-                      'get_cupon',
-                      {
-                        'cupon_id': '1',
-                        'cupon_name': "Cupón de prueba",
-                      },
-                    );
-                    Navigator.of(context).pushNamed(
-                      QrViewScreen.routeName,
-                      arguments: {
-                        'cuponId': '1',
-                      },
-                    );
-                  } else {
-                    Navigator.of(context).pop();
-                    _unityWidgetController.resume();
-                  }
-                },
-              ));
-      // }
-    });
+    _unityWidgetController.pause();
+    showDialog(
+      context: context,
+      builder: (context) => InfoDialog(
+        title: 'Capturaste un asset',
+        message:
+            '!Felicidades¡, has capturado un asset, sigue buscandolos y obtendras una recompensa.',
+        icon: const Icon(
+          Icons.catching_pokemon_rounded,
+          color: greenPrimary,
+        ),
+        image: 'https://i.imgur.com/2nCt3Sbl.png',
+        onPressed: () {
+          String cupon = assetAR.cupons[0].toJson(assetAR.cupons[0]);
+          Navigator.of(context).pushNamed(
+            QrViewScreen.routeName,
+            arguments: {
+              'cupon': cupon,
+            },
+          );
+        },
+      ),
+    );
   }
 
   void onUnitySceneLoaded(SceneLoaded scene) {
@@ -384,7 +359,27 @@ class _ARSectionState extends State<ARSection> {
   }
 
   void downloadAssetBundle() async {
-    var path = Platform.isAndroid ? assetAR.path : assetAR.path2;
+    // string scale | pos | rot
+    String contcatScalePositionRotation = " | " +
+        assetAR.scaleX.toString() +
+        "," +
+        assetAR.scaleY.toString() +
+        "," +
+        assetAR.scaleZ.toString() +
+        " | " +
+        assetAR.positionX.toString() +
+        "," +
+        assetAR.positionY.toString() +
+        "," +
+        assetAR.positionZ.toString() +
+        " | " +
+        assetAR.rotationX.toString() +
+        "," +
+        assetAR.rotationY.toString() +
+        "," +
+        assetAR.rotationZ.toString();
+    var path = Platform.isAndroid ? assetAR.pathAndroid : assetAR.pathIos;
+    path = path + contcatScalePositionRotation;
     _unityWidgetController.postMessage(
         "assetAR", "DownloadAssetBundleFromServer", path);
   }

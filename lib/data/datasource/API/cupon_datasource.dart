@@ -82,7 +82,7 @@ class CuponRemoteDataSourceImpl extends CuponRemoteDataSource {
     //si es cod200 devolvemos obj si no lanzamos excepcion
     if (response.statusCode == 200) {
       String body = utf8.decode(response.bodyBytes);
-      return CuponModel.fromJson(json.decode(body));
+      // return CuponModel.fromJson(json.decode(body));
     } else {
       throw ServerException();
     }

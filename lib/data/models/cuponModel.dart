@@ -1,94 +1,113 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-CuponModel cuponModelFromJson(String str) => CuponModel.fromJson(json.decode(str));
-
-String cuponModelToJson(CuponModel data) => json.encode(data.toJson());
-
 class CuponModel {
   CuponModel({
-    @required this.assetId,
     @required this.name,
     @required this.title,
     @required this.description,
     @required this.terms,
     @required this.quantity,
     @required this.expiration,
-    @required this.id,
+    this.id,
     @required this.createdAt,
     @required this.updatedAt,
-    @required this.asset,
+    @required this.img,
   });
 
-  int assetId;
-  String name;
-  String title;
-  String description;
-  String terms;
+  final String name;
+  final String title;
+  final String description;
+  final String terms;
   int quantity;
-  DateTime expiration;
-  int id;
-  DateTime createdAt;
-  DateTime updatedAt;
-  Asset asset;
+  String id;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final DateTime expiration;
+  final String img;
 
-  factory CuponModel.fromJson(Map<String, dynamic> json) => CuponModel(
-    assetId: json["asset_id"],
-    name: json["name"],
-    title: json["title"],
-    description: json["description"],
-    terms: json["terms"],
-    quantity: json["quantity"],
-    expiration: DateTime.parse(json["expiration"]),
-    id: json["id"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    asset: Asset.fromJson(json["asset"]),
-  );
+  factory CuponModel.fromMap(Map<String, dynamic> data) {
+    final dynamic updatedAtData = data['updated_at'];
+    final dynamic createdAtData = data['created_at'];
+    final dynamic expirationData = data['expiration'];
 
-  Map<String, dynamic> toJson() => {
-    "asset_id": assetId,
-    "name": name,
-    "title": title,
-    "description": description,
-    "terms": terms,
-    "quantity": quantity,
-    "expiration": expiration.toIso8601String(),
-    "id": id,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-    "asset": asset.toJson(),
-  };
-}
+    DateTime expiration;
+    DateTime createdAt;
+    DateTime updatedAt;
 
-class Asset {
-  Asset({
-    @required this.name,
-    @required this.createdAt,
-    @required this.id,
-    @required this.path,
-    @required this.updatedAt,
-  });
+    if (expirationData is Timestamp) {
+      expiration = expirationData.toDate();
+    } else if (expirationData is DateTime) {
+      expiration = expirationData;
+    }
 
-  String name;
-  DateTime createdAt;
-  int id;
-  String path;
-  DateTime updatedAt;
+    if (createdAtData is Timestamp) {
+      createdAt = createdAtData.toDate();
+    } else if (createdAtData is DateTime) {
+      createdAt = createdAtData;
+    }
 
-  factory Asset.fromJson(Map<String, dynamic> json) => Asset(
-    name: json["name"],
-    createdAt: DateTime.parse(json["created_at"]),
-    id: json["id"],
-    path: json["path"],
-    updatedAt: DateTime.parse(json["updated_at"]),
-  );
+    if (updatedAtData is Timestamp) {
+      updatedAt = updatedAtData.toDate();
+    } else if (updatedAtData is DateTime) {
+      updatedAt = updatedAtData;
+    }
 
-  Map<String, dynamic> toJson() => {
-    "name": name,
-    "created_at": createdAt.toIso8601String(),
-    "id": id,
-    "path": path,
-    "updated_at": updatedAt.toIso8601String(),
-  };
+    return CuponModel(
+      img: data['img'],
+      name: data['name'],
+      title: data['title'],
+      description: data['description'],
+      terms: data['terms'],
+      quantity: data['quantity'],
+      id: data['id'] ?? '',
+      expiration: expiration,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'title': title,
+      'description': description,
+      'terms': terms,
+      'quantity': quantity,
+      'expiration': expiration,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'img': img,
+      'id': id ?? ''
+    };
+  }
+
+  //model to string
+  String toJson(CuponModel data) {
+    final Map<String, dynamic> cuponMap = data.toMap();
+
+    // Convierte los objetos DateTime en sus representaciones String en formato ISO 8601
+    cuponMap['createdAt'] = data.createdAt.toIso8601String();
+    cuponMap['updatedAt'] = data.updatedAt.toIso8601String();
+    cuponMap['expiration'] = data.expiration.toIso8601String();
+
+    return json.encode(cuponMap);
+  }
+
+  //string to model
+  CuponModel cuponFromJson(String str) {
+    final Map<String, dynamic> jsonData = json.decode(str);
+
+    // Convierte las representaciones en formato ISO 8601 de DateTime a objetos DateTime
+    final createdAt = DateTime.parse(jsonData['createdAt']);
+    final updatedAt = DateTime.parse(jsonData['updatedAt']);
+    final expiration = DateTime.parse(jsonData['expiration']);
+
+    jsonData['createdAt'] = createdAt;
+    jsonData['updatedAt'] = updatedAt;
+    jsonData['expiration'] = expiration;
+
+    return CuponModel.fromMap(jsonData);
+  }
 }

@@ -44,9 +44,15 @@ class UserRepository {
   Future<Either<Failure, UserModel>> getMyData() async {
     try {
       final userPreference = await getPreference('user');
-      final userModel = UserModel().userModelFromJson(userPreference);
-      final user = await usersService.getUser(userModel);
-      return Right(user);
+      if (userPreference == null) {
+        final uid = await getPreference('uid');
+        final user = await usersService.getUser(uid);
+        setPreference('user', user.userModelToJson(user));
+        return Right(user);
+      } else {
+        final user = UserModel().userModelFromJson(userPreference);
+        return Right(user);
+      }
     } on ServerException {
       return const Left(ServerFailure(
         message: "Server Failure",

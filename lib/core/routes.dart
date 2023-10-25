@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:reality_near/presentation/views/AR/arview.dart';
-import 'package:reality_near/presentation/views/Admin/assets/admin_asset_screen.dart';
 import 'package:reality_near/presentation/views/bugScreen/bugScreen.dart';
 import 'package:reality_near/presentation/views/configurationScreen/configuration_screen.dart';
 import 'package:reality_near/presentation/views/firstScreen/firstScreen.dart';
 import 'package:reality_near/presentation/views/homeScreen/home_screen.dart';
 import 'package:reality_near/presentation/views/login/login.dart';
-import 'package:reality_near/presentation/views/miniGames/miniGames.dart';
 import 'package:reality_near/presentation/views/notificationScreen/notification_screen.dart';
 import 'package:reality_near/presentation/views/qrScreen/qrScanScreen.dart';
 import 'package:reality_near/presentation/views/qrScreen/qrViewScreen.dart';
@@ -29,9 +27,9 @@ final Map<String, WidgetBuilder> routes = {
   WalletScreen.routeName: (context) => const WalletScreen(),
   userScreen.routeName: (context) => const userScreen(),
   RegisterScreen.routeName: (context) => const RegisterScreen(),
-  ReceiveScreen.routeName: (context) =>  ReceiveScreen(),
-  TransferScreen.routeName: (context) =>  TransferScreen(),
-  TransferDetail.routeName: (context) =>  TransferDetail(),
+  ReceiveScreen.routeName: (context) => ReceiveScreen(),
+  TransferScreen.routeName: (context) => TransferScreen(),
+  TransferDetail.routeName: (context) => TransferDetail(),
   NotificationScreen.routeName: (context) => const NotificationScreen(),
   QrViewScreen.routeName: (context) => const QrViewScreen(),
   QrScannScreen.routeName: (context) => const QrScannScreen(),
@@ -39,6 +37,4 @@ final Map<String, WidgetBuilder> routes = {
   ProfileScreen.routeName: (context) => const ProfileScreen(),
   SocialScreen.routeName: (context) => const SocialScreen(),
   MyPostsScreen.routeName: (context) => const MyPostsScreen(),
-  MiniGames.routeName: (context) => const MiniGames(),
-  AdminAssetScreen.routeName: (context) => const AdminAssetScreen(),
 };

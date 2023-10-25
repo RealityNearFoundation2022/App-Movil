@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dartz/dartz.dart';
 import 'package:reality_near/core/framework/globals.dart';
-import 'package:reality_near/data/models/fs_news_model.dart';
 import 'package:reality_near/data/models/user_model.dart';
-
-import '../../../core/errors/failure.dart';
 
 class FsUsersService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;

@@ -21,23 +21,10 @@ class _QrScreenState extends State<QrViewScreen> {
   bool _loadingInfoCupon = true;
   CuponModel cupon = CuponModel();
 
-  _getInfoCupon(String cuponId) async {
-    // await GetCuponsWithIdUseCase(cuponId).call().then((value) => setState(() {
-    //       cupon = value;
-    //       _loadingInfoCupon = false;
-    //     }));
-    //await 3 seconds
-    await Future.delayed(const Duration(seconds: 3)).then((value) {
-      setState(() {
-        cupon = CuponModel(
-          id: 1,
-          title: 'Cupón de prueba',
-          description: loremIpsum.substring(0, 100),
-          terms: loremIpsum.substring(30, 120),
-          expiration: DateTime.now().add(const Duration(days: 30)),
-        );
-        _loadingInfoCupon = false;
-      });
+  _getInfoCupon(String cuponData) async {
+    setState(() {
+      cupon = cupon.cuponFromJson(cuponData);
+      _loadingInfoCupon = false;
     });
   }
 
@@ -46,7 +33,7 @@ class _QrScreenState extends State<QrViewScreen> {
     final args =
         ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
 
-    if (cupon.id == null) _getInfoCupon(args['cuponId'].toString());
+    _getInfoCupon(args['cupon'].toString());
 
     return Scaffold(
         appBar: AppBar(
@@ -136,21 +123,21 @@ class _QrScreenState extends State<QrViewScreen> {
             height: ScreenWH(context).height * 0.02,
           ),
           _infoSection('Terminos y Condiciónes', cupon.terms),
-          // SizedBox(
-          //   height: ScreenWH(context).height * 0.02,
-          // ),
-          // SizedBox(
-          //   width: ScreenWH(context).width * 0.9,
-          //   child: Text(
-          //     'Válido hasta el ${cupon.expiration.day}/${cupon.expiration.month}/${cupon.expiration.year}',
-          //     textAlign: TextAlign.center,
-          //     style: GoogleFonts.sourceSansPro(
-          //       fontSize: 14,
-          //       fontWeight: FontWeight.w600,
-          //       color: greenPrimary2,
-          //     ),
-          //   ),
-          // ),
+          SizedBox(
+            height: ScreenWH(context).height * 0.02,
+          ),
+          SizedBox(
+            width: ScreenWH(context).width * 0.9,
+            child: Text(
+              'Válido hasta el ${cupon.expiration.day}/${cupon.expiration.month}/${cupon.expiration.year}',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.sourceSansPro(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: greenPrimary2,
+              ),
+            ),
+          ),
           SizedBox(
             height: ScreenWH(context).height * 0.05,
           ),
@@ -219,7 +206,7 @@ class _QrScreenState extends State<QrViewScreen> {
   }
 
   Future<String> _getOwnerId() async {
-    return await getPreference("userId");
+    return await getPreference("uid");
   }
 
   _qrGenerator() {
@@ -229,7 +216,7 @@ class _QrScreenState extends State<QrViewScreen> {
       builder: (context, snapshot) {
         String owner = snapshot.data;
         if (snapshot.hasData) {
-          return QrImage(
+          return QrImageView(
             data: cupon.id.toString() + ' | ' + owner,
             foregroundColor: greenPrimary,
             version: QrVersions.auto,

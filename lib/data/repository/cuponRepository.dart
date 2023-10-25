@@ -40,9 +40,11 @@ class CuponRepository {
       ));
     }
   }
-  Future<Either<Failure, AssignCuponModel>> RedeemCupon(String cuponId,String ownerId) async {
+
+  Future<Either<Failure, AssignCuponModel>> RedeemCupon(
+      String cuponId, String ownerId) async {
     try {
-      AssignCuponModel cupon = await _repo.RedeemCupon(cuponId,ownerId);
+      AssignCuponModel cupon = await _repo.RedeemCupon(cuponId, ownerId);
       return Right(cupon);
     } on ServerException {
       return const Left(ServerFailure(
@@ -50,6 +52,4 @@ class CuponRepository {
       ));
     }
   }
-
-
 }
